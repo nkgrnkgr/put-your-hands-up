@@ -23,5 +23,8 @@ But BackEnd Repository is  private. -->
 
 #### FrontEnd
 - React
+- Rudux
 - Typescript
 - Firebase
+- bulma
+- 
