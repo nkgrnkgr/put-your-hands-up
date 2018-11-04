@@ -2,6 +2,7 @@ import * as React from 'react';
 import User from 'src/logic/domain/User';
 import Note from 'src/logic/domain/Note';
 import Image from 'src/logic/domain/Image';
+import Tag from './Tag';
 import { ago } from 'src/logic/utils/DateTime';
 
 interface Props {
@@ -52,18 +53,13 @@ const stickyNote = (props: Props) => {
               <p className="subtitle is-7">@{user.id}</p>
             </div>
           </div>
-
+          <div className="content">{note.comment}</div>
           <div className="content">
-            {note.comment}
-            <br />
-            {note.tags.map((tag, index) => {
-              return (
-                <a key={tag} href="#">
-                  #{tag}
-                </a>
-              );
-            })}
-            <br />
+            <div className="field is-grouped is-grouped-multiline">
+              {note.tagTitles.map((title, index) => (
+                <Tag tagTitle={title} key={title} size="is-small" />
+              ))}
+            </div>
           </div>
         </div>
         <footer className="card-footer" style={{ backgroundColor: note.color }}>

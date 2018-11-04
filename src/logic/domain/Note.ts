@@ -1,6 +1,6 @@
 export default interface Note {
   comment: string;
-  tags: string[];
+  tagTitles: string[];
   createUserId: string;
   fansIds: string[];
   color: string;

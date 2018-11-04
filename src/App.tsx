@@ -2,6 +2,7 @@ import * as React from 'react';
 import 'bulma/css/bulma.css';
 import 'src/css/animation.css';
 import StickyNote from './components/StickyNote';
+import InputForm from './components/InputForm';
 
 class App extends React.Component {
   public render() {
@@ -14,7 +15,7 @@ class App extends React.Component {
         note: {
           comment:
             'このライブラリはどこからダウンロードできるかあとで教えてください😇',
-          tags: ['初心者', '質問'],
+          tagTitles: ['初心者', '質問'],
           createUserId: 'nkgrnkgr',
           fansIds: [
             'nkgrnkgr',
@@ -45,7 +46,7 @@ class App extends React.Component {
         note: {
           comment:
             'さっきのライブラリは既に最新バージョンでは非推奨です。xxを使いましょう😊',
-          tags: ['マサカリ'],
+          tagTitles: ['マサカリ'],
           createUserId: 'MAcadsPidLsBLYQH',
           fansIds: [''],
           color: '#cbf0f8',
@@ -66,7 +67,7 @@ class App extends React.Component {
         },
         note: {
           comment: 'スライドの文字が小さいので見えない...',
-          tags: ['お願い'],
+          tagTitles: ['お願い'],
           createUserId: 'MAcadsPidLsBLYQH',
           fansIds: [''],
           color: '#fdcfe8',
@@ -107,7 +108,9 @@ class App extends React.Component {
         </div>
         <div className="container">
           <nav className="navbar is-fixed-bottom">
-            <div className="container">navbar bottom</div>
+            <div className="container">
+              <InputForm />
+            </div>
           </nav>
         </div>
       </section>
