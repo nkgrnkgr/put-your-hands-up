@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Tag from './Tag';
-import { Color } from 'src/logic/domain/Color';
+import Tag from 'components/Tag';
+import { Color } from 'logic/domain/Color';
 
 const inputForm = () => {
   return (

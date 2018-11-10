@@ -1,9 +1,9 @@
 import * as React from 'react';
-import User from 'src/logic/domain/User';
-import Note from 'src/logic/domain/Note';
-import Image from 'src/logic/domain/Image';
-import Tag from './Tag';
-import { ago } from 'src/logic/utils/DateTime';
+import User from 'logic/domain/User';
+import Note from 'logic/domain/Note';
+import Image from 'logic/domain/Image';
+import Tag from 'components/Tag';
+import { ago } from 'logic/utils/DateTime';
 
 interface Props {
   user: User;

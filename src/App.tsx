@@ -1,9 +1,9 @@
 import * as React from 'react';
 import 'bulma/css/bulma.css';
-import 'src/css/animation.css';
-import StickyNote from './components/StickyNote';
-import InputForm from './components/InputForm';
-import { Color } from 'src/logic/domain/Color';
+import 'css/animation.css';
+import StickyNote from 'components/StickyNote';
+import InputForm from 'components/InputForm';
+import { Color } from 'logic/domain/Color';
 
 class App extends React.Component {
   public render() {
