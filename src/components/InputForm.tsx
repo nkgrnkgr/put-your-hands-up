@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Tag from './Tag';
+import { Color } from 'src/logic/domain/Color';
 
 const inputForm = () => {
   return (
@@ -83,6 +84,28 @@ const inputForm = () => {
               <a href="#" className="button is-info is-small">
                 Add
               </a>
+            </div>
+          </div>
+          <div className="field">
+            <div className="field">
+              <label className="label">背景色</label>
+            </div>
+            <div className="control has-icons-left">
+              <div className="select">
+                <select>
+                  <option>{Color.japanese(Color.WHITE)}</option>
+                  <option>{Color.japanese(Color.PINK)}</option>
+                  <option>{Color.japanese(Color.GREEN)}</option>
+                  <option>{Color.japanese(Color.BLUE)}</option>
+                  <option>{Color.japanese(Color.YELLOW)}</option>
+                  <option>{Color.japanese(Color.ORANGE)}</option>
+                  <option>{Color.japanese(Color.PURPLE)}</option>
+                </select>
+              </div>
+              <div className="icon is-small is-left">
+                {/* <i className="fas fa-circle" style={{ color: '#FFFFFF' }} /> */}
+                <i className="far fa-circle" style={{ color: '#aeb5bc' }} />
+              </div>
             </div>
           </div>
         </section>

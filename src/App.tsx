@@ -3,6 +3,7 @@ import 'bulma/css/bulma.css';
 import 'src/css/animation.css';
 import StickyNote from './components/StickyNote';
 import InputForm from './components/InputForm';
+import { Color } from 'src/logic/domain/Color';
 
 class App extends React.Component {
   public render() {
@@ -25,7 +26,7 @@ class App extends React.Component {
             'FY3rWLRFAuReRwEc',
             'UKiTU2TFre89zLpM'
           ],
-          color: '#ffffff',
+          color: Color.WHITE,
           editable: true,
           isUpdating: false,
           updated: 1541249701000
@@ -49,7 +50,7 @@ class App extends React.Component {
           tagTitles: ['マサカリ'],
           createUserId: 'MAcadsPidLsBLYQH',
           fansIds: [''],
-          color: '#cbf0f8',
+          color: Color.BLUE,
           editable: false,
           isUpdating: true,
           updated: 1541251714000
@@ -70,7 +71,7 @@ class App extends React.Component {
           tagTitles: ['お願い'],
           createUserId: 'MAcadsPidLsBLYQH',
           fansIds: [''],
-          color: '#fdcfe8',
+          color: Color.PINK,
           editable: false,
           isUpdating: false,
           updated: 1541251714000
