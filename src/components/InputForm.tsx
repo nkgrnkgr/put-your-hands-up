@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Tag from 'components/Tag';
-import { Color } from 'logic/domain/Color';
+import { Color } from 'domain/Color';
 
 const inputForm = () => {
   return (
-    <div className="modal is-active">
+    <div className="modal ais-active">
       <div className="modal-background" />>
       <div className="modal-card">
         <header className="modal-card-head has-text-centered">

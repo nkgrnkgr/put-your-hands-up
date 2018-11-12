@@ -30,7 +30,3 @@ namespace Color {
 }
 
 export { Color };
-
-// Object.keys(Color).map((item, index) => {
-//   console.log(Color.japanese(Color[item]));
-// });

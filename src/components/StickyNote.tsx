@@ -1,18 +1,18 @@
 import * as React from 'react';
-import User from 'logic/domain/User';
-import Note from 'logic/domain/Note';
-import Image from 'logic/domain/Image';
+import { User } from 'domain/User';
+import Image from 'domain/Image';
 import Tag from 'components/Tag';
-import { ago } from 'logic/utils/DateTime';
+import { ago } from 'utils/DateTime';
+import NoteContens from 'domain/NoteContens';
 
 interface Props {
   user: User;
+  noteContents: NoteContens;
   image: Image;
-  note: Note;
 }
 
 const stickyNote = (props: Props) => {
-  const { user, image, note } = props;
+  const { user, noteContents, image } = props;
   const isLikeNotYet = (id: string, fansIds: string[]): boolean => {
     return fansIds.indexOf(id) === -1;
   };
@@ -24,7 +24,7 @@ const stickyNote = (props: Props) => {
     <div className="column">
       <div className="card">
         <header className="card-header has-text-centered is-Loading">
-          {note.isUpdating ? (
+          {noteContents.isUpdating ? (
             <p
               className="card-header-title"
               style={{ backgroundColor: '#74d76d', color: '#FFFFFF' }}
@@ -38,7 +38,10 @@ const stickyNote = (props: Props) => {
             ''
           )}
         </header>
-        <div className="card-content" style={{ backgroundColor: note.color }}>
+        <div
+          className="card-content"
+          style={{ backgroundColor: noteContents.color }}
+        >
           <div className="media">
             <div className="media-left">
               <figure className={`image is-${image.size}x${image.size}`}>
@@ -47,23 +50,26 @@ const stickyNote = (props: Props) => {
             </div>
             <div className="media-content">
               <p className="title is-7">
-                {user.username} - {minuteAgo(note.updated)}
+                {user.name} - {minuteAgo(noteContents.updated)}
                 分前
               </p>
               <p className="subtitle is-7">@{user.id}</p>
             </div>
           </div>
-          <div className="content">{note.comment}</div>
+          <div className="content">{noteContents.comment}</div>
           <div className="content">
             <div className="field is-grouped is-grouped-multiline">
-              {note.tagTitles.map((title, index) => (
+              {noteContents.tagTitles.map(title => (
                 <Tag tagTitle={title} key={title} size="is-small" />
               ))}
             </div>
           </div>
         </div>
-        <footer className="card-footer" style={{ backgroundColor: note.color }}>
-          {note.editable ? (
+        <footer
+          className="card-footer"
+          style={{ backgroundColor: noteContents.color }}
+        >
+          {noteContents.editable ? (
             <a href="#" className="card-footer-item">
               <span>Edit</span>
               <span className="icon">
@@ -75,20 +81,18 @@ const stickyNote = (props: Props) => {
           )}
           <a href="#" className="card-footer-item">
             <span className="icon">
-              {isLikeNotYet(user.id, note.fansIds) ? (
+              {isLikeNotYet(user.id, noteContents.fansIds) ? (
                 <i className="far fa-heart" />
               ) : (
                 <i className="fas fa-heart" />
               )}
             </span>
-            <span>{note.fansIds.length}</span>
+            <span>{noteContents.fansIds.length}</span>
           </a>
         </footer>
       </div>
     </div>
   );
 };
-
-// const buttonMessage = 'Allow to Access Your Google Calendar';
 
 export default stickyNote;
