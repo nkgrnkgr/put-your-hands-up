@@ -1,8 +1,8 @@
 import * as React from 'react';
 import 'bulma/css/bulma.css';
 import 'css/animation.css';
-import InputForm from 'components/InputForm';
 import Board from 'containers/Board';
+import InputForm from 'containers/InputForm';
 
 const app: React.SFC = () => (
   <section className="section">
