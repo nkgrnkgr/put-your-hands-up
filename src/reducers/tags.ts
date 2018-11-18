@@ -4,22 +4,22 @@ import Tag from 'domain/Tag';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface State {
-  inputting: string;
+  inputtingTag: string;
   tagList: Tag[];
 }
 
 const initialState: State = {
-  inputting: '',
+  inputtingTag: '',
   tagList: [{ title: '質問', isFeatured: true }]
 };
 
 const tagsReducer = reducerWithInitialState(initialState)
   .case(Action.onChangeTagInput, (state, payload) => {
-    const { inputting } = payload;
-    if (inputting !== undefined) {
+    const { inputtingTag } = payload;
+    if (inputtingTag !== undefined) {
       return {
         ...state,
-        inputting
+        inputtingTag
       };
     }
     return state;

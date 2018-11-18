@@ -1,7 +1,7 @@
 import { actionCreatorFactory } from 'typescript-fsa';
 
 export interface TagsActionPayload {
-  inputting?: string;
+  inputtingTag?: string;
   index?: number;
   title?: string;
   isFeatured?: boolean;

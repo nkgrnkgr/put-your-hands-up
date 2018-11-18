@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Field, InjectedFormProps } from 'redux-form';
+import { InjectedFormProps } from 'redux-form';
 import { showResult } from 'api/bizApi';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
@@ -16,13 +16,15 @@ const featuredContents = [
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
-  onChangeTagInput: (inputting: string) => void;
+  onChangeTagInput: (inputtingTag: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
-  inputting: string;
+  inputtingTag: string;
   tags: Tag[];
   onChangeColor: (color: Color) => void;
   selectedColor: Color;
+  inputtingContent: string;
+  onChangeContent: (inputtingContent: string) => void;
 }
 
 type InputType = InputFormProps & InjectedFormProps;
@@ -31,10 +33,12 @@ const inputForm: React.SFC<InputType> = ({
   onChangeTagInput = () => {},
   addTag = () => {},
   removeTag = () => {},
-  inputting = '',
+  inputtingTag = '',
   tags = [],
   onChangeColor = () => {},
   selectedColor = '#F4F4F4',
+  inputtingContent = '',
+  onChangeContent = () => {},
   handleSubmit,
   submitting
 }) => (
@@ -50,11 +54,16 @@ const inputForm: React.SFC<InputType> = ({
           <div className="field">
             <label className="label">内容</label>
             <div className="control">
-              <Field
+              {/* <Field
                 name="comment"
                 component="textarea"
                 className="textarea"
                 type="text"
+              /> */}
+              <textarea
+                className="textarea"
+                value={inputtingContent}
+                onChange={e => onChangeContent(e.currentTarget.value)}
               />
             </div>
           </div>
@@ -96,7 +105,7 @@ const inputForm: React.SFC<InputType> = ({
                 className="input is-small"
                 type="text"
                 placeholder="Tag"
-                value={inputting}
+                value={inputtingTag}
                 onChange={e => onChangeTagInput(e.currentTarget.value)}
               />
               <span className="icon is-small is-left">
@@ -106,7 +115,7 @@ const inputForm: React.SFC<InputType> = ({
             <div className="control">
               <a
                 className="button is-info is-small"
-                onClick={e => addTag(inputting, false)}
+                onClick={e => addTag(inputtingTag, false)}
               >
                 Add
               </a>

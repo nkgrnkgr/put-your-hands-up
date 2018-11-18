@@ -14,39 +14,46 @@ import {
 } from 'actions/tags';
 
 import { onChangeColor, ColorActionPayload } from 'actions/color';
+import { onChangeContent, ContentActionPayload } from 'actions/content';
 import { Color } from 'react-color';
 
 interface StateProps {
-  inputting: string;
+  inputtingTag: string;
   tags: Tag[];
   selectedColor: Color;
+  inputtingContent: string;
 }
 
 interface DispatchProps {
-  onChangeTagInput: (inputting: string) => void;
+  onChangeTagInput: (inputtingTag: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
   onChangeColor: (selectedColor: Color) => void;
+  onChangeContent: (inputtingContent: string) => void;
 }
 
 const mapStateToProps = (state: State) => ({
-  inputting: state.tags.inputting,
+  inputtingTag: state.tags.inputtingTag,
   tags: state.tags.tagList,
-  selectedColor: state.color.selectedColor
+  selectedColor: state.color.selectedColor,
+  inputtingContent: state.content.inputtingContent
 });
 
-type Payload = TagsActionPayload & ColorActionPayload;
+type Payload = TagsActionPayload & ColorActionPayload & ContentActionPayload;
 
 const mapDispatchToProps = (
   dispatch: Dispatch<Action<Payload>>
 ): DispatchProps =>
   bindActionCreators(
     {
-      onChangeTagInput: (inputting: string) => onChangeTagInput({ inputting }),
+      onChangeTagInput: (inputtingTag: string) =>
+        onChangeTagInput({ inputtingTag }),
       addTag: (title: string, isFeatured: boolean) =>
         addTag({ title, isFeatured }),
       removeTag: (index: number) => removeTag({ index }),
-      onChangeColor: (selectedColor: Color) => onChangeColor({ selectedColor })
+      onChangeColor: (selectedColor: Color) => onChangeColor({ selectedColor }),
+      onChangeContent: (inputtingContent: string) =>
+        onChangeContent({ inputtingContent })
     },
     dispatch
   );
