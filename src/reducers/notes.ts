@@ -1,4 +1,3 @@
-import { Color } from 'domain/Color';
 import * as Action from 'actions/note';
 import { Note } from 'domain/Note';
 
@@ -28,7 +27,7 @@ const initialState: State = {
         'FY3rWLRFAuReRwEc',
         'UKiTU2TFre89zLpM'
       ],
-      color: Color.WHITE,
+      color: '#F4F4F4',
       editable: true,
       isUpdating: false,
       updated: 1541249701000
@@ -52,7 +51,7 @@ const initialState: State = {
       tagTitles: ['マサカリ'],
       createUserId: 'MAcadsPidLsBLYQH',
       fansIds: [''],
-      color: Color.BLUE,
+      color: '#cbf0f8',
       editable: false,
       isUpdating: true,
       updated: 1541251714000
@@ -74,7 +73,7 @@ const initialState: State = {
       tagTitles: ['お願い'],
       createUserId: 'MAcadsPidLsBLYQH',
       fansIds: [''],
-      color: Color.PINK,
+      color: '#fdcfe8',
       editable: false,
       isUpdating: false,
       updated: 1541251714000
