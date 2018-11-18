@@ -26,6 +26,7 @@ export interface InputFormProps {
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
   onChangeColor: (color: Color) => void;
+  resetInput: () => void;
 }
 
 type InputType = InputFormProps & InjectedFormProps;
@@ -41,6 +42,7 @@ const inputForm: React.SFC<InputType> = ({
   addTag = () => {},
   removeTag = () => {},
   onChangeColor = () => {},
+  resetInput = () => {},
   handleSubmit,
   submitting
 }) => (
@@ -150,7 +152,9 @@ const inputForm: React.SFC<InputType> = ({
           >
             投稿
           </button>
-          <button className="button">キャンセル</button>
+          <a className="button" onClick={resetInput}>
+            キャンセル
+          </a>
         </footer>
       </div>
     </div>

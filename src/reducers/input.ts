@@ -64,7 +64,8 @@ const reducer = reducerWithInitialState(initialState)
     if (title && isFeatured !== undefined) {
       return {
         ...state,
-        tagList: [...state.tagList, { title, isFeatured }]
+        tagList: [...state.tagList, { title, isFeatured }],
+        inputtingTag: initialState.inputtingTag
       };
     }
     return state;
@@ -80,6 +81,13 @@ const reducer = reducerWithInitialState(initialState)
       };
     }
     return state;
-  });
+  })
+  .case(Action.resetInput, state => ({
+    ...state,
+    inputtingContent: initialState.inputtingContent,
+    selectedColor: initialState.selectedColor,
+    tagList: initialState.tagList,
+    inputtingTag: initialState.inputtingTag
+  }));
 
 export default reducer;

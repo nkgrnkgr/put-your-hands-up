@@ -14,7 +14,8 @@ import {
   removeTag,
   onChangeTagInput,
   onChangeColor,
-  InputActionPayload
+  InputActionPayload,
+  resetInput
 } from 'actions/input';
 
 interface StateProps {
@@ -31,6 +32,7 @@ interface DispatchProps {
   removeTag: (index: number) => void;
   onChangeColor: (selectedColor: Color) => void;
   onChangeContent: (inputtingContent: string) => void;
+  resetInput: () => void;
 }
 
 const mapStateToProps = (state: State) => ({
@@ -45,6 +47,7 @@ const mapDispatchToProps = (
 ): DispatchProps =>
   bindActionCreators(
     {
+      resetInput,
       onChangeContent: (inputtingContent: string) =>
         onChangeContent({ inputtingContent }),
       addContent: (inputtingContent: string) =>

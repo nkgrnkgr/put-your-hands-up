@@ -39,3 +39,5 @@ export const removeTag = actionCreater<TagsActionPayload>('TAG_REMOVE');
 export const onChangeColor = actionCreater<ColorActionPayload>(
   'COLOR_ON_CHANGE'
 );
+
+export const resetInput = actionCreater('INPUT_RESET');
