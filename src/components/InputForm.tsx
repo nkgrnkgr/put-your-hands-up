@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { InjectedFormProps } from 'redux-form';
-import { showResult } from 'api/bizApi';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
 import { CirclePicker, Color } from 'react-color';
@@ -29,9 +27,7 @@ export interface InputFormProps {
   resetInput: () => void;
 }
 
-type InputType = InputFormProps & InjectedFormProps;
-
-const inputForm: React.SFC<InputType> = ({
+const inputForm: React.SFC<InputFormProps> = ({
   inputtingContent = '',
   inputtingTag = '',
   tags = [],
@@ -42,11 +38,9 @@ const inputForm: React.SFC<InputType> = ({
   addTag = () => {},
   removeTag = () => {},
   onChangeColor = () => {},
-  resetInput = () => {},
-  handleSubmit,
-  submitting
+  resetInput = () => {}
 }) => (
-  <form onSubmit={handleSubmit(showResult)}>
+  <form>
     <div className="modal is-active">
       <div className="modal-background" />>
       <div className="modal-card">
@@ -137,7 +131,7 @@ const inputForm: React.SFC<InputType> = ({
                 '#d7aefb'
               ]}
               color={selectedColor}
-              onChange={onChangeColor}
+              onSwatchHover={onChangeColor}
             />
           </div>
         </section>
@@ -145,11 +139,7 @@ const inputForm: React.SFC<InputType> = ({
           className="modal-card-foot"
           style={{ justifyContent: 'flex-end' }}
         >
-          <button
-            type="submit"
-            disabled={submitting}
-            className="button is-success"
-          >
+          <button type="submit" className="button is-success">
             投稿
           </button>
           <a className="button" onClick={resetInput}>

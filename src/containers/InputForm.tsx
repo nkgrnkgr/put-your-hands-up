@@ -3,7 +3,6 @@ import { compose, pure, setDisplayName } from 'recompose';
 import InputForm, { InputFormProps } from 'components/InputForm';
 import { CombinedState as State } from 'reducers/root';
 import { Color } from 'react-color';
-import { reduxForm } from 'redux-form';
 import Tag from 'domain/Tag';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
@@ -66,7 +65,6 @@ type EnhancedInputFormProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedInputFormProps, {}>(
   setDisplayName('EnhancedInputForm'),
-  reduxForm({ form: 'inputForm' }),
   connect<StateProps, DispatchProps, InputFormProps>(
     mapStateToProps,
     mapDispatchToProps
