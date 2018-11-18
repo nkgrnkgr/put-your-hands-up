@@ -1,5 +1,5 @@
 enum Color {
-  WHITE = '#FFFFFF',
+  WHITE = '#F4F4F4',
   PINK = '#fdcfe8',
   GREEN = '#ccff90',
   BLUE = '#cbf0f8',

@@ -1,21 +1,27 @@
 import * as React from 'react';
 
 interface Props {
+  index: number;
   tagTitle: string;
   size: string;
+  handleDelete?: (index: number) => void;
 }
 
-const tag: React.SFC<Props> = ({ tagTitle, size }) => (
+const tagLink: React.SFC<Props> = ({ index, tagTitle, size, handleDelete }) => (
   <div className="control">
     <div className="tags has-addons">
       <span className={`tag ${size} is-info`}>
         <a href="#" style={{ color: '#FFFFFF' }}>
           {tagTitle}
         </a>
-        <button className="delete is-small" />
+        {handleDelete ? (
+          <a className="delete is-small" onClick={e => handleDelete(index)} />
+        ) : (
+          ''
+        )}
       </span>
     </div>
   </div>
 );
 
-export default tag;
+export default tagLink;

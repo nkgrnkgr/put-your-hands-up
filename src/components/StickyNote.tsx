@@ -2,7 +2,7 @@ import * as React from 'react';
 import { User } from 'domain/User';
 import Image from 'domain/Image';
 import NoteContens from 'domain/NoteContens';
-import Tag from 'components/Tag';
+import TagLink from 'components/TagLink';
 import { ago } from 'utils/DateTime';
 
 interface StickyNoteProps {
@@ -60,8 +60,13 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
         <div className="content">{noteContents.comment}</div>
         <div className="content">
           <div className="field is-grouped is-grouped-multiline">
-            {noteContents.tagTitles.map(title => (
-              <Tag tagTitle={title} key={title} size="is-small" />
+            {noteContents.tagTitles.map((title, index) => (
+              <TagLink
+                key={title}
+                index={index}
+                tagTitle={title}
+                size="is-small"
+              />
             ))}
           </div>
         </div>
