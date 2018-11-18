@@ -16,29 +16,31 @@ const featuredContents = [
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
+  inputtingContent: string;
+  inputtingTag: string;
+  tags: Tag[];
+  selectedColor: Color;
+  onChangeContent: (inputtingContent: string) => void;
+  addContent: (inputtingContent: string) => void;
   onChangeTagInput: (inputtingTag: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
-  inputtingTag: string;
-  tags: Tag[];
   onChangeColor: (color: Color) => void;
-  selectedColor: Color;
-  inputtingContent: string;
-  onChangeContent: (inputtingContent: string) => void;
 }
 
 type InputType = InputFormProps & InjectedFormProps;
 
 const inputForm: React.SFC<InputType> = ({
+  inputtingContent = '',
+  inputtingTag = '',
+  tags = [],
+  selectedColor = '#F4F4F4',
+  onChangeContent = () => {},
+  addContent = () => {},
   onChangeTagInput = () => {},
   addTag = () => {},
   removeTag = () => {},
-  inputtingTag = '',
-  tags = [],
   onChangeColor = () => {},
-  selectedColor = '#F4F4F4',
-  inputtingContent = '',
-  onChangeContent = () => {},
   handleSubmit,
   submitting
 }) => (
@@ -54,12 +56,6 @@ const inputForm: React.SFC<InputType> = ({
           <div className="field">
             <label className="label">内容</label>
             <div className="control">
-              {/* <Field
-                name="comment"
-                component="textarea"
-                className="textarea"
-                type="text"
-              /> */}
               <textarea
                 className="textarea"
                 value={inputtingContent}
@@ -70,7 +66,10 @@ const inputForm: React.SFC<InputType> = ({
           <div className="field is-grouped is-grouped-multiline">
             {featuredContents.map((content, index) => (
               <p key={index} className="control">
-                <a className="button is-small">
+                <a
+                  className="button is-small"
+                  onClick={e => addContent(content)}
+                >
                   <span>{content}</span>
                 </a>
               </p>

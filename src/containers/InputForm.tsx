@@ -2,20 +2,20 @@ import { connect } from 'react-redux';
 import { compose, pure, setDisplayName } from 'recompose';
 import InputForm, { InputFormProps } from 'components/InputForm';
 import { CombinedState as State } from 'reducers/root';
+import { Color } from 'react-color';
 import { reduxForm } from 'redux-form';
 import Tag from 'domain/Tag';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
 import {
+  onChangeContent,
+  addContent,
   addTag,
   removeTag,
-  TagsActionPayload,
-  onChangeTagInput
-} from 'actions/tags';
-
-import { onChangeColor, ColorActionPayload } from 'actions/color';
-import { onChangeContent, ContentActionPayload } from 'actions/content';
-import { Color } from 'react-color';
+  onChangeTagInput,
+  onChangeColor,
+  InputActionPayload
+} from 'actions/input';
 
 interface StateProps {
   inputtingTag: string;
@@ -26,6 +26,7 @@ interface StateProps {
 
 interface DispatchProps {
   onChangeTagInput: (inputtingTag: string) => void;
+  addContent: (inputtingTag: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
   onChangeColor: (selectedColor: Color) => void;
@@ -33,27 +34,27 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  inputtingTag: state.tags.inputtingTag,
-  tags: state.tags.tagList,
-  selectedColor: state.color.selectedColor,
-  inputtingContent: state.content.inputtingContent
+  inputtingTag: state.input.inputtingTag,
+  tags: state.input.tagList,
+  selectedColor: state.input.selectedColor,
+  inputtingContent: state.input.inputtingContent
 });
 
-type Payload = TagsActionPayload & ColorActionPayload & ContentActionPayload;
-
 const mapDispatchToProps = (
-  dispatch: Dispatch<Action<Payload>>
+  dispatch: Dispatch<Action<InputActionPayload>>
 ): DispatchProps =>
   bindActionCreators(
     {
+      onChangeContent: (inputtingContent: string) =>
+        onChangeContent({ inputtingContent }),
+      addContent: (inputtingContent: string) =>
+        addContent({ inputtingContent }),
       onChangeTagInput: (inputtingTag: string) =>
         onChangeTagInput({ inputtingTag }),
       addTag: (title: string, isFeatured: boolean) =>
         addTag({ title, isFeatured }),
       removeTag: (index: number) => removeTag({ index }),
-      onChangeColor: (selectedColor: Color) => onChangeColor({ selectedColor }),
-      onChangeContent: (inputtingContent: string) =>
-        onChangeContent({ inputtingContent })
+      onChangeColor: (selectedColor: Color) => onChangeColor({ selectedColor })
     },
     dispatch
   );
