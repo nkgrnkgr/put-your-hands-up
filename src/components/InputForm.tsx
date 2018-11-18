@@ -3,16 +3,7 @@ import { Field, InjectedFormProps } from 'redux-form';
 import { showResult } from 'api/bizApi';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
-import { CirclePicker } from 'react-color';
-import { Color } from 'domain/Color';
-
-export interface InputFormProps {
-  onChangeTagInput: (inputting: string) => void;
-  addTag: (title: string, isFeatured: boolean) => void;
-  removeTag: (index: number) => void;
-  inputting: string;
-  tags: Tag[];
-}
+import { CirclePicker, Color } from 'react-color';
 
 const featuredContents = [
   '登壇お疲れさまでした👏',
@@ -24,6 +15,16 @@ const featuredContents = [
 
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
+export interface InputFormProps {
+  onChangeTagInput: (inputting: string) => void;
+  addTag: (title: string, isFeatured: boolean) => void;
+  removeTag: (index: number) => void;
+  inputting: string;
+  tags: Tag[];
+  onChangeColor: (color: Color) => void;
+  selectedColor: Color;
+}
+
 type InputType = InputFormProps & InjectedFormProps;
 
 const inputForm: React.SFC<InputType> = ({
@@ -32,6 +33,8 @@ const inputForm: React.SFC<InputType> = ({
   removeTag = () => {},
   inputting = '',
   tags = [],
+  onChangeColor = () => {},
+  selectedColor = '#F4F4F4',
   handleSubmit,
   submitting
 }) => (
@@ -115,15 +118,16 @@ const inputForm: React.SFC<InputType> = ({
             </div>
             <CirclePicker
               colors={[
-                Color.BLUE,
-                Color.GREEN,
-                Color.ORANGE,
-                Color.PINK,
-                Color.PURPLE,
-                Color.WHITE,
-                Color.YELLOW
+                '#F4F4F4',
+                '#fdcfe8',
+                '#ccff90',
+                '#cbf0f8',
+                '#fff475',
+                '#fbbc04',
+                '#d7aefb'
               ]}
-              color={Color.WHITE}
+              color={selectedColor}
+              onChange={onChangeColor}
             />
           </div>
         </section>

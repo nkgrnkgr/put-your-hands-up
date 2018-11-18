@@ -13,31 +13,40 @@ import {
   onChangeTagInput
 } from 'actions/tags';
 
+import { onChangeColor, ColorActionPayload } from 'actions/color';
+import { Color } from 'react-color';
+
 interface StateProps {
   inputting: string;
   tags: Tag[];
+  selectedColor: Color;
 }
 
 interface DispatchProps {
   onChangeTagInput: (inputting: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
   removeTag: (index: number) => void;
+  onChangeColor: (selectedColor: Color) => void;
 }
 
 const mapStateToProps = (state: State) => ({
   inputting: state.tags.inputting,
-  tags: state.tags.tagList
+  tags: state.tags.tagList,
+  selectedColor: state.color.selectedColor
 });
 
+type Payload = TagsActionPayload & ColorActionPayload;
+
 const mapDispatchToProps = (
-  dispatch: Dispatch<Action<TagsActionPayload>>
+  dispatch: Dispatch<Action<Payload>>
 ): DispatchProps =>
   bindActionCreators(
     {
       onChangeTagInput: (inputting: string) => onChangeTagInput({ inputting }),
       addTag: (title: string, isFeatured: boolean) =>
         addTag({ title, isFeatured }),
-      removeTag: (index: number) => removeTag({ index })
+      removeTag: (index: number) => removeTag({ index }),
+      onChangeColor: (selectedColor: Color) => onChangeColor({ selectedColor })
     },
     dispatch
   );
