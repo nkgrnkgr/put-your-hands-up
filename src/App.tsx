@@ -3,12 +3,11 @@ import 'bulma/css/bulma.css';
 import 'css/animation.css';
 import Board from 'containers/Board';
 import InputForm from 'containers/InputForm';
+import Navbar from 'containers/Navbar';
 
 const app: React.SFC = () => (
   <section className="section">
-    <nav className="navbar is-fixed-top">
-      <div className="container">navbar</div>
-    </nav>
+    <Navbar />
     <div className="container">
       <Board />
     </div>

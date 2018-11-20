@@ -14,10 +14,12 @@ const featuredContents = [
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
+  isActive: boolean;
   inputtingContent: string;
   inputtingTag: string;
   tags: Tag[];
   selectedColor: Color;
+  toggleInputForm: () => void;
   onChangeContent: (inputtingContent: string) => void;
   addContent: (inputtingContent: string) => void;
   onChangeTagInput: (inputtingTag: string) => void;
@@ -28,10 +30,12 @@ export interface InputFormProps {
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
+  isActive = false,
   inputtingContent = '',
   inputtingTag = '',
   tags = [],
   selectedColor = '#F4F4F4',
+  toggleInputForm = () => {},
   onChangeContent = () => {},
   addContent = () => {},
   onChangeTagInput = () => {},
@@ -41,12 +45,13 @@ const inputForm: React.SFC<InputFormProps> = ({
   resetInput = () => {}
 }) => (
   <form>
-    <div className="modal is-active">
+    {/* <div className="modal is-active"> */}
+    <div className={`modal ${isActive ? 'is-active' : ''}`}>
       <div className="modal-background" />>
       <div className="modal-card">
         <header className="modal-card-head has-text-centered">
           <p className="modal-card-title">投稿する</p>
-          <button className="delete" aria-label="close" />
+          <a className="delete" aria-label="close" onClick={toggleInputForm} />
         </header>
         <section className="modal-card-body">
           <div className="field">
@@ -142,7 +147,7 @@ const inputForm: React.SFC<InputFormProps> = ({
           <button type="submit" className="button is-success">
             投稿
           </button>
-          <a className="button" onClick={resetInput}>
+          <a className="button" onClick={e => resetInput()}>
             キャンセル
           </a>
         </footer>

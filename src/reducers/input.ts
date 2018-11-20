@@ -5,6 +5,7 @@ import Tag from 'domain/Tag';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface State {
+  isActive: boolean;
   inputtingContent: string;
   inputtingTag: string;
   tagList: Tag[];
@@ -12,6 +13,7 @@ export interface State {
 }
 
 const initialState: State = {
+  isActive: true,
   inputtingContent: '',
   inputtingTag: '',
   tagList: [{ title: '質問', isFeatured: true }],
@@ -19,6 +21,13 @@ const initialState: State = {
 };
 
 const reducer = reducerWithInitialState(initialState)
+  .case(Action.toggleInputForm, state => {
+    console.log('called action');
+    return {
+      ...state,
+      isActive: !state.isActive
+    };
+  })
   .case(Action.onChangeContent, (state, payload) => {
     const { inputtingContent } = payload;
     if (inputtingContent !== undefined) {
