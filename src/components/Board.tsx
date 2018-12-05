@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Note, NoteMap } from 'domain/Note';
 import StickyNote from './StickyNote';
 import InputForm from 'containers/InputForm';
-import ConfirmModal from './ConfirmModal';
+import ConfirmModal from 'containers/ConfirmModal';
 
 const createList = (notes: NoteMap): Note[] => {
   if (notes === {}) {
@@ -31,7 +31,8 @@ const board: React.SFC<BoardProps> = ({
       <StickyNote key={index} note={note} removeNote={removeNote} />
     ))}
     <ConfirmModal
-      message={'本当に削除してよろしいですか？'}
+      isActive={false}
+      message="本当に削除してよろしいですか？"
       ok={f}
       cancel={f}
     />

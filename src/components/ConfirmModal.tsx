@@ -1,17 +1,20 @@
 import * as React from 'react';
 
-interface ConfirmModalProps {
+export interface ConfirmModalProps {
+  isActive: boolean;
   message: string;
   ok: () => void;
   cancel: () => void;
 }
 
 const confirmModal: React.SFC<ConfirmModalProps> = ({
+  isActive = false,
   message = '',
   ok = () => {},
   cancel = () => {}
 }) => (
-  <div className="modal is-active">
+  // <div className="modal is-active">
+  <div className={`modal ${isActive ? 'is-active' : ''}`}>
     <div className="modal-background" />
     <div className="modal-content">
       <div className="box">

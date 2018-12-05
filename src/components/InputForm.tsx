@@ -45,7 +45,6 @@ const inputForm: React.SFC<InputFormProps> = ({
   resetInput = () => {}
 }) => (
   <form>
-    {/* <div className="modal is-active"> */}
     <div className={`modal ${isActive ? 'is-active' : ''}`}>
       <div className="modal-background" />>
       <div className="modal-card">
