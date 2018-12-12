@@ -19,14 +19,19 @@ export interface BoardProps {
   notes?: NoteMap;
   addNote?: (note: Note) => void;
   removeNote?: (noteId: string) => void;
+  members?: [];
 }
 
-const board: React.SFC<BoardProps> = ({
+const commentsborad: React.SFC<BoardProps> = ({
   notes = {},
   addNote = (note: Note) => {},
-  removeNote = (noteId: string) => {}
+  removeNote = (noteId: string) => {},
+  members = []
 }) => (
   <div className="columns is-desktop">
+    <div>
+      <pre>{JSON.stringify(members, null, '\t')}</pre>
+    </div>
     {createList(notes).map((note, index) => (
       <StickyNote key={index} note={note} removeNote={removeNote} />
     ))}
@@ -42,4 +47,4 @@ const board: React.SFC<BoardProps> = ({
 
 const f = () => {};
 
-export default board;
+export default commentsborad;

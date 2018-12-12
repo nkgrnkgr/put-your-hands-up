@@ -5,16 +5,19 @@
   "dependencies": {
     "bulma": "^0.7.2",
     "dayjs": "^1.7.7",
+    "firebase": "^5.7.0",
     "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-color": "^2.14.1",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
+    "react-redux-firebase": "^2.2.4",
     "react-scripts-ts": "3.1.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.1",
+    "redux-firestore": "^0.6.0",
     "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-reducers": "^1.0.0"
+    "typescript-fsa-reducers": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

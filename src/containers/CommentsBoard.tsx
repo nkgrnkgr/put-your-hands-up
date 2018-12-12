@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Action } from 'typescript-fsa';
+import { compose } from 'recompose';
 
 import {
   addNote,
@@ -9,9 +10,10 @@ import {
   NoteActionPayload
 } from 'actions/note';
 
-import Board, { BoardProps } from 'components/Board';
+import CommentsBoard, { BoardProps } from 'components/CommentsBoard';
 import { CombinedState as State } from 'reducers/root';
 import { Note, NoteMap } from 'domain/Note';
+import { firestoreConnect, withFirestore } from 'react-redux-firebase';
 
 interface StateProps {
   notes: NoteMap;
@@ -24,7 +26,8 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  notes: state.notes
+  notes: state.notes,
+  members: state.firestore.ordered.members
 });
 
 const mapDispatchToProps = (
@@ -39,7 +42,13 @@ const mapDispatchToProps = (
     dispatch
   );
 
-export default connect<StateProps, DispatchProps, BoardProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Board);
+const enhance = compose(
+  firestoreConnect(['members']),
+  withFirestore,
+  connect<StateProps, DispatchProps, BoardProps>(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+);
+
+export default enhance(CommentsBoard);
