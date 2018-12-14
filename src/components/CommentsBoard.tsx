@@ -4,36 +4,14 @@ import StickyNote from './StickyNote';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 
-const createList = (notes: NoteMap): Note[] => {
-  if (notes === {}) {
-    return [];
-  }
-  const noteList: Note[] = [];
-  Object.keys(notes).map((key, index) => {
-    noteList.push(notes[key]);
-  });
-  return noteList;
-};
-
-export interface BoardProps {
+export interface CommentsBoardProps {
   notes?: NoteMap;
-  addNote?: (note: Note) => void;
-  removeNote?: (noteId: string) => void;
-  members?: [];
 }
 
-const commentsborad: React.SFC<BoardProps> = ({
-  notes = {},
-  addNote = (note: Note) => {},
-  removeNote = (noteId: string) => {},
-  members = []
-}) => (
+const commentsborad: React.SFC<CommentsBoardProps> = ({ notes = {} }) => (
   <div className="columns is-desktop">
-    <div>
-      <pre>{JSON.stringify(members, null, '\t')}</pre>
-    </div>
     {createList(notes).map((note, index) => (
-      <StickyNote key={index} note={note} removeNote={removeNote} />
+      <StickyNote key={index} note={note} removeNote={f} />
     ))}
     <ConfirmModal
       isActive={false}
@@ -44,6 +22,17 @@ const commentsborad: React.SFC<BoardProps> = ({
     <InputForm />
   </div>
 );
+
+const createList = (notes: NoteMap): Note[] => {
+  if (notes === {}) {
+    return [];
+  }
+  const noteList: Note[] = [];
+  Object.keys(notes).map((key, index) => {
+    noteList.push(notes[key]);
+  });
+  return noteList;
+};
 
 const f = () => {};
 

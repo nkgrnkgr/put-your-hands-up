@@ -17,6 +17,7 @@ import {
   InputActionPayload,
   resetInput
 } from 'actions/input';
+import { withFirestore } from 'react-redux-firebase';
 
 interface StateProps {
   isActive: boolean;
@@ -41,8 +42,8 @@ const mapStateToProps = (state: State) => ({
   isActive: state.input.isActive,
   inputtingTag: state.input.inputtingTag,
   tags: state.input.tagList,
-  selectedColor: state.input.selectedColor,
-  inputtingContent: state.input.inputtingContent
+  inputtingContent: state.input.inputtingContent,
+  selectedColor: state.input.selectedColor
 });
 
 const mapDispatchToProps = (
@@ -70,6 +71,7 @@ type EnhancedInputFormProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedInputFormProps, {}>(
   setDisplayName('EnhancedInputForm'),
+  withFirestore,
   connect<StateProps, DispatchProps, InputFormProps>(
     mapStateToProps,
     mapDispatchToProps

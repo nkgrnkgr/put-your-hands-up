@@ -27,6 +27,7 @@ export interface InputFormProps {
   removeTag: (index: number) => void;
   onChangeColor: (color: Color) => void;
   resetInput: () => void;
+  firestore?: any;
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
@@ -34,7 +35,7 @@ const inputForm: React.SFC<InputFormProps> = ({
   inputtingContent = '',
   inputtingTag = '',
   tags = [],
-  selectedColor = '#F4F4F4',
+  selectedColor,
   toggleInputForm = () => {},
   onChangeContent = () => {},
   addContent = () => {},
@@ -42,117 +43,166 @@ const inputForm: React.SFC<InputFormProps> = ({
   addTag = () => {},
   removeTag = () => {},
   onChangeColor = () => {},
-  resetInput = () => {}
-}) => (
-  <form>
-    <div className={`modal ${isActive ? 'is-active' : ''}`}>
-      <div className="modal-background" />>
-      <div className="modal-card">
-        <header className="modal-card-head has-text-centered">
-          <p className="modal-card-title">投稿する</p>
-          <a className="delete" aria-label="close" onClick={toggleInputForm} />
-        </header>
-        <section className="modal-card-body">
-          <div className="field">
-            <label className="label">内容</label>
-            <div className="control">
-              <textarea
-                className="textarea"
-                value={inputtingContent}
-                onChange={e => onChangeContent(e.currentTarget.value)}
-              />
-            </div>
-          </div>
-          <div className="field is-grouped is-grouped-multiline">
-            {featuredContents.map((content, index) => (
-              <p key={index} className="control">
-                <a
-                  className="button is-small"
-                  onClick={e => addContent(content)}
-                >
-                  <span>{content}</span>
-                </a>
-              </p>
-            ))}
-          </div>
-          <div className="field">
-            <label className="label">タグ</label>
-          </div>
-          <div className="field is-grouped is-grouped-multiline">
-            {tags.map((tag, index) => (
-              <TagLink
-                key={index}
-                index={index}
-                tagTitle={tag.title}
-                size="is-medium"
-                handleDelete={removeTag}
-              />
-            ))}
-          </div>
-          <div className="field is-grouped is-grouped-multiline">
-            {featuredTags.map((t, index) => (
-              <p key={index} className="control">
-                <a className="button is-small" onClick={e => addTag(t, true)}>
-                  <span>{t}</span>
-                </a>
-              </p>
-            ))}
-          </div>
-          <div className="field has-addons">
-            <div className="control has-icons-left">
-              <input
-                className="input is-small"
-                type="text"
-                placeholder="Tag"
-                value={inputtingTag}
-                onChange={e => onChangeTagInput(e.currentTarget.value)}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-tags" />
-              </span>
-            </div>
-            <div className="control">
-              <a
-                className="button is-info is-small"
-                onClick={e => addTag(inputtingTag, false)}
-              >
-                Add
-              </a>
-            </div>
-          </div>
-          <div className="field">
-            <div className="field">
-              <label className="label">背景色</label>
-            </div>
-            <CirclePicker
-              colors={[
-                '#F4F4F4',
-                '#fdcfe8',
-                '#ccff90',
-                '#cbf0f8',
-                '#fff475',
-                '#fbbc04',
-                '#d7aefb'
-              ]}
-              color={selectedColor}
-              onSwatchHover={onChangeColor}
+  resetInput = () => {},
+  firestore = {}
+}) => {
+  const onChangeHandleColor = (color: any) => {
+    console.log(color);
+    onChangeColor(color.hex);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const tagTiles: string[] = [];
+    tags.map(tag => {
+      tagTiles.push(tag.title);
+    });
+    firestore.add('notes', {
+      noteId: 'n000001',
+      user: {
+        name: 'Nokogiri',
+        id: 'nkgrnkgr'
+      },
+      noteContents: {
+        comment: inputtingContent,
+        tagTitles: tagTiles,
+        createUserId: 'nkgrnkgr',
+        fansIds: [''],
+        color: selectedColor,
+        editable: false,
+        isUpdating: false,
+        updated: 1541251714000
+      },
+      // image: {
+      //   url: 'https://bulma.io/images/placeholders/96x96.png',
+      //   title: 'placeholder',
+      //   size: 32
+      // }
+      image: {
+        url:
+          'https://pbs.twimg.com/profile_images/991286980917936128/L26P2KQQ_400x400.jpg',
+        title: 'nkgrnkgr',
+        size: 32
+      }
+    });
+    toggleInputForm();
+    resetInput();
+  };
+  return (
+    <form onSubmit={e => handleSubmit(e)}>
+      <div className={`modal ${isActive ? 'is-active' : ''}`}>
+        <div className="modal-background" />>
+        <div className="modal-card">
+          <header className="modal-card-head has-text-centered">
+            <p className="modal-card-title">投稿する</p>
+            <a
+              className="delete"
+              aria-label="close"
+              onClick={toggleInputForm}
             />
-          </div>
-        </section>
-        <footer
-          className="modal-card-foot"
-          style={{ justifyContent: 'flex-end' }}
-        >
-          <button type="submit" className="button is-success">
-            投稿
-          </button>
-          <a className="button" onClick={e => resetInput()}>
-            キャンセル
-          </a>
-        </footer>
+          </header>
+          <section className="modal-card-body">
+            <div className="field">
+              <label className="label">内容</label>
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  value={inputtingContent}
+                  onChange={e => onChangeContent(e.currentTarget.value)}
+                />
+              </div>
+            </div>
+            <div className="field is-grouped is-grouped-multiline">
+              {featuredContents.map((content, index) => (
+                <p key={index} className="control">
+                  <a
+                    className="button is-small"
+                    onClick={e => addContent(content)}
+                  >
+                    <span>{content}</span>
+                  </a>
+                </p>
+              ))}
+            </div>
+            <div className="field">
+              <label className="label">タグ</label>
+            </div>
+            <div className="field is-grouped is-grouped-multiline">
+              {tags.map((tag, index) => (
+                <TagLink
+                  key={index}
+                  index={index}
+                  tagTitle={tag.title}
+                  size="is-medium"
+                  handleDelete={removeTag}
+                />
+              ))}
+            </div>
+            <div className="field is-grouped is-grouped-multiline">
+              {featuredTags.map((t, index) => (
+                <p key={index} className="control">
+                  <a className="button is-small" onClick={e => addTag(t, true)}>
+                    <span>{t}</span>
+                  </a>
+                </p>
+              ))}
+            </div>
+            <div className="field has-addons">
+              <div className="control has-icons-left">
+                <input
+                  className="input is-small"
+                  type="text"
+                  placeholder="Tag"
+                  value={inputtingTag}
+                  onChange={e => onChangeTagInput(e.currentTarget.value)}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-tags" />
+                </span>
+              </div>
+              <div className="control">
+                <a
+                  className="button is-info is-small"
+                  onClick={e => addTag(inputtingTag, false)}
+                >
+                  Add
+                </a>
+              </div>
+            </div>
+            <div className="field">
+              <div className="field">
+                <label className="label">背景色</label>
+              </div>
+              <CirclePicker
+                colors={[
+                  '#F4F4F4',
+                  '#fdcfe8',
+                  '#ccff90',
+                  '#cbf0f8',
+                  '#fff475',
+                  '#fbbc04',
+                  '#d7aefb'
+                ]}
+                color={selectedColor}
+                onSwatchHover={onChangeHandleColor}
+              />
+            </div>
+          </section>
+          <footer
+            className="modal-card-foot"
+            style={{ justifyContent: 'flex-end' }}
+          >
+            <button type="submit" className="button is-success">
+              投稿
+            </button>
+            <a className="button" onClick={e => resetInput()}>
+              キャンセル
+            </a>
+          </footer>
+        </div>
       </div>
-    </div>
-  </form>
-);
+    </form>
+  );
+};
 
 export default inputForm;

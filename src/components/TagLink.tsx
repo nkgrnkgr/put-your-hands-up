@@ -15,7 +15,7 @@ const tagLink: React.SFC<Props> = ({ index, tagTitle, size, handleDelete }) => (
           {tagTitle}
         </a>
         {handleDelete ? (
-          <a className="delete is-small" onClick={e => handleDelete(index)} />
+          <a className="delete is-small" onClick={e => handleDelete(0)} />
         ) : (
           ''
         )}
