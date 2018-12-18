@@ -11,7 +11,7 @@ const store = createStore(
     reactReduxFirebase(firebase, rrfConfig),
     reduxFirestore(firebase),
     process.env.NODE_ENV === 'development' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__
       ? (window as any).__REDUX_DEVTOOLS_EXTENSION__()
       : (f: any) => f
   )
