@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
-import { CirclePicker, Color } from 'react-color';
+import { CirclePicker, Color, ColorResult } from 'react-color';
 
 const featuredContents = [
   '登壇お疲れさまでした👏',
@@ -46,8 +46,7 @@ const inputForm: React.SFC<InputFormProps> = ({
   resetInput = () => {},
   firestore = {}
 }) => {
-  const onChangeHandleColor = (color: any) => {
-    console.log(color);
+  const onChangeHandleColor = (color: ColorResult) => {
     onChangeColor(color.hex);
   };
 
