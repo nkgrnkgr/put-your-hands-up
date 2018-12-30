@@ -69,6 +69,8 @@ const mapDispatchToProps = (
 
 type EnhancedInputFormProps = StateProps & DispatchProps;
 
+// redux-thunk
+
 const enhance = compose<EnhancedInputFormProps, {}>(
   setDisplayName('EnhancedInputForm'),
   withFirestore,

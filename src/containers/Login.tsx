@@ -6,6 +6,7 @@ import { Action } from 'typescript-fsa';
 import { CombinedState as State } from 'reducers/root';
 import { LoginUser } from 'domain/LoginUser';
 import { login, logout, LoginActionPayload } from 'actions/login';
+import { firebaseConnect } from 'react-redux-firebase';
 
 interface StateProps {
   loginUser: LoginUser;
@@ -17,7 +18,8 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  loginUser: state.application.loginUser
+  loginUser: state.application.loginUser,
+  auth: state.firebase.auth
 });
 
 const mapDispatchToProps = (
@@ -35,6 +37,7 @@ type EnhancedLoginbarProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedLoginbarProps, {}>(
   setDisplayName('EnhancedLogin'),
+  firebaseConnect(),
   connect<StateProps, DispatchProps, LoginProps>(
     mapStateToProps,
     mapDispatchToProps

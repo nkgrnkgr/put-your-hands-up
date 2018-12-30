@@ -6,6 +6,9 @@ import { CombinedState as State } from 'reducers/root';
 import { Note, NoteMap } from 'domain/Note';
 import { firestoreConnect, withFirestore } from 'react-redux-firebase';
 
+// firebaseConnect
+// Thunk で非同期でaddする
+
 interface StateProps {
   notes: NoteMap;
 }
