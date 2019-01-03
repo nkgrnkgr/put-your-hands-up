@@ -1,10 +1,9 @@
+import { Color } from 'react-color';
 export default interface NoteContents {
   comment: string;
   tagTitles: string[];
   createUserId: string;
   fansIds: string[];
-  color: string;
-  editable: boolean;
-  isUpdating: boolean;
-  updated: number;
+  color: Color;
+  created: number;
 }

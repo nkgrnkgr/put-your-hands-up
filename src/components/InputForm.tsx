@@ -2,6 +2,8 @@ import * as React from 'react';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
 import { CirclePicker, Color, ColorResult } from 'react-color';
+import { FirebaseUser } from 'domain/FirebaseUser';
+import NoteContents from 'domain/NoteContents';
 
 const featuredContents = [
   '登壇お疲れさまでした👏',
@@ -28,6 +30,7 @@ export interface InputFormProps {
   onChangeColor: (color: Color) => void;
   resetInput: () => void;
   firestore?: any;
+  auth: any;
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
@@ -44,7 +47,8 @@ const inputForm: React.SFC<InputFormProps> = ({
   removeTag = () => {},
   onChangeColor = () => {},
   resetInput = () => {},
-  firestore = {}
+  firestore = {},
+  auth
 }) => {
   const onChangeHandleColor = (color: ColorResult) => {
     onChangeColor(color.hex);
@@ -52,37 +56,35 @@ const inputForm: React.SFC<InputFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const user: FirebaseUser = {
+      uid: auth.uid,
+      displayName: auth.displayName,
+      photoURL: auth.photoURL
+    };
+
+    if (auth.isAnonymous) {
+      user.photoURL = 'https://bulma.io/images/placeholders/128x128.png';
+      user.displayName = '匿名ユーザー';
+    }
+
     const tagTiles: string[] = [];
     tags.map(tag => {
       tagTiles.push(tag.title);
     });
+
+    const noteContents: NoteContents = {
+      comment: inputtingContent,
+      tagTitles: tagTiles,
+      createUserId: user.uid,
+      fansIds: [],
+      color: selectedColor,
+      created: new Date().getTime()
+    };
+
     firestore.add('notes', {
-      noteId: 'n000001',
-      user: {
-        name: 'Nokogiri',
-        id: 'nkgrnkgr'
-      },
-      noteContents: {
-        comment: inputtingContent,
-        tagTitles: tagTiles,
-        createUserId: 'nkgrnkgr',
-        fansIds: [''],
-        color: selectedColor,
-        editable: false,
-        isUpdating: false,
-        updated: 1541251714000
-      },
-      // image: {
-      //   url: 'https://bulma.io/images/placeholders/96x96.png',
-      //   title: 'placeholder',
-      //   size: 32
-      // }
-      image: {
-        url:
-          'https://pbs.twimg.com/profile_images/991286980917936128/L26P2KQQ_400x400.jpg',
-        title: 'nkgrnkgr',
-        size: 32
-      }
+      user,
+      noteContents
     });
     toggleInputForm();
     resetInput();

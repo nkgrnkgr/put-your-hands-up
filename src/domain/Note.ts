@@ -1,12 +1,9 @@
-import Image from 'domain/Image';
-import { User } from 'domain/User';
-import NoteContens from 'domain/NoteContens';
+import { FirebaseUser } from './FirebaseUser';
+import NoteContents from 'domain/NoteContents';
 
 export interface Note {
-  noteId: string;
-  user: User;
-  image: Image;
-  noteContents: NoteContens;
+  user: FirebaseUser;
+  noteContents: NoteContents;
 }
 
 export interface NoteMap {

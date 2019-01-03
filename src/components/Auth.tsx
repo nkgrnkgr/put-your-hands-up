@@ -9,7 +9,9 @@ interface Props {
 
 const auth: React.SFC<Props> = ({ auth, children }) => {
   return !isLoaded(auth) ? (
-    <span>Loading...</span>
+    <div className="container">
+      <span>Loading...</span>
+    </div>
   ) : isEmpty(auth) ? (
     <Redirect to={'/login'} />
   ) : (

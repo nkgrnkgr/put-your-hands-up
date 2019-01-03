@@ -1,18 +1,27 @@
 import * as React from 'react';
-import { Note, NoteMap } from 'domain/Note';
+import { NoteMap } from 'domain/Note';
 import StickyNote from './StickyNote';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 
 export interface CommentsBoardProps {
   notes?: NoteMap;
+  auth: any;
 }
 
-const commentsborad: React.SFC<CommentsBoardProps> = ({ notes = {} }) => (
+const commentsborad: React.SFC<CommentsBoardProps> = ({ notes = {}, auth }) => (
   <div className="columns is-desktop">
-    {createList(notes).map((note, index) => (
-      <StickyNote key={index} note={note} removeNote={f} />
-    ))}
+    {Object.keys(notes).map(key => {
+      return (
+        <StickyNote
+          key={key}
+          noteId={key}
+          note={notes[key]}
+          removeNote={f}
+          auth={auth}
+        />
+      );
+    })}
     <ConfirmModal
       isActive={false}
       message="本当に削除してよろしいですか？"
@@ -22,17 +31,6 @@ const commentsborad: React.SFC<CommentsBoardProps> = ({ notes = {} }) => (
     <InputForm />
   </div>
 );
-
-const createList = (notes: NoteMap): Note[] => {
-  if (notes === {}) {
-    return [];
-  }
-  const noteList: Note[] = [];
-  Object.keys(notes).map(key => {
-    noteList.push(notes[key]);
-  });
-  return noteList;
-};
 
 const f = () => {};
 

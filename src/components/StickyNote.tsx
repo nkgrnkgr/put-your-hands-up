@@ -4,8 +4,10 @@ import TagLink from 'components/TagLink';
 import { ago } from 'utils/DateTime';
 
 interface StickyNoteProps {
+  noteId: string;
   note: Note;
   removeNote: (oldNoteId: string) => void;
+  auth: any;
 }
 const isLikeNotYet = (id: string, fansIds: string[]): boolean => {
   return fansIds.indexOf(id) === -1;
@@ -15,44 +17,32 @@ const minuteAgo = (updated: number) => {
 };
 
 const stickyNote: React.SFC<StickyNoteProps> = ({
+  noteId,
   note,
-  removeNote = () => {}
+  removeNote = () => {},
+  auth
 }) => {
-  const { noteId, user, noteContents, image } = note;
+  const { user, noteContents } = note;
+  let colorValue = '';
+  if (typeof noteContents.color === 'string') {
+    colorValue = noteContents.color;
+  }
   return (
     <div className="column">
       <div className="card">
-        <header className="card-header has-text-centered is-Loading">
-          {noteContents.isUpdating ? (
-            <p
-              className="card-header-title"
-              style={{ backgroundColor: '#74d76d', color: '#FFFFFF' }}
-            >
-              <span className="icon">
-                <i className="fas fa-spinner fa-spin" />
-              </span>
-              更新しています
-            </p>
-          ) : (
-            ''
-          )}
-        </header>
-        <div
-          className="card-content"
-          style={{ backgroundColor: noteContents.color }}
-        >
+        <div className="card-content" style={{ backgroundColor: colorValue }}>
           <div className="media">
             <div className="media-left">
-              <figure className={`image is-${image.size}x${image.size}`}>
-                <img src={image.url} alt={image.title} />
+              <figure className={`image is-32x32`}>
+                <img src={user.photoURL} alt={user.uid} />
               </figure>
             </div>
             <div className="media-content">
               <p className="title is-7">
-                {user.name} - {minuteAgo(noteContents.updated)}
+                {user.displayName} - {minuteAgo(noteContents.created)}
                 分前
               </p>
-              <p className="subtitle is-7">@{user.id}</p>
+              <p className="subtitle is-7">{user.uid}</p>
             </div>
           </div>
           <div className="content">{noteContents.comment}</div>
@@ -71,11 +61,11 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
         </div>
         <footer
           className="card-footer"
-          style={{ backgroundColor: noteContents.color }}
+          style={{ backgroundColor: noteContents.color.toString() }}
         >
           <a href="#" className="card-footer-item">
             <span className="icon">
-              {isLikeNotYet(user.id, noteContents.fansIds) ? (
+              {isLikeNotYet(user.uid, noteContents.fansIds) ? (
                 <i className="far fa-heart" />
               ) : (
                 <i className="fas fa-heart" />
@@ -83,7 +73,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
             </span>
             <span>{noteContents.fansIds.length}</span>
           </a>
-          {noteContents.editable ? (
+          {auth.uid === note.noteContents.createUserId ? (
             <a
               href="#"
               className="card-footer-item"

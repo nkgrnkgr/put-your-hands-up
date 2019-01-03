@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { signInAnonymously } from 'lib/auth';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { FirebaseUser } from 'domain/FirebaseUser';
 
 export interface LoginProps {
   firebase: any;
@@ -8,13 +9,14 @@ export interface LoginProps {
 }
 
 const login: React.SFC<LoginProps> = ({ firebase, auth }) => {
-  const user = {
-    photoUrl: auth.photoURL,
+  const user: FirebaseUser = {
+    uid: auth.uid,
+    photoURL: auth.photoURL,
     displayName: auth.displayName
   };
 
   if (auth.isAnonymous) {
-    user.photoUrl = 'https://bulma.io/images/placeholders/128x128.png';
+    user.photoURL = 'https://bulma.io/images/placeholders/128x128.png';
     user.displayName = '匿名ユーザー';
   }
 
@@ -23,7 +25,7 @@ const login: React.SFC<LoginProps> = ({ firebase, auth }) => {
       <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
-            <img src={user.photoUrl} />
+            <img src={user.photoURL} />
           </p>
         </figure>
         <div className="media-content">

@@ -11,7 +11,8 @@ interface StateProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  notes: state.firestore.ordered.notes
+  notes: state.firestore.ordered.notes,
+  auth: state.firebase.auth
 });
 
 const enhance = compose(
