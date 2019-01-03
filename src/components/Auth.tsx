@@ -13,7 +13,6 @@ const auth: React.SFC<Props> = ({ auth, children }) => {
   ) : isEmpty(auth) ? (
     <Redirect to={'/login'} />
   ) : (
-    // <pre>{JSON.stringify(auth, null, 2)}</pre>
     children
   );
 };

@@ -1,22 +1,13 @@
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, setDisplayName, pure } from 'recompose';
 
 import CommentsBoard, { CommentsBoardProps } from 'components/CommentsBoard';
 import { CombinedState as State } from 'reducers/root';
-import { Note, NoteMap } from 'domain/Note';
+import { NoteMap } from 'domain/Note';
 import { firestoreConnect, withFirestore } from 'react-redux-firebase';
-
-// firebaseConnect
-// Thunk で非同期でaddする
 
 interface StateProps {
   notes: NoteMap;
-}
-
-interface DispatchProps {
-  addNote?: (note: Note) => void;
-  removeNote?: (noteId: string) => void;
-  updateNote?: (noteId: string, note: Note) => void;
 }
 
 const mapStateToProps = (state: State) => ({
@@ -24,9 +15,11 @@ const mapStateToProps = (state: State) => ({
 });
 
 const enhance = compose(
+  setDisplayName('EnhancedBoard'),
   firestoreConnect(['notes']),
   withFirestore,
-  connect<StateProps, DispatchProps, CommentsBoardProps>(mapStateToProps)
+  connect<StateProps, CommentsBoardProps>(mapStateToProps),
+  pure
 );
 
 export default enhance(CommentsBoard);
