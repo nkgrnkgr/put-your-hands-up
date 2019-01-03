@@ -28,7 +28,7 @@ const createList = (notes: NoteMap): Note[] => {
     return [];
   }
   const noteList: Note[] = [];
-  Object.keys(notes).map((key, index) => {
+  Object.keys(notes).map(key => {
     noteList.push(notes[key]);
   });
   return noteList;
