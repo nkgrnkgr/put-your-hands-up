@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { signInAnonymously } from 'lib/auth';
-import { LoginUser } from 'domain/LoginUser';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 
 export interface LoginProps {
-  loginUser: LoginUser;
-  login: (loginUser: LoginUser) => void;
-  logout: () => void;
   firebase: any;
   auth: any;
 }
 
-const login: React.SFC<LoginProps> = ({ loginUser, firebase, auth }) => {
+const login: React.SFC<LoginProps> = ({ firebase, auth }) => {
   const user = {
     photoUrl: auth.photoURL,
     displayName: auth.displayName
