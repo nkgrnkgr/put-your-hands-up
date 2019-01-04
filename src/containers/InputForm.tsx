@@ -7,7 +7,7 @@ import Tag from 'domain/Tag';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
 import {
-  toggleInputForm,
+  toggleDisplay,
   onChangeContent,
   addContent,
   addTag,
@@ -29,7 +29,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  toggleInputForm: () => void;
+  toggleDisplay: () => void;
   onChangeTagInput: (inputtingTag: string) => void;
   addContent: (inputtingTag: string) => void;
   addTag: (title: string, isFeatured: boolean) => void;
@@ -53,8 +53,8 @@ const mapDispatchToProps = (
 ): DispatchProps =>
   bindActionCreators(
     {
-      toggleInputForm,
       resetInput,
+      toggleDisplay,
       onChangeContent: (inputtingContent: string) =>
         onChangeContent({ inputtingContent }),
       addContent: (inputtingContent: string) =>

@@ -18,7 +18,7 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  isActive: state.confirmModal.isActive
+  isActive: state.application.isActiveConfirmModal
 });
 
 const mapDispatchToProps = (

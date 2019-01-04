@@ -21,7 +21,7 @@ export interface InputFormProps {
   inputtingTag: string;
   tags: Tag[];
   selectedColor: Color;
-  toggleInputForm: () => void;
+  toggleDisplay: () => void;
   onChangeContent: (inputtingContent: string) => void;
   addContent: (inputtingContent: string) => void;
   onChangeTagInput: (inputtingTag: string) => void;
@@ -39,7 +39,7 @@ const inputForm: React.SFC<InputFormProps> = ({
   inputtingTag = '',
   tags = [],
   selectedColor,
-  toggleInputForm = () => {},
+  toggleDisplay = () => {},
   onChangeContent = () => {},
   addContent = () => {},
   onChangeTagInput = () => {},
@@ -86,7 +86,7 @@ const inputForm: React.SFC<InputFormProps> = ({
       { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
       { user, noteContents }
     );
-    toggleInputForm();
+    toggleDisplay();
     resetInput();
   };
   return (
@@ -96,11 +96,7 @@ const inputForm: React.SFC<InputFormProps> = ({
         <div className="modal-card">
           <header className="modal-card-head has-text-centered">
             <p className="modal-card-title">投稿する</p>
-            <a
-              className="delete"
-              aria-label="close"
-              onClick={toggleInputForm}
-            />
+            <a className="delete" aria-label="close" onClick={toggleDisplay} />
           </header>
           <section className="modal-card-body">
             <div className="field">

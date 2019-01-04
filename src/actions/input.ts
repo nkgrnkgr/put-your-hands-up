@@ -22,7 +22,7 @@ export type InputActionPayload = ContentActionPayload &
   ColorActionPayload &
   TagsActionPayload;
 
-export const toggleInputForm = actionCreater('INPUTFORM_TOGGLE_DISPLAY');
+export const toggleDisplay = actionCreater('INPUTFORM_TOGGLE_DISPLAY');
 
 export const onChangeContent = actionCreater<ContentActionPayload>(
   'CONTENT_ON_CHANGE'

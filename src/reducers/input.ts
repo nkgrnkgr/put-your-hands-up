@@ -21,7 +21,7 @@ const initialState: State = {
 };
 
 const reducer = reducerWithInitialState(initialState)
-  .case(Action.toggleInputForm, state => {
+  .case(Action.toggleDisplay, state => {
     return {
       ...state,
       isActive: !state.isActive

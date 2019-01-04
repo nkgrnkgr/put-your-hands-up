@@ -2,13 +2,13 @@ import * as React from 'react';
 
 export interface NavbarProps {
   isActive: boolean;
-  toggleInputForm: () => void;
+  toggleDisplay: () => void;
   resetInput: () => void;
 }
 
 const tagLink: React.SFC<NavbarProps> = ({
   isActive = false,
-  toggleInputForm = () => {},
+  toggleDisplay = () => {},
   resetInput = () => {}
 }) => (
   <nav
@@ -30,7 +30,7 @@ const tagLink: React.SFC<NavbarProps> = ({
         className="navbar-item navbar-burger"
         aria-label="menu"
         aria-expanded="false"
-        onClick={toggleInputForm}
+        onClick={toggleDisplay}
       >
         <span aria-hidden="true" />
         <span aria-hidden="true" />

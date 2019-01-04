@@ -3,7 +3,7 @@ import { compose, pure, setDisplayName } from 'recompose';
 import Navbar, { NavbarProps } from 'components/Navbar';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
-import { toggleInputForm, resetInput, InputActionPayload } from 'actions/input';
+import { toggleDisplay, resetInput, InputActionPayload } from 'actions/input';
 import { CombinedState as State } from 'reducers/root';
 
 interface StateProps {
@@ -11,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  toggleInputForm: () => void;
+  toggleDisplay: () => void;
   resetInput: () => void;
 }
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = (
 ): DispatchProps =>
   bindActionCreators(
     {
-      toggleInputForm,
+      toggleDisplay,
       resetInput
     },
     dispatch

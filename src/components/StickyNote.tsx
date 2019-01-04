@@ -8,8 +8,8 @@ export interface StickyNoteProps {
   firestore: any;
   auth: any;
 }
-const isLikeNotYet = (id: string, fansIds: string[]): boolean => {
-  return fansIds.indexOf(id) === -1;
+const isLiked = (id: string, fansIds: string[]): boolean => {
+  return fansIds.indexOf(id) !== -1;
 };
 const minuteAgo = (updated: number) => {
   return ago(updated, 'minute');
@@ -31,8 +31,6 @@ const likeNote = async (firestore: any, note: Note, userId: string) => {
       noteContents: c
     };
     firestore.update({ collection: 'notes', doc: note.id }, updateItem);
-  } else {
-    console.log('yet');
   }
 };
 
@@ -85,10 +83,10 @@ const stickyNote: React.SFC<StickyNoteProps> = ({ note, auth, firestore }) => {
             onClick={e => likeNote(firestore, note, auth.uid)}
           >
             <span className="icon">
-              {isLikeNotYet(user.uid, noteContents.fansIds) ? (
-                <i className="far fa-heart" />
-              ) : (
+              {isLiked(user.uid, noteContents.fansIds) ? (
                 <i className="fas fa-heart" />
+              ) : (
+                <i className="far fa-heart" />
               )}
             </span>
             <span>{noteContents.fansIds.length}</span>
