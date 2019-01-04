@@ -23,7 +23,7 @@ const reducer = reducerWithInitialState(initialState)
   .case(ConfirmModalAction.toggleDisplay, state => {
     return {
       ...state,
-      isActiveInputForm: !state.isActiveInputForm
+      isActiveConfirmModal: !state.isActiveConfirmModal
     };
   });
 

@@ -54,6 +54,11 @@ const inputForm: React.SFC<InputFormProps> = ({
     onChangeColor(color.hex);
   };
 
+  const close = () => {
+    toggleDisplay();
+    resetInput();
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -86,9 +91,9 @@ const inputForm: React.SFC<InputFormProps> = ({
       { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
       { user, noteContents }
     );
-    toggleDisplay();
-    resetInput();
+    close();
   };
+
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <div className={`modal ${isActive ? 'is-active' : ''}`}>
@@ -192,7 +197,7 @@ const inputForm: React.SFC<InputFormProps> = ({
             <button type="submit" className="button is-success">
               投稿
             </button>
-            <a className="button" onClick={e => resetInput()}>
+            <a className="button" onClick={e => close()}>
               キャンセル
             </a>
           </footer>

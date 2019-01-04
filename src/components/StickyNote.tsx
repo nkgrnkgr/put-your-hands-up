@@ -7,39 +7,29 @@ export interface StickyNoteProps {
   note: Note;
   firestore: any;
   auth: any;
+  toggleDisplay: () => void;
+  setOkAction: (okAction: () => void) => void;
+  setNgAction: (ngAction: () => void) => void;
 }
-const isLiked = (id: string, fansIds: string[]): boolean => {
-  return fansIds.indexOf(id) !== -1;
-};
-const minuteAgo = (updated: number) => {
-  return ago(updated, 'minute');
-};
-
-const deleteNote = (firestore: any, id: string): void => {
-  firestore.delete({ collection: 'notes', doc: id });
-};
-
-const likeNote = async (firestore: any, note: Note, userId: string) => {
-  if (note.noteContents.fansIds.indexOf(userId) === -1) {
-    const ids = [...note.noteContents.fansIds, userId];
-    const c: NoteContents = {
-      ...note.noteContents,
-      fansIds: ids
-    };
-    const updateItem = {
-      ...note,
-      noteContents: c
-    };
-    firestore.update({ collection: 'notes', doc: note.id }, updateItem);
-  }
-};
-
-const stickyNote: React.SFC<StickyNoteProps> = ({ note, auth, firestore }) => {
+const stickyNote: React.SFC<StickyNoteProps> = ({
+  note,
+  auth,
+  firestore,
+  toggleDisplay,
+  setOkAction,
+  setNgAction
+}) => {
   const { user, noteContents } = note;
   let colorValue = '';
   if (typeof noteContents.color === 'string') {
     colorValue = noteContents.color;
   }
+  const deleteNote = (id: string): void => {
+    setOkAction(() => {
+      firestore.delete({ collection: 'notes', doc: id });
+    });
+    toggleDisplay();
+  };
 
   return (
     <div className="column">
@@ -95,7 +85,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({ note, auth, firestore }) => {
             <a
               href="#"
               className="card-footer-item"
-              onClick={e => deleteNote(firestore, note.id)}
+              onClick={e => deleteNote(note.id)}
             >
               <span className="icon">
                 <i className="fas fa-trash-alt" />
@@ -108,6 +98,28 @@ const stickyNote: React.SFC<StickyNoteProps> = ({ note, auth, firestore }) => {
       </div>
     </div>
   );
+};
+
+const isLiked = (id: string, fansIds: string[]): boolean => {
+  return fansIds.indexOf(id) !== -1;
+};
+const minuteAgo = (updated: number) => {
+  return ago(updated, 'minute');
+};
+
+const likeNote = async (firestore: any, note: Note, userId: string) => {
+  if (note.noteContents.fansIds.indexOf(userId) === -1) {
+    const ids = [...note.noteContents.fansIds, userId];
+    const c: NoteContents = {
+      ...note.noteContents,
+      fansIds: ids
+    };
+    const updateItem = {
+      ...note,
+      noteContents: c
+    };
+    firestore.update({ collection: 'notes', doc: note.id }, updateItem);
+  }
 };
 
 export default stickyNote;
