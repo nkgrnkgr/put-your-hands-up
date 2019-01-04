@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Note } from 'domain/Note';
 import TagLink from 'components/TagLink';
 import { ago } from 'utils/DateTime';
-
-interface StickyNoteProps {
-  noteId: string;
+import NoteContents from 'domain/NoteContents';
+export interface StickyNoteProps {
   note: Note;
-  removeNote: (oldNoteId: string) => void;
+  firestore: any;
   auth: any;
 }
 const isLikeNotYet = (id: string, fansIds: string[]): boolean => {
@@ -16,17 +15,34 @@ const minuteAgo = (updated: number) => {
   return ago(updated, 'minute');
 };
 
-const stickyNote: React.SFC<StickyNoteProps> = ({
-  noteId,
-  note,
-  removeNote = () => {},
-  auth
-}) => {
+const deleteNote = (firestore: any, id: string): void => {
+  firestore.delete({ collection: 'notes', doc: id });
+};
+
+const likeNote = async (firestore: any, note: Note, userId: string) => {
+  if (note.noteContents.fansIds.indexOf(userId) === -1) {
+    const ids = [...note.noteContents.fansIds, userId];
+    const c: NoteContents = {
+      ...note.noteContents,
+      fansIds: ids
+    };
+    const updateItem = {
+      ...note,
+      noteContents: c
+    };
+    firestore.update({ collection: 'notes', doc: note.id }, updateItem);
+  } else {
+    console.log('yet');
+  }
+};
+
+const stickyNote: React.SFC<StickyNoteProps> = ({ note, auth, firestore }) => {
   const { user, noteContents } = note;
   let colorValue = '';
   if (typeof noteContents.color === 'string') {
     colorValue = noteContents.color;
   }
+
   return (
     <div className="column">
       <div className="card">
@@ -63,7 +79,11 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
           className="card-footer"
           style={{ backgroundColor: noteContents.color.toString() }}
         >
-          <a href="#" className="card-footer-item">
+          <a
+            href="#"
+            className="card-footer-item"
+            onClick={e => likeNote(firestore, note, auth.uid)}
+          >
             <span className="icon">
               {isLikeNotYet(user.uid, noteContents.fansIds) ? (
                 <i className="far fa-heart" />
@@ -77,7 +97,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
             <a
               href="#"
               className="card-footer-item"
-              onClick={e => removeNote(noteId)}
+              onClick={e => deleteNote(firestore, note.id)}
             >
               <span className="icon">
                 <i className="fas fa-trash-alt" />

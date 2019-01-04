@@ -82,10 +82,10 @@ const inputForm: React.SFC<InputFormProps> = ({
       created: new Date().getTime()
     };
 
-    firestore.add('notes', {
-      user,
-      noteContents
-    });
+    firestore.set(
+      { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
+      { user, noteContents }
+    );
     toggleInputForm();
     resetInput();
   };
