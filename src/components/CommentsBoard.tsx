@@ -9,7 +9,7 @@ export interface CommentsBoardProps {
 }
 
 const commentsborad: React.SFC<CommentsBoardProps> = ({ notes = {} }) => (
-  <div className="columns is-desktop">
+  <div className="columns is-multiline">
     {Object.keys(notes).map(key => {
       return <StickyNote key={key} note={notes[key]} />;
     })}
