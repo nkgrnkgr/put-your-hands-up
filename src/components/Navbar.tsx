@@ -92,7 +92,7 @@ const tagLink: React.SFC<NavbarProps> = ({
                     </a>
                     <a className="button is-info" onClick={toggleDisplay}>
                       <span className="icon">
-                        <i className="far fa-hand-paper" />
+                        <i className="fas fa-pen" />
                       </span>
                       <span>投稿する</span>
                     </a>

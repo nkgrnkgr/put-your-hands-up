@@ -5,6 +5,7 @@ import 'css/animation.css';
 import CommentsBoard from 'containers/CommentsBoard';
 import Navbar from 'containers/Navbar';
 import Login from 'containers/Login';
+import FloatBotton from 'containers/FloatBotton';
 // import Auth from 'containers/Auth';
 
 const app: React.SFC = () => (
@@ -19,6 +20,13 @@ const app: React.SFC = () => (
             <div className="container">
               <CommentsBoard />
             </div>
+            <div
+              className="container is-flex-mobile"
+              style={{ display: 'none' }}
+            >
+              <FloatBotton />
+            </div>
+
             {/* <div className="container">
               <nav className="navbar is-fixed-bottom">
                 <div className="container">aaa</div>
