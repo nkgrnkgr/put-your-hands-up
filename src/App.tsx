@@ -5,30 +5,30 @@ import 'css/animation.css';
 import CommentsBoard from 'containers/CommentsBoard';
 import Navbar from 'containers/Navbar';
 import Login from 'containers/Login';
-import Auth from 'containers/Auth';
+// import Auth from 'containers/Auth';
 
 const app: React.SFC = () => (
   <>
     <Switch>
       <Route path={'/login'} render={props => <Login />} />
-      <Auth>
-        <Route
-          path={'/'}
-          render={props => (
-            <section className="section">
-              <Navbar />
-              <div className="container">
-                <CommentsBoard />
-              </div>
-              <div className="container">
-                <nav className="navbar is-fixed-bottom">
-                  <div className="container" />
-                </nav>
-              </div>
-            </section>
-          )}
-        />
-      </Auth>
+      <Route
+        path={'/'}
+        render={props => (
+          <section className="section">
+            <Navbar />
+            <div className="container">
+              <CommentsBoard />
+            </div>
+            <div className="container">
+              <nav className="navbar is-fixed-bottom">
+                <div className="container" />
+              </nav>
+            </div>
+          </section>
+        )}
+      />
+      {/* <Auth>
+      </Auth> */}
     </Switch>
   </>
 );

@@ -2,7 +2,7 @@ import * as React from 'react';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
 import { CirclePicker, Color, ColorResult } from 'react-color';
-import { FirebaseUser } from 'domain/FirebaseUser';
+import userInfo from 'lib/userInfo';
 import NoteContents from 'domain/NoteContents';
 
 const featuredContents = [
@@ -62,35 +62,28 @@ const inputForm: React.SFC<InputFormProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const user: FirebaseUser = {
-      uid: auth.uid,
-      displayName: auth.displayName,
-      photoURL: auth.photoURL
-    };
+    const user = userInfo(auth);
+    if (user) {
+      const tagTiles: string[] = [];
+      tags.map(tag => {
+        tagTiles.push(tag.title);
+      });
 
-    if (auth.isAnonymous) {
-      user.photoURL = 'https://bulma.io/images/placeholders/128x128.png';
-      user.displayName = '匿名ユーザー';
+      const noteContents: NoteContents = {
+        comment: inputtingContent,
+        tagTitles: tagTiles,
+        createUserId: user.uid,
+        fansIds: [],
+        color: selectedColor,
+        created: new Date().getTime()
+      };
+
+      firestore.set(
+        { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
+        { user, noteContents }
+      );
     }
 
-    const tagTiles: string[] = [];
-    tags.map(tag => {
-      tagTiles.push(tag.title);
-    });
-
-    const noteContents: NoteContents = {
-      comment: inputtingContent,
-      tagTitles: tagTiles,
-      createUserId: user.uid,
-      fansIds: [],
-      color: selectedColor,
-      created: new Date().getTime()
-    };
-
-    firestore.set(
-      { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
-      { user, noteContents }
-    );
     close();
   };
 
