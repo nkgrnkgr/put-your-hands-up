@@ -19,11 +19,11 @@ const app: React.SFC = () => (
             <div className="container">
               <CommentsBoard />
             </div>
-            <div className="container">
+            {/* <div className="container">
               <nav className="navbar is-fixed-bottom">
-                <div className="container" />
+                <div className="container">aaa</div>
               </nav>
-            </div>
+            </div> */}
           </section>
         )}
       />

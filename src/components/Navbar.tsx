@@ -4,40 +4,56 @@ import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
 
 export interface NavbarProps {
+  isActiveMobileMenu: boolean;
   firebase: any;
   auth: any;
   toggleDisplay: () => void;
+  toggleMobileMenu: () => void;
 }
 
 const tagLink: React.SFC<NavbarProps> = ({
+  isActiveMobileMenu = false,
   firebase,
   auth,
-  toggleDisplay = () => {}
+  toggleDisplay = () => {},
+  toggleMobileMenu = () => {}
 }) => {
   return (
     <nav className="navbar is-danger is-fixed-top">
       <div className="container">
-        <a className="navbar-item" href="https://bulma.io">
-          <img
-            src="https://bulma.io/images/bulma-logo-white.png"
-            alt="Bulma: a modern CSS framework based on Flexbox"
-            width="112"
-            height="28"
-          />
-        </a>
-        {userInfo(auth) ? (
-          <figure className="image is-32x32" style={{ marginTop: '10px' }}>
-            <img className="is-rounded" src={userInfo(auth).photoURL} />
-          </figure>
-        ) : (
-          <span />
-        )}
-        <a className="navbar-burger burger" onClick={toggleDisplay}>
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </a>
-        <div className="navbar-menu">
+        <div className="navbar-brand">
+          <a className="navbar-item" href="https://bulma.io">
+            <img
+              src="https://bulma.io/images/bulma-logo-white.png"
+              alt="Bulma: a modern CSS framework based on Flexbox"
+              width="112"
+              height="28"
+            />
+          </a>
+          <a className="navbar-burger burger" onClick={toggleMobileMenu}>
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </a>
+        </div>
+        <div className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}>
+          <div className="navbar-start">
+            <a className="navbar-item" href="/">
+              Home
+            </a>
+            <a className="navbar-item" href="/about">
+              About
+            </a>
+            <a
+              className="navbar-item"
+              href="https://github.com/nkgrnkgr/put-your-hands-up"
+            >
+              <span className="icon is-small">
+                <i className="fab fa-github" />
+              </span>
+              <span>&nbsp;Github</span>
+            </a>
+          </div>
           <div className="navbar-end">
             <div className="navbar-item">
               {!isLoaded(auth) ? (
@@ -85,6 +101,15 @@ const tagLink: React.SFC<NavbarProps> = ({
               )}
             </div>
           </div>
+          {userInfo(auth) ? (
+            <span>
+              <figure className="image is-32x32" style={{ marginTop: '10px' }}>
+                <img className="is-rounded" src={userInfo(auth).photoURL} />
+              </figure>
+            </span>
+          ) : (
+            <span />
+          )}
         </div>
       </div>
     </nav>

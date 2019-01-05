@@ -4,6 +4,7 @@ import Navbar, { NavbarProps } from 'components/Navbar';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
 import { toggleDisplay, InputActionPayload } from 'actions/input';
+import { toggleMobileMenu } from 'actions/mobileMenu';
 import { CombinedState as State } from 'reducers/root';
 import { firebaseConnect } from 'react-redux-firebase';
 
@@ -13,10 +14,12 @@ interface StateProps {
 
 interface DispatchProps {
   toggleDisplay: () => void;
+  toggleMobileMenu: () => void;
 }
 
 const mapStateToProps = (state: State) => ({
-  auth: state.firebase.auth
+  auth: state.firebase.auth,
+  isActiveMobileMenu: state.application.isActiveMobileMenu
 });
 
 const mapDispatchToProps = (
@@ -24,7 +27,8 @@ const mapDispatchToProps = (
 ): DispatchProps =>
   bindActionCreators(
     {
-      toggleDisplay
+      toggleDisplay,
+      toggleMobileMenu
     },
     dispatch
   );
