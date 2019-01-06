@@ -27,6 +27,7 @@ const enhance = compose<EnhancedProps, {}>(
   connect<StateProps, {}, ListProps>(mapStateToProps),
   lifecycle<EnhancedProps, {}, {}>({
     componentDidMount() {
+      console.log(this.props);
       this.props.firestore.setListener({
         collection: 'events',
         where: ['organizerUid', '==', this.props.auth.uid]
