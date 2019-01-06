@@ -1,22 +1,19 @@
 import * as React from 'react';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import userInfo from 'lib/userInfo';
-import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
 
-export interface NavbarProps {
+export interface NavbarOrganizerProps {
   isActiveMobileMenu: boolean;
   firebase: any;
   auth: any;
-  toggleDisplay: () => void;
   toggleMobileMenu: () => void;
 }
 
-const navbar: React.SFC<NavbarProps> = ({
+const navbarOrganizer: React.SFC<NavbarOrganizerProps> = ({
   isActiveMobileMenu = false,
   firebase,
   auth,
-  toggleDisplay = () => {},
   toggleMobileMenu = () => {}
 }) => {
   return (
@@ -37,6 +34,9 @@ const navbar: React.SFC<NavbarProps> = ({
             <a className="navbar-item" href="/">
               Home
             </a>
+            <a className="navbar-item" href="/organizer">
+              Organizer
+            </a>
             <a className="navbar-item" href="/about">
               About
             </a>
@@ -55,28 +55,7 @@ const navbar: React.SFC<NavbarProps> = ({
               {!isLoaded(auth) ? (
                 <span>Loading...</span>
               ) : isEmpty(auth) ? (
-                <div className="buttons">
-                  <a
-                    className="button is-light"
-                    onClick={e => signInAnonymously()}
-                  >
-                    <span className="icon">
-                      <i className="fas fa-user-secret" />
-                    </span>
-                    <span>匿名でログイン</span>
-                  </a>
-                  <a
-                    className="button is-info"
-                    onClick={e =>
-                      firebase.login({ provider: 'twitter', type: 'popup' })
-                    }
-                  >
-                    <span className="icon">
-                      <i className="fab fa-twitter" />
-                    </span>
-                    <span>Twitterでログイン</span>
-                  </a>
-                </div>
+                <span />
               ) : (
                 <div>
                   <div className="buttons">
@@ -85,12 +64,6 @@ const navbar: React.SFC<NavbarProps> = ({
                         <i className="fas fa-sign-out-alt" />
                       </span>
                       <span>ログアウト</span>
-                    </a>
-                    <a className="button is-info" onClick={toggleDisplay}>
-                      <span className="icon">
-                        <i className="fas fa-pen" />
-                      </span>
-                      <span>投稿する</span>
                     </a>
                   </div>
                 </div>
@@ -112,4 +85,4 @@ const navbar: React.SFC<NavbarProps> = ({
   );
 };
 
-export default navbar;
+export default navbarOrganizer;
