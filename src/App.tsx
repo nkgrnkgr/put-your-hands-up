@@ -8,25 +8,20 @@ import Login from 'containers/Login';
 import FloatBotton from 'containers/FloatBotton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
-// import Auth from 'containers/Auth';
+import Edit from 'containers/Organizer/Edit';
 
 const app: React.SFC = () => (
   <>
     <Switch>
       <Route path={'/login'} render={props => <Login />} />
       <Route
-        exact={true}
         path={'/organizer'}
         render={props => (
           <OrganizerPage>
             <Route exact={true} path={'/organizer'} component={List} />
+            <Route {...props} path={'/organizer/edit/:id'} component={Edit} />
             <Route
-              exact={true}
-              path={'/organizer/edit'}
-              render={props => <div>Edit</div>}
-            />
-            <Route
-              exact={true}
+              {...props}
               path={'/organizer/create'}
               render={props => <div>create</div>}
             />

@@ -33,6 +33,10 @@ export const getYearMonth = (dateTime: number): string => {
   return get(dateTime, 'YYYY/MM/DD');
 };
 
+export const getFullDate = (dateTime: number): string => {
+  return get(dateTime, 'YYYY/MM/DD HH:mm:ss');
+};
+
 export const newDateTimeValue = (
   dateTime: number,
   unit: dayjs.UnitType,

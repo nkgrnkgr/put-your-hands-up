@@ -32,7 +32,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
   };
 
   return (
-    <div className="column is-3">
+    <div className="column is-3 animated bounceInUp">
       <div className="card">
         <div className="card-content" style={{ backgroundColor: colorValue }}>
           <div className="media">

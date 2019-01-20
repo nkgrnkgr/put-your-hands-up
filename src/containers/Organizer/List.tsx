@@ -3,11 +3,11 @@ import { compose, pure, setDisplayName, lifecycle } from 'recompose';
 import List, { ListProps } from 'components/Organizer/List';
 import { CombinedState as State } from 'reducers/root';
 import { withFirestore } from 'react-redux-firebase';
-import { EventMap } from 'domain/Event';
+import { Event } from 'domain/Event';
 
 interface StateProps {
   auth: any;
-  events: EventMap;
+  events: Event[];
 }
 
 interface FirebaseProps {
@@ -27,7 +27,6 @@ const enhance = compose<EnhancedProps, {}>(
   connect<StateProps, {}, ListProps>(mapStateToProps),
   lifecycle<EnhancedProps, {}, {}>({
     componentDidMount() {
-      console.log(this.props);
       this.props.firestore.setListener({
         collection: 'events',
         where: ['organizerUid', '==', this.props.auth.uid]
