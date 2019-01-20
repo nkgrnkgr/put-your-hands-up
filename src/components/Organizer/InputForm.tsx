@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Event } from 'domain/Event';
 import { Formik, Field, FieldArray, Form, FormikActions } from 'formik';
+// tslint:disable-next-line
+import ReactDatepicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export interface InputFormProps {
   event?: Event;
@@ -60,12 +63,15 @@ const inputForm: React.SFC<InputFormProps> = ({ event }) => {
                 開催日時
               </label>
               <div className="control">
-                <Field
+                <ReactDatepicker
+                  selected={new Date(values.date)}
+                  onChange={d => console.log(d)}
+                  showTimeSelect={true}
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="yyyy/MM/dd HH:mm"
+                  timeCaption="time"
                   className="input"
-                  id="date"
-                  name="date"
-                  placeholder="date"
-                  type="text"
                 />
               </div>
             </div>

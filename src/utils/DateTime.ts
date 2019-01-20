@@ -79,3 +79,16 @@ const get = (dateTime: number, format: string): string => {
     .locale('ja')
     .format(format);
 };
+
+// export const createDateInstanceFrom = (unixtime: number): Date => {
+//   const d = dayjs(unixtime);
+//   console.log(d.year());
+//   return new Date(
+//     d.year(),
+//     d.month(),
+//     d.date(),
+//     d.hour(),
+//     d.minute(),
+//     d.second()
+//   );
+// };
