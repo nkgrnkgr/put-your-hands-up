@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EventMap } from 'domain/Event';
+import { Event, EventMap } from 'domain/Event';
 import { match } from 'react-router';
 import InputForm from 'containers/Organizer/InputForm';
 
@@ -14,19 +14,35 @@ export interface EditProps {
   events: EventMap;
 }
 
-const edit: React.SFC<EditProps> = ({ events }) => {
+const edit: React.SFC<EditProps> = ({ events, firestore }) => {
   let event = undefined;
   if (events) {
     event = events[0];
   }
+  const handleUpdateEvent = (updateItem: Event, event: Event) => {
+    const { name, ltTitles, date } = updateItem;
+    firestore.update(
+      { collection: 'events', doc: event.id },
+      {
+        ...event,
+        name,
+        ltTitles,
+        date
+      }
+    );
+  };
+
   if (event) {
     return (
       <div>
-        <h2>Edit</h2>
+        <h1 className="title is-2">イベント編集</h1>
+        <InputForm
+          event={event}
+          handleSubmit={updateItem => handleUpdateEvent(updateItem, events[0])}
+        />
         <div>
           <pre>{JSON.stringify(events, undefined, 2)}</pre>
         </div>
-        <InputForm event={event} />
       </div>
     );
   }

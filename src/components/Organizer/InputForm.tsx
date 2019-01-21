@@ -4,25 +4,34 @@ import { Formik, Field, FieldArray, Form, FormikActions } from 'formik';
 // tslint:disable-next-line
 import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import * as H from 'history';
 export interface InputFormProps {
   event?: Event;
+  handleSubmit: (values: any) => void;
+  history: H.History;
 }
 
 interface Values {
+  id: string;
   name: string;
   ltTitles: string[];
   date: number;
 }
 
-const inputForm: React.SFC<InputFormProps> = ({ event }) => {
+const inputForm: React.SFC<InputFormProps> = ({
+  event,
+  handleSubmit,
+  history
+}) => {
   let initialValues: Values = {
+    id: 'ccc',
     name: '',
     ltTitles: [],
     date: 0
   };
   if (event) {
     initialValues = {
+      id: event.id,
       name: event.name,
       ltTitles: event.ltTitles,
       date: event.date
@@ -30,7 +39,6 @@ const inputForm: React.SFC<InputFormProps> = ({ event }) => {
   }
   return (
     <div>
-      <h2>InputForm</h2>
       <Formik
         initialValues={initialValues}
         onSubmit={(
@@ -38,8 +46,9 @@ const inputForm: React.SFC<InputFormProps> = ({ event }) => {
           { setSubmitting }: FormikActions<Values>
         ) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            handleSubmit(values);
             setSubmitting(false);
+            history.push('/organizer');
           }, 500);
         }}
         render={({ values, setFieldValue }) => (
