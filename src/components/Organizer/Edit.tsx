@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { EventMap } from 'domain/Event';
 import { match } from 'react-router';
-import InputForm from 'components/Organizer/InputForm';
+import InputForm from 'containers/Organizer/InputForm';
 
 interface Params {
   id: string;
@@ -14,7 +14,7 @@ export interface EditProps {
   events: EventMap;
 }
 
-const list: React.SFC<EditProps> = ({ events }) => {
+const edit: React.SFC<EditProps> = ({ events }) => {
   let event = undefined;
   if (events) {
     event = events[0];
@@ -33,4 +33,4 @@ const list: React.SFC<EditProps> = ({ events }) => {
   return <></>;
 };
 
-export default list;
+export default edit;

@@ -42,7 +42,7 @@ const inputForm: React.SFC<InputFormProps> = ({ event }) => {
             setSubmitting(false);
           }, 500);
         }}
-        render={({ values }) => (
+        render={({ values, setFieldValue }) => (
           <Form>
             <div className="field">
               <label className="label" htmlFor="name">
@@ -63,9 +63,14 @@ const inputForm: React.SFC<InputFormProps> = ({ event }) => {
                 開催日時
               </label>
               <div className="control">
+                <Field name="date" style={{ display: 'none' }} />
                 <ReactDatepicker
                   selected={new Date(values.date)}
-                  onChange={d => console.log(d)}
+                  onChange={date => {
+                    if (date) {
+                      setFieldValue('date', date.getTime());
+                    }
+                  }}
                   showTimeSelect={true}
                   timeFormat="HH:mm"
                   timeIntervals={15}

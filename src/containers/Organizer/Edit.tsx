@@ -34,7 +34,6 @@ const enhance = compose<EnhancedProps, ReactRouterProps>(
   connect<StateProps, {}, EditProps>(mapStateToProps),
   lifecycle<EnhancedProps & ReactRouterProps, {}, {}>({
     componentDidMount() {
-      console.log(this.props);
       this.props.firestore.get({
         collection: 'events',
         where: [
