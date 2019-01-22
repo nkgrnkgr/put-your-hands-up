@@ -10,7 +10,7 @@ import { CombinedState as State } from 'reducers/root';
 import { firebaseConnect } from 'react-redux-firebase';
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
 }
 
 interface DispatchProps {
@@ -22,7 +22,9 @@ const mapStateToProps = (state: State) => ({
   isActiveMobileMenu: state.application.isActiveMobileMenu
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<any>>): DispatchProps =>
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action<unknown>>
+): DispatchProps =>
   bindActionCreators(
     {
       toggleMobileMenu

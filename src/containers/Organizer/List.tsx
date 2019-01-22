@@ -6,19 +6,21 @@ import { withFirestore } from 'react-redux-firebase';
 import { Event } from 'domain/Event';
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
   events: Event[];
 }
 
 interface FirebaseProps {
-  firestore: any;
+  firestore: Firestore;
 }
 
 type EnhancedProps = StateProps & FirebaseProps;
 
+type FirestoreEvents = Firestore & { ordered: { events: Event[] } };
+
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
-  events: state.firestore.ordered.events
+  events: (state.firestore as FirestoreEvents).ordered.events
 });
 
 const enhance = compose<EnhancedProps, {}>(

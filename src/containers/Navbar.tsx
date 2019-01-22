@@ -9,7 +9,7 @@ import { CombinedState as State } from 'reducers/root';
 import { firebaseConnect } from 'react-redux-firebase';
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
 }
 
 interface DispatchProps {

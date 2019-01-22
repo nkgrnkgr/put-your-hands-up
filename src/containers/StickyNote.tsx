@@ -18,7 +18,7 @@ interface OuterProps {
 }
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
 }
 interface DispatchProps {
   toggleDisplay: () => void;

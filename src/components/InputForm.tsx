@@ -29,8 +29,8 @@ export interface InputFormProps {
   removeTag: (index: number) => void;
   onChangeColor: (color: Color) => void;
   resetInput: () => void;
-  firestore?: any;
-  auth: any;
+  firestore?: Firestore;
+  auth: Auth;
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
@@ -47,7 +47,7 @@ const inputForm: React.SFC<InputFormProps> = ({
   removeTag = () => {},
   onChangeColor = () => {},
   resetInput = () => {},
-  firestore = {},
+  firestore,
   auth
 }) => {
   const onChangeHandleColor = (color: ColorResult) => {
@@ -78,10 +78,12 @@ const inputForm: React.SFC<InputFormProps> = ({
         created: new Date().getTime()
       };
 
-      firestore.set(
-        { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
-        { user, noteContents }
-      );
+      if (firestore && firestore.set) {
+        firestore.set(
+          { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
+          { user, noteContents }
+        );
+      }
     }
 
     close();

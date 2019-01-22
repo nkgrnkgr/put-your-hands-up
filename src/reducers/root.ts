@@ -17,8 +17,8 @@ export interface CombinedState {
   application: applicationState;
   input: inputState;
   confirm: confirmState;
-  firebase: any;
-  firestore: any;
+  firebase: Firebase;
+  firestore: Firestore;
 }
 
 export default rootReducer;

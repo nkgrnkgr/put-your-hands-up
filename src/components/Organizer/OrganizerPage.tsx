@@ -3,9 +3,9 @@ import NavbarOrganizer from 'containers/Organizer/NavbarOrganizer';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 
 export interface OrganizerPageProps {
-  firebase: any;
-  auth: any;
-  children: any;
+  firebase: Firebase;
+  auth: Auth;
+  children: React.ReactNode;
 }
 
 const organizerPage: React.SFC<OrganizerPageProps> = ({

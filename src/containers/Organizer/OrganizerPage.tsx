@@ -7,7 +7,7 @@ import OrganizerPage, {
 } from 'components/Organizer/OrganizerPage';
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
 }
 
 const mapStateToProps = (state: State) => ({

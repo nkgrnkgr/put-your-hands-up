@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
 export interface InputFormProps {
   event?: Event;
-  handleSubmit: (values: any) => void;
+  handleSubmit: (values: unknown) => void;
   history: H.History;
 }
 

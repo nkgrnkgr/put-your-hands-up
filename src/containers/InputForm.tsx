@@ -25,7 +25,7 @@ interface StateProps {
   tags: Tag[];
   selectedColor: Color;
   inputtingContent: string;
-  auth?: any;
+  auth?: Auth;
 }
 
 interface DispatchProps {

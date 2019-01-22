@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 interface OuterProps {
   event?: Event;
-  handleSubmit: (values: any) => void;
+  handleSubmit: (values: unknown) => void;
 }
 
 const enhance = compose<{}, OuterProps>(

@@ -4,8 +4,8 @@ import { isLoaded, isEmpty } from 'react-redux-firebase';
 import { FirebaseUser } from 'domain/FirebaseUser';
 
 export interface LoginProps {
-  firebase: any;
-  auth: any;
+  firebase: Firebase;
+  auth: Auth;
 }
 
 const login: React.SFC<LoginProps> = ({ firebase, auth }) => {
