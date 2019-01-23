@@ -5,15 +5,18 @@ import { firebase } from './firebase';
 import { rrfConfig } from './firebase/config';
 import root from 'reducers/root';
 
+// tslint:disable-next-line:no-any
+type Window = any;
+
 const store = createStore(
   root,
   compose(
     reactReduxFirebase(firebase, rrfConfig),
     reduxFirestore(firebase),
     process.env.NODE_ENV === 'development' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__
-      ? (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-      : (f: any) => f
+    (window as Window).__REDUX_DEVTOOLS_EXTENSION__
+      ? (window as Window).__REDUX_DEVTOOLS_EXTENSION__()
+      : (f: unknown) => f
   )
 );
 

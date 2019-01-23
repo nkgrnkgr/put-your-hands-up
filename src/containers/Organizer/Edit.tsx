@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { EventMap } from 'domain/Event';
 
 interface StateProps {
-  auth: any;
+  auth: Auth;
   events: EventMap;
 }
 
@@ -18,14 +18,16 @@ interface Params {
 interface ReactRouterProps extends RouteComponentProps<Params> {}
 
 interface FirebaseProps {
-  firestore: any;
+  firestore: Firestore;
 }
 
 type EnhancedProps = StateProps & FirebaseProps;
 
+type FirestoreEvents = Firestore & { ordered: { events: EventMap } };
+
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
-  events: state.firestore.ordered.events
+  events: (state.firestore as FirestoreEvents).ordered.events
 });
 
 const enhance = compose<EnhancedProps, ReactRouterProps>(

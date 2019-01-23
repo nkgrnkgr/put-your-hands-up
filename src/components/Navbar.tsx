@@ -6,8 +6,8 @@ import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
-  firebase: any;
-  auth: any;
+  firebase: Firebase;
+  auth: Auth;
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
 }

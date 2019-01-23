@@ -10,8 +10,10 @@ interface StateProps {
   notes: NoteMap;
 }
 
+type FirestoreNotes = Firestore & { ordered: { notes: NoteMap } };
+
 const mapStateToProps = (state: State) => ({
-  notes: state.firestore.ordered.notes
+  notes: (state.firestore as FirestoreNotes).ordered.notes
 });
 
 const enhance = compose(

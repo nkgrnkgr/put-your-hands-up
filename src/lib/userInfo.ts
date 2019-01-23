@@ -1,6 +1,6 @@
 import { FirebaseUser } from 'domain/FirebaseUser';
 
-const userInfo = (auth: any): FirebaseUser => {
+const userInfo = (auth: Auth): FirebaseUser => {
   const user: FirebaseUser = {
     uid: auth.uid,
     displayName: auth.displayName,

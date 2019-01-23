@@ -8,8 +8,8 @@ interface Params {
 }
 
 export interface EditProps {
-  auth: any;
-  firestore: any;
+  auth: Auth;
+  firestore: Firestore;
   match: match<Params>;
   events: EventMap;
 }
@@ -38,7 +38,9 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
         <h1 className="title is-2">イベント編集</h1>
         <InputForm
           event={event}
-          handleSubmit={updateItem => handleUpdateEvent(updateItem, events[0])}
+          handleSubmit={updateItem =>
+            handleUpdateEvent(updateItem as Event, events[0])
+          }
         />
         <div>
           <pre>{JSON.stringify(events, undefined, 2)}</pre>

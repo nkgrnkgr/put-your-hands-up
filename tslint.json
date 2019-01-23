@@ -15,7 +15,8 @@
         "semi": true
       }
     ],
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-any": true
   },
   "linterOptions": {
     "exclude": [

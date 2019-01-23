@@ -5,8 +5,8 @@ import { decrement } from 'utils/DateTime';
 
 export interface ListProps {
   events: Event[];
-  auth: any;
-  firestore: any;
+  auth: Auth;
+  firestore: Firestore;
 }
 
 const isPast = (date: number): boolean => {

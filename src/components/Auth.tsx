@@ -3,11 +3,11 @@ import { Redirect } from 'react-router';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 
 interface Props {
-  children: any;
-  auth: any;
+  auth: Auth;
 }
 
-const auth: React.SFC<Props> = ({ auth, children }) => {
+const auth: React.SFC<Props> = props => {
+  const { auth, children } = props;
   return !isLoaded(auth) ? (
     <div className="container">
       <span>Loading...</span>
@@ -15,7 +15,7 @@ const auth: React.SFC<Props> = ({ auth, children }) => {
   ) : isEmpty(auth) ? (
     <Redirect to={'/login'} />
   ) : (
-    children
+    <>{children}</>
   );
 };
 

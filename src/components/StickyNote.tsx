@@ -5,8 +5,8 @@ import { ago } from 'utils/DateTime';
 import NoteContents from 'domain/NoteContents';
 export interface StickyNoteProps {
   note: Note;
-  firestore: any;
-  auth: any;
+  firestore: Firestore;
+  auth: Auth;
   toggleDisplay: () => void;
   setOkAction: (okAction: () => void) => void;
   setNgAction: (ngAction: () => void) => void;
@@ -107,7 +107,7 @@ const minuteAgo = (updated: number) => {
   return ago(updated, 'minute');
 };
 
-const likeNote = async (firestore: any, note: Note, userId: string) => {
+const likeNote = async (firestore: Firestore, note: Note, userId: string) => {
   if (note.noteContents.fansIds.indexOf(userId) === -1) {
     const ids = [...note.noteContents.fansIds, userId];
     const c: NoteContents = {
