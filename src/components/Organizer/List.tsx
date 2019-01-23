@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Event } from 'domain/Event';
-import Box from './Box';
+import Box from 'containers/Organizer/Box';
 import { decrement } from 'utils/DateTime';
 
 export interface ListProps {
