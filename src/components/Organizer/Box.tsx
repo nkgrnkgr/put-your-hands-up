@@ -18,7 +18,8 @@ const box: React.SFC<BoxProps> = ({
 }) => {
   const deleteEvent = (id: string): void => {
     setOkAction(() => {
-      firestore.delete({ collection: 'events', doc: id });
+      console.log(id);
+      // firestore.delete({ collection: 'events', doc: id });
     });
     toggleDisplay();
   };

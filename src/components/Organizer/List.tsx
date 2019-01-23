@@ -17,11 +17,15 @@ const isPast = (date: number): boolean => {
 const list: React.SFC<ListProps> = ({ events }) => {
   return (
     <div>
-      <h2>Events</h2>
-      <div>
-        <pre>{JSON.stringify(events, undefined, 2)}</pre>
-      </div>
-      <h3>次回イベント</h3>
+      <h1 className="title is-1">イベント</h1>
+      <a href="/organizer/create" className="button is-success">
+        <span className="icon is-small">
+          <i className="fas fa-plus" aria-hidden="true" />
+        </span>
+        <span>新規イベントを作成する</span>
+      </a>
+      <hr />
+      <h3 className="title is-3">次回イベント</h3>
       <div>
         {events
           ? events
@@ -33,7 +37,8 @@ const list: React.SFC<ListProps> = ({ events }) => {
               })
           : ''}
       </div>
-      <h3>終了したイベント</h3>
+      <hr />
+      <h3 className="title is-3">終了したイベント</h3>
       <div>
         {events
           ? events
@@ -44,6 +49,10 @@ const list: React.SFC<ListProps> = ({ events }) => {
                 return <Box key={index} event={event} />;
               })
           : ''}
+      </div>
+      <hr />
+      <div>
+        <pre>{JSON.stringify(events, undefined, 2)}</pre>
       </div>
     </div>
   );

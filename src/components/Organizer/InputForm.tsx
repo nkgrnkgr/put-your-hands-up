@@ -24,10 +24,10 @@ const inputForm: React.SFC<InputFormProps> = ({
   history
 }) => {
   let initialValues: Values = {
-    id: 'ccc',
+    id: '',
     name: '',
     ltTitles: [],
-    date: 0
+    date: new Date().getTime()
   };
   if (event) {
     initialValues = {
@@ -150,7 +150,9 @@ const inputForm: React.SFC<InputFormProps> = ({
                 </button>
               </p>
               <p className="control">
-                <a className="button is-light">キャンセル</a>
+                <a className="button is-light" href="/organizer">
+                  キャンセル
+                </a>
               </p>
             </div>
           </Form>

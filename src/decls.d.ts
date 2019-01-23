@@ -14,6 +14,7 @@ declare interface Firebase {
 declare interface Firestore {
   get: Function;
   set?: Function;
+  add: Function;
   update: Function;
   delete: Function;
   setListener: Function;

@@ -9,6 +9,7 @@ import FloatBotton from 'containers/FloatBotton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
+import Create from 'containers/Organizer/Create';
 
 const app: React.SFC = () => (
   <>
@@ -20,11 +21,7 @@ const app: React.SFC = () => (
           <OrganizerPage>
             <Route exact={true} path={'/organizer'} component={List} />
             <Route {...props} path={'/organizer/edit/:id'} component={Edit} />
-            <Route
-              {...props}
-              path={'/organizer/create'}
-              render={props => <div>create</div>}
-            />
+            <Route {...props} path={'/organizer/create'} component={Create} />
           </OrganizerPage>
         )}
       />
