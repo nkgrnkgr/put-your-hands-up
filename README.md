@@ -37,7 +37,7 @@ yarn
 yarn start
 ```
 
-![alt](./images/cap.png)
+![alt](./src/images/cap.png)
 
 
 
