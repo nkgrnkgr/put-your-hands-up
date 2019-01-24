@@ -8,7 +8,8 @@
 
 > The Whiteboad for  feedback to the speakers.
 
-https://travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master
+![travis](https://travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master)
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flass)
 
 Get started at [ぷちょへんざ](https://put-your-hands-up.firebaseapp.com/)
 
