@@ -31,7 +31,7 @@ const enhance = compose<EnhancedProps, {}>(
     componentDidMount() {
       this.props.firestore.setListener({
         collection: 'events',
-        where: ['organizerUid', '==', this.props.auth.uid]
+        where: [[`organizerUids.${this.props.auth.uid}`, '==', true]]
       });
     }
   }),

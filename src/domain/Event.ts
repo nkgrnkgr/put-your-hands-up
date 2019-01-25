@@ -1,8 +1,9 @@
 export interface Event {
   id: string;
   name: string;
+  url: string;
   date: number;
-  organizerUid: string;
+  organizerUids: { string: boolean };
   ltTitles: string[];
 }
 

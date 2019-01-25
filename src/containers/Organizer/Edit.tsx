@@ -39,7 +39,7 @@ const enhance = compose<EnhancedProps, ReactRouterProps>(
       this.props.firestore.get({
         collection: 'events',
         where: [
-          ['organizerUid', '==', this.props.auth.uid],
+          [`organizerUids.${this.props.auth.uid}`, '==', true],
           ['id', '==', this.props.match.params.id]
         ]
       });

@@ -5,6 +5,7 @@ import { Formik, Field, FieldArray, Form, FormikActions } from 'formik';
 import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
+import { createRandomId } from 'utils/Id';
 export interface InputFormProps {
   event?: Event;
   handleSubmit: (values: unknown) => void;
@@ -14,6 +15,7 @@ export interface InputFormProps {
 interface Values {
   id: string;
   name: string;
+  url: string;
   ltTitles: string[];
   date: number;
 }
@@ -23,9 +25,11 @@ const inputForm: React.SFC<InputFormProps> = ({
   handleSubmit,
   history
 }) => {
+  const id = createRandomId();
   let initialValues: Values = {
-    id: '',
+    id,
     name: '',
+    url: id,
     ltTitles: [],
     date: new Date().getTime()
   };
@@ -33,6 +37,7 @@ const inputForm: React.SFC<InputFormProps> = ({
     initialValues = {
       id: event.id,
       name: event.name,
+      url: event.url,
       ltTitles: event.ltTitles,
       date: event.date
     };
@@ -86,6 +91,20 @@ const inputForm: React.SFC<InputFormProps> = ({
                   dateFormat="yyyy/MM/dd HH:mm"
                   timeCaption="time"
                   className="input"
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label" htmlFor="date">
+                イベントURL
+              </label>
+              <div className="control">
+                <Field
+                  className="input"
+                  id="url"
+                  name="url"
+                  placeholder="name"
+                  type="text"
                 />
               </div>
             </div>
