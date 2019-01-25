@@ -24,7 +24,9 @@ const edit: React.SFC<CreateProps> = ({ firestore, auth }) => {
           id,
           ltTitles,
           name,
-          organizerUid: auth.uid
+          organizerUids: {
+            [auth.uid]: true
+          }
         }
       );
     }

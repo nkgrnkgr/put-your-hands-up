@@ -3,7 +3,7 @@ export interface Event {
   name: string;
   url: string;
   date: number;
-  organizerUid: string;
+  organizerUids: { string: boolean };
   ltTitles: string[];
 }
 
