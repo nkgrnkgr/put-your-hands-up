@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Event } from 'domain/Event';
 import { match } from 'react-router';
 import InputForm from 'containers/Organizer/InputForm';
-import { createRandomId } from 'utils/Id';
 
 interface Params {
   id: string;
@@ -16,8 +15,7 @@ export interface CreateProps {
 
 const edit: React.SFC<CreateProps> = ({ firestore, auth }) => {
   const handleCreateEvent = (event: Event) => {
-    const { date, ltTitles, name } = event;
-    const id = createRandomId();
+    const { id, date, ltTitles, name } = event;
     if (firestore && firestore.set) {
       firestore.set(
         { collection: 'events', doc: id },

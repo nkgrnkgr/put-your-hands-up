@@ -1,6 +1,7 @@
 import * as React from 'react';
 import NavbarOrganizer from 'containers/Organizer/NavbarOrganizer';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
+import ConfirmModal from 'containers/ConfirmModal';
 
 export interface OrganizerPageProps {
   firebase: Firebase;
@@ -17,6 +18,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
     <>
       <NavbarOrganizer />
       <section className="section">
+        <ConfirmModal message="本当に削除してよろしいですか？" />
         <div className="container">
           <div>
             {!isLoaded(auth) ? (

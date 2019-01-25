@@ -24,6 +24,10 @@ interface DispatchProps {
   setNgAction: (action: () => void) => void;
 }
 
+const mapStateToProps = (state: StateProps) => {
+  return {};
+};
+
 const mapDispatchToProps = (
   dispatch: Dispatch<Action<ConfirmModalActionPayload>>
 ): DispatchProps =>
@@ -41,7 +45,10 @@ type EnhancedBoxProps = StateProps & DispatchProps;
 const enhance = compose<EnhancedBoxProps, OuterProps>(
   setDisplayName('EnhancedBox'),
   withFirestore,
-  connect<StateProps, DispatchProps, BoxProps>(mapDispatchToProps),
+  connect<StateProps, DispatchProps, BoxProps>(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   pure
 );
 
