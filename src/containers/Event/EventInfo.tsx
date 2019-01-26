@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { compose, pure, setDisplayName, lifecycle } from 'recompose';
-import EventInfo, { EventInfoProps } from 'components/EventInfo';
+import EventInfo, { EventInfoProps } from 'components/Event/EventInfo';
 import { CombinedState as State } from 'reducers/root';
 import { withFirestore } from 'react-redux-firebase';
 import { RouteComponentProps } from 'react-router';

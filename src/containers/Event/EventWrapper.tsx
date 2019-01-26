@@ -1,17 +1,16 @@
 import { connect } from 'react-redux';
-import { compose, setDisplayName, pure, lifecycle } from 'recompose';
-import CommentsBoard, {
-  CommentsBoardProps
-} from 'components/Event/CommentsBoard';
+import { compose, pure, setDisplayName, lifecycle } from 'recompose';
+import EventWrapper, { EventWrapperProps } from 'components/Event/EventWrapper';
 import { CombinedState as State } from 'reducers/root';
-import { NoteMap } from 'domain/Note';
 import { withFirestore } from 'react-redux-firebase';
 import { RouteComponentProps } from 'react-router';
+import { Events } from 'domain/Event';
 
 interface StateProps {
   auth: Auth;
-  notes: NoteMap;
+  events: Events;
 }
+
 interface Params {
   eventurl: string;
 }
@@ -24,21 +23,21 @@ interface FirebaseProps {
 
 type EnhancedProps = StateProps & FirebaseProps;
 
-type FirestoreNotes = Firestore & { ordered: { notes: NoteMap } };
+type FirestoreEvents = Firestore & { ordered: { events: Events } };
 
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
-  notes: (state.firestore as FirestoreNotes).ordered.notes
+  events: (state.firestore as FirestoreEvents).ordered.events
 });
 
 const enhance = compose<EnhancedProps, ReactRouterProps>(
-  setDisplayName('EnhancedBoard'),
+  setDisplayName('EnhancedEventWrapper'),
   withFirestore,
-  connect<StateProps, {}, CommentsBoardProps>(mapStateToProps),
+  connect<StateProps, {}, EventWrapperProps>(mapStateToProps),
   lifecycle<EnhancedProps & ReactRouterProps, {}, {}>({
     componentDidMount() {
-      this.props.firestore.setListener({
-        collection: 'notes',
+      this.props.firestore.get({
+        collection: 'events',
         where: [['id', '==', this.props.match.params.eventurl]]
       });
     }
@@ -46,4 +45,4 @@ const enhance = compose<EnhancedProps, ReactRouterProps>(
   pure
 );
 
-export default enhance(CommentsBoard);
+export default enhance(EventWrapper);

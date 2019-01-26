@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import 'bulma/css/bulma.css';
 import 'css/font.css';
 import 'css/animation.css';
-import CommentsBoard from 'containers/CommentsBoard';
+import CommentsBoard from 'containers/Event/CommentsBoard';
 import Navbar from 'containers/Navbar';
 import Login from 'containers/Login';
 import FloatBotton from 'containers/FloatBotton';
@@ -12,8 +12,9 @@ import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
 import Create from 'containers/Organizer/Create';
 import Home from 'components/Home';
-import EventInfo from 'containers/EventInfo';
-import Tabs from 'components/Tabs';
+import EventInfo from 'containers/Event/EventInfo';
+import Tabs from 'components/Event/Tabs';
+import EventWrapper from 'containers/Event/EventWrapper';
 
 const app: React.SFC = () => (
   <>
@@ -36,9 +37,11 @@ const app: React.SFC = () => (
           <section className="section">
             <Navbar />
             <div className="container">
-              <EventInfo {...props} />
-              <Tabs {...props} />
-              <CommentsBoard {...props} />
+              <EventWrapper {...props}>
+                <EventInfo {...props} />
+                <Tabs {...props} />
+                <CommentsBoard {...props} />
+              </EventWrapper>
             </div>
             <div
               className="container is-flex-mobile"
