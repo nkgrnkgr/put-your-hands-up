@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import 'bulma/css/bulma.css';
+import 'css/font.css';
 import 'css/animation.css';
 import CommentsBoard from 'containers/CommentsBoard';
 import Navbar from 'containers/Navbar';
