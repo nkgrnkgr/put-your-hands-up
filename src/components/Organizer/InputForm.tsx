@@ -7,30 +7,34 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
 import { createRandomId } from 'utils/Id';
 export interface InputFormProps {
+  auth: Auth;
   event?: Event;
   handleSubmit: (values: unknown) => void;
   history: H.History;
 }
 
-interface Values {
+export interface InputFormValues {
   id: string;
   name: string;
   url: string;
   ltTitles: string[];
+  organizerUidsKeyNames: string[];
   date: number;
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
+  auth,
   event,
   handleSubmit,
   history
 }) => {
   const id = createRandomId();
-  let initialValues: Values = {
+  let initialValues: InputFormValues = {
     id,
     name: '',
     url: id,
     ltTitles: [],
+    organizerUidsKeyNames: [auth.uid],
     date: new Date().getTime()
   };
   if (event) {
@@ -39,7 +43,8 @@ const inputForm: React.SFC<InputFormProps> = ({
       name: event.name,
       url: event.url,
       ltTitles: event.ltTitles,
-      date: event.date
+      date: event.date,
+      organizerUidsKeyNames: Object.keys(event.organizerUids)
     };
   }
   return (
@@ -47,8 +52,8 @@ const inputForm: React.SFC<InputFormProps> = ({
       <Formik
         initialValues={initialValues}
         onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikActions<Values>
+          values: InputFormValues,
+          { setSubmitting }: FormikActions<InputFormValues>
         ) => {
           setTimeout(() => {
             handleSubmit(values);
@@ -110,7 +115,7 @@ const inputForm: React.SFC<InputFormProps> = ({
             </div>
             <div className="field">
               <label className="label" htmlFor="date">
-                登壇タイトル
+                登壇者タイトル
               </label>
               <FieldArray
                 name="ltTitles"
@@ -154,6 +159,61 @@ const inputForm: React.SFC<InputFormProps> = ({
                             onClick={() => arraryHelper.push('')}
                           >
                             Add a LT Title
+                          </button>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="field">
+              <label className="label" htmlFor="date">
+                編集権限を持つオーガナイザー
+              </label>
+              <FieldArray
+                name="organizerUidsKeyNames"
+                render={arraryHelper => (
+                  <div>
+                    {values.organizerUidsKeyNames &&
+                    values.organizerUidsKeyNames.length > 0 ? (
+                      values.organizerUidsKeyNames.map((id, index) => (
+                        <div className="field is-grouped" key={index}>
+                          <p className="control">
+                            <button
+                              type="button"
+                              className="button is-danger"
+                              onClick={() => arraryHelper.remove(index)}
+                            >
+                              -
+                            </button>
+                          </p>
+                          <p className="control">
+                            <button
+                              type="button"
+                              className="button is-info"
+                              onClick={() => arraryHelper.insert(index + 1, '')}
+                            >
+                              +
+                            </button>
+                          </p>
+                          <p className="control is-expanded">
+                            <Field
+                              className="input"
+                              name={`organizerUidsKeyNames.${index}`}
+                            />
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="field is-grouped">
+                        <p className="control">
+                          <button
+                            type="button"
+                            className="button is-info"
+                            onClick={() => arraryHelper.push('')}
+                          >
+                            Add a OrganizerUid
                           </button>
                         </p>
                       </div>

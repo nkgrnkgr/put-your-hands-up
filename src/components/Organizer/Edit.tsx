@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Event, EventMap } from 'domain/Event';
 import { match } from 'react-router';
 import InputForm from 'containers/Organizer/InputForm';
+import { InputFormValues } from './InputForm';
 
 interface Params {
   id: string;
@@ -19,15 +20,24 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
   if (events) {
     event = events[0];
   }
-  const handleUpdateEvent = (updateItem: Event, event: Event) => {
-    const { name, ltTitles, date } = updateItem;
+  const handleUpdateEvent = (updateItem: InputFormValues, event: Event) => {
+    const { name, ltTitles, date, organizerUidsKeyNames } = updateItem;
+    let organizerUids = {};
+    organizerUidsKeyNames.map((name, index) => {
+      organizerUids = {
+        ...organizerUids,
+        [name]: true
+      };
+    });
+    console.log(organizerUids);
     firestore.update(
       { collection: 'events', doc: event.id },
       {
         ...event,
         name,
         ltTitles,
-        date
+        date,
+        organizerUids
       }
     );
   };
@@ -39,7 +49,7 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
         <InputForm
           event={event}
           handleSubmit={updateItem =>
-            handleUpdateEvent(updateItem as Event, events[0])
+            handleUpdateEvent(updateItem as InputFormValues, events[0])
           }
         />
         <div>
