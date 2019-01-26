@@ -2,6 +2,7 @@ import * as React from 'react';
 import { signInAnonymously } from 'lib/auth';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import { FirebaseUser } from 'domain/FirebaseUser';
+import Loading from './Loading';
 
 export interface LoginProps {
   firebase: Firebase;
@@ -63,7 +64,7 @@ const login: React.SFC<LoginProps> = ({ firebase, auth }) => {
       <br />
       <div>
         {!isLoaded(auth) ? (
-          <span>Loading...</span>
+          <Loading />
         ) : isEmpty(auth) ? (
           <span>Not Authed</span>
         ) : (

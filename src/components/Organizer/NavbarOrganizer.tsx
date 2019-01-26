@@ -2,6 +2,7 @@ import * as React from 'react';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import userInfo from 'lib/userInfo';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
+import Loading from 'components/Loading';
 
 export interface NavbarOrganizerProps {
   isActiveMobileMenu: boolean;
@@ -53,7 +54,7 @@ const navbarOrganizer: React.SFC<NavbarOrganizerProps> = ({
           <div className="navbar-end">
             <div className="navbar-item">
               {!isLoaded(auth) ? (
-                <span>Loading...</span>
+                <Loading />
               ) : isEmpty(auth) ? (
                 <span />
               ) : (

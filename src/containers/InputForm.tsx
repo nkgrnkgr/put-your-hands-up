@@ -18,6 +18,7 @@ import {
   resetInput
 } from 'actions/input';
 import { withFirestore, firebaseConnect } from 'react-redux-firebase';
+import { Event } from 'domain/Event';
 
 interface StateProps {
   isActive: boolean;
@@ -29,7 +30,7 @@ interface StateProps {
 }
 
 interface OuterProps {
-  eventurl: string;
+  event: Event;
 }
 
 interface DispatchProps {

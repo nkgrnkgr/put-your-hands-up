@@ -4,6 +4,7 @@ import Tag from 'domain/Tag';
 import { CirclePicker, Color, ColorResult } from 'react-color';
 import userInfo from 'lib/userInfo';
 import NoteContents from 'domain/NoteContents';
+import { Event } from 'domain/Event';
 
 const featuredContents = [
   '登壇お疲れさまでした👏',
@@ -16,7 +17,7 @@ const featuredContents = [
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
-  eventurl: string;
+  event: Event;
   isActive: boolean;
   inputtingContent: string;
   inputtingTag: string;
@@ -35,7 +36,7 @@ export interface InputFormProps {
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
-  eventurl = '',
+  event,
   isActive = false,
   inputtingContent = '',
   inputtingTag = '',
@@ -80,15 +81,15 @@ const inputForm: React.SFC<InputFormProps> = ({
         created: new Date().getTime()
       };
 
-      const event = {
-        eventId: eventurl,
+      const e = {
+        eventId: event.id,
         targetLtIndex: 0
       };
 
       if (firestore && firestore.set) {
         firestore.set(
           { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
-          { user, noteContents, event }
+          { user, noteContents, event: e }
         );
       }
     }

@@ -18,7 +18,7 @@ const commentsborad: React.SFC<CommentsBoardProps> = ({
   match
 }) => (
   <div className="columns is-multiline">
-    {notes === {} ? (
+    {notes !== {} ? (
       Object.keys(notes).map(key => <StickyNote key={key} note={notes[key]} />)
     ) : (
       <div>

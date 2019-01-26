@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Event, Events } from 'domain/Event';
 import EventInfo from 'components/Event/EventInfo';
 import Tabs from './Tabs';
-import CommentsBoard from 'containers/CommentsBoard';
+import CommentsBoard from 'containers/Event/CommentsBoard';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
+import Loading from 'components/Loading';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -12,7 +13,7 @@ export interface EventWrapperProps {
   events: Events;
 }
 
-const eventWrapper: React.SFC<EventWrapperProps> = props => {
+const eventWrapper: React.SFC<EventWrapperProps> = ({ events }) => {
   const e: Event = {
     id: '',
     name: '',
@@ -23,18 +24,20 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     },
     ltTitles: []
   };
-  const event = props.events ? props.events[0] : e;
-  console.log('called');
-  console.log(event);
-  return (
-    <>
-      <EventInfo event={event} />
-      <Tabs {...props} event={event} />
-      <CommentsBoard {...props} />
-      <ConfirmModal message="本当に削除してよろしいですか？" />
-      <InputForm eventurl={event.url} />
-    </>
-  );
+  const event: Event = events ? events[0] : e;
+
+  if (events) {
+    return (
+      <>
+        <EventInfo event={event} />
+        <Tabs event={event} />
+        <CommentsBoard event={event} />
+        <ConfirmModal message="本当に削除してよろしいですか？" />
+        <InputForm event={event} />
+      </>
+    );
+  }
+  return <Loading />;
 };
 
 export default eventWrapper;

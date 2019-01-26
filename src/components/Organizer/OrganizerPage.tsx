@@ -2,6 +2,7 @@ import * as React from 'react';
 import NavbarOrganizer from 'containers/Organizer/NavbarOrganizer';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import ConfirmModal from 'containers/ConfirmModal';
+import Loading from 'components/Loading';
 
 export interface OrganizerPageProps {
   firebase: Firebase;
@@ -22,7 +23,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
         <div className="container">
           <div>
             {!isLoaded(auth) ? (
-              <span>Loading...</span>
+              <Loading />
             ) : isEmpty(auth) ? (
               <div className="notification">
                 <div className="level">
