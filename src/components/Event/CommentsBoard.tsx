@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { NoteMap } from 'domain/Note';
 import StickyNote from 'containers/StickyNote';
-import InputForm from 'containers/InputForm';
-import ConfirmModal from 'containers/ConfirmModal';
 import { match } from 'react-router';
 
 interface Params {
@@ -27,8 +25,6 @@ const commentsborad: React.SFC<CommentsBoardProps> = ({
         <p>現在投稿はありません</p>
       </div>
     )}
-    <ConfirmModal message="本当に削除してよろしいですか？" />
-    <InputForm eventurl={match.params.eventurl} />
   </div>
 );
 

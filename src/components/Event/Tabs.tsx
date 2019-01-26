@@ -1,23 +1,26 @@
 import * as React from 'react';
+import { Event } from 'domain/Event';
 
-export interface TabsProps {}
+export interface TabsProps {
+  event: Event;
+}
 
-const tabs: React.SFC<TabsProps> = () => {
+const tabs: React.SFC<TabsProps> = ({ event }) => {
   return (
-    <div className="tabs">
+    <div
+      className="tabs"
+      style={{
+        overflow: 'hidden'
+      }}
+    >
       <ul>
-        <li className="is-active">
-          <a>Pictures</a>
-        </li>
-        <li>
-          <a>Music</a>
-        </li>
-        <li>
-          <a>Videos</a>
-        </li>
-        <li>
-          <a>Documents</a>
-        </li>
+        {event.ltTitles.map((title, index) => {
+          return (
+            <li key={index}>
+              <a>{title}</a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

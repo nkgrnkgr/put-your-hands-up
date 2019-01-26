@@ -35,6 +35,7 @@ export interface InputFormProps {
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
+  eventurl = '',
   isActive = false,
   inputtingContent = '',
   inputtingTag = '',
@@ -79,10 +80,15 @@ const inputForm: React.SFC<InputFormProps> = ({
         created: new Date().getTime()
       };
 
+      const event = {
+        eventId: eventurl,
+        targetLtIndex: 0
+      };
+
       if (firestore && firestore.set) {
         firestore.set(
           { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
-          { user, noteContents }
+          { user, noteContents, event }
         );
       }
     }

@@ -1,30 +1,11 @@
 import * as React from 'react';
-import { Events, Event } from 'domain/Event';
-import { match } from 'react-router';
+import { Event } from 'domain/Event';
 import { getFullDate } from 'utils/DateTime';
-
-interface Params {
-  eventurl: string;
-}
-
 export interface EventInfoProps {
-  auth: Auth;
-  firestore: Firestore;
-  match: match<Params>;
-  events: Events;
+  event: Event;
 }
 
-const eventInfo: React.SFC<EventInfoProps> = ({ events }) => {
-  const event: Event = events
-    ? events[0]
-    : {
-        id: '',
-        name: '',
-        url: '',
-        date: 0,
-        organizerUids: {},
-        ltTitles: []
-      };
+const eventInfo: React.SFC<EventInfoProps> = ({ event }) => {
   return (
     <article className="message">
       <div className="message-header">

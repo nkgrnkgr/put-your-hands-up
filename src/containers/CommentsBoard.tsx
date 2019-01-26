@@ -39,7 +39,7 @@ const enhance = compose<EnhancedProps, ReactRouterProps>(
     componentDidMount() {
       this.props.firestore.setListener({
         collection: 'notes',
-        where: [['id', '==', this.props.match.params.eventurl]]
+        where: [['event.eventId', '==', this.props.match.params.eventurl]]
       });
     }
   }),
