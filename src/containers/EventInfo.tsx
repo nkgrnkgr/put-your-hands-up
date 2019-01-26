@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { compose, pure, setDisplayName, lifecycle } from 'recompose';
-import Edit, { EditProps } from 'components/Organizer/Edit';
+import EventInfo, { EventInfoProps } from 'components/EventInfo';
 import { CombinedState as State } from 'reducers/root';
 import { withFirestore } from 'react-redux-firebase';
 import { RouteComponentProps } from 'react-router';
@@ -12,7 +12,7 @@ interface StateProps {
 }
 
 interface Params {
-  id: string;
+  eventurl: string;
 }
 
 interface ReactRouterProps extends RouteComponentProps<Params> {}
@@ -31,21 +31,18 @@ const mapStateToProps = (state: State) => ({
 });
 
 const enhance = compose<EnhancedProps, ReactRouterProps>(
-  setDisplayName('EnhancedList'),
+  setDisplayName('EnhancedEventInfo'),
   withFirestore,
-  connect<StateProps, {}, EditProps>(mapStateToProps),
+  connect<StateProps, {}, EventInfoProps>(mapStateToProps),
   lifecycle<EnhancedProps & ReactRouterProps, {}, {}>({
     componentDidMount() {
       this.props.firestore.get({
         collection: 'events',
-        where: [
-          [`organizerUids.${this.props.auth.uid}`, '==', true],
-          ['id', '==', this.props.match.params.id]
-        ]
+        where: [['id', '==', this.props.match.params.eventurl]]
       });
     }
   }),
   pure
 );
 
-export default enhance(Edit);
+export default enhance(EventInfo);

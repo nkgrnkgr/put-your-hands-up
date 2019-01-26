@@ -28,6 +28,10 @@ interface StateProps {
   auth?: Auth;
 }
 
+interface OuterProps {
+  eventurl: string;
+}
+
 interface DispatchProps {
   toggleDisplay: () => void;
   onChangeTagInput: (inputtingTag: string) => void;
@@ -71,11 +75,11 @@ const mapDispatchToProps = (
 
 type EnhancedInputFormProps = StateProps & DispatchProps;
 
-const enhance = compose<EnhancedInputFormProps, {}>(
+const enhance = compose<EnhancedInputFormProps, OuterProps>(
   setDisplayName('EnhancedInputForm'),
   firebaseConnect(),
   withFirestore,
-  connect<StateProps, DispatchProps, InputFormProps>(
+  connect<StateProps, DispatchProps, InputFormProps & OuterProps>(
     mapStateToProps,
     mapDispatchToProps
   ),

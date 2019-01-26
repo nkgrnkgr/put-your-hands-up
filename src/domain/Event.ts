@@ -7,6 +7,6 @@ export interface Event {
   ltTitles: string[];
 }
 
-export interface EventMap {
-  [s: string]: Event;
+export interface Events {
+  events: Event[];
 }

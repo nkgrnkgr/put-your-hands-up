@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Event, EventMap } from 'domain/Event';
+import { Event, Events } from 'domain/Event';
 import { match } from 'react-router';
 import InputForm from 'containers/Organizer/InputForm';
 import { InputFormValues } from './InputForm';
@@ -12,7 +12,7 @@ export interface EditProps {
   auth: Auth;
   firestore: Firestore;
   match: match<Params>;
-  events: EventMap;
+  events: Events;
 }
 
 const edit: React.SFC<EditProps> = ({ events, firestore }) => {
@@ -29,7 +29,6 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
         [name]: true
       };
     });
-    console.log(organizerUids);
     firestore.update(
       { collection: 'events', doc: event.id },
       {

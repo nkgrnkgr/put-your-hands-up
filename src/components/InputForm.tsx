@@ -16,6 +16,7 @@ const featuredContents = [
 const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
+  eventurl: string;
   isActive: boolean;
   inputtingContent: string;
   inputtingTag: string;

@@ -11,10 +11,14 @@ import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
 import Create from 'containers/Organizer/Create';
+import Home from 'components/Home';
+import EventInfo from 'containers/EventInfo';
+import Tabs from 'components/Tabs';
 
 const app: React.SFC = () => (
   <>
     <Switch>
+      <Route exact={true} path={'/'} component={Home} />
       <Route path={'/login'} render={props => <Login />} />
       <Route
         path={'/organizer'}
@@ -27,12 +31,14 @@ const app: React.SFC = () => (
         )}
       />
       <Route
-        path={'/'}
+        path={'/events/:eventurl'}
         render={props => (
           <section className="section">
             <Navbar />
             <div className="container">
-              <CommentsBoard />
+              <EventInfo {...props} />
+              <Tabs {...props} />
+              <CommentsBoard {...props} />
             </div>
             <div
               className="container is-flex-mobile"
@@ -40,17 +46,9 @@ const app: React.SFC = () => (
             >
               <FloatBotton />
             </div>
-
-            {/* <div className="container">
-              <nav className="navbar is-fixed-bottom">
-                <div className="container">aaa</div>
-              </nav>
-            </div> */}
           </section>
         )}
       />
-      {/* <Auth>
-      </Auth> */}
     </Switch>
   </>
 );
