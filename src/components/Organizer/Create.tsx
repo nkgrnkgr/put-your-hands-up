@@ -15,7 +15,7 @@ export interface CreateProps {
 
 const edit: React.SFC<CreateProps> = ({ firestore, auth }) => {
   const handleCreateEvent = (event: Event) => {
-    const { id, date, ltTitles, name } = event;
+    const { id, date, url, ltTitles, name } = event;
     if (firestore && firestore.set) {
       firestore.set(
         { collection: 'events', doc: id },
@@ -24,6 +24,7 @@ const edit: React.SFC<CreateProps> = ({ firestore, auth }) => {
           id,
           ltTitles,
           name,
+          url,
           organizerUids: {
             [auth.uid]: true
           }

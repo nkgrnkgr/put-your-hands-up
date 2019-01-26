@@ -33,7 +33,7 @@ const inputForm: React.SFC<InputFormProps> = ({
     id,
     name: '',
     url: id,
-    ltTitles: [],
+    ltTitles: [''],
     organizerUidsKeyNames: [auth.uid],
     date: new Date().getTime()
   };
@@ -72,7 +72,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                   className="input"
                   id="name"
                   name="name"
-                  placeholder="name"
+                  placeholder="例）第2回 Kubernetes 関西ユーザーグループ 勉強会"
                   type="text"
                 />
               </div>
@@ -101,21 +101,23 @@ const inputForm: React.SFC<InputFormProps> = ({
             </div>
             <div className="field">
               <label className="label" htmlFor="date">
-                イベントURL
+                イベントURL (※現在は変更できません)
               </label>
               <div className="control">
                 <Field
                   className="input"
+                  style={{ color: 'gray' }}
                   id="url"
                   name="url"
-                  placeholder="name"
+                  placeholder="例) kube-kansai-com-22"
                   type="text"
+                  readonly="true"
                 />
               </div>
             </div>
             <div className="field">
               <label className="label" htmlFor="date">
-                登壇者タイトル
+                登壇タイトル
               </label>
               <FieldArray
                 name="ltTitles"
@@ -146,6 +148,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                             <Field
                               className="input"
                               name={`ltTitles.${index}`}
+                              placeholder="Kubernetes に向いてるサービス向いてないサービス"
                             />
                           </p>
                         </div>
@@ -211,7 +214,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                           <button
                             type="button"
                             className="button is-info"
-                            onClick={() => arraryHelper.push('')}
+                            onClick={() => arraryHelper.push(auth.uid)}
                           >
                             Add a OrganizerUid
                           </button>

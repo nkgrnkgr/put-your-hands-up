@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Event } from 'domain/Event';
 import { getFullDate } from 'utils/DateTime';
+import { eventsUrl } from 'utils/Url';
 
 export interface BoxProps {
   event: Event;
@@ -29,7 +30,13 @@ const box: React.SFC<BoxProps> = ({
           <div className="content">
             <h4 className="strong">{event.name}</h4>
             <p>開催日時 : {getFullDate(event.date)}</p>
-            <p>LTタイトル</p>
+            <p>
+              URL :{' '}
+              <a href={eventsUrl(event.url)} target="_blank">
+                {eventsUrl(event.url)}
+              </a>
+            </p>
+            <p>登壇タイトル</p>
             <ul>
               {event.ltTitles.map((title, index) => {
                 return <li key={index}>{title}</li>;

@@ -17,7 +17,7 @@ const isPast = (date: number): boolean => {
 const list: React.SFC<ListProps> = ({ events }) => {
   return (
     <div>
-      <h1 className="title is-1">イベント</h1>
+      <h1 className="title is-1">イベントの管理</h1>
       <a href="/organizer/create" className="button is-success">
         <span className="icon is-small">
           <i className="fas fa-plus" aria-hidden="true" />
