@@ -24,7 +24,7 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     organizerUids: {
       string: false
     },
-    ltTitles: []
+    lts: []
   };
   const event: Event = events ? events[0] : e;
 

@@ -21,7 +21,8 @@ const tabs: React.SFC<TabsProps> = ({
   history,
   match
 }) => {
-  const titles = ['Info', ...event.ltTitles];
+  const titles = ['Info'];
+  event.lts.map(lt => titles.push(lt.title));
   const handleClick = (index: number) => {
     selectTab(index);
     console.log(match.path);

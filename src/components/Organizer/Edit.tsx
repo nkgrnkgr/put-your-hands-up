@@ -21,7 +21,7 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
     event = events[0];
   }
   const handleUpdateEvent = (updateItem: InputFormValues, event: Event) => {
-    const { name, ltTitles, date, organizerUidsKeyNames } = updateItem;
+    const { name, lts, date, organizerUidsKeyNames } = updateItem;
     let organizerUids = {};
     organizerUidsKeyNames.map((name, index) => {
       organizerUids = {
@@ -34,7 +34,7 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
       {
         ...event,
         name,
-        ltTitles,
+        lts,
         date,
         organizerUids
       }

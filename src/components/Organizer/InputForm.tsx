@@ -6,6 +6,8 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
 import { createRandomId } from 'utils/Id';
+import { Lt } from 'domain/Lt';
+import FormWrapper from 'components/Organizer/FormWrapper';
 export interface InputFormProps {
   auth: Auth;
   event?: Event;
@@ -17,7 +19,7 @@ export interface InputFormValues {
   id: string;
   name: string;
   url: string;
-  ltTitles: string[];
+  lts: Lt[];
   organizerUidsKeyNames: string[];
   date: number;
 }
@@ -29,11 +31,18 @@ const inputForm: React.SFC<InputFormProps> = ({
   history
 }) => {
   const id = createRandomId();
+  const initialLtVvalue: Lt = {
+    title: '',
+    speakerName: '',
+    documentUrl1: '',
+    documentUrl2: '',
+    documentUrl3: ''
+  };
   let initialValues: InputFormValues = {
     id,
     name: '',
     url: id,
-    ltTitles: [''],
+    lts: [initialLtVvalue],
     organizerUidsKeyNames: [auth.uid],
     date: new Date().getTime()
   };
@@ -42,7 +51,7 @@ const inputForm: React.SFC<InputFormProps> = ({
       id: event.id,
       name: event.name,
       url: event.url,
-      ltTitles: event.ltTitles,
+      lts: event.lts,
       date: event.date,
       organizerUidsKeyNames: Object.keys(event.organizerUids)
     };
@@ -63,168 +72,200 @@ const inputForm: React.SFC<InputFormProps> = ({
         }}
         render={({ values, setFieldValue }) => (
           <Form>
-            <div className="field">
-              <label className="label" htmlFor="name">
-                イベント名
-              </label>
-              <div className="control">
-                <Field
-                  className="input"
-                  id="name"
-                  name="name"
-                  placeholder="例）第2回 Kubernetes 関西ユーザーグループ 勉強会"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="date">
-                開催日時
-              </label>
-              <div className="control">
-                <Field name="date" style={{ display: 'none' }} />
-                <ReactDatepicker
-                  selected={new Date(values.date)}
-                  onChange={date => {
-                    if (date) {
-                      setFieldValue('date', date.getTime());
-                    }
-                  }}
-                  showTimeSelect={true}
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  dateFormat="yyyy/MM/dd HH:mm"
-                  timeCaption="time"
-                  className="input"
-                />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="date">
-                イベントURL (※現在は変更できません)
-              </label>
-              <div className="control">
-                <Field
-                  className="input"
-                  style={{ color: 'gray' }}
-                  id="url"
-                  name="url"
-                  placeholder="例) kube-kansai-com-22"
-                  type="text"
-                  readonly="true"
-                />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="date">
-                登壇タイトル
-              </label>
-              <FieldArray
-                name="ltTitles"
-                render={arraryHelper => (
-                  <div>
-                    {values.ltTitles && values.ltTitles.length > 0 ? (
-                      values.ltTitles.map((ltTitle, index) => (
-                        <div className="field is-grouped" key={index}>
-                          <p className="control">
-                            <button
-                              type="button"
-                              className="button is-danger"
-                              onClick={() => arraryHelper.remove(index)}
-                            >
-                              -
-                            </button>
-                          </p>
-                          <p className="control">
-                            <button
-                              type="button"
-                              className="button is-info"
-                              onClick={() => arraryHelper.insert(index + 1, '')}
-                            >
-                              +
-                            </button>
-                          </p>
-                          <p className="control is-expanded">
-                            <Field
-                              className="input"
-                              name={`ltTitles.${index}`}
-                              placeholder="Kubernetes に向いてるサービス向いてないサービス"
-                            />
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="field is-grouped">
-                        <p className="control">
+            <FormWrapper labelName="イベント名">
+              <Field
+                className="input"
+                id="name"
+                name="name"
+                placeholder="例）第2回 Kubernetes 関西ユーザーグループ 勉強会"
+                type="text"
+              />
+            </FormWrapper>
+            <FormWrapper labelName="開催日時">
+              <Field name="date" style={{ display: 'none' }} />
+              <ReactDatepicker
+                selected={new Date(values.date)}
+                onChange={date => {
+                  if (date) {
+                    setFieldValue('date', date.getTime());
+                  }
+                }}
+                showTimeSelect={true}
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="yyyy/MM/dd HH:mm"
+                timeCaption="time"
+                className="input"
+              />
+            </FormWrapper>
+            <FormWrapper labelName="URL(変更不可)">
+              <Field
+                className="input"
+                style={{ color: 'gray' }}
+                id="url"
+                name="url"
+                placeholder="例) kube-kansai-com-22"
+                type="text"
+                readOnly={true}
+              />
+            </FormWrapper>
+            <hr />
+            <FormWrapper labelName="登壇者情報">
+              <span />
+            </FormWrapper>
+            <FieldArray
+              name="lts"
+              render={arraryHelper => (
+                <div className="field">
+                  {values.lts && values.lts.length > 0 ? (
+                    values.lts.map((lt, index) => (
+                      <div key={index}>
+                        <FormWrapper labelName="タイトル">
+                          <Field
+                            className="input"
+                            name={`lts.${index}.title`}
+                            placeholder="Kubernetes に向いてるサービス向いてないサービス"
+                          />
+                        </FormWrapper>
+                        <FormWrapper labelName="登壇者">
+                          <Field
+                            className="input"
+                            name={`lts.${index}.speakerName`}
+                            placeholder="@nkgrnkgr"
+                          />
+                        </FormWrapper>
+                        <FormWrapper labelName="登壇資料URL1">
+                          <Field
+                            className="input"
+                            name={`lts.${index}.documentUrl1`}
+                            placeholder="https://speakerdeck.com/..."
+                          />
+                        </FormWrapper>
+                        <FormWrapper labelName="登壇資料URL2">
+                          <Field
+                            className="input"
+                            name={`lts.${index}.documentUrl2`}
+                            placeholder="https://speakerdeck.com/..."
+                          />
+                        </FormWrapper>
+                        <FormWrapper labelName="登壇資料URL3">
+                          <Field
+                            className="input"
+                            name={`lts.${index}.documentUrl3`}
+                            placeholder="https://speakerdeck.com/..."
+                          />
+                        </FormWrapper>
+                        <FormWrapper
+                          labelName=""
+                          classNames="is-grouped is-grouped-centered"
+                        >
+                          <button
+                            type="button"
+                            className="button is-danger"
+                            onClick={() => arraryHelper.remove(index)}
+                          >
+                            -
+                          </button>
                           <button
                             type="button"
                             className="button is-info"
-                            onClick={() => arraryHelper.push('')}
+                            onClick={() =>
+                              arraryHelper.insert(index + 1, initialLtVvalue)
+                            }
                           >
-                            Add a LT Title
+                            +
                           </button>
-                        </p>
+                        </FormWrapper>
+                        <FormWrapper labelName="">
+                          <div />
+                        </FormWrapper>
                       </div>
-                    )}
-                  </div>
-                )}
-              />
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="date">
-                編集権限を持つオーガナイザー
+                    ))
+                  ) : (
+                    <FormWrapper labelName="登壇情報の追加">
+                      <button
+                        type="button"
+                        className="button is-info"
+                        onClick={() => arraryHelper.push(initialLtVvalue)}
+                      >
+                        追加
+                      </button>
+                    </FormWrapper>
+                  )}
+                </div>
+              )}
+            />
+            <hr />
+            <FormWrapper labelName="イベント編集権限">
+              <label className="control">
+                <span className="button is-white">
+                  Your ID: {values.organizerUidsKeyNames[0]}
+                </span>
               </label>
-              <FieldArray
-                name="organizerUidsKeyNames"
-                render={arraryHelper => (
-                  <div>
-                    {values.organizerUidsKeyNames &&
-                    values.organizerUidsKeyNames.length > 0 ? (
-                      values.organizerUidsKeyNames.map((id, index) => (
-                        <div className="field is-grouped" key={index}>
-                          <p className="control">
-                            <button
-                              type="button"
-                              className="button is-danger"
-                              onClick={() => arraryHelper.remove(index)}
+            </FormWrapper>
+            <FieldArray
+              name="organizerUidsKeyNames"
+              render={arraryHelper => {
+                const { organizerUidsKeyNames } = values;
+                if (organizerUidsKeyNames && organizerUidsKeyNames.length > 1) {
+                  return (
+                    <div>
+                      {organizerUidsKeyNames.map((name, index) => {
+                        if (index === 0) {
+                          return <span />;
+                        }
+                        return (
+                          <div key={index}>
+                            <FormWrapper labelName="">
+                              <Field
+                                className="input"
+                                name={`organizerUidsKeyNames.${index}`}
+                              />
+                            </FormWrapper>
+                            <FormWrapper
+                              labelName=""
+                              classNames="is-grouped is-grouped-centered"
                             >
-                              -
-                            </button>
-                          </p>
-                          <p className="control">
-                            <button
-                              type="button"
-                              className="button is-info"
-                              onClick={() => arraryHelper.insert(index + 1, '')}
-                            >
-                              +
-                            </button>
-                          </p>
-                          <p className="control is-expanded">
-                            <Field
-                              className="input"
-                              name={`organizerUidsKeyNames.${index}`}
-                            />
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="field is-grouped">
-                        <p className="control">
-                          <button
-                            type="button"
-                            className="button is-info"
-                            onClick={() => arraryHelper.push(auth.uid)}
-                          >
-                            Add a OrganizerUid
-                          </button>
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              />
-            </div>
+                              <button
+                                type="button"
+                                className="button is-danger"
+                                onClick={() => arraryHelper.remove(index)}
+                              >
+                                -
+                              </button>
+                              <button
+                                type="button"
+                                className="button is-info"
+                                onClick={() =>
+                                  arraryHelper.insert(index + 1, '')
+                                }
+                              >
+                                +
+                              </button>
+                            </FormWrapper>
+                            <FormWrapper labelName="">
+                              <div />
+                            </FormWrapper>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+                return (
+                  <FormWrapper labelName="編集権限の追加">
+                    <button
+                      type="button"
+                      className="button is-info"
+                      onClick={() => arraryHelper.push('')}
+                    >
+                      追加
+                    </button>
+                  </FormWrapper>
+                );
+              }}
+            />
+            <hr />
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
                 <button type="submit" className="button is-primary">

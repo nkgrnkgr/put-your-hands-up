@@ -38,8 +38,8 @@ const box: React.SFC<BoxProps> = ({
             </p>
             <p>登壇タイトル</p>
             <ul>
-              {event.ltTitles.map((title, index) => {
-                return <li key={index}>{title}</li>;
+              {event.lts.map((lt, index) => {
+                return <li key={index}>{lt.title}</li>;
               })}
             </ul>
             <div className="level-left">

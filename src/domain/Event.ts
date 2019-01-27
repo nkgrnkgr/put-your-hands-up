@@ -1,10 +1,12 @@
+import { Lt } from 'domain/Lt';
+
 export interface Event {
   id: string;
   name: string;
   url: string;
   date: number;
   organizerUids: { string: boolean };
-  ltTitles: string[];
+  lts: Lt[];
 }
 
 export interface Events {
