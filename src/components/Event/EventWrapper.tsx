@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Event, Events } from 'domain/Event';
 import EventInfo from 'components/Event/EventInfo';
-import Tabs from './Tabs';
+import Tabs from 'containers/Event/Tabs';
 import CommentsBoard from 'containers/Event/CommentsBoard';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
@@ -29,8 +29,8 @@ const eventWrapper: React.SFC<EventWrapperProps> = ({ events }) => {
   if (events) {
     return (
       <>
-        <EventInfo event={event} />
         <Tabs event={event} />
+        <EventInfo event={event} />
         <CommentsBoard event={event} />
         <ConfirmModal message="本当に削除してよろしいですか？" />
         <InputForm event={event} />

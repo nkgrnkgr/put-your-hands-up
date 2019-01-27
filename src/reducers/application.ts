@@ -1,6 +1,7 @@
 import * as ConfirmModalAction from 'actions/confirmModal';
 import * as InputAction from 'actions/input';
 import * as MobileMenuAction from 'actions/mobileMenu';
+import * as TabAction from 'actions/tab';
 
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
@@ -8,12 +9,14 @@ export interface State {
   isActiveConfirmModal: boolean;
   isActiveInputForm: boolean;
   isActiveMobileMenu: boolean;
+  selectedTabIndex: number;
 }
 
 const initialState: State = {
   isActiveConfirmModal: false,
   isActiveInputForm: false,
-  isActiveMobileMenu: false
+  isActiveMobileMenu: false,
+  selectedTabIndex: 0
 };
 
 const reducer = reducerWithInitialState(initialState)
@@ -33,6 +36,12 @@ const reducer = reducerWithInitialState(initialState)
     return {
       ...state,
       isActiveMobileMenu: !state.isActiveMobileMenu
+    };
+  })
+  .case(TabAction.selectTab, (state, payload) => {
+    return {
+      ...state,
+      selectedTabIndex: payload.selectedTabIndex
     };
   });
 
