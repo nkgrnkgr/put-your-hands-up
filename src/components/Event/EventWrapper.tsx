@@ -11,9 +11,11 @@ export interface EventWrapperProps {
   auth: Auth;
   firestore: Firestore;
   events: Events;
+  selectedTabIndex: number;
 }
 
-const eventWrapper: React.SFC<EventWrapperProps> = ({ events }) => {
+const eventWrapper: React.SFC<EventWrapperProps> = props => {
+  const { events, selectedTabIndex } = props;
   const e: Event = {
     id: '',
     name: '',
@@ -29,9 +31,12 @@ const eventWrapper: React.SFC<EventWrapperProps> = ({ events }) => {
   if (events) {
     return (
       <>
-        <Tabs event={event} />
-        <EventInfo event={event} />
-        <CommentsBoard event={event} />
+        <Tabs {...props} event={event} />
+        {selectedTabIndex === 0 ? (
+          <EventInfo event={event} />
+        ) : (
+          <CommentsBoard event={event} />
+        )}
         <ConfirmModal message="本当に削除してよろしいですか？" />
         <InputForm event={event} />
       </>

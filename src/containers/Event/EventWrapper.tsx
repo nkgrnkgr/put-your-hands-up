@@ -9,6 +9,7 @@ import { Events } from 'domain/Event';
 interface StateProps {
   auth: Auth;
   events: Events;
+  selectedTabIndex: number;
 }
 
 interface Params {
@@ -27,7 +28,8 @@ type FirestoreEvents = Firestore & { ordered: { events: Events } };
 
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
-  events: (state.firestore as FirestoreEvents).ordered.events
+  events: (state.firestore as FirestoreEvents).ordered.events,
+  selectedTabIndex: state.application.selectedTabIndex
 });
 
 const enhance = compose<EnhancedProps, ReactRouterProps>(
