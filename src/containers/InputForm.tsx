@@ -27,6 +27,7 @@ interface StateProps {
   selectedColor: Color;
   inputtingContent: string;
   auth?: Auth;
+  selectedTabIndex: number;
 }
 
 interface OuterProps {
@@ -50,7 +51,8 @@ const mapStateToProps = (state: State) => ({
   tags: state.input.tagList,
   inputtingContent: state.input.inputtingContent,
   selectedColor: state.input.selectedColor,
-  auth: state.firebase.auth
+  auth: state.firebase.auth,
+  selectedTabIndex: state.application.selectedTabIndex
 });
 
 const mapDispatchToProps = (

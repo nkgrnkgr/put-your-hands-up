@@ -6,7 +6,7 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
 import { createRandomId } from 'utils/Id';
-import { Lt } from 'domain/Lt';
+import { Lt, createInitialValue } from 'domain/Lt';
 import FormWrapper from 'components/Organizer/FormWrapper';
 export interface InputFormProps {
   auth: Auth;
@@ -31,18 +31,11 @@ const inputForm: React.SFC<InputFormProps> = ({
   history
 }) => {
   const id = createRandomId();
-  const initialLtVvalue: Lt = {
-    title: '',
-    speakerName: '',
-    documentUrl1: '',
-    documentUrl2: '',
-    documentUrl3: ''
-  };
   let initialValues: InputFormValues = {
     id,
     name: '',
     url: id,
-    lts: [initialLtVvalue],
+    lts: [createInitialValue()],
     organizerUidsKeyNames: [auth.uid],
     date: new Date().getTime()
   };
@@ -170,7 +163,10 @@ const inputForm: React.SFC<InputFormProps> = ({
                             type="button"
                             className="button is-info"
                             onClick={() =>
-                              arraryHelper.insert(index + 1, initialLtVvalue)
+                              arraryHelper.insert(
+                                index + 1,
+                                createInitialValue()
+                              )
                             }
                           >
                             +
@@ -186,7 +182,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                       <button
                         type="button"
                         className="button is-info"
-                        onClick={() => arraryHelper.push(initialLtVvalue)}
+                        onClick={() => arraryHelper.push(createInitialValue())}
                       >
                         追加
                       </button>

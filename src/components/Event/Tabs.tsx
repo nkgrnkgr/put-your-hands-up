@@ -21,14 +21,10 @@ const tabs: React.SFC<TabsProps> = ({
   history,
   match
 }) => {
-  const titles = ['Info'];
+  const titles = ['general'];
   event.lts.map(lt => titles.push(lt.title));
   const handleClick = (index: number) => {
     selectTab(index);
-    console.log(match.path);
-    console.log(match.url);
-    console.log(match.params);
-    console.log(match.isExact);
   };
   return (
     <div
@@ -44,7 +40,7 @@ const tabs: React.SFC<TabsProps> = ({
               key={index}
               className={selectedTabIndex === index ? 'is-active' : ''}
             >
-              <a onClick={e => handleClick(index)}>{title}</a>
+              <a onClick={e => handleClick(index)}>{`#${title}`}</a>
             </li>
           );
         })}

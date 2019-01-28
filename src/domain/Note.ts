@@ -5,8 +5,6 @@ export interface Note {
   id: string;
   user: FirebaseUser;
   noteContents: NoteContents;
-}
-
-export interface NoteMap {
-  [s: string]: Note;
+  ltId: string;
+  eventId: string;
 }

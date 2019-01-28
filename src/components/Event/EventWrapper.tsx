@@ -32,11 +32,8 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     return (
       <>
         <Tabs {...props} event={event} />
-        {selectedTabIndex === 0 ? (
-          <EventInfo event={event} />
-        ) : (
-          <CommentsBoard event={event} />
-        )}
+        {selectedTabIndex === 0 ? <EventInfo event={event} /> : <span />}
+        <CommentsBoard event={event} />
         <ConfirmModal message="本当に削除してよろしいですか？" />
         <InputForm event={event} />
       </>

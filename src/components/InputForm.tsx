@@ -5,8 +5,9 @@ import { CirclePicker, Color, ColorResult } from 'react-color';
 import userInfo from 'lib/userInfo';
 import NoteContents from 'domain/NoteContents';
 import { Event } from 'domain/Event';
+import { getLtId } from 'domain/Lt';
 
-const featuredContents = [
+const FEATURED_CONTENTS = [
   '登壇お疲れさまでした👏',
   '完全に理解した🤯',
   '勉強になった✍',
@@ -14,7 +15,7 @@ const featuredContents = [
   'お強い...💪'
 ];
 
-const featuredTags = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
+const FEATURED_TAGS = ['初心者', 'マサカリ', 'オーガナイザー', 'お願い'];
 
 export interface InputFormProps {
   event: Event;
@@ -33,6 +34,7 @@ export interface InputFormProps {
   resetInput: () => void;
   firestore?: Firestore;
   auth: Auth;
+  selectedTabIndex: number;
 }
 
 const inputForm: React.SFC<InputFormProps> = ({
@@ -51,7 +53,8 @@ const inputForm: React.SFC<InputFormProps> = ({
   onChangeColor = () => {},
   resetInput = () => {},
   firestore,
-  auth
+  auth,
+  selectedTabIndex
 }) => {
   const onChangeHandleColor = (color: ColorResult) => {
     onChangeColor(color.hex);
@@ -81,15 +84,17 @@ const inputForm: React.SFC<InputFormProps> = ({
         created: new Date().getTime()
       };
 
-      const e = {
-        eventId: event.id,
-        targetLtIndex: 0
-      };
+      const eventId = event.id;
 
       if (firestore && firestore.set) {
         firestore.set(
           { collection: 'notes', doc: `${user.uid}_${noteContents.created}` },
-          { user, noteContents, event: e }
+          {
+            user,
+            noteContents,
+            eventId,
+            ltId: getLtId(selectedTabIndex, event)
+          }
         );
       }
     }
@@ -118,7 +123,7 @@ const inputForm: React.SFC<InputFormProps> = ({
               </div>
             </div>
             <div className="field is-grouped is-grouped-multiline">
-              {featuredContents.map((content, index) => (
+              {FEATURED_CONTENTS.map((content, index) => (
                 <p key={index} className="control">
                   <a
                     className="button is-small"
@@ -144,7 +149,7 @@ const inputForm: React.SFC<InputFormProps> = ({
               ))}
             </div>
             <div className="field is-grouped is-grouped-multiline">
-              {featuredTags.map((t, index) => (
+              {FEATURED_TAGS.map((t, index) => (
                 <p key={index} className="control">
                   <a className="button is-small" onClick={e => addTag(t, true)}>
                     <span>{t}</span>
