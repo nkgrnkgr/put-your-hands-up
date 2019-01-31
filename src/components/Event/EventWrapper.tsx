@@ -6,6 +6,7 @@ import CommentsBoard from 'containers/Event/CommentsBoard';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
+import SearchWrapper from './SearchWrapper';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -32,6 +33,8 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     return (
       <>
         <Tabs {...props} event={event} />
+        <SearchWrapper />
+        <hr />
         {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
         {selectedTabIndex === 0 ? (
           <h2 className="title is-3">イベント全般へのコメント</h2>
