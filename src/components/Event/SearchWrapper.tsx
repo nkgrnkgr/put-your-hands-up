@@ -1,22 +1,40 @@
 import * as React from 'react';
 import SearchForm from 'components/Event/SearchForm';
 import TagLink from 'components/TagLink';
+import Tag from 'domain/Tag';
 
-export interface SearchWrapperProps {}
+export interface SearchWrapperProps {
+  query: string;
+  tags: Tag[];
+  searchQuery: (query: string) => void;
+  addTag: (tag: Tag) => void;
+  removeTag: (index: number) => void;
+}
 
-const searchWrapper: React.SFC<SearchWrapperProps> = props => {
+const searchWrapper: React.SFC<SearchWrapperProps> = ({
+  query,
+  tags,
+  searchQuery,
+  addTag,
+  removeTag
+}) => {
   return (
-    <div className="card" style={{ width: '70%', margin: '0 auto' }}>
+    <div className="card" style={{ width: '50%', margin: '0 auto' }}>
       <div className="card-content">
         <div className="content">
-          <SearchForm />
+          <SearchForm query={query} searchQuery={searchQuery} addTag={addTag} />
           <div>
-            <TagLink
-              index={0}
-              tagTitle={'aaa'}
-              size={'is-medium'}
-              handleDelete={() => {}}
-            />
+            {tags.map((tag, index) => {
+              return (
+                <TagLink
+                  key={index}
+                  index={index}
+                  tagTitle={tag.title}
+                  size={'is-medium'}
+                  handleDelete={removeTag}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

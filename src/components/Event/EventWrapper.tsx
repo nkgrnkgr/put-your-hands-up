@@ -6,7 +6,7 @@ import CommentsBoard from 'containers/Event/CommentsBoard';
 import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
-import SearchWrapper from './SearchWrapper';
+import SearchWrapper from 'containers/Event/SearchWrapper';
 
 export interface EventWrapperProps {
   auth: Auth;

@@ -1,14 +1,29 @@
 import * as React from 'react';
 import { Formik, Field, Form, FormikActions } from 'formik';
-export interface SearchFormProps {}
+import Tag from 'domain/Tag';
+export interface SearchFormProps {
+  query: string;
+  searchQuery: (query: string) => void;
+  addTag: (tag: Tag) => void;
+}
+
+const HASH_TAG = '#';
 
 interface SearchFormValues {
   query: string;
 }
 
-const searchForm: React.SFC<SearchFormProps> = () => {
+const isTagSearch = (query: string): boolean => {
+  return query.indexOf(HASH_TAG) > -1;
+};
+
+const searchForm: React.SFC<SearchFormProps> = ({
+  query,
+  searchQuery,
+  addTag
+}) => {
   const initialValues: SearchFormValues = {
-    query: ''
+    query
   };
 
   return (
@@ -16,12 +31,19 @@ const searchForm: React.SFC<SearchFormProps> = () => {
       initialValues={initialValues}
       onSubmit={(
         values: SearchFormValues,
-        { setSubmitting }: FormikActions<SearchFormValues>
+        { setSubmitting, setFieldValue }: FormikActions<SearchFormValues>
       ) => {
-        setTimeout(() => {
-          console.log(values);
-          setSubmitting(false);
-        }, 500);
+        if (isTagSearch(values.query)) {
+          const title = values.query.replace(HASH_TAG, '');
+          addTag({
+            title,
+            isFeatured: false
+          });
+          setFieldValue('query', '');
+        } else {
+          searchQuery(values.query);
+        }
+        setSubmitting(false);
       }}
       render={({ values, setFieldValue }) => (
         <Form>
@@ -39,7 +61,9 @@ const searchForm: React.SFC<SearchFormProps> = () => {
               </span>
             </p>
             <p className="control">
-              <a className="button is-info">Search</a>
+              <button type="submit" className="button is-info">
+                Search
+              </button>
             </p>
           </div>
         </Form>
