@@ -26,18 +26,22 @@ const sortForm: React.SFC<SearchFormProps> = () => {
         }}
         render={({ values, setFieldValue }) => (
           <Form>
-            <div className="field has-addons">
-              <div className="control is-expanded">
-                <div className="select is-fullwidth">
-                  <Field component="select" name="sort">
-                    <option value="like">Like</option>
-                    <option value="updated">更新日</option>
-                  </Field>
+            <div className="field has-addons is-horizontal has-addons-right">
+              <div className="field-label is-normal">
+                <label className="label">並び替え</label>
+              </div>
+              <div className="field-body">
+                <div className="field is-narrow">
+                  <div className="control">
+                    <div className="select">
+                      <Field component="select" name="sort">
+                        <option value="mostLiked">人気順</option>
+                        <option value="new">新着順</option>
+                      </Field>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p className="control">
-                <a className="button is-primary">Select</a>
-              </p>
             </div>
           </Form>
         )}
