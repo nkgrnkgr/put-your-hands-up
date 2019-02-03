@@ -7,11 +7,14 @@ import { CombinedState as State } from 'reducers/root';
 import { Note } from 'domain/Note';
 import { withFirestore } from 'react-redux-firebase';
 import { Event } from 'domain/Event';
+import Tag from 'domain/Tag';
 
 interface StateProps {
   auth: Auth;
   notes: Note[];
   selectedTabIndex: number;
+  query: string;
+  tags: Tag[];
 }
 
 interface OuterProps {
@@ -28,7 +31,9 @@ type FirestoreNotes = Firestore & { ordered: { notes: Note[] } };
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
   notes: (state.firestore as FirestoreNotes).ordered.notes,
-  selectedTabIndex: state.application.selectedTabIndex
+  selectedTabIndex: state.application.selectedTabIndex,
+  query: state.search.query,
+  tags: state.search.tags
 });
 
 const enhance = compose<EnhancedProps, OuterProps>(

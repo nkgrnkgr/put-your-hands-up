@@ -13,10 +13,11 @@ export interface EventWrapperProps {
   firestore: Firestore;
   events: Events;
   selectedTabIndex: number;
+  query: string;
 }
 
 const eventWrapper: React.SFC<EventWrapperProps> = props => {
-  const { events, selectedTabIndex } = props;
+  const { events, selectedTabIndex, query } = props;
   const e: Event = {
     id: '',
     name: '',
@@ -41,6 +42,7 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
         ) : (
           ''
         )}
+        {query !== '' ? <h5 className="title is-5">検索結果: {query}</h5> : ''}
         <hr />
         <CommentsBoard event={event} />
         <ConfirmModal message="本当に削除してよろしいですか？" />

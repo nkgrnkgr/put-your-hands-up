@@ -13,6 +13,9 @@ import {
   setNgAction
 } from 'actions/confirmModal';
 
+import { addTag } from 'actions/search';
+import Tag from 'domain/Tag';
+
 interface OuterProps {
   note: Note;
 }
@@ -24,6 +27,7 @@ interface DispatchProps {
   toggleDisplay: () => void;
   setOkAction: (action: () => void) => void;
   setNgAction: (action: () => void) => void;
+  addTag: (tag: Tag) => void;
 }
 
 const mapStateToProps = (state: State) => ({
@@ -37,7 +41,8 @@ const mapDispatchToProps = (
     {
       toggleDisplay,
       setOkAction: (action: () => void) => setOkAction({ action }),
-      setNgAction: (action: () => void) => setNgAction({ action })
+      setNgAction: (action: () => void) => setNgAction({ action }),
+      addTag: (tag: Tag) => addTag({ tag })
     },
     dispatch
   );

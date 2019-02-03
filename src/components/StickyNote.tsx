@@ -3,6 +3,7 @@ import { Note } from 'domain/Note';
 import TagLink from 'components/TagLink';
 import { ago } from 'utils/DateTime';
 import NoteContents from 'domain/NoteContents';
+import Tag from 'domain/Tag';
 export interface StickyNoteProps {
   note: Note;
   firestore: Firestore;
@@ -10,6 +11,7 @@ export interface StickyNoteProps {
   toggleDisplay: () => void;
   setOkAction: (okAction: () => void) => void;
   setNgAction: (ngAction: () => void) => void;
+  addTag: (tag: Tag) => void;
 }
 const stickyNote: React.SFC<StickyNoteProps> = ({
   note,
@@ -17,7 +19,8 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
   firestore,
   toggleDisplay,
   setOkAction,
-  setNgAction
+  setNgAction,
+  addTag
 }) => {
   const { user, noteContents } = note;
   let colorValue = '';
@@ -58,6 +61,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
                   index={index}
                   tagTitle={title}
                   size="is-small"
+                  handleAdd={addTag}
                 />
               ))}
             </div>
