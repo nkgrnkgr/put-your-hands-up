@@ -4,6 +4,7 @@ import TagLink from 'components/TagLink';
 import { ago } from 'utils/DateTime';
 import NoteContents from 'domain/NoteContents';
 import Tag from 'domain/Tag';
+import Comment from 'components/Comment';
 export interface StickyNoteProps {
   note: Note;
   firestore: Firestore;
@@ -52,7 +53,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
               <p className="subtitle is-7">{user.uid}</p>
             </div>
           </div>
-          <div className="content">{noteContents.comment}</div>
+          <Comment text={noteContents.comment} />
           <div className="content">
             <div className="field is-grouped is-grouped-multiline">
               {noteContents.tagTitles.map((title, index) => (
