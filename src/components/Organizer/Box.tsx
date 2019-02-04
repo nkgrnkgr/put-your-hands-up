@@ -32,7 +32,11 @@ const box: React.SFC<BoxProps> = ({
             <p>開催日時 : {getFullDate(event.date)}</p>
             <p>
               URL :{' '}
-              <a href={eventsUrl(event.url)} target="_blank">
+              <a
+                href={eventsUrl(event.url)}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {eventsUrl(event.url)}
               </a>
             </p>

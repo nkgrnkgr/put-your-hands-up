@@ -30,7 +30,7 @@ const createLine = (line: string) => {
 
 const createAnchor = (line: string) => {
   return (
-    <a href={line} target="_blank">
+    <a href={line} rel="noopener noreferrer" target="_blank">
       {line}
       <br />
     </a>

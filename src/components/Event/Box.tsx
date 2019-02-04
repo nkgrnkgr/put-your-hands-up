@@ -16,7 +16,7 @@ const anchor = (url: string) => {
       <span className="icon">
         <i className="fas fa-file" />
       </span>
-      <a target="_blank" href={url}>
+      <a href={url} rel="noopener noreferrer" target="blank">
         {url}
       </a>
     </div>
