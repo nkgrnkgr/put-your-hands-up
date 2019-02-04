@@ -31,7 +31,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const enhance = compose<EnhancedProps, ReactRouterProps>(
-  setDisplayName('EnhancedList'),
+  setDisplayName('EnhancedEdit'),
   withFirestore,
   connect<StateProps, {}, EditProps>(mapStateToProps),
   lifecycle<EnhancedProps & ReactRouterProps, {}, {}>({

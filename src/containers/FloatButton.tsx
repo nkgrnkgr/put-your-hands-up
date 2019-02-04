@@ -20,7 +20,7 @@ const mapDispatchToProps = (
   );
 
 const enhance = compose<{}, {}>(
-  setDisplayName('EnhanceComfirmModal'),
+  setDisplayName('EnhancedFloadButton'),
   connect<{}, DispatchProps, FloatButtonProps>(
     undefined,
     mapDispatchToProps

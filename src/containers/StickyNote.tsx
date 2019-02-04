@@ -50,7 +50,7 @@ const mapDispatchToProps = (
 type EnhancedStickyNoteProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedStickyNoteProps, OuterProps>(
-  setDisplayName('EnhancedBoard'),
+  setDisplayName('EnhancedStickyNote'),
   withFirestore,
   connect<StateProps, DispatchProps, StickyNoteProps>(
     mapStateToProps,

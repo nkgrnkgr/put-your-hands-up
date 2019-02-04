@@ -31,7 +31,7 @@ const mapDispatchToProps = (
   );
 
 const enhance = compose<EnhancedProps, {}>(
-  setDisplayName('EnhancedEventWrapper'),
+  setDisplayName('EnhancedSortForm'),
   connect<StateProps, DispatchProps, SortFormProps>(
     mapStateToProps,
     mapDispatchToProps

@@ -45,7 +45,7 @@ const mapDispatchToProps = (
   );
 
 const enhance = compose<EnhancedProps, {}>(
-  setDisplayName('EnhancedEventWrapper'),
+  setDisplayName('EnhancedSearchWrapper'),
   connect<StateProps, DispatchProps, SearchWrapperProps>(
     mapStateToProps,
     mapDispatchToProps

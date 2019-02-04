@@ -15,7 +15,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const enhance = compose<StateProps, {}>(
-  setDisplayName('EnhancedNavbar'),
+  setDisplayName('EnhancedOrganizerPage'),
   firebaseConnect(),
   connect<StateProps, {}, OrganizerPageProps>(mapStateToProps),
   pure

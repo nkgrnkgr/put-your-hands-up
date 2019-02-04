@@ -5,7 +5,7 @@ import 'css/font.css';
 import 'css/animation.css';
 import Navbar from 'containers/Navbar';
 import Login from 'containers/Login';
-import FloatBotton from 'containers/FloatBotton';
+import FloatButton from 'containers/FloatButton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
@@ -40,7 +40,7 @@ const app: React.SFC = () => (
               className="container is-flex-mobile"
               style={{ display: 'none' }}
             >
-              <FloatBotton />
+              <FloatButton />
             </div>
           </section>
         )}

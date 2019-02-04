@@ -35,7 +35,7 @@ const mapDispatchToProps = (
 type EnhanceConfrmProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhanceConfrmProps, OuterProps>(
-  setDisplayName('EnhanceComfirmModal'),
+  setDisplayName('EnhancedBox'),
   connect<StateProps, DispatchProps, BoxProps>(
     mapStateToProps,
     mapDispatchToProps

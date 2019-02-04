@@ -35,7 +35,7 @@ const mapDispatchToProps = (
 type EnhancedNavbarProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedNavbarProps, {}>(
-  setDisplayName('EnhancedNavbar'),
+  setDisplayName('EnhancedOrganizer'),
   firebaseConnect(),
   connect<StateProps, DispatchProps, NavbarOrganizerProps>(
     mapStateToProps,
