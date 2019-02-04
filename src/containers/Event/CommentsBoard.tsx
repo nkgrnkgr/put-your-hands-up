@@ -33,7 +33,8 @@ const mapStateToProps = (state: State) => ({
   notes: (state.firestore as FirestoreNotes).ordered.notes,
   selectedTabIndex: state.application.selectedTabIndex,
   query: state.search.query,
-  tags: state.search.tags
+  tags: state.search.tags,
+  sortKey: state.sort.sortKey
 });
 
 const enhance = compose<EnhancedProps, OuterProps>(

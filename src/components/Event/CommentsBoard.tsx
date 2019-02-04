@@ -19,35 +19,16 @@ export interface CommentsBoardProps {
   selectedTabIndex: number;
   query: string;
   tags: Tag[];
+  sortKey: string;
 }
-
-const includeQuery = (note: Note, query: string): boolean => {
-  if (query === '') {
-    return true;
-  }
-  return includeString(note.noteContents.comment, query);
-};
-
-const includeTag = (note: Note, tags: Tag[]): boolean => {
-  if (!tags || tags.length === 0) {
-    return true;
-  }
-  return note.noteContents.tagTitles.some(title => {
-    return tags.some(tag => {
-      if (includeString(tag.title, title)) {
-        return true;
-      }
-      return false;
-    });
-  });
-};
 
 const commentsborad: React.SFC<CommentsBoardProps> = ({
   notes,
   event,
   selectedTabIndex,
   query,
-  tags
+  tags,
+  sortKey
 }) => {
   if (notes) {
     const ltId = getLtId(selectedTabIndex, event);
@@ -75,6 +56,27 @@ const commentsborad: React.SFC<CommentsBoardProps> = ({
       <p>現在投稿はありません</p>
     </div>
   );
+};
+
+const includeQuery = (note: Note, query: string): boolean => {
+  if (query === '') {
+    return true;
+  }
+  return includeString(note.noteContents.comment, query);
+};
+
+const includeTag = (note: Note, tags: Tag[]): boolean => {
+  if (!tags || tags.length === 0) {
+    return true;
+  }
+  return note.noteContents.tagTitles.some(title => {
+    return tags.some(tag => {
+      if (includeString(tag.title, title)) {
+        return true;
+      }
+      return false;
+    });
+  });
 };
 
 export default commentsborad;

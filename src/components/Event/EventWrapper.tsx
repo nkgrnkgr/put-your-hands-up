@@ -7,7 +7,7 @@ import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
 import SearchWrapper from 'containers/Event/SearchWrapper';
-import SortForm from 'components/Event/SortForm';
+import SortForm from 'containers/Event/SortForm';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -43,6 +43,7 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
         ) : (
           <SortForm />
         )}
+        <hr />
         {query !== '' ? <h5 className="title is-5">検索結果: {query}</h5> : ''}
         <CommentsBoard event={event} />
         <ConfirmModal message="本当に削除してよろしいですか？" />
