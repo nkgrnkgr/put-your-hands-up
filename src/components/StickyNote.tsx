@@ -73,7 +73,6 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
           style={{ backgroundColor: noteContents.color.toString() }}
         >
           <a
-            href="#"
             className="card-footer-item"
             onClick={e => likeNote(firestore, note, auth.uid)}
           >

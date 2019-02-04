@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { SortKey } from 'domain/SortKey';
 export interface SortFormProps {
+  sortKey: SortKey;
   setSortKey: (selectedValue: string) => void;
 }
 
-const sortForm: React.SFC<SortFormProps> = ({ setSortKey }) => {
+const sortForm: React.SFC<SortFormProps> = ({ sortKey, setSortKey }) => {
   const onChnageSelect = (e: React.FormEvent<HTMLSelectElement>) => {
     setSortKey(e.currentTarget.value);
   };
@@ -17,9 +19,9 @@ const sortForm: React.SFC<SortFormProps> = ({ setSortKey }) => {
         <div className="field is-narrow">
           <div className="control">
             <div className="select">
-              <select name="sort" onChange={onChnageSelect}>
-                <option value="updated">新着順</option>
-                <option value="mostLiked">人気順</option>
+              <select value={sortKey} onChange={onChnageSelect}>
+                <option value={SortKey.Updated}>新着順</option>
+                <option value={SortKey.MostLiked}>人気順</option>
               </select>
             </div>
           </div>

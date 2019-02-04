@@ -6,7 +6,9 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
 import { setSortKey, SortActionPayload } from 'actions/sort';
 
-interface StateProps {}
+interface StateProps {
+  sortKey: string;
+}
 
 interface DispatchProps {
   setSortKey: (sortKey: string) => void;
@@ -14,7 +16,9 @@ interface DispatchProps {
 
 type EnhancedProps = StateProps & DispatchProps;
 
-const mapStateToProps = (state: State) => ({});
+const mapStateToProps = (state: State) => ({
+  sortKey: state.sort.sortKey
+});
 
 const mapDispatchToProps = (
   dispatch: Dispatch<Action<SortActionPayload>>

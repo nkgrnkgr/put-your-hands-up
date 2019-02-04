@@ -6,6 +6,7 @@ import { getLtId } from 'domain/Lt';
 import { Event } from 'domain/Event';
 import { includeString } from 'utils/Compare';
 import Tag from 'domain/Tag';
+import { SortKey } from 'domain/SortKey';
 
 interface Params {
   eventurl: string;
@@ -19,7 +20,7 @@ export interface CommentsBoardProps {
   selectedTabIndex: number;
   query: string;
   tags: Tag[];
-  sortKey: string;
+  sortKey: SortKey;
 }
 
 const commentsborad: React.SFC<CommentsBoardProps> = ({
@@ -36,10 +37,12 @@ const commentsborad: React.SFC<CommentsBoardProps> = ({
       .filter(note => note.ltId === ltId)
       .filter(note => includeQuery(note, query))
       .filter(note => includeTag(note, tags));
-    if (selectedNotes.length > 0) {
+
+    const sortedNotes = sortBy(selectedNotes, sortKey);
+    if (sortedNotes.length > 0) {
       return (
         <div className="columns is-multiline">
-          {selectedNotes.map((note, index) => {
+          {sortedNotes.map((note, index) => {
             return <StickyNote key={note.id} note={note} />;
           })}
         </div>
@@ -76,6 +79,29 @@ const includeTag = (note: Note, tags: Tag[]): boolean => {
       }
       return false;
     });
+  });
+};
+
+const sortBy = (notes: Note[], key: SortKey): Note[] => {
+  if (key === SortKey.MostLiked) {
+    return sortByLiked(notes);
+  }
+  return sortByUpdated(notes);
+};
+
+const sortByLiked = (notes: Note[]): Note[] => {
+  return notes.sort((noteA: Note, noteB: Note) => {
+    const a = noteA.noteContents.fansIds.length;
+    const b = noteB.noteContents.fansIds.length;
+    return a > b ? -1 : a < b ? 1 : 0;
+  });
+};
+
+const sortByUpdated = (notes: Note[]): Note[] => {
+  return notes.sort((noteA: Note, noteB: Note) => {
+    const a = noteA.noteContents.created;
+    const b = noteB.noteContents.created;
+    return a > b ? -1 : a < b ? 1 : 0;
   });
 };
 

@@ -25,7 +25,7 @@ const anchor = (url: string) => {
 
 const box: React.SFC<BoxProps> = ({ lt, index, selectTab }) => {
   const handleOnClick = (index: number) => {
-    console.log(selectTab(index + 1));
+    selectTab(index + 1);
   };
   return (
     <div className="box">

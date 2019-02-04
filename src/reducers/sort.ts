@@ -1,3 +1,4 @@
+import { SortKey } from 'domain/SortKey';
 import * as Action from '../actions/sort';
 
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
@@ -7,7 +8,7 @@ export interface State {
 }
 
 const initialState: State = {
-  sortKey: 'updated'
+  sortKey: SortKey.Updated
 };
 
 const reducer = reducerWithInitialState(initialState).case(
