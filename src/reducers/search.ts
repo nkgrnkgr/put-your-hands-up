@@ -10,7 +10,7 @@ export interface State {
 
 const initialState: State = {
   query: '',
-  tags: []
+  tags: [{ title: '質問', isFeatured: true }]
 };
 
 const isDuplicate = (tags: Tag[], tag: Tag): boolean => {

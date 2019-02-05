@@ -34,20 +34,26 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
   if (events) {
     return (
       <>
-        <Tabs {...props} event={event} />
-        <SearchWrapper />
-        <hr />
-        {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
-        {selectedTabIndex === 0 ? (
-          <h2 className="title is-3">イベント全般へのコメント</h2>
-        ) : (
-          <SortForm />
-        )}
-        <hr />
-        {query !== '' ? <h5 className="title is-5">検索結果: {query}</h5> : ''}
-        <CommentsBoard event={event} />
-        <ConfirmModal message="本当に削除してよろしいですか？" />
-        <InputForm event={event} />
+        <Tabs event={event} />
+        <div className="container">
+          <SearchWrapper />
+          <hr />
+          {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
+          {selectedTabIndex === 0 ? (
+            <h2 className="title is-3">イベント全般へのコメント</h2>
+          ) : (
+            <SortForm />
+          )}
+          <hr />
+          {query !== '' ? (
+            <h5 className="title is-5">検索結果: {query}</h5>
+          ) : (
+            ''
+          )}
+          <CommentsBoard event={event} />
+          <ConfirmModal message="本当に削除してよろしいですか？" />
+          <InputForm event={event} />
+        </div>
       </>
     );
   }

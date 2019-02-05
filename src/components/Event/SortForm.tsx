@@ -11,20 +11,13 @@ const sortForm: React.SFC<SortFormProps> = ({ sortKey, setSortKey }) => {
   };
 
   return (
-    <div className="field has-addons is-horizontal has-addons-right">
-      <div className="field-label is-normal">
-        <label className="label">並び替え</label>
-      </div>
-      <div className="field-body">
-        <div className="field is-narrow">
-          <div className="control">
-            <div className="select">
-              <select value={sortKey} onChange={onChnageSelect}>
-                <option value={SortKey.Updated}>新着順</option>
-                <option value={SortKey.MostLiked}>人気順</option>
-              </select>
-            </div>
-          </div>
+    <div className="field has-addons has-addons-right">
+      <div className="control">
+        <div className="select">
+          <select value={sortKey} onChange={onChnageSelect}>
+            <option value={SortKey.Updated}>新着順</option>
+            <option value={SortKey.MostLiked}>人気順</option>
+          </select>
         </div>
       </div>
     </div>

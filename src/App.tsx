@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import 'bulma/css/bulma.css';
 import 'css/font.css';
 import 'css/animation.css';
+import 'css/tab.css';
+import 'css/color.css';
 import Navbar from 'containers/Navbar';
 import Login from 'containers/Login';
 import FloatButton from 'containers/FloatButton';
@@ -31,11 +33,9 @@ const app: React.SFC = () => (
       <Route
         path={'/events/:eventurl'}
         render={props => (
-          <section className="section">
+          <section>
             <Navbar />
-            <div className="container">
-              <EventWrapper {...props} />
-            </div>
+            <EventWrapper {...props} />
             <div
               className="container is-flex-mobile"
               style={{ display: 'none' }}

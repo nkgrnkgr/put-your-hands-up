@@ -1,0 +1,63 @@
+.bg-primary-color {
+    background-color: #E9546A;
+}
+
+.bg-accent-color {
+    background-color: #59C5BF;
+}
+
+.bg-light-100 {
+    background-color: rgba(255, 255, 255, 1.00);
+}
+
+.bg-light-070 {
+    background-color: rgba(255, 255, 255, 0.70);
+}
+
+.bg-light-030 {
+    background-color: rgba(255, 255, 255, 0.30);
+}
+
+.bg-light-012 {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.bg-alt-020 {
+    background-color: rgb(239, 239, 239)
+}
+
+.bg-alt-010 {
+    background-color: rgb(224, 224, 224)
+}
+
+.font-dark-087 {
+    color: rgba(0, 0, 0, 0.87)
+}
+
+.font-dark-054 {
+    color: rgba(0, 0, 0, 0.54)
+}
+
+.font-dark-026 {
+    color: rgba(0, 0, 0, 0.26)
+}
+
+.font-dark-012 {
+    color: rgba(0, 0, 0, 0.12)
+}
+
+.font-light-100 {
+    color: rgba(255, 255, 255, 1.00);
+}
+
+.font-light-070 {
+    color: rgba(255, 255, 255, 0.70);
+}
+
+.font-light-030 {
+    color: rgba(255, 255, 255, 0.30);
+}
+
+.font-light-012 {
+    color: rgba(255, 255, 255, 0.12);
+}

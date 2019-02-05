@@ -19,26 +19,22 @@ const searchWrapper: React.SFC<SearchWrapperProps> = ({
   removeTag
 }) => {
   return (
-    <div className="card" style={{ width: '80%', margin: '0 auto' }}>
-      <div className="card-content">
-        <div className="content">
-          <SearchForm query={query} searchQuery={searchQuery} addTag={addTag} />
-          <div className="field is-grouped is-grouped-multiline">
-            {tags.map((tag, index) => {
-              return (
-                <TagLink
-                  key={index}
-                  index={index}
-                  tagTitle={tag.title}
-                  size={'is-medium'}
-                  handleDelete={removeTag}
-                />
-              );
-            })}
-          </div>
-        </div>
+    <>
+      <SearchForm query={query} searchQuery={searchQuery} addTag={addTag} />
+      <div className="field is-grouped is-grouped-multiline">
+        {tags.map((tag, index) => {
+          return (
+            <TagLink
+              key={index}
+              index={index}
+              tagTitle={tag.title}
+              size={'is-medium'}
+              handleDelete={removeTag}
+            />
+          );
+        })}
       </div>
-    </div>
+    </>
   );
 };
 

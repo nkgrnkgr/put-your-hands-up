@@ -1,0 +1,22 @@
+.tab-group {
+    display: flex;
+    padding: 0.5em 1em;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    height: 3em;
+}
+
+.tab a {
+    color: rgba(255, 255, 255, 0.70);
+    margin-bottom: -1px;
+    padding: 0.5em 1em;
+}
+
+.active-tab a {
+    color: #ff3860;
+    margin-bottom: -1px;
+    padding: 0.5em 1em;
+    background-color: rgba(255, 255, 255, 1.00);
+    border-radius: 100px;
+}

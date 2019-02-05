@@ -47,8 +47,8 @@ const searchForm: React.SFC<SearchFormProps> = ({
       }}
       render={({ values, setFieldValue }) => (
         <Form>
-          <div className="field has-addons">
-            <p className="control has-icons-left is-expanded">
+          <div className="field has-addons" style={{ marginBottom: '10px' }}>
+            <p className="control has-icons-left">
               <Field
                 className="input"
                 id="query"
@@ -62,7 +62,7 @@ const searchForm: React.SFC<SearchFormProps> = ({
             </p>
             <p className="control">
               <button type="submit" className="button is-info">
-                Search
+                検索
               </button>
             </p>
           </div>

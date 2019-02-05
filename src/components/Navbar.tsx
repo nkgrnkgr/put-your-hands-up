@@ -20,7 +20,7 @@ const navbar: React.SFC<NavbarProps> = ({
   toggleMobileMenu = () => {}
 }) => {
   return (
-    <nav className="navbar is-danger is-fixed-top">
+    <nav className="navbar is-danger">
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
