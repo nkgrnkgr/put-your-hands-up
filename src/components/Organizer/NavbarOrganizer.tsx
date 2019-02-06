@@ -18,7 +18,7 @@ const navbarOrganizer: React.SFC<NavbarOrganizerProps> = ({
   toggleMobileMenu = () => {}
 }) => {
   return (
-    <nav className="navbar is-danger is-fixed-top">
+    <nav className="navbar is-danger is-fixed-top shadow">
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">

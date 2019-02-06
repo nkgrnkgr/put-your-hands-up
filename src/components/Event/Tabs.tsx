@@ -14,7 +14,7 @@ const tabs: React.SFC<TabsProps> = ({ event, selectedTabIndex, selectTab }) => {
     selectTab(index);
   };
   return (
-    <section className="has-background-danger">
+    <section className="has-background-danger shadow">
       <div className="container">
         <div style={{ marginBottom: '40px' }}>
           <ul className="tab-group">

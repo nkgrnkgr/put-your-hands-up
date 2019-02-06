@@ -23,11 +23,13 @@ const app: React.SFC = () => (
       <Route
         path={'/organizer'}
         render={props => (
-          <OrganizerPage>
-            <Route exact={true} path={'/organizer'} component={List} />
-            <Route {...props} path={'/organizer/edit/:id'} component={Edit} />
-            <Route {...props} path={'/organizer/create'} component={Create} />
-          </OrganizerPage>
+          <section className="section">
+            <OrganizerPage>
+              <Route exact={true} path={'/organizer'} component={List} />
+              <Route {...props} path={'/organizer/edit/:id'} component={Edit} />
+              <Route {...props} path={'/organizer/create'} component={Create} />
+            </OrganizerPage>
+          </section>
         )}
       />
       <Route

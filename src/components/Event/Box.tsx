@@ -31,8 +31,13 @@ const box: React.SFC<BoxProps> = ({ lt, index, selectTab }) => {
     <div className="box">
       <article className="media">
         <div className="media-left">
-          <a className="button is-info" onClick={e => handleOnClick(index)}>
-            コメントを見る
+          <a
+            className="button is-rounded is-info is-medium"
+            onClick={e => handleOnClick(index)}
+          >
+            <span className="icon is-small">
+              <i className="fas fa-comments" />
+            </span>
           </a>
         </div>
         <div className="media-content">

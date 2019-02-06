@@ -10,7 +10,7 @@ const eventInfo: React.SFC<EventInfoProps> = ({ event }) => {
   const { lts } = event;
   if (lts && lts.length > 0) {
     return (
-      <article className="message">
+      <article className="message is-danger">
         <div className="message-header">
           <p>{`${event.name} - ${getFullDate(event.date)}`}</p>
         </div>

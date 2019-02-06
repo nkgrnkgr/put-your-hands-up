@@ -36,9 +36,9 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
       <>
         <Tabs event={event} />
         <div className="container">
-          <SearchWrapper />
-          <hr />
           {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
+          <hr />
+          <SearchWrapper />
           {selectedTabIndex === 0 ? (
             <h2 className="title is-3">イベント全般へのコメント</h2>
           ) : (
