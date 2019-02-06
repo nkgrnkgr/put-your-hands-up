@@ -32,7 +32,7 @@ const box: React.SFC<BoxProps> = ({ lt, index, selectTab }) => {
       <article className="media">
         <div className="media-left">
           <a
-            className="button is-rounded is-info is-medium"
+            className="button is-rounded is-info is-medium shadow"
             onClick={e => handleOnClick(index)}
           >
             <span className="icon is-small">

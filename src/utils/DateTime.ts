@@ -29,8 +29,12 @@ export const getHourMinute = (dateTime: number): string => {
   return get(dateTime, 'HH:mm');
 };
 
-export const getYearMonth = (dateTime: number): string => {
+export const getYearMonthDay = (dateTime: number): string => {
   return get(dateTime, 'YYYY/MM/DD');
+};
+
+export const getYearMonthDayHourMitutes = (dateTime: number): string => {
+  return get(dateTime, 'YYYY/MM/DD HH:mm');
 };
 
 export const getFullDate = (dateTime: number): string => {

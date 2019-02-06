@@ -8,6 +8,7 @@ import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
 import SearchWrapper from 'containers/Event/SearchWrapper';
 import SortForm from 'containers/Event/SortForm';
+import { getYearMonthDayHourMitutes } from 'utils/DateTime';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -36,6 +37,10 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
       <>
         <Tabs event={event} />
         <div className="container">
+          <h1 className="title is-4">{event.name}</h1>
+          <h1 className="title is-4">
+            {getYearMonthDayHourMitutes(event.date)}
+          </h1>
           {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
           <hr />
           <SearchWrapper />
