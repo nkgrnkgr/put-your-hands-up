@@ -33,14 +33,12 @@ const edit: React.SFC<CreateProps> = ({ firestore, auth }) => {
     }
   };
 
-  if (event) {
-    return (
-      <div>
-        <h1 className="title is-2">イベント作成</h1>
-        <InputForm handleSubmit={event => handleCreateEvent(event as Event)} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1 className="title is-2">イベント作成</h1>
+      <InputForm handleSubmit={event => handleCreateEvent(event as Event)} />
+    </div>
+  );
   return <></>;
 };
 

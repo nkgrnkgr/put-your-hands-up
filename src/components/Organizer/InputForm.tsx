@@ -127,21 +127,21 @@ const inputForm: React.SFC<InputFormProps> = ({
                             placeholder="@nkgrnkgr"
                           />
                         </FormWrapper>
-                        <FormWrapper labelName="登壇資料URL1">
+                        <FormWrapper labelName="リンク1">
                           <Field
                             className="input"
                             name={`lts.${index}.documentUrl1`}
                             placeholder="https://speakerdeck.com/..."
                           />
                         </FormWrapper>
-                        <FormWrapper labelName="登壇資料URL2">
+                        <FormWrapper labelName="リンク2">
                           <Field
                             className="input"
                             name={`lts.${index}.documentUrl2`}
                             placeholder="https://speakerdeck.com/..."
                           />
                         </FormWrapper>
-                        <FormWrapper labelName="登壇資料URL3">
+                        <FormWrapper labelName="リンク3">
                           <Field
                             className="input"
                             name={`lts.${index}.documentUrl3`}
