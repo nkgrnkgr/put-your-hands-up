@@ -7,8 +7,8 @@ import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
 import SearchWrapper from 'containers/Event/SearchWrapper';
-import SortForm from 'containers/Event/SortForm';
 import { getYearMonthDayHourMitutes } from 'utils/DateTime';
+import SortTabs from 'containers/Event/SortTabs';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -47,9 +47,9 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
           {selectedTabIndex === 0 ? (
             <h2 className="title is-3">イベント全般へのコメント</h2>
           ) : (
-            <SortForm />
+            ''
           )}
-          <hr />
+          <SortTabs />
           {query !== '' ? (
             <h5 className="title is-5">検索結果: {query}</h5>
           ) : (
@@ -62,7 +62,11 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
       </>
     );
   }
-  return <Loading />;
+  return (
+    <div className="container">
+      <Loading />
+    </div>
+  );
 };
 
 export default eventWrapper;
