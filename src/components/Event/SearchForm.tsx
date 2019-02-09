@@ -45,7 +45,7 @@ const searchForm: React.SFC<SearchFormProps> = ({
         }
         setSubmitting(false);
       }}
-      render={({ values, setFieldValue }) => (
+      render={() => (
         <Form>
           <div className="field has-addons" style={{ marginBottom: '10px' }}>
             <p className="control has-icons-right">

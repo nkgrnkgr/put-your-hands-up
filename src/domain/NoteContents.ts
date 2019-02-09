@@ -7,3 +7,38 @@ export default interface NoteContents {
   color: Color;
   created: number;
 }
+
+export const INITIAL_VALUE: NoteContents = {
+  comment: '',
+  tagTitles: [],
+  createUserId: '',
+  fansIds: [],
+  color: '#F4F4F4',
+  created: new Date().getMilliseconds()
+};
+
+export const FEATURED_CONTENTS = [
+  '登壇お疲れさまでした👏',
+  '完全に理解した🤯',
+  '勉強になった✍',
+  'クソコードオブザイヤーだ🤮',
+  'お強い...💪'
+];
+
+export const FEATURED_TAGS = [
+  '質問',
+  '🔰初心者',
+  'マサカリ',
+  '後で詳しい話を聞かせて欲しい',
+  'ちょっと何言っているかわからない'
+];
+
+export const COLORS = [
+  '#F4F4F4',
+  '#fdcfe8',
+  '#ccff90',
+  '#cbf0f8',
+  '#fff475',
+  '#fbbc04',
+  '#d7aefb'
+];

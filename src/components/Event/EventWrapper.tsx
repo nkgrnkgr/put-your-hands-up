@@ -9,6 +9,7 @@ import Loading from 'components/Loading';
 import SearchWrapper from 'containers/Event/SearchWrapper';
 import { getYearMonthDayHourMitutes } from 'utils/DateTime';
 import SortTabs from 'containers/Event/SortTabs';
+import CommentForm from 'containers/Event/CommentForm';
 
 export interface EventWrapperProps {
   auth: Auth;
@@ -37,6 +38,8 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
       <>
         <Tabs event={event} />
         <div className="container">
+          <CommentForm event={event} />
+          <hr />
           <h1 className="title is-4">{event.name}</h1>
           <h1 className="title is-4">
             {getYearMonthDayHourMitutes(event.date)}
@@ -49,6 +52,7 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
           ) : (
             ''
           )}
+          <hr />
           <SortTabs />
           {query !== '' ? (
             <h5 className="title is-5">検索結果: {query}</h5>
