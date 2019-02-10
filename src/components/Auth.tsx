@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Redirect } from 'react-router';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import Loading from './Loading';
 
@@ -14,7 +13,7 @@ const auth: React.SFC<Props> = props => {
       <Loading />
     </div>
   ) : isEmpty(auth) ? (
-    <Redirect to={'/login'} />
+    <></>
   ) : (
     <>{children}</>
   );

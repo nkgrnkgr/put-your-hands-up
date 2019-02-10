@@ -12,7 +12,6 @@ interface Params {
   eventurl: string;
 }
 export interface CommentsBoardProps {
-  auth: Auth;
   firestore: Firestore;
   match: match<Params>;
   notes: Note[];

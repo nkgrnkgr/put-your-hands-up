@@ -10,7 +10,6 @@ import { Event } from 'domain/Event';
 import Tag from 'domain/Tag';
 
 interface StateProps {
-  auth: Auth;
   notes: Note[];
   selectedTabIndex: number;
   query: string;
@@ -29,7 +28,6 @@ type EnhancedProps = StateProps & FirebaseProps;
 type FirestoreNotes = Firestore & { ordered: { notes: Note[] } };
 
 const mapStateToProps = (state: State) => ({
-  auth: state.firebase.auth,
   notes: (state.firestore as FirestoreNotes).ordered.notes,
   selectedTabIndex: state.application.selectedTabIndex,
   query: state.search.query,
