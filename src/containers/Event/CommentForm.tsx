@@ -12,6 +12,7 @@ import {
   removeTag,
   onChangeTagTitle,
   resetCommentInfo,
+  changeStateCommentForm,
   CommentActionPayload
 } from 'actions/comment';
 import { Event } from 'domain/Event';
@@ -22,6 +23,7 @@ interface StateProps {
   inputtingTags: Tag[];
   inputtingTagTitle: string;
   selectedTabIndex: number;
+  isActiveCommentForm: boolean;
   auth: Auth;
 }
 
@@ -36,6 +38,7 @@ interface DispatchProps {
   onChangeTagTitle: (tagTitle: string) => void;
   removeTag: (index: number) => void;
   resetCommentInfo: () => void;
+  changeStateCommentForm: (shouldOpen: boolean) => void;
 }
 
 type EnhancedProps = StateProps & DispatchProps;
@@ -45,6 +48,7 @@ const mapStateToProps = (state: State) => ({
   inputtingComment: state.comment.inputtingComment,
   inputtingTags: state.comment.inputtingTags,
   inputtingTagTitle: state.comment.inputtingTagTitle,
+  isActiveCommentForm: state.application.isActiveCommentForm,
   selectedTabIndex: state.application.selectedTabIndex
 });
 
@@ -58,7 +62,9 @@ const mapDispatchToProps = (
       addTag: (tag: Tag) => addTag({ tag }),
       removeTag: (tagIndex: number) => removeTag({ tagIndex }),
       onChangeTagTitle: (tagTitle: string) => onChangeTagTitle({ tagTitle }),
-      resetCommentInfo: () => resetCommentInfo()
+      resetCommentInfo: () => resetCommentInfo(),
+      changeStateCommentForm: (shouldOpen: boolean) =>
+        changeStateCommentForm({ shouldOpen })
     },
     dispatch
   );

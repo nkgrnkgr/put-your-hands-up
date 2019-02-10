@@ -21,12 +21,14 @@ export interface CommentFormProps {
   inputtingComment: string;
   inputtingTags: Tag[];
   inputtingTagTitle: string;
+  isActiveCommentForm: boolean;
   onChangeComment: (comment: string) => void;
   addComment: (comment: string) => void;
   addTag: (tag: Tag) => void;
   removeTag: (index: number) => void;
   onChangeTagTitle: (title: string) => void;
   resetCommentInfo: () => void;
+  changeStateCommentForm: (shouldClose: boolean) => void;
   selectedTabIndex: number;
 }
 
@@ -39,12 +41,14 @@ const commentForm: React.SFC<CommentFormProps> = ({
   inputtingComment,
   inputtingTags,
   inputtingTagTitle,
+  isActiveCommentForm,
   onChangeComment,
   addComment,
   addTag,
   removeTag,
   onChangeTagTitle,
   resetCommentInfo,
+  changeStateCommentForm,
   selectedTabIndex
 }) => {
   const handleOnChangeComment = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -75,6 +79,18 @@ const commentForm: React.SFC<CommentFormProps> = ({
     eventId: event.id
   };
 
+  const close = () => {
+    changeStateCommentForm(false);
+  };
+
+  const reset = () => {
+    resetCommentInfo();
+  };
+
+  const handleOnForcus = () => {
+    changeStateCommentForm(true);
+  };
+
   const handleOnSubmit = (values: CommentFormValues) => {
     const user = userInfo(auth);
     if (user) {
@@ -88,7 +104,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
             ltId: getLtId(selectedTabIndex, event)
           }
         );
-        resetCommentInfo();
+        close();
       }
     }
   };
@@ -96,7 +112,6 @@ const commentForm: React.SFC<CommentFormProps> = ({
   const mergeNoteComments = (values: CommentFormValues): NoteContents => {
     const tagTitles: string[] = [];
     inputtingTags.map(tag => tagTitles.push(tag.title));
-
     return {
       ...values.noteContents,
       tagTitles,
@@ -127,116 +142,126 @@ const commentForm: React.SFC<CommentFormProps> = ({
                   <div className="field">
                     <textarea
                       className="textarea"
-                      rows={3}
+                      rows={isActiveCommentForm ? 3 : 1}
                       onChange={e => handleOnChangeComment(e)}
                       placeholder="コメントを入力..."
                       value={inputtingComment}
+                      onFocus={e => handleOnForcus()}
                     />
                   </div>
-                  <div className="field is-grouped is-grouped-right">
-                    <label className="label">
-                      {`${inputtingComment.length}`}
-                    </label>
-                  </div>
-                  <div className="field is-grouped is-grouped-multiline">
-                    {FEATURED_CONTENTS.map((content, index) => (
-                      <p key={index} className="control">
-                        <a
-                          className="button is-small"
-                          onClick={e => handleAddComment(content)}
-                        >
-                          <span>{content}</span>
-                        </a>
-                      </p>
-                    ))}
-                  </div>
-                  <div className="field">
-                    <label className="label">Tag</label>
-                  </div>
-                  <div className="field is-grouped is-grouped-multiline">
-                    {FEATURED_TAGS.map((t, index) => (
-                      <p key={index} className="control">
-                        <a
-                          className="button is-small"
-                          onClick={e => handleOnClickFeaturedTagButton(t)}
-                        >
-                          <span>{t}</span>
-                        </a>
-                      </p>
-                    ))}
-                  </div>
-                  <div className="field has-addons">
-                    <div className="control has-icons-left">
-                      <input
-                        className="input is-small"
-                        name="tmp_tab"
-                        placeholder=""
-                        type="text"
-                        value={inputtingTagTitle}
-                        onChange={e => handleOnChangeTagTitle(e)}
-                      />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-tags" />
-                      </span>
+                  <div
+                    style={{
+                      display: `${isActiveCommentForm ? 'block' : 'none'}`
+                    }}
+                  >
+                    <div />
+                    <div className="field is-grouped is-grouped-right">
+                      <label className="label">
+                        {`${inputtingComment.length}`}
+                      </label>
                     </div>
-                    <div className="control">
-                      <a
-                        className="button is-info is-small"
-                        onClick={e => handleOnClickAddTag(inputtingTagTitle)}
-                      >
-                        Add
-                      </a>
+                    <div className="field is-grouped is-grouped-multiline">
+                      {FEATURED_CONTENTS.map((content, index) => (
+                        <p key={index} className="control">
+                          <a
+                            className="button is-small"
+                            onClick={e => handleAddComment(content)}
+                          >
+                            <span>{content}</span>
+                          </a>
+                        </p>
+                      ))}
                     </div>
-                  </div>
-                  <div className="field is-grouped is-grouped-multiline">
-                    {inputtingTags.map((tag, index) => (
-                      <TagLink
-                        key={index}
-                        index={index}
-                        tagTitle={tag.title}
-                        size="is-medium"
-                        handleDelete={removeTag}
-                      />
-                    ))}
-                  </div>
-                  <div className="field">
                     <div className="field">
-                      <label className="label">BackGround Color</label>
+                      <label className="label">Tag</label>
                     </div>
-                    <Field
-                      name="color"
-                      render={() => {
-                        return (
-                          <CirclePicker
-                            colors={COLORS}
-                            onSwatchHover={colorResult =>
-                              handleOnSwatchHover(colorResult.hex)
-                            }
-                          />
-                        );
-                      }}
-                    />
-                  </div>
-                  <hr />
-                  <div className="field is-grouped">
-                    <div className="control">
-                      <button
-                        className="button is-rounded is-danger shadow"
-                        type="submit"
-                      >
-                        <span className="icon is-small">
-                          <i className="fas fa-comments" />
+                    <div className="field is-grouped is-grouped-multiline">
+                      {FEATURED_TAGS.map((t, index) => (
+                        <p key={index} className="control">
+                          <a
+                            className="button is-small"
+                            onClick={e => handleOnClickFeaturedTagButton(t)}
+                          >
+                            <span>{t}</span>
+                          </a>
+                        </p>
+                      ))}
+                    </div>
+                    <div className="field has-addons">
+                      <div className="control has-icons-left">
+                        <input
+                          className="input is-small"
+                          name="tmp_tab"
+                          placeholder=""
+                          type="text"
+                          value={inputtingTagTitle}
+                          onChange={e => handleOnChangeTagTitle(e)}
+                        />
+                        <span className="icon is-small is-left">
+                          <i className="fas fa-tags" />
                         </span>
-                        <span>POST</span>
-                      </button>
+                      </div>
+                      <div className="control">
+                        <a
+                          className="button is-info is-small"
+                          onClick={e => handleOnClickAddTag(inputtingTagTitle)}
+                        >
+                          Add
+                        </a>
+                      </div>
                     </div>
-                    <div className="control">
-                      <a
-                        onClick={e => console.log(values)}
-                        className="button is-white"
-                      >
-                        CANCEL
-                      </a>
+                    <div className="field is-grouped is-grouped-multiline">
+                      {inputtingTags.map((tag, index) => (
+                        <TagLink
+                          key={index}
+                          index={index}
+                          tagTitle={tag.title}
+                          size="is-medium"
+                          handleDelete={removeTag}
+                        />
+                      ))}
+                    </div>
+                    <div className="field">
+                      <div className="field">
+                        <label className="label">BackGround Color</label>
+                      </div>
+                      <Field
+                        name="color"
+                        render={() => {
+                          return (
+                            <CirclePicker
+                              colors={COLORS}
+                              onSwatchHover={colorResult =>
+                                handleOnSwatchHover(colorResult.hex)
+                              }
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                    <hr />
+                    <div className="field is-grouped">
+                      <div className="control">
+                        <button
+                          className="button is-rounded is-danger shadow"
+                          type="submit"
+                        >
+                          <span className="icon is-small">
+                            <i className="fas fa-comments" />
+                          </span>
+                          <span>POST</span>
+                        </button>
+                      </div>
+                      <div className="control">
+                        <a onClick={e => reset()} className="button is-white">
+                          RESET
+                        </a>
+                      </div>
+                      <div className="control">
+                        <a onClick={e => close()} className="button is-white">
+                          CLOSE
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </Form>

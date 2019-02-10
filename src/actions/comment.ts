@@ -6,6 +6,7 @@ export interface CommentActionPayload {
   tag?: Tag;
   tagIndex?: number;
   tagTitle?: string;
+  shouldOpen?: boolean;
 }
 
 const actionCreater = actionCreatorFactory();
@@ -25,3 +26,7 @@ export const onChangeTagTitle = actionCreater<CommentActionPayload>(
 );
 
 export const resetCommentInfo = actionCreater('RESET_COMMENT_INFO');
+
+export const changeStateCommentForm = actionCreater<CommentActionPayload>(
+  'CHANGE_STATE_COMMENT_FORM'
+);
