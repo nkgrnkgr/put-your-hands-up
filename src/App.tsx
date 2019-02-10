@@ -6,7 +6,6 @@ import 'css/animation.css';
 import 'css/tab.css';
 import 'css/color.css';
 import Navbar from 'containers/Navbar';
-import Login from 'containers/Login';
 import FloatButton from 'containers/FloatButton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
@@ -19,7 +18,6 @@ const app: React.SFC = () => (
   <>
     <Switch>
       <Route exact={true} path={'/'} component={Home} />
-      <Route path={'/login'} render={props => <Login />} />
       <Route
         path={'/organizer'}
         render={props => (

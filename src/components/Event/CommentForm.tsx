@@ -273,13 +273,16 @@ const commentForm: React.SFC<CommentFormProps> = ({
                           </button>
                         </div>
                         <div className="control">
-                          <a onClick={e => reset()} className="button is-white">
-                            RESET
+                          <a onClick={e => close()} className="button">
+                            <span className="icon is-small">
+                              <i className="fas fa-times-circle" />
+                            </span>
+                            <span>CLOSE</span>
                           </a>
                         </div>
                         <div className="control">
-                          <a onClick={e => close()} className="button is-white">
-                            CLOSE
+                          <a onClick={e => reset()} className="button is-white">
+                            RESET
                           </a>
                         </div>
                       </div>
