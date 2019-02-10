@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Event } from 'domain/Event';
 import { Formik, Form, FormikActions, Field } from 'formik';
-import {
+import NoteContents, {
   FEATURED_CONTENTS,
   INITIAL_VALUE,
   FEATURED_TAGS,
@@ -13,8 +13,10 @@ import userInfo from 'lib/userInfo';
 import Tag from 'domain/Tag';
 import TagLink from 'components/TagLink';
 import { CirclePicker } from 'react-color';
+import { getLtId } from 'domain/Lt';
 export interface CommentFormProps {
   auth: Auth;
+  firestore?: Firestore;
   event: Event;
   inputtingComment: string;
   inputtingTags: Tag[];
@@ -24,12 +26,15 @@ export interface CommentFormProps {
   addTag: (tag: Tag) => void;
   removeTag: (index: number) => void;
   onChangeTagTitle: (title: string) => void;
+  resetCommentInfo: () => void;
+  selectedTabIndex: number;
 }
 
 interface CommentFormValues extends Note {}
 
 const commentForm: React.SFC<CommentFormProps> = ({
   auth,
+  firestore,
   event,
   inputtingComment,
   inputtingTags,
@@ -38,16 +43,10 @@ const commentForm: React.SFC<CommentFormProps> = ({
   addComment,
   addTag,
   removeTag,
-  onChangeTagTitle
+  onChangeTagTitle,
+  resetCommentInfo,
+  selectedTabIndex
 }) => {
-  const initialValues: CommentFormValues = {
-    id: createRandomId(),
-    user: userInfo(auth),
-    noteContents: INITIAL_VALUE,
-    ltId: '',
-    eventId: event.id
-  };
-
   const handleOnChangeComment = (e: React.FormEvent<HTMLTextAreaElement>) => {
     onChangeComment(e.currentTarget.value);
   };
@@ -68,6 +67,44 @@ const commentForm: React.SFC<CommentFormProps> = ({
     addTag({ title, isFeatured: false });
   };
 
+  const initialValues: CommentFormValues = {
+    id: createRandomId(),
+    user: userInfo(auth),
+    noteContents: INITIAL_VALUE,
+    ltId: '',
+    eventId: event.id
+  };
+
+  const handleOnSubmit = (values: CommentFormValues) => {
+    const user = userInfo(auth);
+    if (user) {
+      if (firestore && firestore.set) {
+        firestore.set(
+          { collection: 'notes', doc: values.id },
+          {
+            user,
+            noteContents: mergeNoteComments(values),
+            eventId: values.eventId,
+            ltId: getLtId(selectedTabIndex, event)
+          }
+        );
+        resetCommentInfo();
+      }
+    }
+  };
+
+  const mergeNoteComments = (values: CommentFormValues): NoteContents => {
+    const tagTitles: string[] = [];
+    inputtingTags.map(tag => tagTitles.push(tag.title));
+
+    return {
+      ...values.noteContents,
+      tagTitles,
+      comment: inputtingComment,
+      createUserId: auth.uid
+    };
+  };
+
   return (
     <div className="card">
       <Formik
@@ -76,8 +113,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
           values: CommentFormValues,
           { setSubmitting }: FormikActions<CommentFormValues>
         ) => {
-          // submint 処理の記述
-          console.log(values);
+          handleOnSubmit(values);
         }}
         render={({ values, setFieldValue }) => {
           const handleOnSwatchHover = (hex: string) => {
@@ -97,9 +133,11 @@ const commentForm: React.SFC<CommentFormProps> = ({
                       value={inputtingComment}
                     />
                   </div>
-                  <label className="label">
-                    {`文字数 : ${inputtingComment.length}`}
-                  </label>
+                  <div className="field is-grouped is-grouped-right">
+                    <label className="label">
+                      {`${inputtingComment.length}`}
+                    </label>
+                  </div>
                   <div className="field is-grouped is-grouped-multiline">
                     {FEATURED_CONTENTS.map((content, index) => (
                       <p key={index} className="control">
@@ -113,7 +151,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
                     ))}
                   </div>
                   <div className="field">
-                    <label className="label">タグ</label>
+                    <label className="label">Tag</label>
                   </div>
                   <div className="field is-grouped is-grouped-multiline">
                     {FEATURED_TAGS.map((t, index) => (
@@ -161,10 +199,9 @@ const commentForm: React.SFC<CommentFormProps> = ({
                       />
                     ))}
                   </div>
-                  {/* <Field name="color" style={{ display: 'none' }} /> */}
                   <div className="field">
                     <div className="field">
-                      <label className="label">背景色</label>
+                      <label className="label">BackGround Color</label>
                     </div>
                     <Field
                       name="color"
@@ -180,9 +217,28 @@ const commentForm: React.SFC<CommentFormProps> = ({
                       }}
                     />
                   </div>
-                  <button type="submit" className="button">
-                    送信
-                  </button>
+                  <hr />
+                  <div className="field is-grouped">
+                    <div className="control">
+                      <button
+                        className="button is-rounded is-danger shadow"
+                        type="submit"
+                      >
+                        <span className="icon is-small">
+                          <i className="fas fa-comments" />
+                        </span>
+                        <span>POST</span>
+                      </button>
+                    </div>
+                    <div className="control">
+                      <a
+                        onClick={e => console.log(values)}
+                        className="button is-white"
+                      >
+                        CANCEL
+                      </a>
+                    </div>
+                  </div>
                 </Form>
               </div>
             </div>

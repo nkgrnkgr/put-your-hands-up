@@ -14,7 +14,7 @@ export const INITIAL_VALUE: NoteContents = {
   createUserId: '',
   fansIds: [],
   color: '#F4F4F4',
-  created: new Date().getMilliseconds()
+  created: new Date().getTime()
 };
 
 export const FEATURED_CONTENTS = [

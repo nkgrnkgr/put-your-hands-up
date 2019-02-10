@@ -73,6 +73,15 @@ const reducer = reducerWithInitialState(initialState)
       };
     }
     return state;
+  })
+  .case(Action.resetCommentInfo, state => {
+    const { inputtingComment, inputtingTagTitle, inputtingTags } = initialState;
+    return {
+      ...state,
+      inputtingComment,
+      inputtingTagTitle,
+      inputtingTags
+    };
   });
 
 const existsTagAlready = (tags: Tag[], tag: Tag): boolean => {

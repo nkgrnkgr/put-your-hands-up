@@ -23,3 +23,5 @@ export const removeTag = actionCreater<CommentActionPayload>('REMOVE_TAG');
 export const onChangeTagTitle = actionCreater<CommentActionPayload>(
   'ON_CHANGE_TAG_TITLE'
 );
+
+export const resetCommentInfo = actionCreater('RESET_COMMENT_INFO');

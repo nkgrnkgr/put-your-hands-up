@@ -131,7 +131,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                           <Field
                             className="input"
                             name={`lts.${index}.documentUrl1`}
-                            placeholder="https://speakerdeck.com/..."
+                            placeholder="https://twitter.com/nkgrnkgr?lang=ja"
                           />
                         </FormWrapper>
                         <FormWrapper labelName="リンク2">
@@ -145,7 +145,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                           <Field
                             className="input"
                             name={`lts.${index}.documentUrl3`}
-                            placeholder="https://speakerdeck.com/..."
+                            placeholder="https://speaker.portfolio.github.io/"
                           />
                         </FormWrapper>
                         <FormWrapper
