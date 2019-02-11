@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Navbar from 'containers/Navbar';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
 import ConfirmModal from 'containers/ConfirmModal';
-import Loading from 'components/Loading';
+import AuthWrapper from 'containers/AuthWrapper';
 
 export interface OrganizerPageProps {
   firebase: Firebase;
@@ -12,7 +11,6 @@ export interface OrganizerPageProps {
 
 const organizerPage: React.SFC<OrganizerPageProps> = ({
   firebase,
-  auth,
   children
 }) => {
   return (
@@ -22,9 +20,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
         <ConfirmModal message="本当に削除してよろしいですか？" />
         <div className="container">
           <div>
-            {!isLoaded(auth) ? (
-              <Loading />
-            ) : isEmpty(auth) ? (
+            <AuthWrapper isAuthenComponent={false}>
               <div className="notification">
                 <div className="level">
                   <span>
@@ -43,9 +39,8 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
                   </a>
                 </div>
               </div>
-            ) : (
-              children
-            )}
+            </AuthWrapper>
+            <AuthWrapper>{children}</AuthWrapper>
           </div>
         </div>
       </section>
