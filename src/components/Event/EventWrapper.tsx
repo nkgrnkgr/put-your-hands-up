@@ -37,33 +37,34 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     return (
       <>
         <Tabs event={event} />
-        <div className="container">
-          <AuthWrapper>
-            <CommentForm event={event} />
-          </AuthWrapper>
-          <h1 className="title is-4">{event.name}</h1>
-          <h1 className="title is-4">
-            {getYearMonthDayHourMitutes(event.date)}
-          </h1>
-          {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
-          <hr />
-          <SearchWrapper />
-          {selectedTabIndex === 0 ? (
-            <h2 className="title is-3">イベント全般へのコメント</h2>
-          ) : (
-            ''
-          )}
-          <hr />
-          <SortTabs />
-          {query !== '' ? (
-            <h5 className="title is-5">検索結果: {query}</h5>
-          ) : (
-            ''
-          )}
-          <CommentsBoard event={event} />
-          <ConfirmModal message="本当に削除してよろしいですか？" />
-          <InputForm event={event} />
-        </div>
+        <section className="section" style={{ paddingTop: '0px' }}>
+          <div className="container">
+            <h1 className="title is-4">
+              {event.name} - {getYearMonthDayHourMitutes(event.date)}
+            </h1>
+            <AuthWrapper>
+              <CommentForm event={event} />
+            </AuthWrapper>
+            {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
+            <hr />
+            <SearchWrapper />
+            {selectedTabIndex === 0 ? (
+              <h2 className="title is-3">イベント全般へのコメント</h2>
+            ) : (
+              ''
+            )}
+            <hr />
+            <SortTabs />
+            {query !== '' ? (
+              <h5 className="title is-5">検索結果: {query}</h5>
+            ) : (
+              ''
+            )}
+            <CommentsBoard event={event} />
+            <ConfirmModal message="本当に削除してよろしいですか？" />
+            <InputForm event={event} />
+          </div>
+        </section>
       </>
     );
   }

@@ -33,7 +33,7 @@ const Tab: React.SFC<TabProps> = ({
 
 const sortTabs: React.SFC<SortTabProps> = ({ sortKey, setSortKey }) => {
   return (
-    <div className="tabs is-fullwidth is-boxed is-medium">
+    <div className="tabs is-fullwidth is-boxed">
       <ul>
         <Tab
           sortKey={sortKey}

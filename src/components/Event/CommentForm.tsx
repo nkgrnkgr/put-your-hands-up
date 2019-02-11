@@ -83,6 +83,11 @@ const commentForm: React.SFC<CommentFormProps> = ({
     changeStateCommentForm(false);
   };
 
+  const post = () => {
+    changeStateCommentForm(false);
+    reset();
+  };
+
   const reset = () => {
     resetCommentInfo();
   };
@@ -104,7 +109,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
             ltId: getLtId(selectedTabIndex, event)
           }
         );
-        close();
+        post();
       }
     }
   };
@@ -306,8 +311,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
             }}
           />
         </div>
-
-        <hr />
+        {/* <hr /> */}
       </div>
     </div>
   );
