@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NavbarOrganizer from 'containers/Organizer/NavbarOrganizer';
+import Navbar from 'containers/Navbar';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
@@ -17,7 +17,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
 }) => {
   return (
     <>
-      <NavbarOrganizer />
+      <Navbar isShownSignInButtons={false} hasTabs={false} />
       <section className="section">
         <ConfirmModal message="本当に削除してよろしいですか？" />
         <div className="container">

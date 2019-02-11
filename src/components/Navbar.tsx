@@ -10,17 +10,26 @@ export interface NavbarProps {
   auth: Auth;
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
+  isShownSignInButtons?: boolean;
+  hasTabs?: boolean;
 }
+
+const navbarClassNames = (hasTabs: boolean) => {
+  const className = hasTabs ? '' : 'is-fixed-top shadow';
+  return `navbar is-danger ${className}`;
+};
 
 const navbar: React.SFC<NavbarProps> = ({
   isActiveMobileMenu = false,
   firebase,
   auth,
   toggleDisplay = () => {},
-  toggleMobileMenu = () => {}
+  toggleMobileMenu = () => {},
+  isShownSignInButtons = true,
+  hasTabs = true
 }) => {
   return (
-    <nav className="navbar is-danger">
+    <nav className={navbarClassNames(hasTabs)}>
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
@@ -34,12 +43,6 @@ const navbar: React.SFC<NavbarProps> = ({
         </div>
         <div className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}>
           <div className="navbar-start">
-            <a className="navbar-item" href="/">
-              Home
-            </a>
-            <a className="navbar-item" href="/about">
-              About
-            </a>
             <a
               className="navbar-item"
               href="https://github.com/nkgrnkgr/put-your-hands-up"
@@ -49,39 +52,61 @@ const navbar: React.SFC<NavbarProps> = ({
               </span>
               <span>&nbsp;Github</span>
             </a>
+            <a className="navbar-item" href="/">
+              <span className="icon is-small">
+                <i className="fas fa-home" />
+              </span>
+              <span>&nbsp;Home</span>
+            </a>
+            <a className="navbar-item" href="/organizer">
+              <span className="icon is-small">
+                <i className="fas fa-users-cog" />
+              </span>
+              <span>&nbsp;&nbsp;For Organizer</span>
+            </a>
+            <a className="navbar-item" href="/help">
+              <span className="icon is-small">
+                <i className="fas fa-question-circle" />
+              </span>
+              <span>&nbsp;Help</span>
+            </a>
           </div>
           <div className="navbar-end">
             <AuthWrapper>
               <a className="navbar-item" onClick={e => firebase.logout()}>
+                <span>Logout&nbsp;</span>
                 <span className="icon">
                   <i className="fas fa-sign-out-alt" />
                 </span>
-                <span>Logout</span>
               </a>
             </AuthWrapper>
             <AuthWrapper isAuthenComponent={false}>
-              <div className="buttons">
-                <a
-                  className="button is-light"
-                  onClick={e => signInAnonymously()}
-                >
-                  <span className="icon">
-                    <i className="fas fa-user-secret" />
-                  </span>
-                  <span>匿名でログイン</span>
-                </a>
-                <a
-                  className="button is-info"
-                  onClick={e =>
-                    firebase.login({ provider: 'twitter', type: 'popup' })
-                  }
-                >
-                  <span className="icon">
-                    <i className="fab fa-twitter" />
-                  </span>
-                  <span>Twitterでログイン</span>
-                </a>
-              </div>
+              {isShownSignInButtons ? (
+                <div className="buttons">
+                  <a
+                    className="button is-light"
+                    onClick={e => signInAnonymously()}
+                  >
+                    <span className="icon">
+                      <i className="fas fa-user-secret" />
+                    </span>
+                    <span>匿名でログイン</span>
+                  </a>
+                  <a
+                    className="button is-info"
+                    onClick={e =>
+                      firebase.login({ provider: 'twitter', type: 'popup' })
+                    }
+                  >
+                    <span className="icon">
+                      <i className="fab fa-twitter" />
+                    </span>
+                    <span>Twitterでログイン</span>
+                  </a>
+                </div>
+              ) : (
+                ''
+              )}
             </AuthWrapper>
           </div>
           {userInfo(auth) ? (

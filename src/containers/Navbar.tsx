@@ -12,6 +12,11 @@ interface StateProps {
   auth: Auth;
 }
 
+interface OuterProps {
+  isShownSignInButtons?: boolean;
+  hasTabs?: boolean;
+}
+
 interface DispatchProps {
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
@@ -35,7 +40,7 @@ const mapDispatchToProps = (
 
 type EnhancedNavbarProps = StateProps & DispatchProps;
 
-const enhance = compose<EnhancedNavbarProps, {}>(
+const enhance = compose<EnhancedNavbarProps, OuterProps>(
   setDisplayName('EnhancedNavbar'),
   firebaseConnect(),
   connect<StateProps, DispatchProps, NavbarProps>(
