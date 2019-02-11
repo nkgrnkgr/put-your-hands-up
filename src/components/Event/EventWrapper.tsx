@@ -10,7 +10,7 @@ import SearchWrapper from 'containers/Event/SearchWrapper';
 import { getYearMonthDayHourMitutes } from 'utils/DateTime';
 import SortTabs from 'containers/Event/SortTabs';
 import CommentForm from 'containers/Event/CommentForm';
-import Auth from 'containers/Auth';
+import AuthWrapper from 'containers/AuthWrapper';
 
 export interface EventWrapperProps {
   firestore: Firestore;
@@ -38,9 +38,9 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
       <>
         <Tabs event={event} />
         <div className="container">
-          <Auth>
+          <AuthWrapper>
             <CommentForm event={event} />
-          </Auth>
+          </AuthWrapper>
           <h1 className="title is-4">{event.name}</h1>
           <h1 className="title is-4">
             {getYearMonthDayHourMitutes(event.date)}

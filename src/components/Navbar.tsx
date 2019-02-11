@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
 import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
+import AuthWrapper from 'containers/AuthWrapper';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -51,51 +51,38 @@ const navbar: React.SFC<NavbarProps> = ({
             </a>
           </div>
           <div className="navbar-end">
-            <div className="navbar-item">
-              {!isLoaded(auth) ? (
-                <span>Loading...</span>
-              ) : isEmpty(auth) ? (
-                <div className="buttons">
-                  <a
-                    className="button is-light"
-                    onClick={e => signInAnonymously()}
-                  >
-                    <span className="icon">
-                      <i className="fas fa-user-secret" />
-                    </span>
-                    <span>匿名でログイン</span>
-                  </a>
-                  <a
-                    className="button is-info"
-                    onClick={e =>
-                      firebase.login({ provider: 'twitter', type: 'popup' })
-                    }
-                  >
-                    <span className="icon">
-                      <i className="fab fa-twitter" />
-                    </span>
-                    <span>Twitterでログイン</span>
-                  </a>
-                </div>
-              ) : (
-                <div>
-                  <div className="buttons">
-                    <a className="button" onClick={e => firebase.logout()}>
-                      <span className="icon">
-                        <i className="fas fa-sign-out-alt" />
-                      </span>
-                      <span>ログアウト</span>
-                    </a>
-                    <a className="button is-info" onClick={toggleDisplay}>
-                      <span className="icon">
-                        <i className="fas fa-pen" />
-                      </span>
-                      <span>投稿する</span>
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
+            <AuthWrapper>
+              <a className="navbar-item" onClick={e => firebase.logout()}>
+                <span className="icon">
+                  <i className="fas fa-sign-out-alt" />
+                </span>
+                <span>Logout</span>
+              </a>
+            </AuthWrapper>
+            <AuthWrapper isAuthenComponent={false}>
+              <div className="buttons">
+                <a
+                  className="button is-light"
+                  onClick={e => signInAnonymously()}
+                >
+                  <span className="icon">
+                    <i className="fas fa-user-secret" />
+                  </span>
+                  <span>匿名でログイン</span>
+                </a>
+                <a
+                  className="button is-info"
+                  onClick={e =>
+                    firebase.login({ provider: 'twitter', type: 'popup' })
+                  }
+                >
+                  <span className="icon">
+                    <i className="fab fa-twitter" />
+                  </span>
+                  <span>Twitterでログイン</span>
+                </a>
+              </div>
+            </AuthWrapper>
           </div>
           {userInfo(auth) ? (
             <span className="is-flex-desktop" style={{ display: 'none' }}>

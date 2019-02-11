@@ -64,7 +64,7 @@ const navbarOrganizer: React.SFC<NavbarOrganizerProps> = ({
                       <span className="icon">
                         <i className="fas fa-sign-out-alt" />
                       </span>
-                      <span>ログアウト</span>
+                      <span>Logout</span>
                     </a>
                   </div>
                 </div>
