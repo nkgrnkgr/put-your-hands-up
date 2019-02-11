@@ -1,26 +1,19 @@
 import * as React from 'react';
-import SearchForm from 'components/Event/SearchForm';
 import TagLink from 'components/TagLink';
 import Tag from 'domain/Tag';
 
-export interface SearchWrapperProps {
-  query: string;
+export interface TagSearchResultProps {
   tags: Tag[];
-  searchQuery: (query: string) => void;
-  addTag: (tag: Tag) => void;
   removeTag: (index: number) => void;
 }
 
-const searchWrapper: React.SFC<SearchWrapperProps> = ({
-  query,
+const tagSearchResult: React.SFC<TagSearchResultProps> = ({
   tags,
-  searchQuery,
-  addTag,
   removeTag
 }) => {
   return (
     <>
-      <SearchForm query={query} searchQuery={searchQuery} addTag={addTag} />
+      {tags.length === 0 ? '' : <h5 className="title is-5">Tags:</h5>}
       <div className="field is-grouped is-grouped-multiline">
         {tags.map((tag, index) => {
           return (
@@ -38,4 +31,4 @@ const searchWrapper: React.SFC<SearchWrapperProps> = ({
   );
 };
 
-export default searchWrapper;
+export default tagSearchResult;

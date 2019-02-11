@@ -3,6 +3,7 @@ import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
 import AuthWrapper from 'containers/AuthWrapper';
+import SearchForm from 'containers/Event/SearchForm';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -43,15 +44,6 @@ const navbar: React.SFC<NavbarProps> = ({
         </div>
         <div className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}>
           <div className="navbar-start">
-            <a
-              className="navbar-item"
-              href="https://github.com/nkgrnkgr/put-your-hands-up"
-            >
-              <span className="icon is-small">
-                <i className="fab fa-github" />
-              </span>
-              <span>&nbsp;Github</span>
-            </a>
             <a className="navbar-item" href="/">
               <span className="icon is-small">
                 <i className="fas fa-home" />
@@ -70,8 +62,20 @@ const navbar: React.SFC<NavbarProps> = ({
               </span>
               <span>&nbsp;Help</span>
             </a>
+            <a
+              className="navbar-item"
+              href="https://github.com/nkgrnkgr/put-your-hands-up"
+            >
+              <span className="icon is-small">
+                <i className="fab fa-github" />
+              </span>
+              <span>&nbsp;Github</span>
+            </a>
           </div>
           <div className="navbar-end">
+            <div className="navbar-item">
+              <SearchForm />
+            </div>
             <AuthWrapper isAuthenComponent={false}>
               {isShownSignInButtons ? (
                 <div className="buttons">

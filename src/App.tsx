@@ -33,7 +33,7 @@ const app: React.SFC = () => (
       <Route
         path={'/events/:eventurl'}
         render={props => (
-          <section>
+          <>
             <Navbar />
             <EventWrapper {...props} />
             <div
@@ -42,7 +42,7 @@ const app: React.SFC = () => (
             >
               <FloatButton />
             </div>
-          </section>
+          </>
         )}
       />
     </Switch>

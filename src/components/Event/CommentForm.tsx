@@ -129,7 +129,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
     if (isActiveCommentForm) {
       return 'column is-two-thirds-desktop';
     }
-    return 'column is-one-third-desktop';
+    return 'column is-two-thirds-desktop';
   };
 
   return (
