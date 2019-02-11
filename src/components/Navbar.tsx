@@ -72,14 +72,6 @@ const navbar: React.SFC<NavbarProps> = ({
             </a>
           </div>
           <div className="navbar-end">
-            <AuthWrapper>
-              <a className="navbar-item" onClick={e => firebase.logout()}>
-                <span>Logout&nbsp;</span>
-                <span className="icon">
-                  <i className="fas fa-sign-out-alt" />
-                </span>
-              </a>
-            </AuthWrapper>
             <AuthWrapper isAuthenComponent={false}>
               {isShownSignInButtons ? (
                 <div className="buttons">
@@ -108,16 +100,31 @@ const navbar: React.SFC<NavbarProps> = ({
                 ''
               )}
             </AuthWrapper>
+            <AuthWrapper>
+              <div className="navbar-item has-dropdown is-hoverable">
+                <span className="is-flex-desktop" style={{ display: 'none' }}>
+                  <figure
+                    className="image is-32x32"
+                    style={{ marginTop: '10px' }}
+                  >
+                    <img
+                      className="is-rounded"
+                      style={{ width: 'auto' }}
+                      src={userInfo(auth).photoURL}
+                    />
+                  </figure>
+                </span>
+                <div className="navbar-dropdown">
+                  <a className="navbar-item" onClick={e => firebase.logout()}>
+                    <span>Logout&nbsp;</span>
+                    <span className="icon">
+                      <i className="fas fa-sign-out-alt" />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </AuthWrapper>
           </div>
-          {userInfo(auth) ? (
-            <span className="is-flex-desktop" style={{ display: 'none' }}>
-              <figure className="image is-32x32" style={{ marginTop: '10px' }}>
-                <img className="is-rounded" src={userInfo(auth).photoURL} />
-              </figure>
-            </span>
-          ) : (
-            <span />
-          )}
         </div>
       </div>
     </nav>
