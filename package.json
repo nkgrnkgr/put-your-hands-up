@@ -29,7 +29,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "lint": "tslint -c ./tslint.json --exclude **/*.d.ts --exclude ./node_modules --project . --fix",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "deploy-s": "firebase deploy --only hosting --project staging"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
