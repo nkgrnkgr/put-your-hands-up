@@ -109,7 +109,7 @@ const navbar: React.SFC<NavbarProps> = ({
                 <span className="is-flex-desktop" style={{ display: 'none' }}>
                   <figure
                     className="image is-32x32"
-                    style={{ marginTop: '10px' }}
+                    style={{ marginTop: '12px' }}
                   >
                     <img
                       className="is-rounded"
