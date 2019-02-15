@@ -158,7 +158,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
                           <p className="image is-32x32">
                             <img
                               className="is-rounded"
-                              src={userInfo(auth).photoURL}
+                              src={userInfo(auth).avatarUrl}
                             />
                           </p>
                         </figure>

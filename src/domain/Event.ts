@@ -7,6 +7,7 @@ export interface Event {
   date: number;
   organizerUids: { string: boolean };
   lts: Lt[];
+  participantIds?: string[];
 }
 
 export interface Events {

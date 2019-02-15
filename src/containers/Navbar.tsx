@@ -6,7 +6,8 @@ import { Action } from 'typescript-fsa';
 import { toggleDisplay, InputActionPayload } from 'actions/input';
 import { toggleMobileMenu } from 'actions/mobileMenu';
 import { CombinedState as State } from 'reducers/root';
-import { firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect, withFirestore } from 'react-redux-firebase';
+import { Event } from 'domain/Event';
 
 interface StateProps {
   auth: Auth;
@@ -15,6 +16,7 @@ interface StateProps {
 interface OuterProps {
   isShownSignInButtons?: boolean;
   hasTabs?: boolean;
+  event?: Event;
 }
 
 interface DispatchProps {
@@ -43,6 +45,7 @@ type EnhancedNavbarProps = StateProps & DispatchProps;
 const enhance = compose<EnhancedNavbarProps, OuterProps>(
   setDisplayName('EnhancedNavbar'),
   firebaseConnect(),
+  withFirestore,
   connect<StateProps, DispatchProps, NavbarProps>(
     mapStateToProps,
     mapDispatchToProps

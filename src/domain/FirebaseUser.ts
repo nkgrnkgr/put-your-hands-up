@@ -1,5 +1,6 @@
 export interface FirebaseUser {
   displayName: string;
-  photoURL: string;
+  avatarUrl: string;
   uid: string;
+  eventIdsParticipated?: string[];
 }

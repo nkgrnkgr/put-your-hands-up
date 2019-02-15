@@ -4,15 +4,19 @@ import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
+import { FirebaseUser } from 'domain/FirebaseUser';
+import { Event } from 'domain/Event';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
   firebase: Firebase;
+  firestore?: Firestore;
   auth: Auth;
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
   isShownSignInButtons?: boolean;
   hasTabs?: boolean;
+  event?: Event;
 }
 
 const navbarClassNames = (hasTabs: boolean) => {
@@ -23,12 +27,63 @@ const navbarClassNames = (hasTabs: boolean) => {
 const navbar: React.SFC<NavbarProps> = ({
   isActiveMobileMenu = false,
   firebase,
+  firestore,
   auth,
   toggleDisplay = () => {},
   toggleMobileMenu = () => {},
   isShownSignInButtons = true,
-  hasTabs = true
+  hasTabs = true,
+  event
 }) => {
+  // const addParticipantIdToEvent = (event: Event, uid: string) => {
+  //   if (firestore && firestore.set) {
+  //     const { participantIds } = event;
+  //     let ids = [];
+  //     if (participantIds) {
+  //       ids = [...participantIds, uid];
+  //     } else {
+  //       ids.push(uid);
+  //     }
+  //     firestore.update(
+  //       { collection: 'events', doc: event.id },
+  //       {
+  //         participantIds: ids
+  //       }
+  //     );
+  //   }
+  // };
+
+  const updateUserUid = (user: FirebaseUser, event?: Event) => {
+    const { uid, eventIdsParticipated } = user;
+    if (event) {
+      let ids = [];
+      if (eventIdsParticipated) {
+        ids = [...eventIdsParticipated, event.id];
+      } else {
+        ids.push(event.id);
+      }
+      if (firestore && firestore.set) {
+        firestore.update(
+          { collection: 'users', doc: uid },
+          {
+            uid,
+            eventIdsParticipated: [...ids]
+          }
+        );
+      }
+    }
+  };
+
+  const signInWithTwitter = async () => {
+    const loginedInfo = await firebase.login({
+      provider: 'twitter',
+      type: 'popup'
+    });
+    const user: FirebaseUser = loginedInfo.user;
+    if (user) {
+      updateUserUid(user);
+    }
+  };
   return (
     <nav className={navbarClassNames(hasTabs)}>
       <div className="container">
@@ -90,9 +145,7 @@ const navbar: React.SFC<NavbarProps> = ({
                   </a>
                   <a
                     className="button is-info"
-                    onClick={e =>
-                      firebase.login({ provider: 'twitter', type: 'popup' })
-                    }
+                    onClick={e => signInWithTwitter()}
                   >
                     <span className="icon">
                       <i className="fab fa-twitter" />
@@ -114,7 +167,7 @@ const navbar: React.SFC<NavbarProps> = ({
                     <img
                       className="is-rounded"
                       style={{ width: 'auto' }}
-                      src={userInfo(auth).photoURL}
+                      src={userInfo(auth).avatarUrl}
                     />
                   </figure>
                 </span>

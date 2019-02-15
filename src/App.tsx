@@ -5,7 +5,6 @@ import 'css/font.css';
 import 'css/animation.css';
 import 'css/tab.css';
 import 'css/color.css';
-import Navbar from 'containers/Navbar';
 import FloatButton from 'containers/FloatButton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
@@ -34,7 +33,6 @@ const app: React.SFC = () => (
         path={'/events/:eventurl'}
         render={props => (
           <>
-            <Navbar />
             <EventWrapper {...props} />
             <div
               className="container is-flex-mobile"
