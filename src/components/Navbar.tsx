@@ -6,6 +6,7 @@ import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
+import { createNewListFrom } from 'utils/Utils';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -35,39 +36,30 @@ const navbar: React.SFC<NavbarProps> = ({
   hasTabs = true,
   event
 }) => {
-  // const addParticipantIdToEvent = (event: Event, uid: string) => {
-  //   if (firestore && firestore.set) {
-  //     const { participantIds } = event;
-  //     let ids = [];
-  //     if (participantIds) {
-  //       ids = [...participantIds, uid];
-  //     } else {
-  //       ids.push(uid);
-  //     }
-  //     firestore.update(
-  //       { collection: 'events', doc: event.id },
-  //       {
-  //         participantIds: ids
-  //       }
-  //     );
-  //   }
-  // };
-
-  const updateUserUid = (user: FirebaseUser, event?: Event) => {
-    const { uid, eventIdsParticipated } = user;
+  const registerUid = (uid: string) => {
     if (event) {
-      let ids = [];
-      if (eventIdsParticipated) {
-        ids = [...eventIdsParticipated, event.id];
-      } else {
-        ids.push(event.id);
-      }
-      if (firestore && firestore.set) {
+      if (firestore && firestore.update) {
         firestore.update(
           { collection: 'users', doc: uid },
           {
-            uid,
-            eventIdsParticipated: [...ids]
+            uid
+          }
+        );
+      }
+    }
+  };
+
+  const registerEventId = async (uid: string) => {
+    if (event) {
+      if (firestore && firestore.get && firestore.update) {
+        const user = await firestore.get({ collection: 'users', doc: uid });
+        firestore.update(
+          { collection: 'users', doc: uid },
+          {
+            eventIdsParticipated: createNewListFrom(
+              event.id,
+              user.eventIdsParticipated
+            )
           }
         );
       }
@@ -81,7 +73,8 @@ const navbar: React.SFC<NavbarProps> = ({
     });
     const user: FirebaseUser = loginedInfo.user;
     if (user) {
-      updateUserUid(user);
+      await registerUid(user.uid);
+      await registerEventId(user.uid);
     }
   };
   return (

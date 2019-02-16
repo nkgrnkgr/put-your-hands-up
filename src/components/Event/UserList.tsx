@@ -7,8 +7,6 @@ export interface UserListProps {
 }
 
 const tabs: React.SFC<UserListProps> = ({ users }) => {
-  console.log('@users');
-  console.log(users);
   return (
     <nav className="level">
       <div className="level-left">
