@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import 'bulma/css/bulma.css';
+import 'bulma-tooltip/dist/css/bulma-tooltip.min.css';
 import 'css/font.css';
 import 'css/animation.css';
 import 'css/tab.css';

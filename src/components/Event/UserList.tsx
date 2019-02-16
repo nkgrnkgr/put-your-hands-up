@@ -16,7 +16,11 @@ const tabs: React.SFC<UserListProps> = ({ users }) => {
           {users
             ? users.map((user, index) => {
                 return (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    className="tooltip is-tooltip-bottom"
+                    data-tooltip={user.displayName}
+                  >
                     <figure className="image is-32x32">
                       <img
                         className="is-rounded"
