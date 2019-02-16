@@ -24,7 +24,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
               <div className="notification">
                 <div className="level">
                   <span>
-                    オーガナイザー向けの機能はログイン時のみご利用いただけます
+                    オーガナイザー向けの機能はTwitterログイン時のみご利用いただけます
                   </span>
                   <a
                     className="button is-info"
@@ -39,6 +39,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
                   </a>
                 </div>
               </div>
+              <div style={{ height: '300px' }}>{''}</div>
             </AuthWrapper>
             <AuthWrapper>{children}</AuthWrapper>
           </div>

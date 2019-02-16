@@ -15,12 +15,6 @@ const loading: React.SFC<LoadingProps> = () => {
         </span>
       </span>
     </div>
-    // <span>
-    //   Loading...
-    //   <span className="icon is-large">
-    //     <i className="fas fa-spinner fa-spin" />
-    //   </span>
-    // </span>
   );
 };
 

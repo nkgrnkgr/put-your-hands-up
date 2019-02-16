@@ -1,0 +1,23 @@
+.footer {
+    background: #232b33;
+    color: rgba(255,255,255,0.4);
+    font-size: 13.5px;
+}
+
+.footer .title {
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+}
+
+.footer a {
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+    color: rgba(255,255,255,0.51);
+    letter-spacing: 0.5px;
+}
+
+.footer a:hover {
+    color: #209CEE;
+}
