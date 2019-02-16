@@ -51,9 +51,6 @@ const list: React.SFC<ListProps> = ({ events }) => {
           : ''}
       </div>
       <hr />
-      <div>
-        <pre>{JSON.stringify(events, undefined, 2)}</pre>
-      </div>
     </div>
   );
 };

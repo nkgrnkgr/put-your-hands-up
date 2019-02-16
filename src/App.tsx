@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import 'bulma/css/bulma.css';
+import 'bulma/css/bulma.min.css';
 import 'bulma-tooltip/dist/css/bulma-tooltip.min.css';
+import 'bulma-pageloader/dist/css/bulma-pageloader.min.css';
 import 'css/font.css';
 import 'css/animation.css';
 import 'css/tab.css';
@@ -12,6 +13,7 @@ import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
 import Create from 'containers/Organizer/Create';
 import Home from 'components/Home';
+import Footer from 'components/Footer';
 import EventWrapper from 'containers/Event/EventWrapper';
 
 const app: React.SFC = () => (
@@ -45,6 +47,7 @@ const app: React.SFC = () => (
         )}
       />
     </Switch>
+    <Footer />
   </>
 );
 

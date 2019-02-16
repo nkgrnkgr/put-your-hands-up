@@ -65,9 +65,11 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
     );
   }
   return (
-    <div className="container">
-      <Loading />
-    </div>
+    <section className="section">
+      <div className="container">
+        <Loading />
+      </div>
+    </section>
   );
 };
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.7.2",
+    "bulma-pageloader": "^2.1.0",
     "bulma-tooltip": "^2.0.2",
     "dayjs": "^1.7.7",
     "firebase": "^5.7.0",

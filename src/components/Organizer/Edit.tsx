@@ -51,9 +51,6 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
             handleUpdateEvent(updateItem as InputFormValues, events[0])
           }
         />
-        <div>
-          <pre>{JSON.stringify(events, undefined, 2)}</pre>
-        </div>
       </div>
     );
   }
