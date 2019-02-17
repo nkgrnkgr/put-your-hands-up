@@ -1,3 +1,4 @@
+import { isDuplicate } from './../domain/Tag';
 import Tag from 'domain/Tag';
 import * as Action from 'actions/search';
 
@@ -11,10 +12,6 @@ export interface State {
 const initialState: State = {
   query: '',
   tags: [{ title: '質問', isFeatured: true }]
-};
-
-const isDuplicate = (tags: Tag[], tag: Tag): boolean => {
-  return tags.indexOf(tag) > 0;
 };
 
 const reducer = reducerWithInitialState(initialState)
