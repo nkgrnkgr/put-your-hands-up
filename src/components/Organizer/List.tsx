@@ -14,7 +14,21 @@ const isPast = (date: number): boolean => {
   return ago24hour - date > 0;
 };
 
-const list: React.SFC<ListProps> = ({ events }) => {
+const list: React.SFC<ListProps> = ({ auth, events }) => {
+  if (auth.isAnonymous) {
+    return (
+      <>
+        <div className="notification">
+          <div className="level">
+            <span>
+              オーガナイザー向けの機能はTwitterログイン時のみご利用いただけます
+            </span>
+          </div>
+        </div>
+        <div style={{ height: '300px' }}>{''}</div>
+      </>
+    );
+  }
   return (
     <div>
       <h1 className="title is-1">イベントの管理</h1>
