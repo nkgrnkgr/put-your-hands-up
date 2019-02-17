@@ -77,7 +77,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
             onClick={e => likeNote(firestore, note, auth.uid)}
           >
             <span className="icon">
-              {isLiked(user.uid, noteContents.fansIds) ? (
+              {isLiked(auth.uid, noteContents.fansIds) ? (
                 <i className="fas fa-heart" />
               ) : (
                 <i className="far fa-heart" />
@@ -111,19 +111,19 @@ const minuteAgo = (updated: number) => {
   return ago(updated, 'minute');
 };
 
-const likeNote = async (firestore: Firestore, note: Note, userId: string) => {
-  if (note.noteContents.fansIds.indexOf(userId) === -1) {
-    const ids = [...note.noteContents.fansIds, userId];
-    const c: NoteContents = {
-      ...note.noteContents,
-      fansIds: ids
-    };
-    const updateItem = {
-      ...note,
-      noteContents: c
-    };
-    firestore.update({ collection: 'notes', doc: note.id }, updateItem);
-  }
+const likeNote = async (firestore: Firestore, note: Note, uid: string) => {
+  if (!uid) return;
+  if (note.noteContents.fansIds.indexOf(uid) !== -1) return;
+  const ids = [...note.noteContents.fansIds, uid];
+  const c: NoteContents = {
+    ...note.noteContents,
+    fansIds: ids
+  };
+  const updateItem = {
+    ...note,
+    noteContents: c
+  };
+  firestore.update({ collection: 'notes', doc: note.id }, updateItem);
 };
 
 export default stickyNote;
