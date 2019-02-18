@@ -72,7 +72,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
   };
 
   const initialValues: CommentFormValues = {
-    id: createRandomId(),
+    id: '',
     user: userInfo(auth),
     noteContents: INITIAL_VALUE,
     ltId: '',
@@ -101,7 +101,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
     if (user) {
       if (firestore && firestore.set) {
         firestore.set(
-          { collection: 'notes', doc: values.id },
+          { collection: 'notes', doc: createRandomId() },
           {
             user,
             noteContents: mergeNoteComments(values),
@@ -311,7 +311,6 @@ const commentForm: React.SFC<CommentFormProps> = ({
             }}
           />
         </div>
-        {/* <hr /> */}
       </div>
     </div>
   );
