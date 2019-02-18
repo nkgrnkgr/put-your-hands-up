@@ -7,6 +7,7 @@ import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
 import { createNewListFrom } from 'utils/Utils';
+import AnchorLink from './AnchorLink';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -92,33 +93,25 @@ const navbar: React.SFC<NavbarProps> = ({
         </div>
         <div className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}>
           <div className="navbar-start">
-            <a className="navbar-item" href="/">
-              <span className="icon is-small">
-                <i className="fas fa-home" />
-              </span>
-              <span>&nbsp;Home</span>
-            </a>
-            <a className="navbar-item" href="/organizer">
-              <span className="icon is-small">
-                <i className="fas fa-users-cog" />
-              </span>
-              <span>&nbsp;&nbsp;For Organizer</span>
-            </a>
-            <a className="navbar-item" href="/help">
-              <span className="icon is-small">
-                <i className="fas fa-question-circle" />
-              </span>
-              <span>&nbsp;Help</span>
-            </a>
-            <a
-              className="navbar-item"
-              href="https://github.com/nkgrnkgr/put-your-hands-up"
-            >
-              <span className="icon is-small">
-                <i className="fab fa-github" />
-              </span>
-              <span>&nbsp;Github</span>
-            </a>
+            <AnchorLink
+              title={'Home'}
+              href={'/'}
+              className={'navbar-item'}
+              iconClassName={'fas fa-home'}
+            />
+            <AnchorLink
+              title={'For Organizer'}
+              href={'/organizer'}
+              className={'navbar-item'}
+              iconClassName={'fas fa-users-cog'}
+            />
+            <AnchorLink
+              title={'Github'}
+              href={'https://github.com/nkgrnkgr/put-your-hands-up'}
+              className={'navbar-item'}
+              iconClassName={'fab fa-github'}
+              isExternal={true}
+            />
           </div>
           <div className="navbar-end">
             <div className="navbar-item">
@@ -127,24 +120,18 @@ const navbar: React.SFC<NavbarProps> = ({
             <AuthWrapper isAuthenComponent={false}>
               {isShownSignInButtons ? (
                 <div className="buttons">
-                  <a
-                    className="button is-light"
-                    onClick={e => signInAnonymously()}
-                  >
-                    <span className="icon">
-                      <i className="fas fa-user-secret" />
-                    </span>
-                    <span>匿名でログイン</span>
-                  </a>
-                  <a
-                    className="button is-info"
-                    onClick={e => signInWithTwitter()}
-                  >
-                    <span className="icon">
-                      <i className="fab fa-twitter" />
-                    </span>
-                    <span>Twitterでログイン</span>
-                  </a>
+                  <AnchorLink
+                    title={'匿名でログイン'}
+                    className={'button is-light'}
+                    iconClassName={'fas fa-user-secret'}
+                    handleOnClick={e => signInAnonymously()}
+                  />
+                  <AnchorLink
+                    title={'Twitterでログイン'}
+                    className={'button is-info'}
+                    iconClassName={'fab fa-twitter'}
+                    handleOnClick={e => signInWithTwitter()}
+                  />
                 </div>
               ) : (
                 ''
@@ -165,12 +152,12 @@ const navbar: React.SFC<NavbarProps> = ({
                   </figure>
                 </span>
                 <div className="navbar-dropdown">
-                  <a className="navbar-item" onClick={e => firebase.logout()}>
-                    <span>Logout&nbsp;</span>
-                    <span className="icon">
-                      <i className="fas fa-sign-out-alt" />
-                    </span>
-                  </a>
+                  <AnchorLink
+                    title={' Logout '}
+                    className={'button is-light'}
+                    iconClassName={'fas fa-sign-out-alt'}
+                    handleOnClick={e => firebase.logout()}
+                  />
                 </div>
               </div>
             </AuthWrapper>

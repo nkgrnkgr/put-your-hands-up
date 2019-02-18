@@ -2,10 +2,11 @@ import * as React from 'react';
 
 export interface AnchorLinkProps {
   title: string;
-  href: string;
+  href?: string;
   className?: string;
   iconClassName?: string;
   isExternal?: boolean;
+  handleOnClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const anchorLink: React.SFC<AnchorLinkProps> = ({
@@ -13,12 +14,19 @@ const anchorLink: React.SFC<AnchorLinkProps> = ({
   href,
   className = '',
   iconClassName = '',
-  isExternal = false
+  isExternal = false,
+  handleOnClick = () => {}
 }) => {
   const rel = isExternal ? 'noopener noreferrer' : '';
   const target = isExternal ? '_blank' : '';
   return (
-    <a href={href} className={className} rel={rel} target={target}>
+    <a
+      href={href}
+      className={className}
+      rel={rel}
+      target={target}
+      onClick={handleOnClick}
+    >
       {iconClassName ? (
         <span className="icon is-small">
           <i className={iconClassName} />
