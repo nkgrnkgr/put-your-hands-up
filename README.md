@@ -1,4 +1,4 @@
-# ぷちょへんざ
+# Put Your Hands Up
 
 <!-- ![alt](https://travis-ci.org/nkgrnkgr/expenses-automation.svg?branch=master) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
@@ -11,7 +11,9 @@
 ![travis](https://travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flass)
 
-Get started at [ぷちょへんざ](https://put-your-hands-up.firebaseapp.com/)
+### Demo
+
+[[Demo]Put Your Hands Up](https://put-your-hands-up-test.firebaseapp.com/events/b8829a6a-5385-4550-b8ad-bc078b578ac7/)
 
 
 ## create .env
