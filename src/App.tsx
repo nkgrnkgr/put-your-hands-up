@@ -15,6 +15,8 @@ import Create from 'containers/Organizer/Create';
 import Home from 'components/Home';
 import Footer from 'components/Footer';
 import EventWrapper from 'containers/Event/EventWrapper';
+import AuthWrapper from 'containers/AuthWrapper';
+import Setting from 'containers/Setting';
 
 const app: React.SFC = () => (
   <>
@@ -44,6 +46,16 @@ const app: React.SFC = () => (
               <FloatButton />
             </div>
           </>
+        )}
+      />
+      <Route
+        path={'/setting'}
+        render={props => (
+          <AuthWrapper>
+            <section className="section">
+              <Setting />
+            </section>
+          </AuthWrapper>
         )}
       />
     </Switch>

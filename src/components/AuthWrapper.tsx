@@ -12,9 +12,7 @@ const auth: React.SFC<AuthWrapperProps> = ({
   isAuthenComponent = true,
   children
 }) => {
-  if (!isLoaded(auth)) {
-    return <Loading />;
-  }
+  if (!isLoaded(auth)) return <Loading />;
   if (isEmpty(auth)) {
     return isAuthenComponent ? <></> : <>{children}</>;
   }
