@@ -7,12 +7,13 @@ export interface FloatButtonProps {
 const floatButton: React.SFC<FloatButtonProps> = ({ toggleDisplay }) => {
   return (
     <a
-      className="button is-medium is-info is-rounded"
+      className="button is-medium is-danger is-rounded"
       style={{
         position: 'fixed',
         bottom: '20px',
         right: '20px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+        height: '55px'
       }}
       onClick={toggleDisplay}
     >

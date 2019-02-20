@@ -133,7 +133,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
   };
 
   return (
-    <div className="columns is-centered">
+    <div className="columns is-centered is-hidden-touch">
       <div className={columnClassName()}>
         <div className="card">
           <Formik

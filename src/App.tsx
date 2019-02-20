@@ -43,7 +43,9 @@ const app: React.SFC = () => (
               className="container is-flex-mobile"
               style={{ display: 'none' }}
             >
-              <FloatButton />
+              <AuthWrapper>
+                <FloatButton />
+              </AuthWrapper>
             </div>
           </>
         )}

@@ -99,64 +99,66 @@ const navbar: React.SFC<NavbarProps> = ({
           <a className="navbar-item" href="/">
             <img src={put_your_hands_up_logoPng} alt="put your hands up" />
           </a>
-          <a className="navbar-burger burger" onClick={toggleMobileMenu}>
+          <a
+            className={`navbar-burger burger ${
+              isActiveMobileMenu ? 'is-active' : ''
+            }`}
+            onClick={toggleMobileMenu}
+          >
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
           </a>
         </div>
-        <div className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}>
+        <div
+          className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}
+          style={{ backgroundColor: '#ff3860' }}
+        >
           <div className="navbar-start">
             <AnchorLink
               title={'Home'}
               href={'/'}
-              className={'navbar-item'}
+              className={'navbar-item has-text-white'}
               iconClassName={'fas fa-home'}
             />
             <AnchorLink
               title={'For Organizer'}
               href={'/organizer'}
-              className={'navbar-item'}
+              className={'navbar-item has-text-white'}
               iconClassName={'fas fa-users-cog'}
             />
             <AnchorLink
               title={'Github'}
               href={'https://github.com/nkgrnkgr/put-your-hands-up'}
-              className={'navbar-item'}
+              className={'navbar-item has-text-white'}
               iconClassName={'fab fa-github'}
               isExternal={true}
             />
           </div>
-          <div className="navbar-end is-danger">
+          <hr className="navbar-divider" />
+          <div className="navbar-end">
             <div className="navbar-item">
               <SearchForm />
             </div>
-            <AuthWrapper isAuthenComponent={false}>
-              {isShownSignInButtons ? (
-                <div className="buttons">
+            {isShownSignInButtons ? (
+              <AuthWrapper isAuthenComponent={false}>
+                <div className="navbar-item">
                   <AnchorLink
                     title={'匿名でログイン'}
                     className={'button is-light'}
                     iconClassName={'fas fa-user-secret'}
                     handleOnClick={e => signInAnonymously()}
                   />
+                </div>
+                <div className="navbar-item">
                   <AnchorLink
                     title={'Googleでログイン'}
                     className={'button is-link'}
                     iconClassName={'fab fa-google'}
                     handleOnClick={e => signInWithGoogle()}
                   />
-                  {/* <a onClick={e => signInWithGoogle()}>
-                    <img
-                      src={googleSignInPng}
-                      alt="sign in with google"
-                      style={{
-                        height: '42px',
-                        borderRadius: '10px',
-                        marginRight: '10px'
-                      }}
-                    />
-                  </a> */}
+                </div>
+                <div className="navbar-item">
                   <AnchorLink
                     title={'Twitterでログイン'}
                     className={'button is-info'}
@@ -164,16 +166,16 @@ const navbar: React.SFC<NavbarProps> = ({
                     handleOnClick={e => signInWithTwitter()}
                   />
                 </div>
-              ) : (
-                ''
-              )}
-            </AuthWrapper>
+              </AuthWrapper>
+            ) : (
+              ''
+            )}
             <AuthWrapper>
               <div className="navbar-item has-dropdown is-hoverable">
                 <span className="is-flex-desktop" style={{ display: 'none' }}>
                   <figure
                     className="image is-32x32"
-                    style={{ marginTop: '12px' }}
+                    style={{ marginTop: '22px' }}
                   >
                     <img
                       className="is-rounded"
@@ -183,12 +185,14 @@ const navbar: React.SFC<NavbarProps> = ({
                   </figure>
                 </span>
                 <div className="navbar-dropdown">
-                  <AnchorLink
-                    title={' Logout '}
-                    className={'button is-light'}
-                    iconClassName={'fas fa-sign-out-alt'}
-                    handleOnClick={e => firebase.logout()}
-                  />
+                  <div className="navbar-item">
+                    <AnchorLink
+                      title={' Logout '}
+                      className={'button is-light'}
+                      iconClassName={'fas fa-sign-out-alt'}
+                      handleOnClick={e => firebase.logout()}
+                    />
+                  </div>
                 </div>
               </div>
             </AuthWrapper>
