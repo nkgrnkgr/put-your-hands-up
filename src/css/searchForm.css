@@ -1,0 +1,8 @@
+.search-input {
+    background-color: rgba(255, 56, 96, 0.2);
+    color: #ffffff;
+    border-radius: 1em !important;
+}
+.search-input::placeholder {
+    color: #ffffff;
+}

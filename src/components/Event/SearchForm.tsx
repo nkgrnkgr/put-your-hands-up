@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Formik, Field, Form, FormikActions } from 'formik';
+import 'css/searchForm.css';
 import Tag from 'domain/Tag';
 export interface SearchFormProps {
   query: string;
@@ -47,13 +48,13 @@ const searchForm: React.SFC<SearchFormProps> = ({
       }}
       render={() => (
         <Form>
-          <div className="field has-addons" style={{ marginBottom: '10px' }}>
+          <div className="field has-addons" style={{ margin: '10px' }}>
             <p className="control has-icons-right">
               <Field
-                className="input"
+                className="input search-input"
                 id="query"
                 name="query"
-                placeholder=""
+                placeholder="search..."
                 type="text"
               />
               <a type="submit">

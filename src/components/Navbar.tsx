@@ -2,6 +2,7 @@ import * as React from 'react';
 import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
+// import googleSignInPng from 'images/googleSignIn.png';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
@@ -78,6 +79,19 @@ const navbar: React.SFC<NavbarProps> = ({
       await registerEventId(user.uid);
     }
   };
+
+  const signInWithGoogle = async () => {
+    const loginedInfo = await firebase.login({
+      provider: 'google',
+      type: 'popup'
+    });
+    const user: FirebaseUser = loginedInfo.user;
+    if (user) {
+      await registerUid(user.uid);
+      await registerEventId(user.uid);
+    }
+  };
+
   return (
     <nav className={navbarClassNames(hasTabs)}>
       <div className="container">
@@ -113,7 +127,7 @@ const navbar: React.SFC<NavbarProps> = ({
               isExternal={true}
             />
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end is-danger">
             <div className="navbar-item">
               <SearchForm />
             </div>
@@ -126,6 +140,23 @@ const navbar: React.SFC<NavbarProps> = ({
                     iconClassName={'fas fa-user-secret'}
                     handleOnClick={e => signInAnonymously()}
                   />
+                  <AnchorLink
+                    title={'Googleでログイン'}
+                    className={'button is-link'}
+                    iconClassName={'fab fa-google'}
+                    handleOnClick={e => signInWithGoogle()}
+                  />
+                  {/* <a onClick={e => signInWithGoogle()}>
+                    <img
+                      src={googleSignInPng}
+                      alt="sign in with google"
+                      style={{
+                        height: '42px',
+                        borderRadius: '10px',
+                        marginRight: '10px'
+                      }}
+                    />
+                  </a> */}
                   <AnchorLink
                     title={'Twitterでログイン'}
                     className={'button is-info'}
