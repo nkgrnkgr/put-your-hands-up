@@ -9,7 +9,6 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 export interface State {
   isActiveCommetFormModal: boolean;
   isActiveConfirmModal: boolean;
-  isActiveInputForm: boolean;
   isActiveCommentForm: boolean;
   isActiveMobileMenu: boolean;
   selectedTabIndex: number;
@@ -18,7 +17,6 @@ export interface State {
 const initialState: State = {
   isActiveCommetFormModal: false,
   isActiveConfirmModal: false,
-  isActiveInputForm: false,
   isActiveCommentForm: false,
   isActiveMobileMenu: false,
   selectedTabIndex: 0

@@ -3,7 +3,6 @@ import { compose, pure, setDisplayName } from 'recompose';
 import Navbar, { NavbarProps } from 'components/Navbar';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
-import { toggleDisplay, InputActionPayload } from 'actions/input';
 import { toggleMobileMenu } from 'actions/mobileMenu';
 import { CombinedState as State } from 'reducers/root';
 import { firebaseConnect, withFirestore } from 'react-redux-firebase';
@@ -20,7 +19,6 @@ interface OuterProps {
 }
 
 interface DispatchProps {
-  toggleDisplay: () => void;
   toggleMobileMenu: () => void;
 }
 
@@ -29,12 +27,9 @@ const mapStateToProps = (state: State) => ({
   isActiveMobileMenu: state.application.isActiveMobileMenu
 });
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<Action<InputActionPayload>>
-): DispatchProps =>
+const mapDispatchToProps = (dispatch: Dispatch<Action<{}>>): DispatchProps =>
   bindActionCreators(
     {
-      toggleDisplay,
       toggleMobileMenu
     },
     dispatch

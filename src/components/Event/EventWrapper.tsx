@@ -3,7 +3,6 @@ import { Event, Events } from 'domain/Event';
 import EventInfo from 'components/Event/EventInfo';
 import Tabs from 'containers/Event/Tabs';
 import CommentsBoard from 'containers/Event/CommentsBoard';
-import InputForm from 'containers/InputForm';
 import ConfirmModal from 'containers/ConfirmModal';
 import Loading from 'components/Loading';
 import { getYearMonthDayHourMitutes } from 'utils/DateTime';
@@ -52,7 +51,9 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
               <div className="columns is-centered is-hidden-touch">
                 <div className="column is-two-thirds-desktop">
                   <div className="card">
-                    <CommentForm event={event} />
+                    <div className="box" style={{ padding: '1em' }}>
+                      <CommentForm event={event} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -71,7 +72,6 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
             <SortTabs />
             <CommentsBoard event={event} />
             <ConfirmModal message="本当に削除してよろしいですか？" />
-            <InputForm event={event} />
           </div>
         </section>
       </>

@@ -33,9 +33,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action<{}>>): DispatchProps =>
     dispatch
   );
 
-type EnhancedInputFormProps = StateProps & DispatchProps;
+type EnhancedProps = StateProps & DispatchProps;
 
-const enhance = compose<EnhancedInputFormProps, OuterProps>(
+const enhance = compose<EnhancedProps, OuterProps>(
   setDisplayName('EnhancedCommetFormModal'),
   connect<StateProps, DispatchProps, CommentFormModalProps>(
     mapStateToProps,
