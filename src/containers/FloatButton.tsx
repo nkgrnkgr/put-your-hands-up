@@ -3,18 +3,22 @@ import { compose, pure, setDisplayName } from 'recompose';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Action } from 'typescript-fsa';
 import FloatButton, { FloatButtonProps } from 'components/FloatButton';
-import { toggleDisplay, InputActionPayload } from 'actions/input';
+import { toggleDisplay } from 'actions/commentFormModal';
+import { changeStateCommentForm, CommentActionPayload } from 'actions/comment';
 
 interface DispatchProps {
   toggleDisplay: () => void;
+  changeStateCommentForm: (shouldOpen: boolean) => void;
 }
 
 const mapDispatchToProps = (
-  dispatch: Dispatch<Action<InputActionPayload>>
+  dispatch: Dispatch<Action<CommentActionPayload>>
 ): DispatchProps =>
   bindActionCreators(
     {
-      toggleDisplay
+      toggleDisplay,
+      changeStateCommentForm: (shouldOpen: boolean) =>
+        changeStateCommentForm({ shouldOpen })
     },
     dispatch
   );

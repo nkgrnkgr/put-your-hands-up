@@ -29,6 +29,7 @@ interface StateProps {
 
 interface OuterProps {
   event: Event;
+  closeWrapper?: () => void;
 }
 
 interface DispatchProps {

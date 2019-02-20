@@ -21,8 +21,7 @@ export const FEATURED_CONTENTS = [
   '登壇お疲れさまでした👏',
   '完全に理解した🤯',
   '勉強になった✍',
-  'クソコードオブザイヤーだ🤮',
-  'お強い...💪'
+  '強い...💪'
 ];
 
 export const FEATURED_TAGS = [
@@ -30,7 +29,6 @@ export const FEATURED_TAGS = [
   '🔰初心者',
   'マサカリ',
   'Spark Joy😻',
-  '後で詳しい話を聞かせて欲しい',
   'ちょっと何言っているかわからない'
 ];
 

@@ -13,6 +13,7 @@ import SearchResults from 'containers/Event/SearchResults';
 import Navbar from 'containers/Navbar';
 import UserList from 'containers/Event/UserList';
 import AuthWrapper from 'containers/AuthWrapper';
+import CommentFormModal from 'containers/Event/CommentFormModal';
 
 export interface EventWrapperProps {
   firestore: Firestore;
@@ -48,7 +49,16 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
             {selectedTabIndex === 0 ? <EventInfo event={event} /> : ''}
             <hr />
             <AuthWrapper>
-              <CommentForm event={event} />
+              <div className="columns is-centered is-hidden-touch">
+                <div className="column is-two-thirds-desktop">
+                  <div className="card">
+                    <CommentForm event={event} />
+                  </div>
+                </div>
+              </div>
+            </AuthWrapper>
+            <AuthWrapper>
+              <CommentFormModal event={event} />
             </AuthWrapper>
             {selectedTabIndex === 0 ? (
               <h2 className="title is-3">イベント全般へのコメント</h2>

@@ -2,9 +2,17 @@ import * as React from 'react';
 
 export interface FloatButtonProps {
   toggleDisplay: () => void;
+  changeStateCommentForm: (shouldOpen: boolean) => void;
 }
 
-const floatButton: React.SFC<FloatButtonProps> = ({ toggleDisplay }) => {
+const floatButton: React.SFC<FloatButtonProps> = ({
+  toggleDisplay,
+  changeStateCommentForm
+}) => {
+  const handleOnClick = () => {
+    toggleDisplay();
+    changeStateCommentForm(true);
+  };
   return (
     <a
       className="button is-medium is-danger is-rounded"
@@ -15,7 +23,7 @@ const floatButton: React.SFC<FloatButtonProps> = ({ toggleDisplay }) => {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
         height: '55px'
       }}
-      onClick={toggleDisplay}
+      onClick={e => handleOnClick()}
     >
       <span className="icon is-small">
         <i className="fas fa-pen" />

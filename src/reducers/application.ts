@@ -1,5 +1,5 @@
+import * as CommentFormModalAction from 'actions/commentFormModal';
 import * as ConfirmModalAction from 'actions/confirmModal';
-import * as InputAction from 'actions/input';
 import * as CommentAction from 'actions/comment';
 import * as MobileMenuAction from 'actions/mobileMenu';
 import * as TabAction from 'actions/tab';
@@ -7,6 +7,7 @@ import * as TabAction from 'actions/tab';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface State {
+  isActiveCommetFormModal: boolean;
   isActiveConfirmModal: boolean;
   isActiveInputForm: boolean;
   isActiveCommentForm: boolean;
@@ -15,6 +16,7 @@ export interface State {
 }
 
 const initialState: State = {
+  isActiveCommetFormModal: false,
   isActiveConfirmModal: false,
   isActiveInputForm: false,
   isActiveCommentForm: false,
@@ -23,10 +25,10 @@ const initialState: State = {
 };
 
 const reducer = reducerWithInitialState(initialState)
-  .case(InputAction.toggleDisplay, state => {
+  .case(CommentFormModalAction.toggleDisplay, state => {
     return {
       ...state,
-      isActiveInputForm: !state.isActiveInputForm
+      isActiveCommetFormModal: !state.isActiveCommetFormModal
     };
   })
   .case(ConfirmModalAction.toggleDisplay, state => {
