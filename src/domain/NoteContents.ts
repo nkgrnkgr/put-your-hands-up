@@ -25,6 +25,7 @@ export const FEATURED_CONTENTS = [
 ];
 
 export const FEATURED_TAGS = [
+  '感想',
   '質問',
   '🔰初心者',
   'マサカリ',

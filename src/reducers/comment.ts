@@ -10,7 +10,7 @@ export interface State {
 
 const initialState: State = {
   inputtingComment: '',
-  inputtingTags: [{ title: '質問', isFeatured: true }],
+  inputtingTags: [{ title: '感想', isFeatured: true }],
   inputtingTagTitle: ''
 };
 

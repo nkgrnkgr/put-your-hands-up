@@ -11,7 +11,7 @@ export interface State {
 
 const initialState: State = {
   query: '',
-  tags: [{ title: '質問', isFeatured: true }]
+  tags: []
 };
 
 const reducer = reducerWithInitialState(initialState)
