@@ -131,7 +131,8 @@ const commentForm: React.SFC<CommentFormProps> = ({
       ...values.noteContents,
       tagTitles,
       comment: inputtingComment,
-      createUserId: auth.uid
+      createUserId: auth.uid,
+      created: new Date().getTime()
     };
   };
 
