@@ -9,21 +9,21 @@ const floatButton: React.SFC<FloatButtonProps> = ({
   toggleDisplay,
   changeStateCommentForm
 }) => {
-  const handleOnClick = () => {
+  const handleOnClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     toggleDisplay();
     changeStateCommentForm(true);
   };
   return (
     <a
-      className="button is-medium is-danger is-rounded"
+      className={`button is-medium is-danger is-rounded`}
       style={{
         position: 'fixed',
-        bottom: '20px',
+        bottom: '30px',
         right: '20px',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
         height: '55px'
       }}
-      onClick={e => handleOnClick()}
+      onClick={e => handleOnClick(e)}
     >
       <span className="icon is-small">
         <i className="fas fa-pen" />
