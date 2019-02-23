@@ -3,13 +3,23 @@ import { find, save, remove } from 'lib/localStorageAcsser';
 export interface AnonymousUser extends FirebaseUser {}
 
 export type Color =
-  | 'black'
-  | 'blue'
-  | 'green'
-  | 'orange'
-  | 'pink'
-  | 'purple'
-  | 'red';
+  | '#000000'
+  | '#3f92e3'
+  | '#548e6a'
+  | '#f0b43a'
+  | '#f6cce5'
+  | '#51447c'
+  | '#e84259';
+
+export const COLOR_HEX = [
+  '#000000',
+  '#3f92e3',
+  '#548e6a',
+  '#f0b43a',
+  '#f6cce5',
+  '#51447c',
+  '#e84259'
+];
 
 export const saveUser = (uid: string, user: AnonymousUser) => {
   save(uid, user);

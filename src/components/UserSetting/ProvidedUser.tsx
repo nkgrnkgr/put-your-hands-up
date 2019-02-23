@@ -9,17 +9,36 @@ export interface ProvidedUserProps {
 
 const providedUser: React.SFC<ProvidedUserProps> = ({ user }) => {
   return (
-    <div>
+    <>
+      <FormWrapper labelName="id">
+        <Field
+          className="input"
+          name="uid"
+          type="text"
+          style={{ color: 'gray' }}
+          readOnly={true}
+          value={user.uid}
+        />
+      </FormWrapper>
       <FormWrapper labelName="アイコンURL">
+        <Field
+          className="input"
+          name="avatarUrl"
+          placeholder=""
+          type="text"
+          value={user.avatarUrl}
+        />
+      </FormWrapper>
+      <FormWrapper labelName="TwitterId">
         <Field
           className="input"
           name="avatarUrl"
           placeholder="@nkgrnkgr"
           type="text"
-          value={user.avatarUrl}
+          value={user.twitterId}
         />
       </FormWrapper>
-    </div>
+    </>
   );
 };
 

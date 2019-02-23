@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { Formik, Field, Form, FormikActions } from 'formik';
+import { Formik, Form, FormikActions } from 'formik';
 import * as H from 'history';
-import FormWrapper from 'components/FormWrapper';
 import UserIcon from 'components/UserIcon';
 import userInfo from 'lib/userInfo';
 import { FirebaseUser } from 'domain/FirebaseUser';
+import ProvidedUser from 'components/UserSetting/ProvidedUser';
+import AnonymousUser from 'containers/UserSetting/AnonymousUser';
+import { Color } from 'domain/Anonymous';
 // import { saveUser, findUser, deleteUser } from 'domain/Anonymous';
 
 export interface BaseProps {
   auth: Auth;
+  name: string;
+  hex: Color;
   history: H.History;
 }
 
@@ -19,26 +23,33 @@ const initialValues: FirebaseUser = {
   avatarUrl: '',
   uid: '',
   isAnonymous: false,
-  anonymousColor: 'black',
+  anonymousColor: '#000000',
   eventIdsParticipated: [],
   twitterId: ''
 };
 
-const base: React.SFC<BaseProps> = ({ auth, history }) => {
+const base: React.SFC<BaseProps> = ({
+  auth,
+  history,
+  name,
+  hex = '#000000'
+}) => {
   // const { uid } = auth;
   // saveUser(uid, { uid, avatarUrl: 'url', displayName: '匿名ユーザー' });
   // const user = findUser(uid);
   // console.log(user);
   // deleteUser(uid);
-  const user = userInfo(auth);
-  const {
-    displayName,
-    uid,
-    // isAnonymous = true,
-    // anonymousColor = 'black',
-    // eventIdsParticipated = [],
-    twitterId = ''
-  } = user;
+
+  const inputtingUser: FirebaseUser = {
+    displayName: name,
+    avatarUrl: userInfo(auth).avatarUrl,
+    uid: userInfo(auth).uid,
+    isAnonymous: userInfo(auth).isAnonymous,
+    anonymousColor: hex,
+    eventIdsParticipated: userInfo(auth).eventIdsParticipated,
+    twitterId: ''
+  };
+
   return (
     <div className="container">
       <Formik
@@ -59,37 +70,23 @@ const base: React.SFC<BaseProps> = ({ auth, history }) => {
                 <div className="box">
                   <article className="media">
                     <div className="media-left">
-                      <UserIcon user={user} imageSize={64} />
+                      <UserIcon user={inputtingUser} imageSize={64} />
                     </div>
                     <div className="media-content">
-                      <p>{`${displayName}`}</p>
+                      <p>{`${inputtingUser.displayName}`}</p>
                       <small style={{ fontSize: '0.5em' }}>
-                        {`${twitterId}`}
+                        {`${inputtingUser.twitterId}`}
                       </small>
                     </div>
                   </article>
                 </div>
               </div>
               <div className="column">
-                <FormWrapper labelName="表示名">
-                  <Field
-                    className="input"
-                    name="displayName"
-                    placeholder="@nkgrnkgr"
-                    type="text"
-                    value={displayName}
-                  />
-                </FormWrapper>
-                <FormWrapper labelName="id">
-                  <Field
-                    className="input"
-                    name="uid"
-                    type="text"
-                    style={{ color: 'gray' }}
-                    readOnly={true}
-                    value={uid}
-                  />
-                </FormWrapper>
+                {inputtingUser.isAnonymous ? (
+                  <AnonymousUser user={inputtingUser} />
+                ) : (
+                  <ProvidedUser user={inputtingUser} />
+                )}
               </div>
             </div>
             <hr />

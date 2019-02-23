@@ -8,7 +8,9 @@ interface StateProps {
 }
 
 const mapStateToProps = (state: State) => ({
-  auth: state.firebase.auth
+  auth: state.firebase.auth,
+  name: state.userSetting.inputtingName,
+  hex: state.userSetting.selectingColorHex
 });
 
 const enhance = compose<StateProps, {}>(

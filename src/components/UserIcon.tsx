@@ -26,7 +26,7 @@ const userIcon: React.SFC<Props> = ({
   customStyleForFigure,
   customStyleForImg
 }) => {
-  const { avatarUrl, isAnonymous = false, anonymousColor = 'black' } = user;
+  const { avatarUrl, isAnonymous = false, anonymousColor = '#000000' } = user;
   return (
     <figure className="media-left" style={customStyleForFigure}>
       <p className={`image is-${imageSize}x${imageSize}`}>
@@ -42,17 +42,17 @@ const userIcon: React.SFC<Props> = ({
 
 const anonyMounsImage = (anonymousColor: Color): string => {
   switch (anonymousColor) {
-    case 'blue':
+    case '#3f92e3':
       return anonymousBluePng;
-    case 'green':
+    case '#548e6a':
       return anonymousGreenPng;
-    case 'orange':
+    case '#f0b43a':
       return anonymousOrangePng;
-    case 'pink':
+    case '#f6cce5':
       return anonymousPinkPng;
-    case 'purple':
+    case '#51447c':
       return anonymousPurplePng;
-    case 'red':
+    case '#e84259':
       return anonymousRedPng;
     default:
       return anonymousBlackPng;

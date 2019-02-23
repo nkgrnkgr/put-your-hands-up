@@ -254,6 +254,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
                       return (
                         <CirclePicker
                           colors={COLORS}
+                          width={'100%'}
                           onSwatchHover={colorResult =>
                             handleOnSwatchHover(colorResult.hex)
                           }
