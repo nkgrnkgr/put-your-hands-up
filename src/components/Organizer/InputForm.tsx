@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as H from 'history';
 import { createRandomId } from 'utils/Id';
 import { Lt, createInitialValue } from 'domain/Lt';
-import FormWrapper from 'components/Organizer/FormWrapper';
+import FormWrapper from 'components/FormWrapper';
 export interface InputFormProps {
   auth: Auth;
   event?: Event;

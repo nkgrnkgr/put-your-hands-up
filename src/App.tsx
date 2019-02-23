@@ -16,7 +16,7 @@ import Home from 'components/Home';
 import Footer from 'components/Footer';
 import EventWrapper from 'containers/Event/EventWrapper';
 import AuthWrapper from 'containers/AuthWrapper';
-import Setting from 'containers/Setting';
+import Base from 'containers/UserSetting/Base';
 
 const app: React.SFC = () => (
   <>
@@ -55,7 +55,7 @@ const app: React.SFC = () => (
         render={props => (
           <AuthWrapper>
             <section className="section">
-              <Setting />
+              <Base />
             </section>
           </AuthWrapper>
         )}

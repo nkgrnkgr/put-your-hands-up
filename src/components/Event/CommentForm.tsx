@@ -14,6 +14,7 @@ import Tag from 'domain/Tag';
 import TagLink from 'components/TagLink';
 import { CirclePicker } from 'react-color';
 import { getLtId } from 'domain/Lt';
+import UserIcon from 'components/UserIcon';
 export interface CommentFormProps {
   auth: Auth;
   firestore?: Firestore;
@@ -154,14 +155,7 @@ const commentForm: React.SFC<CommentFormProps> = ({
           <div className="media-content">
             <Form>
               <article className="media">
-                <figure className="media-left">
-                  <p className="image is-32x32">
-                    <img
-                      className="is-rounded"
-                      src={userInfo(auth).avatarUrl}
-                    />
-                  </p>
-                </figure>
+                <UserIcon user={userInfo(auth)} />
                 <div className="media-content">
                   <div className="content">
                     <div className="field" style={{ marginBottom: '0px' }}>

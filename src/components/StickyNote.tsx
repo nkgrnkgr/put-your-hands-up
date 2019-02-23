@@ -5,6 +5,7 @@ import { ago } from 'utils/DateTime';
 import NoteContents from 'domain/NoteContents';
 import Tag from 'domain/Tag';
 import Comment from 'components/Comment';
+import UserIcon from 'components/UserIcon';
 export interface StickyNoteProps {
   note: Note;
   firestore: Firestore;
@@ -41,9 +42,7 @@ const stickyNote: React.SFC<StickyNoteProps> = ({
         <div className="card-content" style={{ backgroundColor: colorValue }}>
           <div className="media">
             <div className="media-left">
-              <figure className={`image is-32x32`}>
-                <img src={user.avatarUrl} alt={user.uid} />
-              </figure>
+              <UserIcon user={user} />
             </div>
             <div className="media-content">
               <p className="title is-7">

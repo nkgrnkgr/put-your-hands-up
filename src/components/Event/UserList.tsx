@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FirebaseUser } from 'domain/FirebaseUser';
+import UserIcon from 'components/UserIcon';
 
 export interface UserListProps {
   users?: FirebaseUser[];
@@ -19,13 +20,11 @@ const tabs: React.SFC<UserListProps> = ({ users }) => {
                     className="tooltip is-tooltip-bottom"
                     data-tooltip={user.displayName}
                   >
-                    <figure className="image is-32x32">
-                      <img
-                        className="is-rounded"
-                        src={user.avatarUrl}
-                        style={{ border: '1px solid #ff3860' }}
-                      />
-                    </figure>
+                    <UserIcon
+                      user={user}
+                      isRoundedImg={true}
+                      customStyleForImg={{ border: '1px solid #ff3860' }}
+                    />
                   </li>
                 );
               })

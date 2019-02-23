@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { compose, pure, setDisplayName } from 'recompose';
-import Setting, { SettingsProps } from 'components/Setting';
+import Base, { BaseProps } from 'components/UserSetting/Base';
 import { CombinedState as State } from 'reducers/root';
 
 interface StateProps {
@@ -13,8 +13,8 @@ const mapStateToProps = (state: State) => ({
 
 const enhance = compose<StateProps, {}>(
   setDisplayName('EnhancedSetting'),
-  connect<StateProps, {}, SettingsProps>(mapStateToProps),
+  connect<StateProps, {}, BaseProps>(mapStateToProps),
   pure
 );
 
-export default enhance(Setting);
+export default enhance(Base);

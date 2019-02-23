@@ -2,13 +2,13 @@ import * as React from 'react';
 import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
 import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
-// import googleSignInPng from 'images/googleSignIn.png';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
 import { createNewListFrom } from 'utils/Utils';
 import AnchorLink from './AnchorLink';
+import UserIcon from './UserIcon';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -173,16 +173,17 @@ const navbar: React.SFC<NavbarProps> = ({
             <AuthWrapper>
               <div className="navbar-item has-dropdown is-hoverable">
                 <span className="is-flex-desktop" style={{ display: 'none' }}>
-                  <figure
-                    className="image is-32x32"
-                    style={{ marginTop: '22px' }}
-                  >
-                    <img
-                      className="is-rounded"
-                      style={{ width: 'auto' }}
-                      src={userInfo(auth).avatarUrl}
-                    />
-                  </figure>
+                  <UserIcon
+                    isRoundedImg={true}
+                    user={userInfo(auth)}
+                    customStyleForFigure={{
+                      marginTop: '22px'
+                    }}
+                    customStyleForImg={{
+                      width: 'auto',
+                      backgroundColor: '#ffffff'
+                    }}
+                  />
                 </span>
                 <div className="navbar-dropdown">
                   <div className="navbar-item">
