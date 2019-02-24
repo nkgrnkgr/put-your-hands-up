@@ -17,6 +17,8 @@ import Footer from 'components/Footer';
 import EventWrapper from 'containers/Event/EventWrapper';
 import AuthWrapper from 'containers/AuthWrapper';
 import Base from 'containers/UserSetting/Base';
+import Navbar from 'containers/Navbar';
+import LoginRequired from 'containers/LoginRequired';
 
 const app: React.SFC = () => (
   <>
@@ -53,11 +55,23 @@ const app: React.SFC = () => (
       <Route
         path={'/setting'}
         render={props => (
-          <AuthWrapper>
-            <section className="section">
-              <Base {...props} />
-            </section>
-          </AuthWrapper>
+          <>
+            <Navbar isShownSignInButtons={true} hasTabs={false} />
+            <div style={{ height: '50px' }} />
+            <AuthWrapper>
+              <section className="section">
+                <Base {...props} />
+              </section>
+            </AuthWrapper>
+            <AuthWrapper isAuthenComponent={false}>
+              <section className="section">
+                <div className="container">
+                  <LoginRequired />
+                </div>
+              </section>
+              <div style={{ height: '300px' }}>{''}</div>
+            </AuthWrapper>
+          </>
         )}
       />
     </Switch>

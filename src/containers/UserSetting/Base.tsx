@@ -4,6 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { Action } from 'typescript-fsa';
 import Base, { BaseProps } from 'components/UserSetting/Base';
 import { CombinedState as State } from 'reducers/root';
+import { firebaseConnect, withFirestore } from 'react-redux-firebase';
 import {
   onChangeDeleteMe,
   UserSettingActionPayload
@@ -36,6 +37,8 @@ const mapDispatchToProps = (
 
 const enhance = compose<StateProps, {}>(
   setDisplayName('EnhancedSetting'),
+  firebaseConnect(),
+  withFirestore,
   connect<StateProps, DispatchProps, BaseProps>(
     mapStateToProps,
     mapDispatchToProps

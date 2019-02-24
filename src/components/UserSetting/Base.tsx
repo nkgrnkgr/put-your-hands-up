@@ -4,12 +4,14 @@ import * as H from 'history';
 import UserIcon from 'components/UserIcon';
 import ProvidedUser from 'components/UserSetting/ProvidedUser';
 import AnonymousUser from 'containers/UserSetting/AnonymousUser';
-import { Color, saveUser } from 'domain/Anonymous';
+import { Color, saveUser, deleteUser } from 'domain/Anonymous';
 import userInfo from 'lib/userInfo';
 import { FirebaseUser } from 'domain/FirebaseUser';
 
 export interface BaseProps {
   auth: Auth;
+  firebase: Firebase;
+  firestore: Firestore;
   name: string;
   hex: Color;
   history: H.History;
@@ -53,21 +55,23 @@ const saveUserSetting = (user: FirebaseUser): void => {
   }
 };
 
-const deleteUserAccount = (user: FirebaseUser): void => {
-  if (user.isAnonymous) {
-    console.log('called delete');
-    // deleteUser(user.uid);
-  }
-};
-
 const base: React.SFC<BaseProps> = ({
   auth,
+  firebase,
+  firestore,
   history,
   name,
   hex = '#000000',
   deleteMe = '',
   onChangeDeleteMe
 }) => {
+  const deleteUserAccount = (user: FirebaseUser): void => {
+    if (user.isAnonymous) {
+      deleteUser(user.uid);
+      firebase.logout();
+      history.push('/');
+    }
+  };
   const canDeleteAccount = () => {
     return 'delete me' === deleteMe;
   };

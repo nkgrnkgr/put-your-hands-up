@@ -21,7 +21,7 @@ const list: React.SFC<ListProps> = ({ auth, events }) => {
         <div className="notification">
           <div className="level">
             <span>
-              オーガナイザー向けの機能はTwitterログイン時のみご利用いただけます
+              オーガナイザー向けの機能はGoogle,Twitterログイン時のみご利用いただけます
             </span>
           </div>
         </div>

@@ -194,6 +194,14 @@ const navbar: React.SFC<NavbarProps> = ({
                       handleOnClick={e => firebase.logout()}
                     />
                   </div>
+                  <div className="navbar-item">
+                    <AnchorLink
+                      title={' Setting '}
+                      className={'button is-light'}
+                      iconClassName={'fas fa-cog'}
+                      href={'/setting'}
+                    />
+                  </div>
                 </div>
               </div>
             </AuthWrapper>
