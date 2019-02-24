@@ -4,15 +4,17 @@ import * as H from 'history';
 import UserIcon from 'components/UserIcon';
 import ProvidedUser from 'components/UserSetting/ProvidedUser';
 import AnonymousUser from 'containers/UserSetting/AnonymousUser';
-import { Color } from 'domain/Anonymous';
+import { Color, saveUser } from 'domain/Anonymous';
 import userInfo from 'lib/userInfo';
-// import { saveUser, findUser, deleteUser } from 'domain/Anonymous';
+import { FirebaseUser } from 'domain/FirebaseUser';
 
 export interface BaseProps {
   auth: Auth;
   name: string;
   hex: Color;
   history: H.History;
+  deleteMe: string;
+  onChangeDeleteMe: (deleteMe: string) => void;
 }
 
 export interface SettingFormValues {
@@ -27,35 +29,70 @@ const initialValues = {
   twitterId: ''
 };
 
+const composeUser = (
+  user: FirebaseUser,
+  name: string,
+  hex: Color
+): FirebaseUser => {
+  return {
+    ...user,
+    displayName: name,
+    anonymousColor: hex,
+    twitterId: ''
+  };
+};
+
+const saveUserSetting = (user: FirebaseUser): void => {
+  if (user.isAnonymous) {
+    saveUser(user.uid, user);
+    // const { uid } = auth;
+    // saveUser(uid, { uid, avatarUrl: 'url', displayName: '匿名ユーザー' });
+    // const user = findUser(uid);
+    // console.log(user);
+    // deleteUser(uid);
+  }
+};
+
+const deleteUserAccount = (user: FirebaseUser): void => {
+  if (user.isAnonymous) {
+    console.log('called delete');
+    // deleteUser(user.uid);
+  }
+};
+
 const base: React.SFC<BaseProps> = ({
   auth,
   history,
   name,
-  hex = '#000000'
+  hex = '#000000',
+  deleteMe = '',
+  onChangeDeleteMe
 }) => {
-  // const { uid } = auth;
-  // saveUser(uid, { uid, avatarUrl: 'url', displayName: '匿名ユーザー' });
-  // const user = findUser(uid);
-  // console.log(user);
-  // deleteUser(uid);
-
-  const user = userInfo(auth);
-  user.displayName = name;
-  user.anonymousColor = hex;
-  user.twitterId = '';
-
+  const canDeleteAccount = () => {
+    return 'delete me' === deleteMe;
+  };
+  const handleOnChangeDeleteMe = (text: string) => {
+    onChangeDeleteMe(text);
+  };
+  const user = composeUser(userInfo(auth), name, hex);
   return (
     <div className="container">
+      <h1 className="title is-4">
+        <span className="icon">
+          <i className="fas fa-cog" />
+        </span>
+        <span> ユーザー設定</span>
+      </h1>
       <Formik
         initialValues={initialValues}
         onSubmit={(
           values: SettingFormValues,
           { setSubmitting }: FormikActions<SettingFormValues>
         ) => {
-          setTimeout(() => {
-            setSubmitting(false);
-            // history.push('/organizer');
-          }, 500);
+          setSubmitting(false);
+          saveUserSetting(user);
+          console.log(history);
+          history.goBack();
         }}
         render={({ values, setFieldValue }) => (
           <Form>
@@ -99,6 +136,36 @@ const base: React.SFC<BaseProps> = ({
           </Form>
         )}
       />
+      <hr />
+      {/* <div className="field is-grouped is-grouped-centered">
+      </div> */}
+      <div className="field has-addons has-addons-centered">
+        <p className="control">
+          <label className="label">
+            アカウントを削除するには delete me と入力してください
+          </label>
+        </p>
+      </div>
+      <div className="field has-addons has-addons-centered">
+        <p className="control">
+          <input
+            className="input"
+            type="text"
+            placeholder="delete me"
+            value={deleteMe}
+            onChange={e => handleOnChangeDeleteMe(e.currentTarget.value)}
+          />
+        </p>
+        <p className="control">
+          <button
+            className="Disabled button is-danger"
+            disabled={!canDeleteAccount()}
+            onClick={e => deleteUserAccount(user)}
+          >
+            アカウントを削除
+          </button>
+        </p>
+      </div>
     </div>
   );
 };

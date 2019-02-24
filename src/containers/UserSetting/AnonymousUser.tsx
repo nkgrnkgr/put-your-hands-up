@@ -57,7 +57,9 @@ const enhance = compose<EnhancedProps, OuterProps>(
   ),
   lifecycle<EnhancedProps & OuterProps, {}, {}>({
     componentDidMount() {
+      const hex = userInfo(this.props.auth).anonymousColor;
       this.props.onChangeName(userInfo(this.props.auth).displayName);
+      this.props.onSelectColorHex(hex ? hex : '#000000');
     }
   }),
   pure

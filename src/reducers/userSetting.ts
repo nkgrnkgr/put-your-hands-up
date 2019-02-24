@@ -5,11 +5,15 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 export interface State {
   inputtingName: string;
   selectingColorHex: string;
+  inputtingTwitterId: string;
+  inputtingDeleteMe: string;
 }
 
 const initialState: State = {
   inputtingName: '',
-  selectingColorHex: '#000000'
+  selectingColorHex: '#000000',
+  inputtingTwitterId: '',
+  inputtingDeleteMe: ''
 };
 
 const reducer = reducerWithInitialState(initialState)
@@ -25,6 +29,20 @@ const reducer = reducerWithInitialState(initialState)
     return {
       ...state,
       selectingColorHex: hex
+    };
+  })
+  .case(Action.onChangeTwitterId, (state, payload) => {
+    const { twitterId = state.inputtingTwitterId } = payload;
+    return {
+      ...state,
+      inputtingTwitterId: twitterId
+    };
+  })
+  .case(Action.onChangeDeleteMe, (state, payload) => {
+    const { deleteMe = state.inputtingDeleteMe } = payload;
+    return {
+      ...state,
+      inputtingDeleteMe: deleteMe
     };
   });
 

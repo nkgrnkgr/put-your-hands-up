@@ -55,7 +55,7 @@ const app: React.SFC = () => (
         render={props => (
           <AuthWrapper>
             <section className="section">
-              <Base />
+              <Base {...props} />
             </section>
           </AuthWrapper>
         )}

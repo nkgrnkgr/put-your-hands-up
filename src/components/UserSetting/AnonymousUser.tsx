@@ -21,13 +21,15 @@ const anonymousUser: React.SFC<AnonymousUserProps> = ({
   onSelectColorHex,
   setFieldValue
 }) => {
+  const handleOnChangeText = (text: string) => {
+    onChangeName(text);
+    setFieldValue('displayName', text);
+  };
   const handleOnSwatchHover = (hex: string) => {
     if (hex !== undefined) {
       onSelectColorHex(hex);
+      setFieldValue('anonymousColor', hex);
     }
-  };
-  const handleOnChangeText = (text: string) => {
-    onChangeName(text);
   };
 
   return (
@@ -43,6 +45,7 @@ const anonymousUser: React.SFC<AnonymousUserProps> = ({
       <FormWrapper labelName="アイコンカラー">
         <Field
           name="color"
+          value={user.anonymousColor}
           render={() => {
             return (
               <CirclePicker
