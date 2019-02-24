@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Formik, Form, FormikActions } from 'formik';
 import * as H from 'history';
 import UserIcon from 'components/UserIcon';
-import userInfo from 'lib/userInfo';
-import { FirebaseUser } from 'domain/FirebaseUser';
 import ProvidedUser from 'components/UserSetting/ProvidedUser';
 import AnonymousUser from 'containers/UserSetting/AnonymousUser';
 import { Color } from 'domain/Anonymous';
+import userInfo from 'lib/userInfo';
 // import { saveUser, findUser, deleteUser } from 'domain/Anonymous';
 
 export interface BaseProps {
@@ -16,15 +15,15 @@ export interface BaseProps {
   history: H.History;
 }
 
-interface SettingFormValues {}
+export interface SettingFormValues {
+  displayName?: string;
+  anonymousColor?: string;
+  twitterId?: string;
+}
 
-const initialValues: FirebaseUser = {
+const initialValues = {
   displayName: '',
-  avatarUrl: '',
-  uid: '',
-  isAnonymous: false,
   anonymousColor: '#000000',
-  eventIdsParticipated: [],
   twitterId: ''
 };
 
@@ -40,15 +39,10 @@ const base: React.SFC<BaseProps> = ({
   // console.log(user);
   // deleteUser(uid);
 
-  const inputtingUser: FirebaseUser = {
-    displayName: name,
-    avatarUrl: userInfo(auth).avatarUrl,
-    uid: userInfo(auth).uid,
-    isAnonymous: userInfo(auth).isAnonymous,
-    anonymousColor: hex,
-    eventIdsParticipated: userInfo(auth).eventIdsParticipated,
-    twitterId: ''
-  };
+  const user = userInfo(auth);
+  user.displayName = name;
+  user.anonymousColor = hex;
+  user.twitterId = '';
 
   return (
     <div className="container">
@@ -70,22 +64,22 @@ const base: React.SFC<BaseProps> = ({
                 <div className="box">
                   <article className="media">
                     <div className="media-left">
-                      <UserIcon user={inputtingUser} imageSize={64} />
+                      <UserIcon user={user} imageSize={64} />
                     </div>
                     <div className="media-content">
-                      <p>{`${inputtingUser.displayName}`}</p>
+                      <p>{`${user.displayName}`}</p>
                       <small style={{ fontSize: '0.5em' }}>
-                        {`${inputtingUser.twitterId}`}
+                        {`${user.twitterId}`}
                       </small>
                     </div>
                   </article>
                 </div>
               </div>
               <div className="column">
-                {inputtingUser.isAnonymous ? (
-                  <AnonymousUser user={inputtingUser} />
+                {user.isAnonymous ? (
+                  <AnonymousUser user={user} setFieldValue={setFieldValue} />
                 ) : (
-                  <ProvidedUser user={inputtingUser} />
+                  <ProvidedUser user={user} />
                 )}
               </div>
             </div>

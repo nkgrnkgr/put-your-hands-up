@@ -22,6 +22,7 @@ interface StateProps {
 
 interface OuterProps {
   user: FirebaseUser;
+  setFieldValue: Function;
 }
 
 interface DispatchProps {

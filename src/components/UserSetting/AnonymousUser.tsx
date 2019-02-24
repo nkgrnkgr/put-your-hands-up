@@ -12,12 +12,14 @@ export interface AnonymousUserProps {
   selectingColorHex: string;
   onChangeName: (name: string) => void;
   onSelectColorHex: (hex: string) => void;
+  setFieldValue: Function;
 }
 
 const anonymousUser: React.SFC<AnonymousUserProps> = ({
   user,
   onChangeName,
-  onSelectColorHex
+  onSelectColorHex,
+  setFieldValue
 }) => {
   const handleOnSwatchHover = (hex: string) => {
     if (hex !== undefined) {
@@ -27,6 +29,7 @@ const anonymousUser: React.SFC<AnonymousUserProps> = ({
   const handleOnChangeText = (text: string) => {
     onChangeName(text);
   };
+
   return (
     <>
       <FormWrapper labelName="表示名">
