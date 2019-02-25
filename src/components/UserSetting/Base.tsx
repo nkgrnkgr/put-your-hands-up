@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Formik, Form, FormikActions } from 'formik';
 import * as H from 'history';
 import UserIcon from 'components/UserIcon';
-import ProvidedUser from 'components/UserSetting/ProvidedUser';
+import ProvidedUser from 'containers/UserSetting/ProvidedUser';
 import AnonymousUser from 'containers/UserSetting/AnonymousUser';
 import { Color, saveUser, deleteUser } from 'domain/Anonymous';
-import userInfo from 'lib/userInfo';
 import { FirebaseUser } from 'domain/FirebaseUser';
+import userInfo from 'lib/userInfo';
 
 export interface BaseProps {
   auth: Auth;
@@ -14,6 +14,7 @@ export interface BaseProps {
   firestore: Firestore;
   name: string;
   hex: Color;
+  twitterId: string;
   history: H.History;
   deleteMe: string;
   onChangeDeleteMe: (deleteMe: string) => void;
@@ -34,13 +35,14 @@ const initialValues = {
 const composeUser = (
   user: FirebaseUser,
   name: string,
-  hex: Color
+  hex: Color,
+  twitterId: string
 ): FirebaseUser => {
   return {
     ...user,
+    twitterId,
     displayName: name,
-    anonymousColor: hex,
-    twitterId: ''
+    anonymousColor: hex
   };
 };
 
@@ -61,24 +63,41 @@ const base: React.SFC<BaseProps> = ({
   firestore,
   history,
   name,
-  hex = '#000000',
+  hex,
+  twitterId,
   deleteMe = '',
   onChangeDeleteMe
 }) => {
-  const deleteUserAccount = (user: FirebaseUser): void => {
-    if (user.isAnonymous) {
-      deleteUser(user.uid);
-      firebase.logout();
+  const deleteUserAccount = async (user: FirebaseUser) => {
+    if (firestore && firestore.delete) {
+      if (user.isAnonymous) {
+        await deleteUser(user.uid);
+      } else {
+        await firestore.delete({ collection: 'users', doc: user.uid });
+      }
+      const notes = await firestore.get({
+        collection: 'notes',
+        where: [['user.uid', '==', user.uid]]
+      });
+      const docs: FirestoreDocument[] = notes.docs;
+      docs.map(async doc => {
+        if (doc && doc.exists) {
+          await firestore.delete({ collection: 'notes', doc: doc.id });
+        }
+      });
+
+      await firebase.logout();
+      onChangeDeleteMe('');
       history.push('/');
     }
   };
   const canDeleteAccount = () => {
-    return 'delete me' === deleteMe;
+    return deleteMe === 'delete me';
   };
   const handleOnChangeDeleteMe = (text: string) => {
     onChangeDeleteMe(text);
   };
-  const user = composeUser(userInfo(auth), name, hex);
+  const user = composeUser(userInfo(auth), name, hex, twitterId);
   return (
     <div className="container">
       <h1 className="title is-4">
@@ -95,8 +114,7 @@ const base: React.SFC<BaseProps> = ({
         ) => {
           setSubmitting(false);
           saveUserSetting(user);
-          console.log(history);
-          history.goBack();
+          // history.goBack();
         }}
         render={({ values, setFieldValue }) => (
           <Form>
@@ -120,7 +138,7 @@ const base: React.SFC<BaseProps> = ({
                 {user.isAnonymous ? (
                   <AnonymousUser user={user} setFieldValue={setFieldValue} />
                 ) : (
-                  <ProvidedUser user={user} />
+                  <ProvidedUser user={user} setFieldValue={setFieldValue} />
                 )}
               </div>
             </div>

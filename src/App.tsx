@@ -56,7 +56,7 @@ const app: React.SFC = () => (
         path={'/setting'}
         render={props => (
           <>
-            <Navbar isShownSignInButtons={true} hasTabs={false} />
+            <Navbar isShownSignInButtons={false} hasTabs={false} />
             <div style={{ height: '50px' }} />
             <AuthWrapper>
               <section className="section">

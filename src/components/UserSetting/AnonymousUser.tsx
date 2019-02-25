@@ -8,8 +8,6 @@ import { COLOR_HEX } from 'domain/Anonymous';
 export interface AnonymousUserProps {
   auth: Auth;
   user: FirebaseUser;
-  inputtingName: string;
-  selectingColorHex: string;
   onChangeName: (name: string) => void;
   onSelectColorHex: (hex: string) => void;
   setFieldValue: Function;

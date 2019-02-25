@@ -19,3 +19,8 @@ declare interface Firestore {
   delete: Function;
   setListener: Function;
 }
+
+declare interface FirestoreDocument {
+  exists: boolean;
+  id: string;
+}

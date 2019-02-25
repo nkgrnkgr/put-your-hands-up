@@ -1,41 +1,55 @@
 import * as React from 'react';
 import FormWrapper from '../FormWrapper';
-import { Field } from 'formik';
 import { FirebaseUser } from 'domain/FirebaseUser';
 
 export interface ProvidedUserProps {
+  auth: Auth;
   user: FirebaseUser;
+  setFieldValue: Function;
+  onChangeName: (name: string) => void;
+  onChangeTwitterId: (twitterId: string) => void;
 }
 
-const providedUser: React.SFC<ProvidedUserProps> = ({ user }) => {
+const providedUser: React.SFC<ProvidedUserProps> = ({
+  user,
+  onChangeName,
+  onChangeTwitterId,
+  setFieldValue
+}) => {
+  const handleOnChangeText = (text: string) => {
+    onChangeName(text);
+    setFieldValue('displayName', text);
+  };
+  const handleOnChangeTwitterId = (text: string) => {
+    onChangeTwitterId(text);
+    setFieldValue('twitterId', text);
+  };
   return (
     <>
       <FormWrapper labelName="id">
-        <Field
+        <input
           className="input"
-          name="uid"
           type="text"
           style={{ color: 'gray' }}
-          readOnly={true}
           value={user.uid}
+          readOnly={true}
         />
       </FormWrapper>
-      <FormWrapper labelName="アイコンURL">
-        <Field
+      <FormWrapper labelName="表示名">
+        <input
           className="input"
-          name="avatarUrl"
-          placeholder=""
           type="text"
-          value={user.avatarUrl}
+          value={user.displayName}
+          onChange={e => handleOnChangeText(e.currentTarget.value)}
         />
       </FormWrapper>
       <FormWrapper labelName="TwitterId">
-        <Field
+        <input
           className="input"
-          name="avatarUrl"
-          placeholder="@nkgrnkgr"
           type="text"
+          placeholder={'@nkgrnkgr'}
           value={user.twitterId}
+          onChange={e => handleOnChangeTwitterId(e.currentTarget.value)}
         />
       </FormWrapper>
     </>

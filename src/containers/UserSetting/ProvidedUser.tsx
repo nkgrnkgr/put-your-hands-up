@@ -5,12 +5,12 @@ import { Action } from 'typescript-fsa';
 import { CombinedState as State } from 'reducers/root';
 import {
   onChangeName,
-  onSelectColorHex,
+  onChangeTwitterId,
   UserSettingActionPayload
 } from 'actions/userSetting';
-import AnonymousUser, {
-  AnonymousUserProps
-} from 'components/UserSetting/AnonymousUser';
+import ProvidedUser, {
+  ProvidedUserProps
+} from 'components/UserSetting/ProvidedUser';
 import { FirebaseUser } from 'domain/FirebaseUser';
 import userInfo from 'lib/userInfo';
 
@@ -25,7 +25,7 @@ interface OuterProps {
 
 interface DispatchProps {
   onChangeName: (name: string) => void;
-  onSelectColorHex: (hex: string) => void;
+  onChangeTwitterId: (twitterId: string) => void;
 }
 
 const mapStateToProps = (state: State) => ({
@@ -38,7 +38,7 @@ const mapDispatchToProps = (
   bindActionCreators(
     {
       onChangeName: (name: string) => onChangeName({ name }),
-      onSelectColorHex: (hex: string) => onSelectColorHex({ hex })
+      onChangeTwitterId: (twitterId: string) => onChangeTwitterId({ twitterId })
     },
     dispatch
   );
@@ -46,19 +46,17 @@ const mapDispatchToProps = (
 type EnhancedProps = StateProps & DispatchProps;
 
 const enhance = compose<EnhancedProps, OuterProps>(
-  setDisplayName('EnhancedAnonymousUser'),
-  connect<StateProps, DispatchProps, AnonymousUserProps>(
+  setDisplayName('EnhancedProvidedUser'),
+  connect<StateProps, DispatchProps, ProvidedUserProps>(
     mapStateToProps,
     mapDispatchToProps
   ),
   lifecycle<EnhancedProps & OuterProps, {}, {}>({
     componentDidMount() {
-      const hex = userInfo(this.props.auth).anonymousColor;
       this.props.onChangeName(userInfo(this.props.auth).displayName);
-      this.props.onSelectColorHex(hex ? hex : '#000000');
     }
   }),
   pure
 );
 
-export default enhance(AnonymousUser);
+export default enhance(ProvidedUser);

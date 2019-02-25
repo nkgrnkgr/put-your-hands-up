@@ -18,6 +18,7 @@ const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
   name: state.userSetting.inputtingName,
   hex: state.userSetting.selectingColorHex,
+  twitterId: state.userSetting.inputtingTwitterId,
   deleteMe: state.userSetting.inputtingDeleteMe
 });
 
@@ -35,7 +36,9 @@ const mapDispatchToProps = (
     dispatch
   );
 
-const enhance = compose<StateProps, {}>(
+type EnhancedProps = StateProps & DispatchProps;
+
+const enhance = compose<EnhancedProps, {}>(
   setDisplayName('EnhancedSetting'),
   firebaseConnect(),
   withFirestore,
