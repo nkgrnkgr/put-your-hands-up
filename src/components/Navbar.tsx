@@ -1,7 +1,8 @@
 import * as React from 'react';
 import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
-import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
+// import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
+import pyhulogoSvg from 'images/pyhulogo.svg';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
@@ -97,7 +98,11 @@ const navbar: React.SFC<NavbarProps> = ({
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src={put_your_hands_up_logoPng} alt="put your hands up" />
+            <img
+              src={pyhulogoSvg}
+              alt="put your hans up"
+              style={{ height: '100px' }}
+            />
           </a>
           <a
             className={`navbar-burger burger ${

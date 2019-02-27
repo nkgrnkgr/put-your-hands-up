@@ -12,7 +12,7 @@ import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
 import Create from 'containers/Organizer/Create';
-import Home from 'components/Home';
+import LandingPage from 'components/LandingPage';
 import Footer from 'components/Footer';
 import EventWrapper from 'containers/Event/EventWrapper';
 import AuthWrapper from 'containers/AuthWrapper';
@@ -23,7 +23,7 @@ import LoginRequired from 'containers/LoginRequired';
 const app: React.SFC = () => (
   <>
     <Switch>
-      <Route exact={true} path={'/'} component={Home} />
+      <Route exact={true} path={'/'} component={LandingPage} />
       <Route
         path={'/organizer'}
         render={props => (

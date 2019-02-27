@@ -1,0 +1,27 @@
+.landingpage .cover {
+    background-color: #FCECEA
+}
+
+.landingpage .logo {
+    height: 100%;
+}
+
+.fuwafuwa {
+    animation-name: fuwafuwa;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+}
+
+@keyframes fuwafuwa {
+    0% {
+        transform: translate(0, 0) rotate(-5deg);
+    }
+    50% {
+        transform: translate(0, -5px) rotate(0deg);
+    }
+    100% {
+        transform: translate(0, 0)rotate(5deg);
+    }
+}
