@@ -35,21 +35,27 @@ const providedUser: React.SFC<ProvidedUserProps> = ({
           readOnly={true}
         />
       </FormWrapper>
-      <FormWrapper labelName="表示名">
+      <div className="notification">Comming soon...</div>
+      <FormWrapper labelName="表示名" style={{ display: 'none' }}>
         <input
           className="input"
           type="text"
-          value={user.displayName}
+          // value={user.displayName}
+          value={'comming soon ...'}
           onChange={e => handleOnChangeText(e.currentTarget.value)}
+          style={{ color: 'gray' }}
+          readOnly={true}
         />
       </FormWrapper>
-      <FormWrapper labelName="TwitterId">
+      <FormWrapper labelName="TwiiierId" style={{ display: 'none' }}>
         <input
           className="input"
           type="text"
-          placeholder={'@nkgrnkgr'}
+          placeholder={'comming soon...'}
           value={user.twitterId}
           onChange={e => handleOnChangeTwitterId(e.currentTarget.value)}
+          style={{ color: 'gray' }}
+          readOnly={true}
         />
       </FormWrapper>
     </>

@@ -46,17 +46,6 @@ const composeUser = (
   };
 };
 
-const saveUserSetting = (user: FirebaseUser): void => {
-  if (user.isAnonymous) {
-    saveUser(user.uid, user);
-    // const { uid } = auth;
-    // saveUser(uid, { uid, avatarUrl: 'url', displayName: '匿名ユーザー' });
-    // const user = findUser(uid);
-    // console.log(user);
-    // deleteUser(uid);
-  }
-};
-
 const base: React.SFC<BaseProps> = ({
   auth,
   firebase,
@@ -68,6 +57,12 @@ const base: React.SFC<BaseProps> = ({
   deleteMe = '',
   onChangeDeleteMe
 }) => {
+  const saveUserSetting = (user: FirebaseUser): void => {
+    if (user.isAnonymous) {
+      saveUser(user.uid, user);
+    }
+    history.goBack();
+  };
   const deleteUserAccount = async (user: FirebaseUser) => {
     if (firestore && firestore.delete) {
       if (user.isAnonymous) {
@@ -150,7 +145,7 @@ const base: React.SFC<BaseProps> = ({
                 </button>
               </p>
               <p className="control">
-                <a className="button is-light" href="/organizer">
+                <a className="button is-light" onClick={e => history.goBack()}>
                   キャンセル
                 </a>
               </p>
