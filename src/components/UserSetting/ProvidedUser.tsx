@@ -35,13 +35,11 @@ const providedUser: React.SFC<ProvidedUserProps> = ({
           readOnly={true}
         />
       </FormWrapper>
-      <div className="notification">Comming soon...</div>
       <FormWrapper labelName="表示名" style={{ display: 'none' }}>
         <input
           className="input"
           type="text"
-          // value={user.displayName}
-          value={'comming soon ...'}
+          value={user.displayName}
           onChange={e => handleOnChangeText(e.currentTarget.value)}
           style={{ color: 'gray' }}
           readOnly={true}
@@ -51,7 +49,6 @@ const providedUser: React.SFC<ProvidedUserProps> = ({
         <input
           className="input"
           type="text"
-          placeholder={'comming soon...'}
           value={user.twitterId}
           onChange={e => handleOnChangeTwitterId(e.currentTarget.value)}
           style={{ color: 'gray' }}
