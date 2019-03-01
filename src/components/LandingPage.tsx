@@ -1,8 +1,8 @@
 import * as React from 'react';
-import AnchorLink from './AnchorLink';
 import Navbar from 'containers/Navbar';
-import pyhulogoSvg from 'images/pyhulogo.svg';
-import 'css/landingpage.css';
+import pyhuloge_blackSvg from 'images/pyhuloge_black.svg';
+import _chatSvg from 'images/_chat.svg';
+import { Link } from 'react-router-dom';
 
 export interface LandingPageProps {}
 
@@ -14,27 +14,33 @@ const landingPage: React.SFC<LandingPageProps> = () => {
       <section className="hero cover">
         <div className="hero-body">
           <div className="container has-text-centered">
-            <h1 className="title">登壇者にフィードバックしよう</h1>
-            <img
-              className={'logo fuwfuwa'}
-              src={pyhulogoSvg}
-              alt="put your hans up"
-            />
-            <h2 className="subtitle">Hero subtitle</h2>
+            <h1 className="title is-size-1-desktop is-size-3-mobile">
+              登壇者にフィードバックしよう
+            </h1>
+            <img src={_chatSvg} className={'coverImage'} />
+            <div className="circle" />
+            <div className="level">
+              <div className="level-item">
+                <img src={pyhuloge_blackSvg} className={'logo'} />
+                <h1 className="title is-size-2 logoTitle">PutYourHansUp</h1>
+              </div>
+            </div>
+            <div className="has-text-centered">
+              <Link
+                to="/dashboard"
+                className="button is-danger is-medium shadow"
+              >
+                GET STARTED
+              </Link>
+            </div>
+            <div className="has-text-centered" style={{ marginTop: '20px' }}>
+              <Link to="/organizer" className="button is-medium is-text">
+                イベント管理者はこちら
+              </Link>
+            </div>
           </div>
         </div>
       </section>
-      <div className="container">
-        <p>Home</p>
-        <ul>
-          <li>
-            <AnchorLink title="organizer" href="/organizer" />
-          </li>
-          <li>
-            <AnchorLink title="setting" href="/setting" />
-          </li>
-        </ul>
-      </div>
     </div>
   );
 };

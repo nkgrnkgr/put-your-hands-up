@@ -1,8 +1,7 @@
 import * as React from 'react';
 import userInfo from 'lib/userInfo';
 import { signInAnonymously } from 'lib/auth';
-// import put_your_hands_up_logoPng from 'images/put_your_hands_up_logo.png';
-import pyhulogoSvg from 'images/pyhulogo.svg';
+import pyhuloge_whiteSvg from 'images/pyhuloge_white.svg';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
 import { FirebaseUser } from 'domain/FirebaseUser';
@@ -19,6 +18,8 @@ export interface NavbarProps {
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
   isShownSignInButtons?: boolean;
+  isShownSearch?: boolean;
+  isShownUserIcon?: boolean;
   hasTabs?: boolean;
   event?: Event;
 }
@@ -36,6 +37,8 @@ const navbar: React.SFC<NavbarProps> = ({
   toggleDisplay = () => {},
   toggleMobileMenu = () => {},
   isShownSignInButtons = true,
+  isShownSearch = true,
+  isShownUserIcon = true,
   hasTabs = true,
   event
 }) => {
@@ -99,7 +102,7 @@ const navbar: React.SFC<NavbarProps> = ({
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
             <img
-              src={pyhulogoSvg}
+              src={pyhuloge_whiteSvg}
               alt="put your hans up"
               style={{ height: '100px' }}
             />

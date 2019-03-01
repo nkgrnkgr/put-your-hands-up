@@ -14,6 +14,8 @@ interface StateProps {
 
 interface OuterProps {
   isShownSignInButtons?: boolean;
+  isShownSearch?: true;
+  isShownUserIcon?: true;
   hasTabs?: boolean;
   event?: Event;
 }
