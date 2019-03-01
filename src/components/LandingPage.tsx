@@ -44,6 +44,17 @@ const landingPage: React.SFC<LandingPageProps> = () => {
                 イベント管理者はこちら
               </Link>
             </div>
+            <div className="has-text-centered" style={{ marginTop: '20px' }}>
+              <a
+                className="github-button"
+                href="https://github.com/nkgrnkgr/put-your-hands-up"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star nkgrnkgr/put-your-hands-up on GitHub"
+              >
+                Star
+              </a>
+            </div>
           </div>
         </div>
       </section>
