@@ -9,6 +9,7 @@ import { Event } from 'domain/Event';
 import { createNewListFrom } from 'utils/Utils';
 import AnchorLink from './AnchorLink';
 import UserIcon from './UserIcon';
+import { Link } from 'react-router-dom';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -20,6 +21,7 @@ export interface NavbarProps {
   isShownSignInButtons?: boolean;
   isShownSearch?: boolean;
   isShownUserIcon?: boolean;
+  isShownNavLink?: boolean;
   hasTabs?: boolean;
   event?: Event;
 }
@@ -39,6 +41,7 @@ const navbar: React.SFC<NavbarProps> = ({
   isShownSignInButtons = true,
   isShownSearch = true,
   isShownUserIcon = true,
+  isShownNavLink = true,
   hasTabs = true,
   event
 }) => {
@@ -104,50 +107,72 @@ const navbar: React.SFC<NavbarProps> = ({
             <img
               src={pyhuloge_whiteSvg}
               alt="put your hans up"
-              style={{ height: '100px' }}
+              style={{ height: '100px', marginRight: '10px' }}
             />
+            <h1 className="BrandLogo">PutYourHansUp</h1>
           </a>
-          <a
-            className={`navbar-burger burger ${
-              isActiveMobileMenu ? 'is-active' : ''
-            }`}
-            onClick={toggleMobileMenu}
-          >
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-          </a>
+          {isShownNavLink ? (
+            <a
+              className={`navbar-burger burger ${
+                isActiveMobileMenu ? 'is-active' : ''
+              }`}
+              onClick={toggleMobileMenu}
+            >
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+            </a>
+          ) : (
+            ''
+          )}
         </div>
         <div
           className={`navbar-menu ${isActiveMobileMenu ? 'is-active' : ''}`}
           style={{ backgroundColor: '#ff3860' }}
         >
-          <div className="navbar-start">
-            <AnchorLink
-              title={'Home'}
-              href={'/'}
-              className={'navbar-item has-text-white'}
-              iconClassName={'fas fa-home'}
-            />
-            <AnchorLink
-              title={'For Organizer'}
-              href={'/organizer'}
-              className={'navbar-item has-text-white'}
-              iconClassName={'fas fa-users-cog'}
-            />
-            <AnchorLink
-              title={'Github'}
-              href={'https://github.com/nkgrnkgr/put-your-hands-up'}
-              className={'navbar-item has-text-white'}
-              iconClassName={'fab fa-github'}
-              isExternal={true}
-            />
-          </div>
+          {isShownNavLink ? (
+            <div className="navbar-start">
+              <AnchorLink
+                title={' DashBoard '}
+                href={'/'}
+                className={'navbar-item has-text-white'}
+                iconClassName={'fas fa-cog'}
+              />
+              <AnchorLink
+                title={' Organizer '}
+                href={'/organizer'}
+                className={'navbar-item has-text-white'}
+                iconClassName={'fas fa-users-cog'}
+              />
+              <AnchorLink
+                title={' Github '}
+                href={'https://github.com/nkgrnkgr/put-your-hands-up'}
+                className={'navbar-item has-text-white'}
+                iconClassName={'fab fa-github'}
+                isExternal={true}
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <hr className="navbar-divider" />
           <div className="navbar-end">
-            <div className="navbar-item">
-              <SearchForm />
-            </div>
+            {isShownSearch ? (
+              <div className="navbar-item">
+                <SearchForm />
+              </div>
+            ) : (
+              <div className="navbar-end">
+                <div className="navbar-item">
+                  <Link
+                    to="/dashboard"
+                    className="button is-danger is-inverted is-outlined"
+                  >
+                    GET STARTED
+                  </Link>
+                </div>
+              </div>
+            )}
             {isShownSignInButtons ? (
               <AuthWrapper isAuthenComponent={false}>
                 <div className="navbar-item">
@@ -178,41 +203,45 @@ const navbar: React.SFC<NavbarProps> = ({
             ) : (
               ''
             )}
-            <AuthWrapper>
-              <div className="navbar-item has-dropdown is-hoverable">
-                <span className="is-flex-desktop" style={{ display: 'none' }}>
-                  <UserIcon
-                    isRoundedImg={true}
-                    user={userInfo(auth)}
-                    customStyleForFigure={{
-                      marginTop: '22px'
-                    }}
-                    customStyleForImg={{
-                      width: 'auto',
-                      backgroundColor: '#ffffff'
-                    }}
-                  />
-                </span>
-                <div className="navbar-dropdown">
-                  <div className="navbar-item">
-                    <AnchorLink
-                      title={' Logout '}
-                      className={'button is-light'}
-                      iconClassName={'fas fa-sign-out-alt'}
-                      handleOnClick={e => firebase.logout()}
+            {isShownUserIcon ? (
+              <AuthWrapper>
+                <div className="navbar-item has-dropdown is-hoverable">
+                  <span className="is-flex-desktop" style={{ display: 'none' }}>
+                    <UserIcon
+                      isRoundedImg={true}
+                      user={userInfo(auth)}
+                      customStyleForFigure={{
+                        marginTop: '22px'
+                      }}
+                      customStyleForImg={{
+                        width: 'auto',
+                        backgroundColor: '#ffffff'
+                      }}
                     />
-                  </div>
-                  <div className="navbar-item">
-                    <AnchorLink
-                      title={' Setting '}
-                      className={'button is-light'}
-                      iconClassName={'fas fa-cog'}
-                      href={'/setting'}
-                    />
+                  </span>
+                  <div className="navbar-dropdown">
+                    <div className="navbar-item">
+                      <AnchorLink
+                        title={' Logout '}
+                        className={'button is-light'}
+                        iconClassName={'fas fa-sign-out-alt'}
+                        handleOnClick={e => firebase.logout()}
+                      />
+                    </div>
+                    <div className="navbar-item">
+                      <AnchorLink
+                        title={' Setting '}
+                        className={'button is-light'}
+                        iconClassName={'fas fa-cog'}
+                        href={'/setting'}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </AuthWrapper>
+              </AuthWrapper>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>

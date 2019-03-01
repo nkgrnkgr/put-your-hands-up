@@ -8,6 +8,7 @@ import 'css/animation.css';
 import 'css/tab.css';
 import 'css/color.css';
 import 'css/landingpage.css';
+import 'css/navbar.css';
 import FloatButton from 'containers/FloatButton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import 'css/footer.css';
+import pyhuloge_pinkSvg from 'images/pyhuloge_pink.svg';
 import AnchorLink, { AnchorLinkProps } from './AnchorLink';
 
 export interface FooterProps {}
@@ -77,7 +78,9 @@ const footer: React.SFC<FooterProps> = () => {
       <section className="section">
         <div className="container">
           <div className="columns is-multiline">
-            <div className="column">logo</div>
+            <div className="column">
+              <img src={pyhuloge_pinkSvg} className={'logo'} />
+            </div>
             {Object.keys(anchorLinks).map((key, index) => {
               const a: AnchorLinkProps[] = anchorLinks[key];
               return (

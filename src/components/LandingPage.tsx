@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Navbar from 'containers/Navbar';
-import pyhuloge_blackSvg from 'images/pyhuloge_black.svg';
+import pyhuloge_pinkSvg from 'images/pyhuloge_pink.svg';
 import _chatSvg from 'images/_chat.svg';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,13 @@ export interface LandingPageProps {}
 const landingPage: React.SFC<LandingPageProps> = () => {
   return (
     <div className="landingpage">
-      <Navbar isShownSignInButtons={false} hasTabs={false} />
+      <Navbar
+        isShownSignInButtons={false}
+        hasTabs={false}
+        isShownNavLink={false}
+        isShownSearch={false}
+        isShownUserIcon={false}
+      />
       <div className="cover" style={{ height: '73px' }} />
       <section className="hero cover">
         <div className="hero-body">
@@ -18,10 +24,10 @@ const landingPage: React.SFC<LandingPageProps> = () => {
               登壇者にフィードバックしよう
             </h1>
             <img src={_chatSvg} className={'coverImage'} />
-            <div className="circle" />
+            <div style={{ height: '40px' }} />
             <div className="level">
               <div className="level-item">
-                <img src={pyhuloge_blackSvg} className={'logo'} />
+                <img src={pyhuloge_pinkSvg} className={'logo'} />
                 <h1 className="title is-size-2 logoTitle">PutYourHansUp</h1>
               </div>
             </div>

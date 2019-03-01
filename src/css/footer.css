@@ -4,6 +4,10 @@
     font-size: 13.5px;
 }
 
+.footer .logo {
+    height: 80px;
+}
+
 .footer .title {
     color: #fff;
     font-size: 15px;
