@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Navbar from 'containers/Navbar';
 import pyhuloge_pinkSvg from 'images/pyhuloge_pink.svg';
-import _chatSvg from 'images/_chat.svg';
+import _candidateSvg from 'images/_candidate.svg';
+import _groupChatSvg from 'images/_groupChat.svg';
 import { Link } from 'react-router-dom';
 
 export interface LandingPageProps {}
@@ -23,7 +24,8 @@ const landingPage: React.SFC<LandingPageProps> = () => {
             <h1 className="title is-size-1-desktop is-size-3-mobile">
               登壇者にフィードバックしよう
             </h1>
-            <img src={_chatSvg} className={'coverImage'} />
+            <img src={_candidateSvg} className={'coverImage'} />
+            <img src={_groupChatSvg} className={'coverImage'} />
             <div style={{ height: '40px' }} />
             <div className="level">
               <div className="level-item">
