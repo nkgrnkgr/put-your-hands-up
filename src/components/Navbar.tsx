@@ -106,10 +106,10 @@ const navbar: React.SFC<NavbarProps> = ({
           <a className="navbar-item" href="/">
             <img
               src={pyhuloge_whiteSvg}
-              alt="put your hans up"
+              alt="put your hands up"
               style={{ height: '100px', marginRight: '10px' }}
             />
-            <h1 className="BrandLogo">PutYourHansUp</h1>
+            <h1 className="BrandLogo">PutYourHandsUp</h1>
           </a>
           {isShownNavLink ? (
             <a

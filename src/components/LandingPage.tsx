@@ -30,7 +30,7 @@ const landingPage: React.SFC<LandingPageProps> = () => {
             <div className="level">
               <div className="level-item">
                 <img src={pyhuloge_pinkSvg} className={'logo'} />
-                <h1 className="title is-size-2 logoTitle">PutYourHansUp</h1>
+                <h1 className="title is-size-3 logoTitle">PutYourHandsUp</h1>
               </div>
             </div>
             <div className="has-text-centered">

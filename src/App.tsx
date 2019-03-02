@@ -27,6 +27,10 @@ const app: React.SFC = () => (
     <Switch>
       <Route exact={true} path={'/'} component={LandingPage} />
       <Route
+        path={'/dashboard'}
+        render={props => <section className="section">dashboard</section>}
+      />
+      <Route
         path={'/organizer'}
         render={props => (
           <section className="section">
