@@ -17,7 +17,7 @@ import { getLtId } from 'domain/Lt';
 import UserIcon from 'components/UserIcon';
 export interface CommentFormProps {
   auth: Auth;
-  firestore?: Firestore;
+  firestore: Firestore;
   event: Event;
   inputtingComment: string;
   inputtingTags: Tag[];

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, pure, setDisplayName } from 'recompose';
+import { compose, pure, setDisplayName, lifecycle } from 'recompose';
 import CommentForm, { CommentFormProps } from 'components/Event/CommentForm';
 import { CombinedState as State } from 'reducers/root';
 import Tag from 'domain/Tag';
@@ -17,6 +17,7 @@ import {
 } from 'actions/comment';
 import { Event } from 'domain/Event';
 import { withFirestore } from 'react-redux-firebase';
+import { registerEventId, fetchUser } from 'domain/FirebaseUser';
 
 interface StateProps {
   inputtingComment: string;
@@ -27,6 +28,9 @@ interface StateProps {
   auth: Auth;
 }
 
+interface FirebaseProps {
+  firestore: Firestore;
+}
 interface OuterProps {
   event: Event;
   closeWrapper?: () => void;
@@ -42,7 +46,7 @@ interface DispatchProps {
   changeStateCommentForm: (shouldOpen: boolean) => void;
 }
 
-type EnhancedProps = StateProps & DispatchProps;
+type EnhancedProps = StateProps & DispatchProps & FirebaseProps;
 
 const mapStateToProps = (state: State) => ({
   auth: state.firebase.auth,
@@ -77,6 +81,19 @@ const enhance = compose<EnhancedProps, OuterProps>(
     mapStateToProps,
     mapDispatchToProps
   ),
+  lifecycle<EnhancedProps & OuterProps, {}, {}>({
+    async componentDidMount() {
+      const { firestore, auth, event } = this.props;
+      if (auth && !auth.isAnonymous) {
+        if (firestore && event) {
+          const u = await fetchUser(firestore, auth.uid);
+          if (u !== null) {
+            await registerEventId(firestore, u, event.id);
+          }
+        }
+      }
+    }
+  }),
   pure
 );
 

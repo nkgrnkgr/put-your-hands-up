@@ -7,6 +7,7 @@ import { toggleMobileMenu } from 'actions/mobileMenu';
 import { CombinedState as State } from 'reducers/root';
 import { firebaseConnect, withFirestore } from 'react-redux-firebase';
 import { Event } from 'domain/Event';
+import { withRouter } from 'react-router';
 
 interface StateProps {
   auth: Auth;
@@ -44,6 +45,7 @@ const enhance = compose<EnhancedNavbarProps, OuterProps>(
   setDisplayName('EnhancedNavbar'),
   firebaseConnect(),
   withFirestore,
+  withRouter,
   connect<StateProps, DispatchProps, NavbarProps>(
     mapStateToProps,
     mapDispatchToProps

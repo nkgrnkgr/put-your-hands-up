@@ -10,6 +10,7 @@ import AnchorLink from './AnchorLink';
 import UserIcon from './UserIcon';
 import { Link } from 'react-router-dom';
 import Authenticate from 'domain/Authenticate';
+import * as H from 'history';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -24,6 +25,7 @@ export interface NavbarProps {
   isShownNavLink?: boolean;
   hasTabs?: boolean;
   event?: Event;
+  history?: H.History;
 }
 
 const navbarClassNames = (hasTabs: boolean) => {
@@ -43,7 +45,8 @@ const navbar: React.SFC<NavbarProps> = ({
   isShownUserIcon = true,
   isShownNavLink = true,
   hasTabs = true,
-  event
+  event,
+  history
 }) => {
   const resister = async (auth: Auth) => {
     if (auth) {
@@ -68,6 +71,12 @@ const navbar: React.SFC<NavbarProps> = ({
     const loginedInfo = await authenticate.signInWithGoogle();
     const auth: Auth = loginedInfo.user;
     resister(auth);
+  };
+  const anonyMouslySingIn = () => {
+    signInAnonymously();
+    // if (history) {
+    //   history.push('/setting');
+    // }
   };
 
   return (
@@ -151,7 +160,7 @@ const navbar: React.SFC<NavbarProps> = ({
                     title={'匿名でログイン'}
                     className={'button is-light'}
                     iconClassName={'fas fa-user-secret'}
-                    handleOnClick={e => signInAnonymously()}
+                    handleOnClick={e => anonyMouslySingIn()}
                   />
                 </div>
                 <div className="navbar-item">

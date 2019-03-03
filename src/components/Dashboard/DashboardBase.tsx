@@ -4,7 +4,6 @@ import EventList from 'containers/Dashboard/EventList';
 export interface DashboardBaseProps {}
 
 const dashboardBase: React.SFC<DashboardBaseProps> = ({}) => {
-  console.log('called');
   return (
     <div className="columns">
       <div className="column">

@@ -35,7 +35,7 @@ const enhance = compose<EnhancedProps, ReactRouterProps>(
   withFirestore,
   connect<StateProps, {}, EventWrapperProps>(mapStateToProps),
   lifecycle<EnhancedProps & ReactRouterProps, {}, {}>({
-    componentDidMount() {
+    async componentDidMount() {
       this.props.firestore.get({
         collection: 'events',
         where: [['id', '==', this.props.match.params.eventurl]]

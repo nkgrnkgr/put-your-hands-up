@@ -80,7 +80,7 @@ const app: React.SFC = () => (
             <AuthWrapper isAuthenComponent={false}>
               <section className="section">
                 <div className="container">
-                  <LoginRequired />
+                  <LoginRequired canLoginAnonymously={true} />
                 </div>
               </section>
               <div style={{ height: '300px' }}>{''}</div>
