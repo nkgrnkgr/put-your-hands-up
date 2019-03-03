@@ -5,13 +5,12 @@ import AuthWrapper from 'containers/AuthWrapper';
 import AnchorLink from 'components/AnchorLink';
 import Authenticate from 'domain/Authenticate';
 
-export interface OrganizerPageProps {
+export interface DashboardPageProps {
   firebase: Firebase;
-  auth: Auth;
   children: React.ReactNode;
 }
 
-const organizerPage: React.SFC<OrganizerPageProps> = ({
+const dashboardPage: React.SFC<DashboardPageProps> = ({
   firebase,
   children
 }) => {
@@ -25,7 +24,7 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
           <div>
             <AuthWrapper isAuthenComponent={false}>
               <div className="notification">
-                <span>この機能はログイン時のみご利用いただけます</span>
+                <span>ログインしてください</span>
               </div>
               <div className="buttons">
                 <AnchorLink
@@ -51,4 +50,4 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
   );
 };
 
-export default organizerPage;
+export default dashboardPage;

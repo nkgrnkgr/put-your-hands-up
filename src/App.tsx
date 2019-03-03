@@ -21,6 +21,8 @@ import AuthWrapper from 'containers/AuthWrapper';
 import Base from 'containers/UserSetting/Base';
 import Navbar from 'containers/Navbar';
 import LoginRequired from 'containers/LoginRequired';
+import DashboardPage from 'containers/Dashboard/DashboardPage';
+import DashboardBase from 'components/Dashboard/DashboardBase';
 
 const app: React.SFC = () => (
   <>
@@ -28,7 +30,13 @@ const app: React.SFC = () => (
       <Route exact={true} path={'/'} component={LandingPage} />
       <Route
         path={'/dashboard'}
-        render={props => <section className="section">dashboard</section>}
+        render={props => (
+          <section className="section cover">
+            <DashboardPage>
+              <DashboardBase />
+            </DashboardPage>
+          </section>
+        )}
       />
       <Route
         path={'/organizer'}

@@ -1,24 +1,13 @@
 import * as React from 'react';
 import AnchorLink from 'components/AnchorLink';
+import Authenticate from 'domain/Authenticate';
 
 export interface LoginRequiredProps {
   firebase: Firebase;
 }
 
 const loginRequired: React.SFC<LoginRequiredProps> = ({ firebase }) => {
-  const signInWithTwitter = () => {
-    firebase.login({
-      provider: 'twitter',
-      type: 'popup'
-    });
-  };
-
-  const signInWithGoogle = () => {
-    firebase.login({
-      provider: 'google',
-      type: 'popup'
-    });
-  };
+  const authenticate = new Authenticate(firebase);
 
   return (
     <div>
@@ -30,13 +19,13 @@ const loginRequired: React.SFC<LoginRequiredProps> = ({ firebase }) => {
           title={'Googleでログイン'}
           className={'button is-link'}
           iconClassName={'fab fa-google'}
-          handleOnClick={e => signInWithGoogle()}
+          handleOnClick={e => authenticate.signInWithGoogle()}
         />
         <AnchorLink
           title={'Twitterでログイン'}
           className={'button is-info'}
           iconClassName={'fab fa-twitter'}
-          handleOnClick={e => signInWithTwitter()}
+          handleOnClick={e => authenticate.signInWithTwitter()}
         />
       </div>
     </div>

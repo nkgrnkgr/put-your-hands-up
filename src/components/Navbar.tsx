@@ -4,12 +4,12 @@ import { signInAnonymously } from 'lib/auth';
 import pyhuloge_whiteSvg from 'images/pyhuloge_white.svg';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
-import { FirebaseUser } from 'domain/FirebaseUser';
+import { registerUid, registerEventId, fetchUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
-import { createNewListFrom } from 'utils/Utils';
 import AnchorLink from './AnchorLink';
 import UserIcon from './UserIcon';
 import { Link } from 'react-router-dom';
+import Authenticate from 'domain/Authenticate';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -45,58 +45,29 @@ const navbar: React.SFC<NavbarProps> = ({
   hasTabs = true,
   event
 }) => {
-  const registerUid = (uid: string) => {
-    if (event) {
-      if (firestore && firestore.update) {
-        firestore.update(
-          { collection: 'users', doc: uid },
-          {
-            uid
-          }
-        );
+  const resister = async (auth: Auth) => {
+    if (auth) {
+      if (firestore && event) {
+        await registerUid(firestore, auth.uid);
+        const u = await fetchUser(firestore, auth.uid);
+        if (u !== null) {
+          await registerEventId(firestore, u, event.id);
+        }
       }
     }
   };
-
-  const registerEventId = async (uid: string) => {
-    if (event) {
-      if (firestore && firestore.get && firestore.update) {
-        const user = await firestore.get({ collection: 'users', doc: uid });
-        firestore.update(
-          { collection: 'users', doc: uid },
-          {
-            eventIdsParticipated: createNewListFrom(
-              event.id,
-              user.eventIdsParticipated
-            )
-          }
-        );
-      }
-    }
-  };
-
   const signInWithTwitter = async () => {
-    const loginedInfo = await firebase.login({
-      provider: 'twitter',
-      type: 'popup'
-    });
-    const user: FirebaseUser = loginedInfo.user;
-    if (user) {
-      await registerUid(user.uid);
-      await registerEventId(user.uid);
-    }
+    const authenticate = new Authenticate(firebase);
+    const loginedInfo = await authenticate.signInWithTwitter();
+    const auth: Auth = loginedInfo.user;
+    resister(auth);
   };
 
   const signInWithGoogle = async () => {
-    const loginedInfo = await firebase.login({
-      provider: 'google',
-      type: 'popup'
-    });
-    const user: FirebaseUser = loginedInfo.user;
-    if (user) {
-      await registerUid(user.uid);
-      await registerEventId(user.uid);
-    }
+    const authenticate = new Authenticate(firebase);
+    const loginedInfo = await authenticate.signInWithGoogle();
+    const auth: Auth = loginedInfo.user;
+    resister(auth);
   };
 
   return (
@@ -134,7 +105,7 @@ const navbar: React.SFC<NavbarProps> = ({
             <div className="navbar-start">
               <AnchorLink
                 title={' DashBoard '}
-                href={'/'}
+                href={'/dashboard'}
                 className={'navbar-item has-text-white'}
                 iconClassName={'fas fa-cog'}
               />
