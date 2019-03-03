@@ -5,11 +5,11 @@ export interface DashboardBaseProps {}
 
 const dashboardBase: React.SFC<DashboardBaseProps> = ({}) => {
   return (
-    <div className="columns">
-      <div className="column">
+    <div className="columns is-centered">
+      <div className="column is-three-fifths">
         <EventList />
+        <div style={{ height: '240px' }} />
       </div>
-      {/* <div className="column">saba</div> */}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import _emptySvg from 'images/_empty.svg';
 import { FirebaseUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
 import AnchorLink from 'components/AnchorLink';
+import { getYearMonthDayHourMitutes } from 'utils/DateTime';
 
 export interface EventListProps {
   auth: Auth;
@@ -17,9 +18,10 @@ const eventList: React.SFC<EventListProps> = ({ events }) => {
     return (
       <div className="has-text-centered">
         <img src={_emptySvg} style={{ maxWidth: '40%' }} />
-        <h1>
-          現在参加したイベントはありません。イベント管理者にURLを配布してもらってください。
-        </h1>
+        <h3 className="title is-5">現在参加したイベントはありません。</h3>
+        <h3 className="title is-5">
+          イベント管理者にURLを配布してもらってください。
+        </h3>
       </div>
     );
   }
@@ -31,9 +33,11 @@ const eventList: React.SFC<EventListProps> = ({ events }) => {
         {events.map((event, index) => {
           return (
             <AnchorLink
-              title={event.name}
+              title={`${event.name} - ${getYearMonthDayHourMitutes(
+                event.date
+              )}`}
               className={'panel-block backGroundColor-white'}
-              href={`events/${event.url}`}
+              href={`events={true}/${event.url}`}
               key={index}
               isExternal={true}
             />
