@@ -1,7 +1,6 @@
 import * as React from 'react';
 import AnchorLink from 'components/AnchorLink';
 import Authenticate from 'domain/Authenticate';
-import { signInAnonymously } from 'lib/auth';
 import * as H from 'history';
 
 export interface LoginRequiredProps {
@@ -17,7 +16,7 @@ const loginRequired: React.SFC<LoginRequiredProps> = ({
 }) => {
   const authenticate = new Authenticate(firebase);
   const anonyMouslySingIn = () => {
-    signInAnonymously();
+    authenticate.signInAnonymously();
     if (history) {
       history.push('/setting');
     }

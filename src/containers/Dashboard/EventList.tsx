@@ -8,6 +8,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { Action } from 'typescript-fsa';
 import { addEvent, DashboardActionPayload } from 'actions/dashboard';
 import { Event } from 'domain/Event';
+import { findUser } from 'domain/Anonymous';
 
 interface StateProps {
   auth: Auth;
@@ -53,8 +54,17 @@ const enhance = compose<EnhancedProps, {}>(
   lifecycle<EnhancedProps, {}, {}>({
     async componentDidMount() {
       const { firestore, auth, addEvent } = this.props;
-      const docs = await firestore.get({ collection: 'users', doc: auth.uid });
-      const user: FirebaseUser = docs.data();
+
+      let user: FirebaseUser | null = null;
+      if (auth.isAnonymous) {
+        user = findUser(auth.uid);
+      } else {
+        const docs = await firestore.get({
+          collection: 'users',
+          doc: auth.uid
+        });
+        user = docs.data();
+      }
       if (
         user &&
         user.eventIdsParticipated &&

@@ -18,6 +18,7 @@ import {
 import { Event } from 'domain/Event';
 import { withFirestore } from 'react-redux-firebase';
 import { registerEventId, fetchUser } from 'domain/FirebaseUser';
+import { findUser, registerEventIdParticipated } from 'domain/Anonymous';
 
 interface StateProps {
   inputtingComment: string;
@@ -84,11 +85,18 @@ const enhance = compose<EnhancedProps, OuterProps>(
   lifecycle<EnhancedProps & OuterProps, {}, {}>({
     async componentDidMount() {
       const { firestore, auth, event } = this.props;
-      if (auth && !auth.isAnonymous) {
-        if (firestore && event) {
-          const u = await fetchUser(firestore, auth.uid);
+      if (auth) {
+        if (auth.isAnonymous) {
+          const u = findUser(auth.uid);
           if (u !== null) {
-            await registerEventId(firestore, u, event.id);
+            registerEventIdParticipated(auth.uid, event.id);
+          }
+        } else {
+          if (firestore && event) {
+            const u = await fetchUser(firestore, auth.uid);
+            if (u !== null) {
+              await registerEventId(firestore, u, event.id);
+            }
           }
         }
       }

@@ -39,6 +39,12 @@ const dashboardPage: React.SFC<DashboardPageProps> = ({
                   iconClassName={'fab fa-twitter'}
                   handleOnClick={e => authenticate.signInWithTwitter()}
                 />
+                <AnchorLink
+                  title={'匿名でログイン'}
+                  className={'button is-light'}
+                  iconClassName={'fas fa-user-secret'}
+                  handleOnClick={e => authenticate.signInAnonymously()}
+                />
               </div>
               <div style={{ height: '300px' }}>{''}</div>
             </AuthWrapper>

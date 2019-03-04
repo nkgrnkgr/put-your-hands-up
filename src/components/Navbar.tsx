@@ -1,6 +1,5 @@
 import * as React from 'react';
 import userInfo from 'lib/userInfo';
-import { signInAnonymously } from 'lib/auth';
 import pyhuloge_whiteSvg from 'images/pyhuloge_white.svg';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
@@ -11,6 +10,7 @@ import UserIcon from './UserIcon';
 import { Link } from 'react-router-dom';
 import Authenticate from 'domain/Authenticate';
 import * as H from 'history';
+import { deleteUser } from 'domain/Anonymous';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
@@ -73,10 +73,19 @@ const navbar: React.SFC<NavbarProps> = ({
     resister(auth);
   };
   const anonyMouslySingIn = () => {
-    signInAnonymously();
-    // if (history) {
-    //   history.push('/setting');
-    // }
+    const authenticate = new Authenticate(firebase);
+    authenticate.signInAnonymously();
+    if (history) {
+      console.log(history);
+      history.push('/setting');
+    }
+  };
+
+  const handleLogout = () => {
+    if (auth.isAnonymous) {
+      deleteUser(auth.uid);
+    }
+    firebase.logout();
   };
 
   return (
@@ -205,7 +214,7 @@ const navbar: React.SFC<NavbarProps> = ({
                         title={' Logout '}
                         className={'button is-light'}
                         iconClassName={'fas fa-sign-out-alt'}
-                        handleOnClick={e => firebase.logout()}
+                        handleOnClick={e => handleLogout()}
                       />
                     </div>
                     <div className="navbar-item">
