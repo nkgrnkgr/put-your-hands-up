@@ -37,7 +37,7 @@ const eventList: React.SFC<EventListProps> = ({ events }) => {
                 event.date
               )}`}
               className={'panel-block backGroundColor-white'}
-              href={`events={true}/${event.url}`}
+              href={`events/${event.url}`}
               key={index}
               isExternal={true}
             />
