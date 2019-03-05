@@ -44,7 +44,7 @@ const edit: React.SFC<EditProps> = ({ events, firestore }) => {
   if (event) {
     return (
       <div>
-        <h1 className="title is-2">イベント編集</h1>
+        <h1 className="title is-4">イベント編集</h1>
         <InputForm
           event={event}
           handleSubmit={updateItem =>

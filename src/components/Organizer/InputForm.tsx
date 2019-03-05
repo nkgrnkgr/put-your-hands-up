@@ -150,18 +150,18 @@ const inputForm: React.SFC<InputFormProps> = ({
                         </FormWrapper>
                         <FormWrapper
                           labelName=""
-                          classNames="is-grouped is-grouped-centered"
+                          classNames="is-grouped is-grouped-centered buttons"
                         >
                           <button
                             type="button"
-                            className="button is-danger"
+                            className="button is-danger is-outlined"
                             onClick={() => arraryHelper.remove(index)}
                           >
                             -
                           </button>
                           <button
                             type="button"
-                            className="button is-info"
+                            className="button is-info is-outlined"
                             onClick={() =>
                               arraryHelper.insert(
                                 index + 1,
@@ -252,7 +252,7 @@ const inputForm: React.SFC<InputFormProps> = ({
                   <FormWrapper labelName="編集権限の追加">
                     <button
                       type="button"
-                      className="button is-info"
+                      className="button is-info is-outlined"
                       onClick={() => arraryHelper.push('')}
                     >
                       追加
@@ -264,12 +264,12 @@ const inputForm: React.SFC<InputFormProps> = ({
             <hr />
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
-                <button type="submit" className="button is-primary">
+                <button type="submit" className="button is-info is-outlined">
                   保存
                 </button>
               </p>
               <p className="control">
-                <a className="button is-light" href="/organizer">
+                <a className="button is-dark is-outlined" href="/organizer">
                   キャンセル
                 </a>
               </p>

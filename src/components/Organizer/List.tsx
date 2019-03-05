@@ -32,7 +32,7 @@ const list: React.SFC<ListProps> = ({ auth, events }) => {
   return (
     <div>
       <h1 className="title is-3">イベントの管理</h1>
-      <a href="/organizer/create" className="button is-success">
+      <a href="/organizer/create" className="button is-danger">
         <span className="icon is-small">
           <i className="fas fa-plus" aria-hidden="true" />
         </span>

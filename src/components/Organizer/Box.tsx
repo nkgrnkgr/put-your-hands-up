@@ -57,7 +57,7 @@ const box: React.SFC<BoxProps> = ({
               </div>
               <div className="level-item">
                 <a
-                  className="button is-danger"
+                  className="button is-danger is-outlined"
                   onClick={e => deleteEvent(event.id)}
                 >
                   <span className="icon is-small">
