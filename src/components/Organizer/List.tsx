@@ -31,7 +31,7 @@ const list: React.SFC<ListProps> = ({ auth, events }) => {
   }
   return (
     <div>
-      <h1 className="title is-1">イベントの管理</h1>
+      <h1 className="title is-3">イベントの管理</h1>
       <a href="/organizer/create" className="button is-success">
         <span className="icon is-small">
           <i className="fas fa-plus" aria-hidden="true" />
@@ -39,7 +39,7 @@ const list: React.SFC<ListProps> = ({ auth, events }) => {
         <span>新規イベントを作成する</span>
       </a>
       <hr />
-      <h3 className="title is-3">次回イベント</h3>
+      <h3 className="title is-4">次回イベント</h3>
       <div>
         {events
           ? events
@@ -52,7 +52,7 @@ const list: React.SFC<ListProps> = ({ auth, events }) => {
           : ''}
       </div>
       <hr />
-      <h3 className="title is-3">終了したイベント</h3>
+      <h3 className="title is-4">終了したイベント</h3>
       <div>
         {events
           ? events

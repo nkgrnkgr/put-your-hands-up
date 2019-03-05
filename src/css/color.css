@@ -73,3 +73,11 @@
 .backGroundColor-white {
     background-color: #fff;
 }
+
+.is-active-color a {
+    background-color: #ff3860!important
+}
+
+.is-not-active-color a {
+    background-color: #ffffff;
+}

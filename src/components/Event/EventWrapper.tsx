@@ -36,10 +36,10 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
 
   if (events) {
     return (
-      <>
+      <div>
         <Navbar event={event} />
         <Tabs event={event} />
-        <section className="section" style={{ paddingTop: '0px' }}>
+        <section className="section cover">
           <div className="container">
             <h1 className="title is-4">
               {event.name} - {getYearMonthDayHourMitutes(event.date)}
@@ -74,7 +74,7 @@ const eventWrapper: React.SFC<EventWrapperProps> = props => {
             <ConfirmModal message="本当に削除してよろしいですか？" />
           </div>
         </section>
-      </>
+      </div>
     );
   }
   return (

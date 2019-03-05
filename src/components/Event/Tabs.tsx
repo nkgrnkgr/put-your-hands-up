@@ -14,24 +14,25 @@ const tabs: React.SFC<TabsProps> = ({ event, selectedTabIndex, selectTab }) => {
     selectTab(index);
   };
   return (
-    <section className="has-background-danger shadow">
+    <div
+      className="has-background-danger shadow"
+      style={{ marginBottom: '6px' }}
+    >
       <div className="container">
-        <div style={{ marginBottom: '40px' }}>
-          <ul className="tab-group">
-            {titles.map((title, index) => {
-              return (
-                <li
-                  key={index}
-                  className={selectedTabIndex === index ? 'active-tab' : 'tab'}
-                >
-                  <a onClick={e => handleClick(index)}>{`#${title}`}</a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ul className="tab-group">
+          {titles.map((title, index) => {
+            return (
+              <li
+                key={index}
+                className={selectedTabIndex === index ? 'active-tab' : 'tab'}
+              >
+                <a onClick={e => handleClick(index)}>{`#${title}`}</a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-    </section>
+    </div>
   );
 };
 

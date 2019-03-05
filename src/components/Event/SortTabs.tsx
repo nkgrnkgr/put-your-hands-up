@@ -33,13 +33,13 @@ const Tab: React.SFC<TabProps> = ({
 
 const sortTabs: React.SFC<SortTabProps> = ({ sortKey, setSortKey }) => {
   return (
-    <div className="tabs is-fullwidth is-boxed">
+    <div className="tabs is-centered">
       <ul>
         <Tab
           sortKey={sortKey}
           setSortKey={setSortKey}
           title={'新着コメント'}
-          iconClassName={'fas fa-angle-up'}
+          iconClassName={'fas fa-burn has-text-danger'}
           value={SortKey.Updated}
         />
         <Tab

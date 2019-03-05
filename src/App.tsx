@@ -41,7 +41,7 @@ const app: React.SFC = () => (
       <Route
         path={'/organizer'}
         render={props => (
-          <section className="section">
+          <section className="section cover">
             <OrganizerPage>
               <Route exact={true} path={'/organizer'} component={List} />
               <Route {...props} path={'/organizer/edit/:id'} component={Edit} />
