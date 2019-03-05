@@ -86,6 +86,9 @@ const navbar: React.SFC<NavbarProps> = ({
       deleteUser(auth.uid);
     }
     firebase.logout();
+    if (history) {
+      history.push('/');
+    }
   };
 
   return (
