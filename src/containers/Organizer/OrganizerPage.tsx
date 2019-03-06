@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose, pure, setDisplayName } from 'recompose';
 import { CombinedState as State } from 'reducers/root';
-import { firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect, withFirestore } from 'react-redux-firebase';
 import OrganizerPage, {
   OrganizerPageProps
 } from 'components/Organizer/OrganizerPage';
@@ -17,6 +17,7 @@ const mapStateToProps = (state: State) => ({
 const enhance = compose<StateProps, {}>(
   setDisplayName('EnhancedOrganizerPage'),
   firebaseConnect(),
+  withFirestore,
   connect<StateProps, {}, OrganizerPageProps>(mapStateToProps),
   pure
 );

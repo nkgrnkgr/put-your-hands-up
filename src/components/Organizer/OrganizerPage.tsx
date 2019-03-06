@@ -3,19 +3,21 @@ import Navbar from 'containers/Navbar';
 import ConfirmModal from 'containers/ConfirmModal';
 import AuthWrapper from 'containers/AuthWrapper';
 import AnchorLink from 'components/AnchorLink';
-import Authenticate from 'domain/Authenticate';
+import Authenticator from 'domain/Authenticator';
 
 export interface OrganizerPageProps {
   firebase: Firebase;
+  firestore: Firestore;
   auth: Auth;
   children: React.ReactNode;
 }
 
 const organizerPage: React.SFC<OrganizerPageProps> = ({
   firebase,
+  firestore,
   children
 }) => {
-  const authenticate = new Authenticate(firebase);
+  const authenticator = new Authenticator(firebase, firestore);
   return (
     <>
       <Navbar isShownSignInButtons={false} hasTabs={false} />
@@ -32,13 +34,13 @@ const organizerPage: React.SFC<OrganizerPageProps> = ({
                   title={'Googleでログイン'}
                   className={'button is-link'}
                   iconClassName={'fab fa-google'}
-                  handleOnClick={e => authenticate.signInWithGoogle()}
+                  handleOnClick={e => authenticator.signInWithGoogle()}
                 />
                 <AnchorLink
                   title={'Twitterでログイン'}
                   className={'button is-info'}
                   iconClassName={'fab fa-twitter'}
-                  handleOnClick={e => authenticate.signInWithTwitter()}
+                  handleOnClick={e => authenticator.signInWithTwitter()}
                 />
               </div>
               <div style={{ height: '300px' }}>{''}</div>

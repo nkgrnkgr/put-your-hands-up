@@ -93,10 +93,12 @@ const enhance = compose<EnhancedProps, OuterProps>(
           }
         } else {
           if (firestore && event) {
-            const u = await fetchUser(firestore, auth.uid);
-            if (u !== null) {
-              await registerEventId(firestore, u, event.id);
-            }
+            setTimeout(async () => {
+              const u = await fetchUser(firestore, auth.uid);
+              if (u !== null) {
+                await registerEventId(firestore, u, event.id);
+              }
+            }, 5000);
           }
         }
       }

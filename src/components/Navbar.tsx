@@ -3,19 +3,18 @@ import userInfo from 'lib/userInfo';
 import pyhuloge_whiteSvg from 'images/pyhuloge_white.svg';
 import AuthWrapper from 'containers/AuthWrapper';
 import SearchForm from 'containers/Event/SearchForm';
-import { registerUid, registerEventId, fetchUser } from 'domain/FirebaseUser';
 import { Event } from 'domain/Event';
 import AnchorLink from './AnchorLink';
 import UserIcon from './UserIcon';
 import { Link } from 'react-router-dom';
-import Authenticate from 'domain/Authenticate';
+import Authenticator from 'domain/Authenticator';
 import * as H from 'history';
 import { deleteUser } from 'domain/Anonymous';
 
 export interface NavbarProps {
   isActiveMobileMenu: boolean;
   firebase: Firebase;
-  firestore?: Firestore;
+  firestore: Firestore;
   auth: Auth;
   toggleDisplay: () => void;
   toggleMobileMenu: () => void;
@@ -48,35 +47,17 @@ const navbar: React.SFC<NavbarProps> = ({
   event,
   history
 }) => {
-  const resister = async (auth: Auth) => {
-    if (auth) {
-      if (firestore && event) {
-        await registerUid(firestore, auth.uid);
-        const u = await fetchUser(firestore, auth.uid);
-        if (u !== null) {
-          await registerEventId(firestore, u, event.id);
-        }
-      }
-    }
-  };
+  const authenticator = new Authenticator(firebase, firestore);
   const signInWithTwitter = async () => {
-    const authenticate = new Authenticate(firebase);
-    const loginedInfo = await authenticate.signInWithTwitter();
-    const auth: Auth = loginedInfo.user;
-    resister(auth);
+    authenticator.signInWithTwitter(event);
   };
 
   const signInWithGoogle = async () => {
-    const authenticate = new Authenticate(firebase);
-    const loginedInfo = await authenticate.signInWithGoogle();
-    const auth: Auth = loginedInfo.user;
-    resister(auth);
+    authenticator.signInWithGoogle(event);
   };
   const anonyMouslySingIn = () => {
-    const authenticate = new Authenticate(firebase);
-    authenticate.signInAnonymously();
+    authenticator.signInAnonymously();
     if (history) {
-      console.log(history);
       history.push('/setting');
     }
   };

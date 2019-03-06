@@ -3,18 +3,20 @@ import Navbar from 'containers/Navbar';
 import ConfirmModal from 'containers/ConfirmModal';
 import AuthWrapper from 'containers/AuthWrapper';
 import AnchorLink from 'components/AnchorLink';
-import Authenticate from 'domain/Authenticate';
+import Authenticator from 'domain/Authenticator';
 
 export interface DashboardPageProps {
   firebase: Firebase;
+  firestore: Firestore;
   children: React.ReactNode;
 }
 
 const dashboardPage: React.SFC<DashboardPageProps> = ({
   firebase,
+  firestore,
   children
 }) => {
-  const authenticate = new Authenticate(firebase);
+  const authenticator = new Authenticator(firebase, firestore);
   return (
     <>
       <Navbar isShownSignInButtons={false} hasTabs={false} />
@@ -31,19 +33,19 @@ const dashboardPage: React.SFC<DashboardPageProps> = ({
                   title={'Googleでログイン'}
                   className={'button is-link'}
                   iconClassName={'fab fa-google'}
-                  handleOnClick={e => authenticate.signInWithGoogle()}
+                  handleOnClick={e => authenticator.signInWithGoogle()}
                 />
                 <AnchorLink
                   title={'Twitterでログイン'}
                   className={'button is-info'}
                   iconClassName={'fab fa-twitter'}
-                  handleOnClick={e => authenticate.signInWithTwitter()}
+                  handleOnClick={e => authenticator.signInWithTwitter()}
                 />
                 <AnchorLink
                   title={'匿名でログイン'}
                   className={'button is-light'}
                   iconClassName={'fas fa-user-secret'}
-                  handleOnClick={e => authenticate.signInAnonymously()}
+                  handleOnClick={e => authenticator.signInAnonymously()}
                 />
               </div>
               <div style={{ height: '300px' }}>{''}</div>

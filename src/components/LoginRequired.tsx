@@ -1,22 +1,24 @@
 import * as React from 'react';
 import AnchorLink from 'components/AnchorLink';
-import Authenticate from 'domain/Authenticate';
+import Authenticator from 'domain/Authenticator';
 import * as H from 'history';
 
 export interface LoginRequiredProps {
   firebase: Firebase;
+  firestore: Firestore;
   canLoginAnonymously?: boolean;
   history?: H.History;
 }
 
 const loginRequired: React.SFC<LoginRequiredProps> = ({
   firebase,
+  firestore,
   canLoginAnonymously = false,
   history
 }) => {
-  const authenticate = new Authenticate(firebase);
+  const authenticator = new Authenticator(firebase, firestore);
   const anonyMouslySingIn = () => {
-    authenticate.signInAnonymously();
+    authenticator.signInAnonymously();
     if (history) {
       history.push('/setting');
     }
@@ -32,13 +34,13 @@ const loginRequired: React.SFC<LoginRequiredProps> = ({
           title={'Googleでログイン'}
           className={'button is-link'}
           iconClassName={'fab fa-google'}
-          handleOnClick={e => authenticate.signInWithGoogle()}
+          handleOnClick={e => authenticator.signInWithGoogle()}
         />
         <AnchorLink
           title={'Twitterでログイン'}
           className={'button is-info'}
           iconClassName={'fab fa-twitter'}
-          handleOnClick={e => authenticate.signInWithTwitter()}
+          handleOnClick={e => authenticator.signInWithTwitter()}
         />
         {canLoginAnonymously ? (
           <AnchorLink
