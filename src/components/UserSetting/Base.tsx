@@ -140,12 +140,15 @@ const base: React.SFC<BaseProps> = ({
             <hr />
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
-                <button type="submit" className="button is-primary">
+                <button type="submit" className="button is-info is-outlined">
                   保存
                 </button>
               </p>
               <p className="control">
-                <a className="button is-light" onClick={e => history.goBack()}>
+                <a
+                  className="button is-dark is-outlined"
+                  onClick={e => history.goBack()}
+                >
                   キャンセル
                 </a>
               </p>

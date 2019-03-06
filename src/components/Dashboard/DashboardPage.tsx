@@ -4,19 +4,28 @@ import ConfirmModal from 'containers/ConfirmModal';
 import AuthWrapper from 'containers/AuthWrapper';
 import AnchorLink from 'components/AnchorLink';
 import Authenticator from 'domain/Authenticator';
+import * as H from 'history';
 
 export interface DashboardPageProps {
   firebase: Firebase;
   firestore: Firestore;
   children: React.ReactNode;
+  history: H.History;
 }
 
 const dashboardPage: React.SFC<DashboardPageProps> = ({
   firebase,
   firestore,
-  children
+  children,
+  history
 }) => {
   const authenticator = new Authenticator(firebase, firestore);
+  const anonyMouslySingIn = () => {
+    authenticator.signInAnonymously();
+    if (history) {
+      history.push('/setting');
+    }
+  };
   return (
     <>
       <Navbar isShownSignInButtons={false} hasTabs={false} />
@@ -45,7 +54,7 @@ const dashboardPage: React.SFC<DashboardPageProps> = ({
                   title={'匿名でログイン'}
                   className={'button is-light'}
                   iconClassName={'fas fa-user-secret'}
-                  handleOnClick={e => authenticator.signInAnonymously()}
+                  handleOnClick={e => anonyMouslySingIn()}
                 />
               </div>
               <div style={{ height: '300px' }}>{''}</div>

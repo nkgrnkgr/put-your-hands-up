@@ -5,6 +5,7 @@ import { firebaseConnect, withFirestore } from 'react-redux-firebase';
 import DashboardPage, {
   DashboardPageProps
 } from 'components/Dashboard/DashboardPage';
+import { withRouter } from 'react-router';
 
 interface StateProps {}
 
@@ -14,6 +15,7 @@ const enhance = compose<StateProps, {}>(
   setDisplayName('EnhancedDashboard'),
   firebaseConnect(),
   withFirestore,
+  withRouter,
   connect<StateProps, {}, DashboardPageProps>(mapStateToProps),
   pure
 );
