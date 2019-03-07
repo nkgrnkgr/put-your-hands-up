@@ -86,7 +86,7 @@ const landingPage: React.SFC<LandingPageProps> = () => {
           </div>
         </div>
       </section>
-      <section className="hero-body">
+      <section className="hero-body" id="howtouse">
         <div className="container has-text-centered">
           <div className="subtitle section">How to use</div>
           <h1 className="title is-size-1-desktop is-size-3-mobile">1</h1>

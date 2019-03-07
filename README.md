@@ -1,12 +1,6 @@
 # Put Your Hands Up
 
-<!-- ![alt](https://travis-ci.org/nkgrnkgr/expenses-automation.svg?branch=master) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
-
-![Imgur](https://i.imgur.com/hxfX19n.png) -->
-
-<!-- expenses-automation is a tool that calculates travel expenses from the schedule registered in Google Caledar and outputs CSV formatted for expense adjustment. -->
-
-> The Whiteboad for  feedback to the speakers.
+> The Whiteboad for feedback to the speakers.
 
 ![travis](https://travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flass)
@@ -16,47 +10,21 @@
 [[Demo]Put Your Hands Up](https://put-your-hands-up-test.firebaseapp.com/events/b8829a6a-5385-4550-b8ad-bc078b578ac7/)
 
 
-## create .env
-
-```bash
-REACT_APP_APIKEY=${your firebase apikey}
-REACT_APP_AUTH_DOMAIN=${your firebase domain}
-REACT_APP_DATABASE_URL=${your filebase url}
-REACT_APP_PROJECT_ID=${your filebase id}
-REACT_APP_STORAGE_BUCKET=${your firebae bucket}
-REACT_APP_MESSAGING_SENDER_ID=${your filebase sender id}
-
-```
-
-## yarn add
-
-```bash
-yarn
-```
-
-## build and Open Browser
-
-```bash
-yarn start
-```
-
 ![alt](./src/images/cap.png)
+<img src="./src/images/s1" width="100">
+<img src="./src/images/s2" width="10%">
+
+### How To Use
+
+[How to use](https://pyhu.nkgr.app#howtouse)
 
 
 
-<!-- Please visit at [Tutorial](https://expenses-automation-app.firebaseapp.com/tutorial) -->
-
-<!-- ## About This Repository
-
-This Respository is FrontEnd of expenses-automation.
-
-BackEnd Repository is [expenses-automation-api](https://bitbucket.org/nokogiring/expenses-automation-api/src/master/).
-But BackEnd Repository is  private. -->
 
 ## Using
 
 - React
 - Rudux
 - Typescript
-- Firebase
+- Firebase & Firestore
 - bulma
