@@ -6,6 +6,7 @@ import * as H from 'history';
 export interface LoginRequiredProps {
   firebase: Firebase;
   firestore: Firestore;
+  isShowTitle?: boolean;
   canLoginAnonymously?: boolean;
   history?: H.History;
 }
@@ -13,6 +14,7 @@ export interface LoginRequiredProps {
 const loginRequired: React.SFC<LoginRequiredProps> = ({
   firebase,
   firestore,
+  isShowTitle = true,
   canLoginAnonymously = false,
   history
 }) => {
@@ -26,9 +28,13 @@ const loginRequired: React.SFC<LoginRequiredProps> = ({
 
   return (
     <div>
-      <div className="notification">
-        <span>この機能はログイン時のみご利用いただけます</span>
-      </div>
+      {isShowTitle ? (
+        <div className="notification">
+          <span>この機能はログイン時のみご利用いただけます</span>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="buttons">
         <AnchorLink
           title={'Googleでログイン'}

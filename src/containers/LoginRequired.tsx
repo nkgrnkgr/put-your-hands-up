@@ -4,6 +4,7 @@ import { firebaseConnect, withFirestore } from 'react-redux-firebase';
 import { withRouter } from 'react-router';
 
 interface OuterProps {
+  isShowTitle?: boolean;
   canLoginAnonymously?: boolean;
 }
 
