@@ -11,8 +11,8 @@
 
 
 ![alt](./src/images/cap.png)
-<img src="./src/images/s1" width="100">
-<img src="./src/images/s2" width="10%">
+<img src="./src/images/s1" style="width: 40%">
+<img src="./src/images/s2" style="width: 40%">
 
 ### How To Use
 
