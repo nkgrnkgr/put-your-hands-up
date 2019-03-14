@@ -7,10 +7,6 @@
 ![travis](https://travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master)
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flass)
 
-
-
-
-
 ![alt](./src/images/cap.png)
 <img src="https://raw.githubusercontent.com/nkgrnkgr/put-your-hands-up/release_20190307/src/images/s1.png" style="width: 40%"> <img src="https://raw.githubusercontent.com/nkgrnkgr/put-your-hands-up/release_20190307/src/images/s2.png" style="width: 40%">
 
@@ -18,6 +14,10 @@
 ### How To Use
 
 [How to use](https://pyhu.nkgr.app#howtouse)
+
+### Introdaction
+
+[PutYourHandsUp 導入手順](https://docs.google.com/presentation/d/1jmJge7k_Rkjvru8x8kP6rFPskpx_9JXgYu_L8n2FsCk/edit?usp=sharing)
 
 ### Demo
 
