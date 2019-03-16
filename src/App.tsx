@@ -61,9 +61,13 @@ const app: React.SFC = () => (
               <div className="container">
                 <AuthWrapper>
                   <EditLt {...props} />
+                  <div style={{ height: '200px' }} />
+                </AuthWrapper>
+                <AuthWrapper isAuthenComponent={false}>
+                  <LoginRequired canLoginAnonymously={false} />
+                  <div style={{ height: '350px' }} />
                 </AuthWrapper>
               </div>
-              <div style={{ height: '200px' }} />
             </section>
           </div>
         )}
