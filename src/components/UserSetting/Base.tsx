@@ -140,7 +140,7 @@ const base: React.SFC<BaseProps> = ({
             <hr />
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
-                <button type="submit" className="button is-info is-outlined">
+                <button type="submit" className="button is-info">
                   保存
                 </button>
               </p>

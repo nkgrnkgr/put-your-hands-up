@@ -13,6 +13,7 @@ import FloatButton from 'containers/FloatButton';
 import OrganizerPage from 'containers/Organizer/OrganizerPage';
 import List from 'containers/Organizer/List';
 import Edit from 'containers/Organizer/Edit';
+import EditLt from 'containers/Organizer/EditLt';
 import Create from 'containers/Organizer/Create';
 import LandingPage from 'components/LandingPage';
 import Footer from 'components/Footer';
@@ -48,6 +49,23 @@ const app: React.SFC = () => (
               <Route {...props} path={'/organizer/create'} component={Create} />
             </OrganizerPage>
           </section>
+        )}
+      />
+      <Route
+        path={'/editlt/:eventId/:index'}
+        render={props => (
+          <div>
+            <Navbar isShownSignInButtons={false} hasTabs={false} />
+            <div style={{ height: '50px' }} />
+            <section className="section cover">
+              <div className="container">
+                <AuthWrapper>
+                  <EditLt {...props} />
+                </AuthWrapper>
+              </div>
+              <div style={{ height: '200px' }} />
+            </section>
+          </div>
         )}
       />
       <Route

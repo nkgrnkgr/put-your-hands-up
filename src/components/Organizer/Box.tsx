@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Event } from 'domain/Event';
 import { getFullDate } from 'utils/DateTime';
-import { eventsUrl } from 'utils/Url';
+import { generateEventsUrl } from 'utils/Url';
 
 export interface BoxProps {
   event: Event;
@@ -33,11 +33,11 @@ const box: React.SFC<BoxProps> = ({
             <p>
               URL :{' '}
               <a
-                href={eventsUrl(event.url)}
+                href={generateEventsUrl(event.url)}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {eventsUrl(event.url)}
+                {generateEventsUrl(event.url)}
               </a>
             </p>
             <p>登壇タイトル</p>

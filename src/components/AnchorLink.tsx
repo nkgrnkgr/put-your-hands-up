@@ -8,6 +8,7 @@ export interface AnchorLinkProps {
   isExternal?: boolean;
   handleOnClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   key?: number;
+  style?: {};
 }
 
 const anchorLink: React.SFC<AnchorLinkProps> = ({
@@ -17,7 +18,8 @@ const anchorLink: React.SFC<AnchorLinkProps> = ({
   iconClassName = '',
   isExternal = false,
   handleOnClick = () => {},
-  key = 0
+  key = 0,
+  style = {}
 }) => {
   const rel = isExternal ? 'noopener noreferrer' : '';
   const target = isExternal ? '_blank' : '';
@@ -29,6 +31,7 @@ const anchorLink: React.SFC<AnchorLinkProps> = ({
       target={target}
       onClick={handleOnClick}
       key={key}
+      style={style}
     >
       {iconClassName ? (
         <span className="icon is-small">

@@ -8,6 +8,8 @@ import * as H from 'history';
 import { createRandomId } from 'utils/Id';
 import { Lt, createInitialValue } from 'domain/Lt';
 import FormWrapper from 'components/FormWrapper';
+import AnchorLink from 'components/AnchorLink';
+import { generateEditLtUrl } from 'utils/Url';
 export interface InputFormProps {
   auth: Auth;
   event?: Event;
@@ -148,6 +150,16 @@ const inputForm: React.SFC<InputFormProps> = ({
                             placeholder="https://speaker.portfolio.github.io/"
                           />
                         </FormWrapper>
+                        <FormWrapper labelName="直接編集用URL">
+                          <AnchorLink
+                            className=""
+                            iconClassName="fas fa-external-link-square-alt"
+                            title={`${generateEditLtUrl(values.id, index + 1)}`}
+                            href={`${generateEditLtUrl(values.id, index + 1)}`}
+                            isExternal={true}
+                            style={{ display: 'block', marginTop: '5px' }}
+                          />
+                        </FormWrapper>
                         <FormWrapper
                           labelName=""
                           classNames="is-grouped is-grouped-centered buttons"
@@ -264,7 +276,7 @@ const inputForm: React.SFC<InputFormProps> = ({
             <hr />
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
-                <button type="submit" className="button is-info is-outlined">
+                <button type="submit" className="button is-info">
                   保存
                 </button>
               </p>
