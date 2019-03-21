@@ -28,5 +28,5 @@
 - React
 - Rudux
 - Typescript
-- Firebase & Firestore
+- Firebase
 - bulma
