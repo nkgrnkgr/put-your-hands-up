@@ -26,7 +26,6 @@
 ## Using
 
 - React
-- Rudux
+- Hooks
 - Typescript
 - Firebase
-- bulma
