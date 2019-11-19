@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { UserModel, TwitterIntegration } from '../../models/User';
-import { db } from '../index';
+import { db, firebase } from '../index';
 
 const COLLECTION_KEY = 'users';
 
@@ -65,12 +65,13 @@ export const useParticipatedUsers = (eventId: string) => {
 
 export const updateTwitterIntegration = (
   uid: string,
-  twitterIntegration: TwitterIntegration,
+  twitterIntegration: TwitterIntegration | null,
 ) => {
   const userRef = db.collection(COLLECTION_KEY).doc(uid);
   try {
     userRef.update({
-      twitterIntegration: twitterIntegration,
+      twitterIntegration:
+        twitterIntegration || firebase.firestore.FieldValue.delete(),
     });
   } catch (err) {
     console.error(err);
