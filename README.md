@@ -29,3 +29,39 @@
 - Hooks
 - Typescript
 - Firebase
+- Material-UI v4
+
+## Build
+
+### install
+
+```bash
+yarn
+```
+
+### make .env
+
+```bash
+touch .evn
+```
+
+```bash
+REACT_APP_APIKEY=xxxx
+REACT_APP_AUTH_DOMAIN=xxxx
+REACT_APP_DATABASE_URL=xxxx
+REACT_APP_PROJECT_ID=xxxx
+REACT_APP_STORAGE_BUCKET=xxxx
+REACT_APP_MESSAGING_SENDER_ID=xxxx
+```
+
+### Start
+
+```bash
+yarn start
+```
+
+### Debug by VSCode
+
+install [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
+
+Press **F5** Key!
