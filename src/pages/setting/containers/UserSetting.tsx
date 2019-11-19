@@ -1,13 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserSetting as Component } from '../components/UserSetting';
 import { AnonymousColor, UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserContext } from '../../../contexts/UserContext';
-import { useLocation } from 'react-router';
+import { updateTwitterIntegration } from '../../../firebase/api/users';
 
 export const UserSetting = () => {
   const { userValue, setUserValue } = useContext(UserContext);
-  const location = useLocation();
+
+  useEffect(() => {
+    const { uid, twitterIntegration } = userValue.user;
+
+    if (twitterIntegration) {
+      updateTwitterIntegration(uid, twitterIntegration);
+    }
+  }, [userValue.user.twitterIntegration]);
 
   const setAnonymousUserInfo = (
     displayName: string,

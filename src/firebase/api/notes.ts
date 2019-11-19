@@ -73,7 +73,7 @@ export const addNote = async (note: Partial<NoteModel>) => {
     const snapshot = await documentRef.get();
     await documentRef.update({ id: snapshot.id });
   } catch (err) {
-    console.error(err);
+    console.error(err);  // eslint-disable-line
   }
 };
 
@@ -91,7 +91,7 @@ export const addOrRemoveFansId = (note: NoteModel, uid: string) => {
       'noteContents.fansIds': updatedFansIds,
     });
   } catch (err) {
-    console.error(err);
+    console.error(err);  // eslint-disable-line
   }
 };
 
@@ -111,7 +111,7 @@ export const addReplyCommentId = async (
       documentRef.update({ commentIds: [replyCommentId] });
     }
   } catch (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line
   }
 };
 
@@ -127,7 +127,7 @@ export const removeReplyCommentId = async (
     const commentIds = note.commentIds.filter(id => id !== replyCommentId);
     documentRef.update({ commentIds });
   } catch (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line
   }
 };
 
@@ -138,6 +138,6 @@ export const deleteNote = (note: NoteModel) => {
   try {
     noteRef.delete();
   } catch (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line
   }
 };
