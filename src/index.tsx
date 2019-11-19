@@ -1,17 +1,31 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
-
-import store from 'store';
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#ff5f7f',
+      main: '#ff3860',
+      dark: '#b22743',
+    },
+    secondary: {
+      light: '#4caff1',
+      main: '#209cee',
+      dark: '#166da6',
+    },
+  },
+});
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>,
-  document.getElementById('root') as HTMLElement
+    </BrowserRouter>
+  </ThemeProvider>,
+  document.getElementById('root'),
 );

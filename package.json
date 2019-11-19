@@ -1,58 +1,89 @@
 {
-  "name": "put-your-hands-up",
+  "name": "put-your-hands-up2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bulma": "^0.7.2",
-    "bulma-pageloader": "^2.1.0",
-    "bulma-tooltip": "^2.0.2",
-    "dayjs": "^1.7.7",
-    "firebase": "^5.7.0",
-    "formik": "^1.4.2",
-    "lodash": "^4.17.11",
-    "react": "^16.6.0",
-    "react-color": "^2.14.1",
-    "react-datepicker": "^2.0.0",
-    "react-dom": "^16.6.0",
-    "react-redux": "^5.1.0",
-    "react-redux-firebase": "^2.2.4",
-    "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "3.1.0",
-    "recompose": "^0.30.0",
-    "redux": "^4.0.1",
-    "redux-firestore": "^0.6.0",
-    "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-reducers": "^1.1.0",
-    "uuid": "^3.3.2"
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/styles": "^4.5.0",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.9",
+    "@types/react": "16.9.4",
+    "@types/react-beautiful-dnd": "^11.0.3",
+    "@types/react-color": "^3.0.1",
+    "@types/react-dom": "16.9.1",
+    "@types/react-helmet": "^5.0.11",
+    "@types/react-router": "^5.1.1",
+    "@types/react-router-dom": "^5.1.0",
+    "clsx": "^1.0.4",
+    "dayjs": "^1.8.16",
+    "firebase": "^7.0.0",
+    "formik": "^2.0.2",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.1",
+    "query-string": "^6.8.3",
+    "react": "^16.10.1",
+    "react-beautiful-dnd": "^11.0.5",
+    "react-color": "^2.17.3",
+    "react-dom": "^16.10.1",
+    "react-helmet": "^5.2.1",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "typescript": "3.6.3",
+    "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "lint": "tslint -c ./tslint.json --exclude **/*.d.ts --exclude ./node_modules --project . --fix",
-    "deploy": "firebase deploy --only hosting",
-    "deploy-s": "firebase deploy --only hosting --project staging"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/lodash": "^4.14.118",
-    "@types/node": "^10.12.2",
-    "@types/react": "^16.4.18",
-    "@types/react-color": "^2.14.0",
-    "@types/react-datepicker": "^2.0.2",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-redux": "^6.0.9",
-    "@types/react-router": "^4.4.3",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/recompose": "^0.27.0",
-    "@types/uuid": "^3.4.4",
-    "i": "^0.3.6",
-    "npm": "^6.6.0",
-    "prettier": "^1.14.3",
-    "tslint": "^5.11.0",
-    "tslint-config-airbnb": "^5.11.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.1.6"
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prefer-arrow": "^1.1.6",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

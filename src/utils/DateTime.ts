@@ -1,5 +1,11 @@
 import 'dayjs/locale/ja';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
+
+const get = (dateTime: number, format: string): string => {
+  return dayjs(dateTime)
+    .locale('ja')
+    .format(format);
+};
 
 export const getYear = (dateTime: number): string => {
   return get(dateTime, 'YYYY');
@@ -44,18 +50,19 @@ export const getFullDate = (dateTime: number): string => {
 export const newDateTimeValue = (
   dateTime: number,
   unit: dayjs.UnitType,
-  value: number
+  value: number,
 ): number => {
   const d1 = dayjs(dateTime)
     .locale('ja')
     .set(unit, value);
+
   return d1.valueOf();
 };
 
 export const increment = (
   dateTime: number,
   value: number,
-  unit: dayjs.UnitType
+  unit: dayjs.UnitType,
 ): number => {
   return dayjs(dateTime)
     .add(value, unit)
@@ -65,34 +72,18 @@ export const increment = (
 export const decrement = (
   dateTime: number,
   value: number,
-  unit: dayjs.UnitType
+  unit: dayjs.UnitType,
 ): number => {
   return dayjs(dateTime)
     .subtract(value, unit)
     .valueOf();
 };
 
+export const now = () => dayjs().valueOf();
+
 export const ago = (dateTime: number, unit: dayjs.UnitType) => {
   const now = dayjs();
   const ago = dayjs(dateTime);
+
   return now.diff(ago, unit);
 };
-
-const get = (dateTime: number, format: string): string => {
-  return dayjs(dateTime)
-    .locale('ja')
-    .format(format);
-};
-
-// export const createDateInstanceFrom = (unixtime: number): Date => {
-//   const d = dayjs(unixtime);
-//   console.log(d.year());
-//   return new Date(
-//     d.year(),
-//     d.month(),
-//     d.date(),
-//     d.hour(),
-//     d.minute(),
-//     d.second()
-//   );
-// };
