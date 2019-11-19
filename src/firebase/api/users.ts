@@ -1,8 +1,8 @@
-import { db } from '../index';
+import { useEffect, useMemo, useState } from 'react';
 import { UserModel, TwitterIntegration } from '../../models/User';
-import { useState, useEffect, useMemo } from 'react';
-import { oauthAcccessToken, FunctionsResponse } from './callFunctions';
-import queryString, { ParsedQuery } from 'query-string';
+import { db, firebase } from '../index';
+
+const COLLECTION_KEY = 'users';
 
 export const useUser = (uid: string) => {
   const [user, setUser] = useState<UserModel>();
@@ -10,7 +10,7 @@ export const useUser = (uid: string) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const collection = db.collection('users');
+    const collection = db.collection(COLLECTION_KEY);
 
     const load = async () => {
       setLoading(true);
@@ -36,7 +36,7 @@ export const useParticipatedUsers = (eventId: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const collection = db.collection('users');
+  const collection = db.collection(COLLECTION_KEY);
 
   useMemo(() => {
     setLoading(true);
@@ -61,4 +61,19 @@ export const useParticipatedUsers = (eventId: string) => {
   }, [eventId]);
 
   return { users, loading, error };
+};
+
+export const updateTwitterIntegration = (
+  uid: string,
+  twitterIntegration: TwitterIntegration | null,
+) => {
+  const userRef = db.collection(COLLECTION_KEY).doc(uid);
+  try {
+    userRef.update({
+      twitterIntegration:
+        twitterIntegration || firebase.firestore.FieldValue.delete(),
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };

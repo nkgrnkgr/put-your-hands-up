@@ -8,7 +8,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { UserProfile } from './UserProfile';
-import { ExternalLinkSetting } from '../containers/ExternalLinkSetting';
+import { ExternalLinkSetting } from './ExternalLinkSetting';
 import { AnonimouseUserProfile } from './AnonimouseUserProfile';
 import { UserModel, AnonymousColor } from '../../../models/User';
 
@@ -18,6 +18,7 @@ interface Props {
     displayName: string,
     anonymousColor: AnonymousColor,
   ) => Promise<void>;
+  onChangeSettingTwitterIntegration: (isIntegrating: boolean) => {};
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const UserSetting: React.FC<Props> = ({
   user,
   setAnonymousUserInfo,
+  onChangeSettingTwitterIntegration,
 }) => {
   const classes = useStyles();
 
@@ -56,7 +58,12 @@ export const UserSetting: React.FC<Props> = ({
         <Paper>
           <UserProfile user={user} />
           <Divider />
-          <ExternalLinkSetting />
+          <ExternalLinkSetting
+            twitterIntegration={user.twitterIntegration}
+            onChangeSettingTwitterIntegration={
+              onChangeSettingTwitterIntegration
+            }
+          />
         </Paper>
       )}
     </div>

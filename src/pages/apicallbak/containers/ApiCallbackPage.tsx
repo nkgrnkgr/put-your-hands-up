@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import queryString, { ParsedQuery } from 'query-string';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+import { UserContext } from '../../../contexts/UserContext';
 import { useTwitterIntegration } from '../../../firebase/api/twitterIntegration';
 import Loading from '../../shared/components/Loading';
-import { UserContext } from '../../../contexts/UserContext';
-import { useScrollTrigger } from '@material-ui/core';
 
 type Props = RouteComponentProps;
 
 export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
+  const { userValue, setUserValue } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(location.search);
   const { oauth_token, oauth_verifier } = params;
 
@@ -21,8 +21,6 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     oauthVerifier,
   );
 
-  const { userValue, setUserValue } = useContext(UserContext);
-
   if (loading) {
     return <Loading />;
   }
@@ -31,7 +29,6 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     return <>error</>;
   }
 
-  console.log(integration, error);
   setUserValue({
     ...userValue,
     user: {

@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from 'react';
-import { firebase } from '../../../firebase/index';
+import React, { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../../contexts/ApplicationContext';
+import { UserContext } from '../../../contexts/UserContext';
+import { firebase } from '../../../firebase/index';
 import {
-  UserModel,
-  initialUserData,
   ANONYMOUS_COLOR_IMAGE,
+  initialUserData,
+  UserModel,
 } from '../../../models/User';
 import { find } from '../../../utils/localStorageAccessor';
-import { UserContext } from '../../../contexts/UserContext';
 
 const createUserData = (user: firebase.User): UserModel => {
   const { isAnonymous, uid, providerData } = user;
