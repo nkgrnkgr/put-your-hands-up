@@ -23,6 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+.prod_env
+.stage_env
 
 # firebase
 firebase-debug.log
