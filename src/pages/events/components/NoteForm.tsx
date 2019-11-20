@@ -18,6 +18,7 @@ import { TagForm } from './TagForm';
 
 interface OuterProps {
   user: UserModel;
+  sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
   toggleTwitterShare: () => void;
 }
@@ -42,6 +43,7 @@ export const NoteForm: React.FC<Props> = props => {
     handleSubmit,
     values,
     setFieldValue,
+    sholdShowTwitter,
     sholdTwitterShare,
     toggleTwitterShare,
   } = props;
@@ -72,6 +74,7 @@ export const NoteForm: React.FC<Props> = props => {
               <Divider />
               <NoteButtons
                 handleOnClickCloseButton={() => setExpanded(false)}
+                sholdShowTwitter={sholdShowTwitter}
                 sholdTwitterShare={sholdTwitterShare}
                 toggleTwitterShare={toggleTwitterShare}
               />

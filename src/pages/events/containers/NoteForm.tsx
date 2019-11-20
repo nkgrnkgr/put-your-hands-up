@@ -28,18 +28,17 @@ const shareWithTwitter = (
   twitterIntegration: TwitterIntegration,
   status: string,
 ) => {
-  if (twitterIntegration) {
-    tweet({
-      oauth_token: twitterIntegration.accessToken,
-      oauth_token_secret: twitterIntegration.accessTokenSecret,
-      status,
-    });
-  }
+  tweet({
+    oauth_token: twitterIntegration.accessToken,
+    oauth_token_secret: twitterIntegration.accessTokenSecret,
+    status,
+  });
 };
 
 export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
   const { userValue } = useContext(UserContext);
+  const { twitterIntegration } = userValue.user;
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
   const toggleTwitterShare = () => {
@@ -62,7 +61,6 @@ export const NoteForm = (props: Props) => {
       Partial<NoteModel>
     >(values, submitValue, action, 'created');
     addNote(v);
-    const { twitterIntegration } = userValue.user;
     if (
       sholdTwitterShare &&
       twitterIntegration &&
@@ -81,6 +79,7 @@ export const NoteForm = (props: Props) => {
         <NoteListComponent
           {...props}
           user={userValue.user}
+          sholdShowTwitter={twitterIntegration !== undefined}
           sholdTwitterShare={sholdTwitterShare}
           toggleTwitterShare={toggleTwitterShare}
         />

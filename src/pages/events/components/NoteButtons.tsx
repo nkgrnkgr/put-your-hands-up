@@ -11,6 +11,7 @@ import { IconLink } from '../../shared/components/IconLink';
 
 interface Props {
   handleOnClickCloseButton: () => void;
+  sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
   toggleTwitterShare: () => void;
 }
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const NoteButtons: React.FC<Props> = ({
   handleOnClickCloseButton,
+  sholdShowTwitter,
   sholdTwitterShare,
   toggleTwitterShare,
 }) => {
@@ -57,12 +59,14 @@ export const NoteButtons: React.FC<Props> = ({
       >
         close
       </Button>
-      <IconLink
-        title="Twitterで共有"
-        className="fab fa-twitter"
-        color={sholdTwitterShare ? 'secondary' : 'default'}
-        onClick={() => toggleTwitterShare()}
-      />
+      {sholdShowTwitter && (
+        <IconLink
+          title="Twitterで共有"
+          className="fab fa-twitter"
+          color={sholdTwitterShare ? 'secondary' : 'default'}
+          onClick={() => toggleTwitterShare()}
+        />
+      )}
     </div>
   );
 };

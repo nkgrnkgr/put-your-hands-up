@@ -21,6 +21,7 @@ import { TagForm } from './TagForm';
 interface OuterProps {
   user: UserModel;
   open: boolean;
+  sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
   toggleTwitterShare: () => void;
   onClose: () => void;
@@ -50,6 +51,7 @@ export const ModalNoteForm: React.FC<Props> = props => {
     setFieldValue,
     open,
     onClose,
+    sholdShowTwitter,
     sholdTwitterShare,
     toggleTwitterShare,
   } = props;
@@ -83,6 +85,7 @@ export const ModalNoteForm: React.FC<Props> = props => {
             <Divider />
             <NoteButtons
               handleOnClickCloseButton={() => onClose()}
+              sholdShowTwitter={sholdShowTwitter}
               sholdTwitterShare={sholdTwitterShare}
               toggleTwitterShare={toggleTwitterShare}
             />
