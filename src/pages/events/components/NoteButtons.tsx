@@ -7,9 +7,12 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+import { IconLink } from '../../shared/components/IconLink';
 
 interface Props {
   handleOnClickCloseButton: () => void;
+  sholdTwitterShare: boolean;
+  toggleTwitterShare: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,7 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const NoteButtons: React.FC<Props> = ({ handleOnClickCloseButton }) => {
+export const NoteButtons: React.FC<Props> = ({
+  handleOnClickCloseButton,
+  sholdTwitterShare,
+  toggleTwitterShare,
+}) => {
   const classes = useStyles();
 
   return (
@@ -50,6 +57,12 @@ export const NoteButtons: React.FC<Props> = ({ handleOnClickCloseButton }) => {
       >
         close
       </Button>
+      <IconLink
+        title="Twitterで共有"
+        className="fab fa-twitter"
+        color={sholdTwitterShare ? 'secondary' : 'default'}
+        onClick={() => toggleTwitterShare()}
+      />
     </div>
   );
 };

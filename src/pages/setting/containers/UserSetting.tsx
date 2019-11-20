@@ -25,6 +25,7 @@ export const UserSetting = () => {
         const response = await oauthRequestToken({
           oauth_callback: `${window.location.protocol}//${window.location.host}/apicallback`,
         });
+
         const data: FunctionsResponse = response.data;
         const body: string = data.body;
         const params: ParsedQuery<string> = queryString.parse(body);

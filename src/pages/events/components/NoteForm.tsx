@@ -18,6 +18,8 @@ import { TagForm } from './TagForm';
 
 interface OuterProps {
   user: UserModel;
+  sholdTwitterShare: boolean;
+  toggleTwitterShare: () => void;
 }
 
 type Props = OuterProps & FormikProps<NoteContentsModel>;
@@ -36,7 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const NoteForm: React.FC<Props> = props => {
-  const { handleSubmit, values, setFieldValue } = props;
+  const {
+    handleSubmit,
+    values,
+    setFieldValue,
+    sholdTwitterShare,
+    toggleTwitterShare,
+  } = props;
 
   const [isExpanded, setExpanded] = useState(false);
   const classes = useStyles();
@@ -64,6 +72,8 @@ export const NoteForm: React.FC<Props> = props => {
               <Divider />
               <NoteButtons
                 handleOnClickCloseButton={() => setExpanded(false)}
+                sholdTwitterShare={sholdTwitterShare}
+                toggleTwitterShare={toggleTwitterShare}
               />
             </>
           )}

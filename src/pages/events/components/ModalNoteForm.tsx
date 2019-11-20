@@ -21,6 +21,8 @@ import { TagForm } from './TagForm';
 interface OuterProps {
   user: UserModel;
   open: boolean;
+  sholdTwitterShare: boolean;
+  toggleTwitterShare: () => void;
   onClose: () => void;
 }
 
@@ -42,7 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const ModalNoteForm: React.FC<Props> = props => {
-  const { handleSubmit, values, setFieldValue, open, onClose } = props;
+  const {
+    handleSubmit,
+    values,
+    setFieldValue,
+    open,
+    onClose,
+    sholdTwitterShare,
+    toggleTwitterShare,
+  } = props;
 
   const classes = useStyles();
 
@@ -71,7 +81,11 @@ export const ModalNoteForm: React.FC<Props> = props => {
             <Divider />
             <ColorSelection {...props} />
             <Divider />
-            <NoteButtons handleOnClickCloseButton={() => onClose()} />
+            <NoteButtons
+              handleOnClickCloseButton={() => onClose()}
+              sholdTwitterShare={sholdTwitterShare}
+              toggleTwitterShare={toggleTwitterShare}
+            />
           </form>
         </Paper>
       </Fade>

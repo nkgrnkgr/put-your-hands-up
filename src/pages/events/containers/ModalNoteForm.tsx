@@ -1,5 +1,5 @@
 import { Formik, FormikHelpers } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ModalNoteForm as Component } from '../components/ModalNoteForm';
 import { UserContext } from '../../../contexts/UserContext';
 import { addNote } from '../../../firebase/api/notes';
@@ -39,6 +39,11 @@ export const ModalNoteForm = (props: Props) => {
     });
   };
 
+  const [sholdTwitterShare, setTwitterShare] = useState(false);
+  const toggleTwitterShare = () => {
+    setTwitterShare(!sholdTwitterShare);
+  };
+
   const onSubmit = async (
     values: NoteContentsModel,
     action: FormikHelpers<NoteContentsModel>,
@@ -68,6 +73,8 @@ export const ModalNoteForm = (props: Props) => {
           user={user}
           open={applicationValues.isOpenModal}
           onClose={onClickCloseButton}
+          sholdTwitterShare={sholdTwitterShare}
+          toggleTwitterShare={toggleTwitterShare}
         />
       )}
     />

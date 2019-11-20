@@ -1,10 +1,11 @@
 import React from 'react';
-import { Icon, IconButton, Tooltip } from '@material-ui/core';
+import { Icon, IconButton, Tooltip, PropTypes } from '@material-ui/core';
 
 interface Props {
   title: string;
   url?: string;
   className: string;
+  color?: PropTypes.Color | 'action' | 'disabled' | 'error';
   onClick?: () => void;
 }
 
@@ -12,6 +13,7 @@ export const IconLink: React.FC<Props> = ({
   title,
   url = '',
   className,
+  color,
   onClick,
 }) => {
   return (
@@ -23,7 +25,7 @@ export const IconLink: React.FC<Props> = ({
         rel="noopener"
         onClick={onClick}
       >
-        <Icon className={className} />
+        <Icon className={className} color={color} />
       </IconButton>
     </Tooltip>
   );
