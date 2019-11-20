@@ -29,7 +29,7 @@ export const UserUpdater: React.FC = ({ children }) => {
     return <></>;
   }
 
-  if (error || !user) {
+  if (error) {
     return <></>;
   }
 
