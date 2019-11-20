@@ -11,6 +11,7 @@ import {
   makeStyles,
   Tooltip,
   Typography,
+  Chip,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { NoteModel } from '../../../models/Note';
@@ -69,6 +70,14 @@ export const Note: React.FC<Props> = ({
         <Typography color="textPrimary" component="p">
           {note.noteContents.comment}
         </Typography>
+        <div>
+          <Chip
+            label="hello"
+            variant="outlined"
+            color="secondary"
+            onClick={() => {}}
+          />
+        </div>
       </CardContent>
       <CardActions>
         <IconButton
