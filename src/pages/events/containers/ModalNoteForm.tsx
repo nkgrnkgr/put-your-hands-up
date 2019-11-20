@@ -1,5 +1,5 @@
 import { Formik, FormikHelpers } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ModalNoteForm as Component } from '../components/ModalNoteForm';
 import { UserContext } from '../../../contexts/UserContext';
 import { addNote } from '../../../firebase/api/notes';
@@ -11,6 +11,8 @@ import {
 import { now } from '../../../utils/datetime';
 import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
+import { TwitterIntegration } from '../../../models/User';
+import { tweet } from '../../../firebase/api/callFunctions';
 
 interface Props {
   eventId: string;
@@ -28,6 +30,7 @@ export const ModalNoteForm = (props: Props) => {
   const {
     userValue: { user },
   } = useContext(UserContext);
+  const { twitterIntegration } = user;
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
@@ -36,6 +39,22 @@ export const ModalNoteForm = (props: Props) => {
     setApplicationValues({
       ...applicationValues,
       isOpenModal: false,
+    });
+  };
+
+  const [sholdTwitterShare, setTwitterShare] = useState(false);
+  const toggleTwitterShare = () => {
+    setTwitterShare(!sholdTwitterShare);
+  };
+
+  const shareWithTwitter = (
+    twitterIntegration: TwitterIntegration,
+    status: string,
+  ) => {
+    tweet({
+      oauth_token: twitterIntegration.accessToken,
+      oauth_token_secret: twitterIntegration.accessTokenSecret,
+      status,
     });
   };
 
@@ -55,6 +74,14 @@ export const ModalNoteForm = (props: Props) => {
       Partial<NoteModel>
     >(values, submitValue, action, 'created');
     addNote(v);
+    if (
+      sholdTwitterShare &&
+      twitterIntegration &&
+      v.noteContents &&
+      v.noteContents.comment
+    ) {
+      shareWithTwitter(twitterIntegration, v.noteContents.comment);
+    }
     onClickCloseButton();
   };
 
@@ -68,6 +95,9 @@ export const ModalNoteForm = (props: Props) => {
           user={user}
           open={applicationValues.isOpenModal}
           onClose={onClickCloseButton}
+          sholdShowTwitter={twitterIntegration !== undefined}
+          sholdTwitterShare={sholdTwitterShare}
+          toggleTwitterShare={toggleTwitterShare}
         />
       )}
     />

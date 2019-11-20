@@ -1,5 +1,5 @@
 import { Formik, FormikHelpers } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NoteForm as NoteListComponent } from '../components/NoteForm';
 import { UserContext } from '../../../contexts/UserContext';
 import { addNote } from '../../../firebase/api/notes';
@@ -10,6 +10,8 @@ import {
 } from '../../../models/Note';
 import { now } from '../../../utils/datetime';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
+import { tweet } from '../../../firebase/api/callFunctions';
+import { TwitterIntegration } from '../../../models/User';
 
 interface Props {
   eventId: string;
@@ -22,11 +24,26 @@ const createInitialValue = (uid: string) => ({
   created: now(),
 });
 
+const shareWithTwitter = (
+  twitterIntegration: TwitterIntegration,
+  status: string,
+) => {
+  tweet({
+    oauth_token: twitterIntegration.accessToken,
+    oauth_token_secret: twitterIntegration.accessTokenSecret,
+    status,
+  });
+};
+
 export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
-  const {
-    userValue: { user },
-  } = useContext(UserContext);
+  const { userValue } = useContext(UserContext);
+  const { twitterIntegration } = userValue.user;
+
+  const [sholdTwitterShare, setTwitterShare] = useState(false);
+  const toggleTwitterShare = () => {
+    setTwitterShare(!sholdTwitterShare);
+  };
 
   const onSubmit = async (
     values: NoteContentsModel,
@@ -36,22 +53,37 @@ export const NoteForm = (props: Props) => {
       eventId,
       ltId,
       noteContents: values,
-      user,
+      user: userValue.user,
       commentIds: [],
     };
-
     const v = await onFormikSubmitHandler<
       NoteContentsModel,
       Partial<NoteModel>
     >(values, submitValue, action, 'created');
     addNote(v);
+    if (
+      sholdTwitterShare &&
+      twitterIntegration &&
+      v.noteContents &&
+      v.noteContents.comment
+    ) {
+      shareWithTwitter(twitterIntegration, v.noteContents.comment);
+    }
   };
 
   return (
     <Formik
-      initialValues={createInitialValue(user.uid)}
+      initialValues={createInitialValue(userValue.user.uid)}
       onSubmit={onSubmit}
-      render={props => <NoteListComponent {...props} user={user} />}
+      render={props => (
+        <NoteListComponent
+          {...props}
+          user={userValue.user}
+          sholdShowTwitter={twitterIntegration !== undefined}
+          sholdTwitterShare={sholdTwitterShare}
+          toggleTwitterShare={toggleTwitterShare}
+        />
+      )}
     />
   );
 };

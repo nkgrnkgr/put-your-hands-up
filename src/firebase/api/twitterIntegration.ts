@@ -1,7 +1,7 @@
 import queryString, { ParsedQuery } from 'query-string';
 import { useEffect, useState } from 'react';
 import { TwitterIntegration } from '../../models/User';
-import { FunctionsResponse, oauthAcccessToken } from './callFunctions';
+import { FunctionsResponse, oauthAccessToken } from './callFunctions';
 
 export const useTwitterIntegration = (
   oauth_token: string,
@@ -14,6 +14,7 @@ export const useTwitterIntegration = (
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+
   const param = {
     oauth_token,
     oauth_verifier,
@@ -22,7 +23,7 @@ export const useTwitterIntegration = (
   useEffect(() => {
     const load = async () => {
       try {
-        const response = await oauthAcccessToken(param);
+        const response = await oauthAccessToken(param);
         const data: FunctionsResponse = response.data;
         const body: string = data.body;
         const params: ParsedQuery<string> = queryString.parse(body);
