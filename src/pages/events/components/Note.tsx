@@ -11,12 +11,14 @@ import {
   makeStyles,
   Tooltip,
   Typography,
+  Chip,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { NoteModel } from '../../../models/Note';
 import { getAvatarUrl, UserModel } from '../../../models/User';
 import { ago } from '../../../utils/datetime';
 import { HeartIcon } from './HeartIcon';
+import { Tag } from './Tag';
 
 interface Props {
   note: NoteModel;
@@ -69,6 +71,12 @@ export const Note: React.FC<Props> = ({
         <Typography color="textPrimary" component="p">
           {note.noteContents.comment}
         </Typography>
+      </CardContent>
+      <CardContent>
+        {note.noteContents.tagTitles.length > 0 &&
+          note.noteContents.tagTitles.map((tagTitle, index) => (
+            <Tag key={index} tagTitle={tagTitle} />
+          ))}
       </CardContent>
       <CardActions>
         <IconButton
