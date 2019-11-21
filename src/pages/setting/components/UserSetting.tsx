@@ -10,7 +10,8 @@ import {
 import { UserProfile } from './UserProfile';
 import { ExternalLinkSetting } from './ExternalLinkSetting';
 import { AnonimouseUserProfile } from './AnonimouseUserProfile';
-import { UserModel, AnonymousColor } from '../../../models/User';
+import { UserModel } from '../../../models/User';
+import { AnonymousColor } from '../../../models/AnonymousUser';
 
 interface Props {
   user: UserModel;
