@@ -1,4 +1,10 @@
-import { AnonymousColor, loadAnonymousUserData } from './AnonymousUser';
+import {
+  AnonymousColor,
+  loadAnonymousUserData,
+  updateUserData,
+} from './AnonymousUser';
+import { updateEventIdsParticipated } from '../firebase/api/users';
+import { uniq } from '../utils/utils';
 
 export interface UserModel {
   displayName: string;
@@ -41,4 +47,15 @@ export const loadOrCreateUser = (user: firebase.User): UserModel => {
   return {
     ...initialUserData,
   };
+};
+
+export const updateEventId = (user: UserModel, eventId: string) => {
+  if (user.isAnonymous) {
+    return updateUserData({
+      ...user,
+      eventIdsParticipated: uniq(user.eventIdsParticipated, eventId),
+    });
+  }
+
+  updateEventIdsParticipated(user, eventId);
 };

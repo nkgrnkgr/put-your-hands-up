@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { UserModel, TwitterIntegration } from '../../models/User';
 import { db, firebase } from '../index';
 import { loadAnonymousUserLocalData } from '../../models/AnonymousUser';
+import { uniq } from '../../utils/utils';
 
 const COLLECTION_KEY = 'users';
 
@@ -77,6 +78,22 @@ export const updateTwitterIntegration = (
     userRef.update({
       twitterIntegration:
         twitterIntegration || firebase.firestore.FieldValue.delete(),
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateEventIdsParticipated = (
+  user: UserModel,
+  eventId: string,
+) => {
+  const userRef = db.collection(COLLECTION_KEY).doc(user.uid);
+  const t = uniq<string>(user.eventIdsParticipated, eventId);
+
+  try {
+    userRef.update({
+      eventIdsParticipated: t,
     });
   } catch (err) {
     console.error(err);
