@@ -4,7 +4,10 @@ import { useUser, updateTwitterIntegration } from '../../../firebase/api/users';
 
 export const UserUpdater: React.FC = ({ children }) => {
   const { userValue, setUserValue } = useContext(UserContext);
-  const { user, loading, error } = useUser(userValue.user.uid);
+  const { user, loading, error } = useUser(
+    userValue.user.uid,
+    userValue.user.isAnonymous,
+  );
 
   // ユーザー情報の取得がおわったら実行する
   useEffect(() => {

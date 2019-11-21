@@ -58,14 +58,17 @@ export const ANONYMOUS_COLORS = createColors();
 
 export type AnonymousUserModel = UserModel;
 
+export const loadAnonymousUserLocalData = () => find<UserModel>('user') || null;
+
 export const loadAnonymousUserData = (
   user: firebase.User,
 ): AnonymousUserModel => {
-  const { uid, isAnonymous } = user;
-  const localUser = find<UserModel>('user');
+  const localUser = loadAnonymousUserLocalData();
   if (localUser) {
     return localUser;
   }
+
+  const { uid, isAnonymous } = user;
 
   return {
     displayName: '匿名ユーザー',

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { UserContext } from '../../../contexts/UserContext';
 import { firebase } from '../../../firebase/index';
-import { fetchOrCreateUser } from '../../../models/User';
+import { loadOrCreateUser } from '../../../models/User';
 
 export const FirebaseAuthInitializer: React.FC = ({ children }) => {
   const { applicationValues, setApplicationValues } = useContext(
@@ -20,7 +20,7 @@ export const FirebaseAuthInitializer: React.FC = ({ children }) => {
         });
         setUserValue({
           ...userValue,
-          user: fetchOrCreateUser(user),
+          user: loadOrCreateUser(user),
         });
       } else {
         setApplicationValues({

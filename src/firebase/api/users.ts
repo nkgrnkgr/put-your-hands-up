@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { UserModel, TwitterIntegration } from '../../models/User';
 import { db, firebase } from '../index';
+import { loadAnonymousUserLocalData } from '../../models/AnonymousUser';
 
 const COLLECTION_KEY = 'users';
 
-export const useUser = (uid: string) => {
-  const [user, setUser] = useState<UserModel>();
+export const useUser = (uid: string, isAnonymous = false) => {
+  const [user, setUser] = useState<UserModel | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -15,9 +16,13 @@ export const useUser = (uid: string) => {
     const load = async () => {
       setLoading(true);
       try {
-        const doc = await collection.doc(uid).get();
-        const userdata = doc.data() as UserModel;
-        setUser({ ...userdata });
+        if (!isAnonymous) {
+          const doc = await collection.doc(uid).get();
+          const userdata = doc.data() as UserModel;
+          setUser({ ...userdata });
+        } else {
+          setUser(loadAnonymousUserLocalData());
+        }
         setError(null);
       } catch (err) {
         setError(err);

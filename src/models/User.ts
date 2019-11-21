@@ -1,4 +1,4 @@
-import { loadAnonymousUserData, AnonymousColor } from './AnonymousUser';
+import { AnonymousColor, loadAnonymousUserData } from './AnonymousUser';
 
 export interface UserModel {
   displayName: string;
@@ -24,7 +24,7 @@ export const initialUserData: UserModel = {
   eventIdsParticipated: [],
 };
 
-export const fetchOrCreateUser = (user: firebase.User): UserModel => {
+export const loadOrCreateUser = (user: firebase.User): UserModel => {
   if (user.isAnonymous) {
     return loadAnonymousUserData(user);
   }
