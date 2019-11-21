@@ -5,9 +5,10 @@ import {
   FunctionsResponse,
   oauthRequestToken,
 } from '../../../firebase/api/callFunctions';
-import { AnonymousColor, UserModel } from '../../../models/User';
+import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
+import { AnonymousColor } from '../../../models/AnonymousUser';
 
 const deleteTwitterIntegration = (user: UserModel): UserModel => {
   const t = { ...user };

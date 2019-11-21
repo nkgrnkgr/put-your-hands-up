@@ -20,7 +20,9 @@ export const ParticipatedEventList = () => {
   const { userValue, setUserValue } = useContext(UserContext);
   const { user, loading: userLoading, error: userError } = useUser(
     userValue.user.uid,
+    userValue.user.isAnonymous,
   );
+
   const {
     eventList,
     loading: eventListLoading,

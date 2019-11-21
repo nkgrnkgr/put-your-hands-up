@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
 import {
-  makeStyles,
-  Theme,
+  Avatar,
+  Button,
   createStyles,
   Grid,
-  Avatar,
+  makeStyles,
   TextField,
-  Button,
+  Theme,
 } from '@material-ui/core';
+import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
+import { useHistory } from 'react-router';
 import {
+  AnonymousUserModel,
+  AnonymousColor,
   ANONYMOUS_COLOR_HEX,
   useUserColor,
-  UserModel,
-  AnonymousColor,
-} from '../../../models/User';
-import { useHistory } from 'react-router';
+} from '../../../models/AnonymousUser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  user: UserModel;
+  user: AnonymousUserModel;
   setAnonymousUserInfo: (
     displayName: string,
     anonymousColor: AnonymousColor,

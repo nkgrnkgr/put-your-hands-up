@@ -11,11 +11,10 @@ import {
   makeStyles,
   Tooltip,
   Typography,
-  Chip,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { NoteModel } from '../../../models/Note';
-import { getAvatarUrl, UserModel } from '../../../models/User';
+import { UserModel } from '../../../models/User';
 import { ago } from '../../../utils/datetime';
 import { HeartIcon } from './HeartIcon';
 import { Tag } from './Tag';
@@ -61,7 +60,7 @@ export const Note: React.FC<Props> = ({
       <CardHeader
         avatar={
           <Tooltip title={note.user.displayName}>
-            <Avatar alt={note.user.displayName} src={getAvatarUrl(note.user)} />
+            <Avatar alt={note.user.displayName} src={note.user.avatarUrl} />
           </Tooltip>
         }
         title={note.user.displayName}
