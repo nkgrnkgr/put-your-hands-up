@@ -15,6 +15,7 @@ import { SideBar } from '../containers/SideBar';
 import { SortTab } from '../containers/SortTab';
 import { EventSummary } from './EventSummary';
 import { LtTopics } from './LtTopics';
+import { ParticipatedEventIdUpdater } from '../containers/ParticipatedEventIdUpdater';
 
 const useStyles = makeStyles({
   root: {
@@ -46,25 +47,27 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
 
   return (
     <div className={classes.root}>
-      <PageHeader />
-      <SideBar lts={event.lts} />
-      <Container style={{ flexGrow: 0 }}>
-        <div id="back-to-top-anchor" className={classes.app} />
-        <HtmlTitle title={ltName} />
-        <EventSummary
-          eventName={event.name}
-          eventDate={getYearMonthDayHourMitutes(event.date)}
-          ltName={ltName}
-        />
-        <ParticipatedUsers event={event} />
-        {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
-        <NoteForm eventId={event.id} ltId={ltId} />
-        <ModalNoteForm eventId={event.id} ltId={ltId} />
-        <ModalFab />
-        <SortTab />
-        <NoteList eventId={event.id} ltId={ltId} />
-        <RightSideBar />
-      </Container>
+      <ParticipatedEventIdUpdater>
+        <PageHeader />
+        <SideBar lts={event.lts} />
+        <Container style={{ flexGrow: 0 }}>
+          <div id="back-to-top-anchor" className={classes.app} />
+          <HtmlTitle title={ltName} />
+          <EventSummary
+            eventName={event.name}
+            eventDate={getYearMonthDayHourMitutes(event.date)}
+            ltName={ltName}
+          />
+          <ParticipatedUsers event={event} />
+          {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
+          <NoteForm eventId={event.id} ltId={ltId} />
+          <ModalNoteForm eventId={event.id} ltId={ltId} />
+          <ModalFab />
+          <SortTab />
+          <NoteList eventId={event.id} ltId={ltId} />
+          <RightSideBar />
+        </Container>
+      </ParticipatedEventIdUpdater>
     </div>
   );
 };

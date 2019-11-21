@@ -7,7 +7,7 @@ import purple from '../images/anonymous-purple.png';
 import red from '../images/anonymous-red.png';
 import { useState } from 'react';
 import { UserModel } from './User';
-import { find } from '../utils/localStorageAccessor';
+import { find, save } from '../utils/localStorageAccessor';
 
 export interface AnonymousColor {
   index: number;
@@ -77,6 +77,10 @@ export const loadAnonymousUserData = (
     isAnonymous,
     eventIdsParticipated: [],
   };
+};
+
+export const updateUserData = (updatedUser: UserModel) => {
+  save('user', updatedUser);
 };
 
 export const useUserColor = (
