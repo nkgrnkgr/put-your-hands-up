@@ -12,6 +12,7 @@ import clsx from 'clsx';
 import { FieldArray, FormikProps } from 'formik';
 import React, { useState } from 'react';
 import { NoteContentsModel } from '../../../models/Note';
+import { Tag } from './Tag';
 
 type Props = FormikProps<NoteContentsModel>;
 
@@ -114,22 +115,11 @@ export const TagForm: React.FC<Props> = props => {
             </Button>
             <div className={classes.tags}>
               {values.tagTitles.length > 0 &&
-                values.tagTitles.map((tagtitle, index) => (
-                  <Chip
+                values.tagTitles.map((tagTitle, index) => (
+                  <Tag
                     key={index}
-                    icon={
-                      <Icon className={clsx('fas fa-tag', classes.tagIcon)} />
-                    }
-                    className={classes.tag}
-                    label={tagtitle}
-                    clickable
-                    color="secondary"
-                    onDelete={() => arrayHelpers.remove(index)}
-                    deleteIcon={
-                      <Icon
-                        className={clsx('far fa-times-circle', classes.tagIcon)}
-                      />
-                    }
+                    tagTitle={tagTitle}
+                    onClickDelete={e => arrayHelpers.remove(index)}
                   />
                 ))}
             </div>
