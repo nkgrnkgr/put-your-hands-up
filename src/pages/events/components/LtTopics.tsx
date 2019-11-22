@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.5),
       fontSize: '14px',
     },
+    linkText: {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      width: '100%',
+      textOverflow: 'ellipsis',
+    },
   }),
 );
 
@@ -64,8 +70,7 @@ export const LtTopics: React.FC<Props> = ({ eventId, lts }) => {
           if (url) {
             return (
               <ListItem key={index} className={classes.nested}>
-                <Icon className={clsx('fas fa-file', classes.iconSmall)} />
-                <Link href={url} color="secondary">
+                <Link href={url} color="secondary" className={classes.linkText}>
                   {url}
                 </Link>
               </ListItem>
