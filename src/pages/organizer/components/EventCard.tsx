@@ -52,7 +52,7 @@ export const EventCard: React.FC<Props> = ({ event }) => {
         color="default"
         className={classes.contents}
         startIcon={<Icon className="far fa-edit" />}
-        onClick={() => history.push(`/organizer/edit?${event.id}`)}
+        onClick={() => history.push(`/organizer/edit?eventId=${event.id}`)}
       >
         編集
       </Button>

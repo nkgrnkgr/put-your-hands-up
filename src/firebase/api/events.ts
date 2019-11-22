@@ -71,18 +71,19 @@ export const useOrganizersEventList = (uid: string) => {
 
 export const useEvent = (eventId: string) => {
   const [event, setEvent] = useState<EventModel | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const collection = db.collection('events');
 
     const createEventList = async () => {
-      setLoading(true);
       try {
-        const doc = await collection.doc(eventId).get();
-        const e = doc.data() as EventModel;
-        setEvent(e);
+        if (eventId !== '') {
+          const doc = await collection.doc(eventId).get();
+          const e = doc.data() as EventModel;
+          setEvent(e);
+        }
         setError(null);
       } catch (err) {
         setError(err);
