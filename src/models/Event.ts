@@ -1,4 +1,5 @@
 import { createRandomId } from '../utils/utils';
+import { now } from '../utils/datetime';
 
 export interface EventModel {
   id: string;
@@ -20,7 +21,7 @@ export const createInitialEventModelValue = (): EventModel => {
   return {
     id: createRandomId(),
     name: '',
-    date: 0,
+    date: now(),
     lts: [],
   };
 };
