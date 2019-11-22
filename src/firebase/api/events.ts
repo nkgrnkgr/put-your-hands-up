@@ -35,6 +35,40 @@ export const useParticipatedEventList = (eventIds: string[]) => {
   return { eventList, loading, error };
 };
 
+export const useOrganizersEventList = (uid: string) => {
+  const [eventList, setEventList] = useState<EventModel[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const collection = db.collection('events');
+
+    const createEventList = async () => {
+      if (uid !== '') {
+        collection
+          .where(`organizerUids.${uid}`, '==', true)
+          .onSnapshot(querySnapshot => {
+            const t: EventModel[] = [];
+            try {
+              querySnapshot.forEach(doc => {
+                const event = doc.data() as EventModel;
+                t.push(event);
+              });
+              setEventList(t);
+            } catch (err) {
+              setError(err);
+            }
+          });
+      }
+      setLoading(false);
+    };
+
+    createEventList();
+  }, [uid]);
+
+  return { eventList, loading, error };
+};
+
 export const useEvent = (eventId: string) => {
   const [event, setEvent] = useState<EventModel | null>(null);
   const [loading, setLoading] = useState(false);
