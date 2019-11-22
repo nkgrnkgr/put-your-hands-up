@@ -42,10 +42,6 @@ export const ParticipatedEventList = () => {
     return <Loading />;
   }
 
-  if (eventList.length === 0) {
-    return <>empty</>;
-  }
-
   if (userError || eventListError) {
     return <>Error</>;
   }
