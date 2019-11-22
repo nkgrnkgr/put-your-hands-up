@@ -6,6 +6,7 @@ import { makeStyles, createStyles } from '@material-ui/styles';
 import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import clsx from 'clsx';
+import { useHistory } from 'react-router';
 
 type Props = FormikProps<EventModel>;
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '16px',
       color: 'rgba(196, 196, 196)',
     },
+    button: {
+      margin: theme.spacing(1),
+    },
   }),
 );
 export const EditForm: React.FC<Props> = ({
@@ -34,6 +38,7 @@ export const EditForm: React.FC<Props> = ({
   setFieldValue,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Paper className={classes.root}>
@@ -71,8 +76,22 @@ export const EditForm: React.FC<Props> = ({
         </div>
 
         <div>
-          <Button type="submit" color="primary" variant="outlined">
+          <Button
+            type="submit"
+            color="primary"
+            variant="outlined"
+            className={classes.button}
+          >
             更新
+          </Button>
+          <Button
+            type="button"
+            color="inherit"
+            variant="outlined"
+            className={classes.button}
+            onClick={() => history.push('/organizer')}
+          >
+            キャンセル
           </Button>
         </div>
       </form>
