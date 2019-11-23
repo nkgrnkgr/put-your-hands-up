@@ -119,3 +119,14 @@ export const updateEvent = async (event: EventModel) => {
     console.error(err);
   }
 };
+
+export const deleteEvent = (event: EventModel) => {
+  const collection = db.collection(COLLECTION_KEY);
+  const documentRef = collection.doc(event.id);
+
+  try {
+    documentRef.delete();
+  } catch (err) {
+    console.error(err);
+  }
+};

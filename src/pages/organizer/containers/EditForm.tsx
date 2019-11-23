@@ -5,29 +5,41 @@ import {
   createInitialEventModelValue,
   EventModel,
 } from '../../../models/Event';
-import { addEvent, updateEvent } from '../../../firebase/api/events';
+import {
+  addEvent,
+  updateEvent,
+  deleteEvent,
+} from '../../../firebase/api/events';
 import { UserContext } from '../../../contexts/UserContext';
+import { useHistory } from 'react-router';
 
 interface Props {
   event: EventModel | null;
 }
 
-const handleSubmit = (values: EventModel) => {
-  if (values.id === '') {
-    return addEvent(values);
-  }
-
-  return updateEvent(values);
-};
-
 export const EditForm: React.FC<Props> = ({ event }) => {
   const { userValue } = useContext(UserContext);
+  const history = useHistory();
+
+  const handleSubmit = (values: EventModel) => {
+    if (values.id === '') {
+      addEvent(values);
+    } else {
+      updateEvent(values);
+    }
+    history.push('/organizer');
+  };
+
+  const handleDelete = (values: EventModel) => {
+    deleteEvent(values);
+    history.push('/organizer');
+  };
 
   return (
     <Formik
       initialValues={event || createInitialEventModelValue(userValue.user.uid)}
       onSubmit={handleSubmit}
-      render={props => <Component {...props} />}
+      render={props => <Component {...props} handleDelete={handleDelete} />}
     />
   );
 };

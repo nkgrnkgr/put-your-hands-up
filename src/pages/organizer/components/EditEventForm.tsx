@@ -16,7 +16,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router';
 import { createInitialLTModelValue, EventModel } from '../../../models/Event';
 
-type Props = FormikProps<EventModel>;
+type OuterProps = {
+  handleDelete: (values: EventModel) => void;
+};
+
+type Props = FormikProps<EventModel> & OuterProps;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -36,6 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: 'rgba(196, 196, 196)',
       width: '70%',
       fontSize: '16px',
+    },
+    buttonGroup: {
+      display: 'flex',
+    },
+    flexGrow: {
+      flexGrow: 1,
     },
     button: {
       margin: theme.spacing(1),
@@ -187,10 +197,66 @@ export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
   );
 };
 
-export const EditEventForm: React.FC<Props> = props => {
-  const { values, handleSubmit, handleChange, setFieldValue } = props;
+interface EditButtonsProps {
+  values: EventModel;
+}
+
+const EditButtons: React.FC<OuterProps & EditButtonsProps> = ({
+  handleDelete,
+  values,
+}) => {
   const classes = useStyles();
   const history = useHistory();
+
+  return (
+    <div className={classes.buttonGroup}>
+      <div>
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          className={classes.button}
+        >
+          更新
+        </Button>
+      </div>
+      <div className={classes.flexGrow}>
+        <Button
+          type="button"
+          color="inherit"
+          variant="outlined"
+          className={clsx(classes.button)}
+          onClick={() => history.push('/organizer')}
+        >
+          キャンセル
+        </Button>
+      </div>
+      {values.id !== '' && (
+        <div>
+          <Button
+            type="button"
+            color="primary"
+            variant="outlined"
+            className={classes.button}
+            onClick={() => handleDelete(values)}
+          >
+            削除
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const EditEventForm: React.FC<Props> = props => {
+  const {
+    values,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    handleDelete,
+  } = props;
+  const classes = useStyles();
 
   return (
     <Paper className={classes.root}>
@@ -256,25 +322,7 @@ export const EditEventForm: React.FC<Props> = props => {
         <div className={classes.contents}>
           <EditLTForm {...props} />
         </div>
-        <div>
-          <Button
-            type="submit"
-            color="primary"
-            variant="outlined"
-            className={classes.button}
-          >
-            更新
-          </Button>
-          <Button
-            type="button"
-            color="inherit"
-            variant="outlined"
-            className={classes.button}
-            onClick={() => history.push('/organizer')}
-          >
-            キャンセル
-          </Button>
-        </div>
+        <EditButtons handleDelete={handleDelete} values={values} />
       </form>
     </Paper>
   );
