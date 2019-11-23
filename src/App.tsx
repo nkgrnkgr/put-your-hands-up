@@ -14,6 +14,7 @@ import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthI
 import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
+import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 
 const useStyles = makeStyles(
   createStyles({
@@ -41,6 +42,7 @@ const App: React.FC = () => {
                   <Route path="/dashboard" component={DashboardPage} />
                   <Route path="/setting" component={SettingPage} />
                   <Route path="/events/:eventId" component={Eventpage} />
+                  <Route path="/organizer" component={OrganizerPage} />
                 </UserUpdater>
               </Auth>
             </div>
