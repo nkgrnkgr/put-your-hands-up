@@ -4,6 +4,7 @@ import { now } from '../utils/datetime';
 export interface EventModel {
   id: string;
   name: string;
+  hashTag?: string;
   date: number;
   lts: LTModel[];
 }
@@ -21,6 +22,7 @@ export const createInitialEventModelValue = (): EventModel => {
   return {
     id: createRandomId(),
     name: '',
+    hashTag: '',
     date: now(),
     lts: [],
   };

@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: 'rgba(196, 196, 196)',
       width: '70%',
       fontSize: '16px',
-      color: 'rgba(196, 196, 196)',
     },
     button: {
       margin: theme.spacing(1),
@@ -50,8 +49,6 @@ interface GridProps {
 }
 
 const GridContainer: React.FC<GridProps> = ({ label, formInput }) => {
-  const classes = useStyles();
-
   return (
     <Grid container direction="row" justify="flex-start" alignItems="center">
       <Grid item xs={12} sm={2}>
@@ -102,7 +99,6 @@ export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
                           placeholder="@nkgrnkgr"
                           margin="normal"
                           variant="outlined"
-                          fullWidth
                           onChange={handleChange}
                         />
                       }
@@ -205,10 +201,26 @@ export const EditEventForm: React.FC<Props> = props => {
             formInput={
               <TextField
                 name="name"
+                placeholder="Firebase勉強会"
                 value={values.name}
                 margin="normal"
                 variant="outlined"
                 fullWidth
+                onChange={handleChange}
+              />
+            }
+          />
+        </div>
+        <div className={classes.contents}>
+          <GridContainer
+            label={<Typography component="p">ハッシュタグ</Typography>}
+            formInput={
+              <TextField
+                name="hashTag"
+                placeholder="#firebase_meetup"
+                value={values.hashTag}
+                margin="normal"
+                variant="outlined"
                 onChange={handleChange}
               />
             }
