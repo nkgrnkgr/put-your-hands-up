@@ -1,9 +1,9 @@
 import { IncomingHttpHeaders } from 'http';
 import { firebase } from '../index';
 
-export interface FunctionsResponse {
+export interface FunctionsResponse<T> {
   headers: IncomingHttpHeaders;
-  body: any; // eslint-disable-line
+  body: T;
   error: Error;
   href: string;
 }
@@ -31,3 +31,12 @@ interface TweetParam {
   status: string;
 }
 export const tweet = (param: TweetParam) => callTweet(param);
+
+interface SearchConnpassEvent {
+  event_id: number;
+}
+
+const callSearchConnpassEvent = functions.httpsCallable('searchConnpassEvent');
+
+export const searchConnpassEvent = (param: SearchConnpassEvent) =>
+  callSearchConnpassEvent(param);

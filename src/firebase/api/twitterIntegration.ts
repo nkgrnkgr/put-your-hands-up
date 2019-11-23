@@ -24,8 +24,8 @@ export const useTwitterIntegration = (
     const load = async () => {
       try {
         const response = await oauthAccessToken(param);
-        const data: FunctionsResponse = response.data;
-        const body: string = data.body;
+        const data: FunctionsResponse<string> = response.data;
+        const body = data.body;
         const params: ParsedQuery<string> = queryString.parse(body);
         const { oauth_token, oauth_token_secret, screen_name } = params;
 

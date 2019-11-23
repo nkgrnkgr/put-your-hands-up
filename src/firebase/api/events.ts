@@ -1,6 +1,8 @@
 import { db } from '../index';
 import { useState, useEffect } from 'react';
 import { EventModel } from '../../models/Event';
+import { ConnpassEvent } from 'connpass/lib/src/types';
+import { searchConnpassEvent, FunctionsResponse } from './callFunctions';
 
 const COLLECTION_KEY = 'events';
 
@@ -133,4 +135,37 @@ export const deleteEvent = (event: EventModel) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const useConnpassEventData = (event_id: string) => {
+  const [connpassEvent, setConnpassEvent] = useState<ConnpassEvent | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      setLoading(true);
+      try {
+        const response = await searchConnpassEvent({
+          event_id: Number(event_id),
+        });
+        const responseData = response.data as FunctionsResponse<
+          ConnpassEvent[]
+        >;
+        setConnpassEvent(responseData.body[0]);
+        setError(null);
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
+    };
+
+    if (event_id !== '') {
+      fetchEvent();
+    }
+  }, [event_id]);
+
+  return { connpassEvent, loading, error };
 };

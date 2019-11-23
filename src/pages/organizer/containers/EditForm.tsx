@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { EditEventForm as Component } from '../components/EditEventForm';
 import { Formik } from 'formik';
 import {
@@ -12,6 +12,11 @@ import {
 } from '../../../firebase/api/events';
 import { UserContext } from '../../../contexts/UserContext';
 import { useHistory } from 'react-router';
+import {
+  searchConnpassEvent,
+  FunctionsResponse,
+} from '../../../firebase/api/callFunctions';
+import { ConnpassEvent } from 'connpass/lib/src/types';
 
 interface Props {
   event: EventModel | null;
