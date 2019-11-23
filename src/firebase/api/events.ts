@@ -20,7 +20,9 @@ export const useParticipatedEventList = (eventIds: string[]) => {
           eventIds.map(async id => {
             const doc = await collection.doc(id).get();
             const eventdata = doc.data() as EventModel;
-            t.push(eventdata);
+            if (eventdata) {
+              t.push(eventdata);
+            }
           }),
         );
         setEventList(t);
@@ -54,7 +56,9 @@ export const useOrganizersEventList = (uid: string) => {
             try {
               querySnapshot.forEach(doc => {
                 const event = doc.data() as EventModel;
-                t.push(event);
+                if (event) {
+                  t.push(event);
+                }
               });
               setEventList(t);
             } catch (err) {
