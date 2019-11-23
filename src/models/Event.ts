@@ -4,9 +4,10 @@ import { now } from '../utils/datetime';
 export interface EventModel {
   id: string;
   name: string;
-  hashTag?: string;
+  hashTag: string;
   date: number;
   lts: LTModel[];
+  organizerUids: { [key: string]: true };
 }
 
 export interface LTModel {
@@ -18,13 +19,14 @@ export interface LTModel {
   documentUrl3: string;
 }
 
-export const createInitialEventModelValue = (): EventModel => {
+export const createInitialEventModelValue = (uid: string): EventModel => {
   return {
-    id: createRandomId(),
+    id: '',
     name: '',
     hashTag: '',
     date: now(),
     lts: [],
+    organizerUids: { [uid]: true },
   };
 };
 

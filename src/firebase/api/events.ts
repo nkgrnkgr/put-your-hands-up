@@ -2,13 +2,15 @@ import { db } from '../index';
 import { useState, useEffect } from 'react';
 import { EventModel } from '../../models/Event';
 
+const COLLECTION_KEY = 'events';
+
 export const useParticipatedEventList = (eventIds: string[]) => {
   const [eventList, setEventList] = useState<EventModel[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const collection = db.collection('events');
+    const collection = db.collection(COLLECTION_KEY);
 
     const createEventList = async () => {
       setLoading(true);
@@ -41,7 +43,7 @@ export const useOrganizersEventList = (uid: string) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const collection = db.collection('events');
+    const collection = db.collection(COLLECTION_KEY);
 
     const createEventList = async () => {
       if (uid !== '') {
@@ -75,7 +77,7 @@ export const useEvent = (eventId: string) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const collection = db.collection('events');
+    const collection = db.collection(COLLECTION_KEY);
 
     const createEventList = async () => {
       try {
@@ -95,4 +97,25 @@ export const useEvent = (eventId: string) => {
   }, [eventId]);
 
   return { event, loading, error };
+};
+
+export const addEvent = async (event: EventModel) => {
+  const collection = db.collection(COLLECTION_KEY);
+  try {
+    const documentRef = await collection.add(event);
+    const snapshot = await documentRef.get();
+    await documentRef.update({ id: snapshot.id });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateEvent = async (event: EventModel) => {
+  const collection = db.collection(COLLECTION_KEY);
+  try {
+    const documentRef = await collection.doc(event.id);
+    documentRef.update({ ...event });
+  } catch (err) {
+    console.error(err);
+  }
 };
