@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditForm as Component } from '../components/EditForm';
+import { EditEventForm as Component } from '../components/EditEventForm';
 import { Formik } from 'formik';
 import {
   createInitialEventModelValue,
