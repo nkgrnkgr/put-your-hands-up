@@ -24,6 +24,7 @@ export const EventCard: React.FC<Props> = ({ event }) => {
   const classes = useStyles();
   const history = useHistory();
   const url = `${window.location.origin}/events/${event.id}`;
+  const hashTagSearchUrl = `https://twitter.com/search?q=%23${event.hashTag}&src=typed_query`;
 
   return (
     <Paper className={classes.root}>
@@ -37,6 +38,17 @@ export const EventCard: React.FC<Props> = ({ event }) => {
         URL：
         <a aria-label={'url'} href={url} target="_brank" rel="noopener">
           {url}
+        </a>
+      </Typography>
+      <Typography variant="body2" className={classes.contents}>
+        ハッシュタグ：
+        <a
+          aria-label={'url'}
+          href={hashTagSearchUrl}
+          target="_brank"
+          rel="noopener"
+        >
+          {`#${event.hashTag}`}
         </a>
       </Typography>
       <Typography variant="body2" className={classes.contents}>

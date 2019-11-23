@@ -283,7 +283,7 @@ export const EditEventForm: React.FC<Props> = props => {
             formInput={
               <TextField
                 name="hashTag"
-                placeholder="#firebase_meetup"
+                placeholder="firebase_meetup"
                 value={values.hashTag}
                 margin="normal"
                 variant="outlined"
