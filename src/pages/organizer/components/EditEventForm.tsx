@@ -1,20 +1,20 @@
 import {
   Button,
+  Divider,
   Grid,
   Paper,
   TextField,
   Theme,
   Typography,
-  Divider,
 } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import { Field, FormikProps, FieldArray } from 'formik';
+import { Field, FieldArray, FormikProps } from 'formik';
 import React from 'react';
 import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router';
-import { EventModel, createInitialLTModelValue } from '../../../models/Event';
+import { createInitialLTModelValue, EventModel } from '../../../models/Event';
 
 type Props = FormikProps<EventModel>;
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,12 +64,7 @@ const GridContainer: React.FC<GridProps> = ({ label, formInput }) => {
   );
 };
 
-export const EditLTForm: React.FC<Props> = ({
-  values,
-  handleSubmit,
-  handleChange,
-  setFieldValue,
-}) => {
+export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
   const classes = useStyles();
 
   return (
@@ -81,7 +76,7 @@ export const EditLTForm: React.FC<Props> = ({
             <>
               {values.lts.length > 0 ? (
                 values.lts.map((lt, index) => (
-                  <>
+                  <div key={index}>
                     <GridContainer
                       label={
                         <Typography component="p">登壇タイトル</Typography>
@@ -90,6 +85,7 @@ export const EditLTForm: React.FC<Props> = ({
                         <TextField
                           name={`lts.${index}.title`}
                           value={lt.title}
+                          placeholder="Firebaseの効果的な運用方法"
                           margin="normal"
                           variant="outlined"
                           fullWidth
@@ -97,7 +93,77 @@ export const EditLTForm: React.FC<Props> = ({
                         />
                       }
                     />
-                  </>
+                    <GridContainer
+                      label={<Typography component="p">登壇者</Typography>}
+                      formInput={
+                        <TextField
+                          name={`lts.${index}.speakerName`}
+                          value={lt.speakerName}
+                          placeholder="@nkgrnkgr"
+                          margin="normal"
+                          variant="outlined"
+                          fullWidth
+                          onChange={handleChange}
+                        />
+                      }
+                    />
+                    <GridContainer
+                      label={<Typography component="p">リンク1</Typography>}
+                      formInput={
+                        <TextField
+                          name={`lts.${index}.documentUrl1`}
+                          value={lt.documentUrl1}
+                          placeholder="https://twitter.com/nkgrnkgr"
+                          margin="normal"
+                          variant="outlined"
+                          fullWidth
+                          onChange={handleChange}
+                        />
+                      }
+                    />
+                    <GridContainer
+                      label={<Typography component="p">リンク2</Typography>}
+                      formInput={
+                        <TextField
+                          name={`lts.${index}.documentUrl2`}
+                          value={lt.documentUrl2}
+                          placeholder="https://speakerdeck.com/undefined_name"
+                          margin="normal"
+                          variant="outlined"
+                          fullWidth
+                          onChange={handleChange}
+                        />
+                      }
+                    />
+                    <GridContainer
+                      label={<Typography component="p">リンク3</Typography>}
+                      formInput={
+                        <TextField
+                          name={`lts.${index}.documentUrl3`}
+                          value={lt.documentUrl3}
+                          placeholder="https://www.nkgr.app"
+                          margin="normal"
+                          variant="outlined"
+                          fullWidth
+                          onChange={handleChange}
+                        />
+                      }
+                    />
+                    <GridContainer
+                      label={<></>}
+                      formInput={
+                        <Button
+                          variant="outlined"
+                          onClick={() => arrayHelper.remove(index)}
+                          color="secondary"
+                          className={classes.contents}
+                        >
+                          この登壇情報を削除
+                        </Button>
+                      }
+                    />
+                    <Divider className={classes.contents} />
+                  </div>
                 ))
               ) : (
                 <></>
