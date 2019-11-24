@@ -45,31 +45,23 @@ export const addOrRemoveFansId = (note: NoteModel, uid: string) => {
       : [...fansIds, uid];
 
   const noteRef = COLLECTION.doc(note.id);
-  try {
-    noteRef.update({
-      'noteContents.fansIds': updatedFansIds,
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  noteRef.update({
+    'noteContents.fansIds': updatedFansIds,
+  });
 };
 
 export const addReplyCommentId = async (
   noteId: string,
   replyCommentId: string,
 ) => {
-  try {
-    const documentRef = await COLLECTION.doc(noteId);
-    const doc = await documentRef.get();
-    const note = doc.data() as NoteModel;
+  const documentRef = await COLLECTION.doc(noteId);
+  const doc = await documentRef.get();
+  const note = doc.data() as NoteModel;
 
-    if (note.commentIds && note.commentIds.length > 0) {
-      documentRef.update({ commentIds: [...note.commentIds, replyCommentId] });
-    } else {
-      documentRef.update({ commentIds: [replyCommentId] });
-    }
-  } catch (err) {
-    console.error(err);
+  if (note.commentIds && note.commentIds.length > 0) {
+    documentRef.update({ commentIds: [...note.commentIds, replyCommentId] });
+  } else {
+    documentRef.update({ commentIds: [replyCommentId] });
   }
 };
 
@@ -77,25 +69,16 @@ export const removeReplyCommentId = async (
   noteId: string,
   replyCommentId: string,
 ) => {
-  try {
-    const documentRef = await COLLECTION.doc(noteId);
-    const doc = await documentRef.get();
-    const note = doc.data() as NoteModel;
+  const documentRef = await COLLECTION.doc(noteId);
+  const doc = await documentRef.get();
+  const note = doc.data() as NoteModel;
 
-    const commentIds = note.commentIds.filter(id => id !== replyCommentId);
-    documentRef.update({ commentIds });
-  } catch (err) {
-    console.error(err);
-  }
+  const commentIds = note.commentIds.filter(id => id !== replyCommentId);
+  documentRef.update({ commentIds });
 };
 
 export const deleteNote = (note: NoteModel) => {
   const collection = db.collection(COLLECTION_KEY);
   const noteRef = collection.doc(note.id);
-
-  try {
-    noteRef.delete();
-  } catch (err) {
-    console.error(err);
-  }
+  noteRef.delete();
 };
