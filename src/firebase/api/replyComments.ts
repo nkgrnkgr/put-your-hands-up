@@ -1,35 +1,22 @@
-import { useMemo, useState } from 'react';
 import { ReplyConmentModel } from '../../models/ReplyComment';
 import { db } from '../index';
 import { addReplyCommentId, removeReplyCommentId } from './notes';
 
 const COLLECTION_KEY = 'replyComments';
+const COLLECTION = db.collection(COLLECTION_KEY);
 
-export const useReplyComments = (noteId: string) => {
-  const [replyComments, setReplyComments] = useState<ReplyConmentModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  useMemo(() => {
-    setLoading(true);
-    const collection = db.collection(COLLECTION_KEY);
-    collection.where('noteId', '==', noteId).onSnapshot(qerySnapshot => {
-      const list: ReplyConmentModel[] = [];
-      try {
-        qerySnapshot.forEach(doc => {
-          const data = doc.data() as ReplyConmentModel;
-          list.push({ ...data, id: doc.id });
-        });
-        setReplyComments(list);
-        setError(null);
-      } catch (err) {
-        setError(err);
-      }
+export const getReplyCommentsSnapshot = (
+  noteId: string,
+  callback: Function,
+) => {
+  COLLECTION.where('noteId', '==', noteId).onSnapshot(qerySnapshot => {
+    const list: ReplyConmentModel[] = [];
+    qerySnapshot.forEach(doc => {
+      const data = doc.data() as ReplyConmentModel;
+      list.push({ ...data, id: doc.id });
     });
-    setLoading(false);
-  }, [noteId]);
-
-  return { replyComments, loading, error };
+    callback(list);
+  });
 };
 
 export const addOrRemoveFansId = (
