@@ -62,10 +62,10 @@ interface GridProps {
 export const GridContainer: React.FC<GridProps> = ({ label, formInput }) => {
   return (
     <Grid container direction="row" justify="flex-start" alignItems="center">
-      <Grid item xs={12} sm={2}>
+      <Grid item xs={12} sm={3}>
         {label}
       </Grid>
-      <Grid item xs={12} sm={10}>
+      <Grid item xs={12} sm={9}>
         {formInput}
       </Grid>
     </Grid>
@@ -218,7 +218,7 @@ const EditButtons: React.FC<OuterProps & EditButtonsProps> = ({
           variant="contained"
           className={classes.button}
         >
-          更新
+          保存
         </Button>
       </div>
       <div className={classes.flexGrow}>
@@ -262,6 +262,12 @@ export const EditEventForm: React.FC<Props> = props => {
   return (
     <Paper className={classes.root}>
       <form onSubmit={handleSubmit}>
+        <div className={classes.contents}>
+          <ConnpassImporter {...props} />
+        </div>
+        <div className={classes.contents}>
+          <Divider />
+        </div>
         <div className={classes.contents}>
           <GridContainer
             label={<Typography component="p">イベント名</Typography>}
@@ -316,12 +322,6 @@ export const EditEventForm: React.FC<Props> = props => {
               </>
             }
           />
-        </div>
-        <div className={classes.contents}>
-          <Divider />
-        </div>
-        <div className={classes.contents}>
-          <ConnpassImporter {...props} />
         </div>
         <div className={classes.contents}>
           <Divider />

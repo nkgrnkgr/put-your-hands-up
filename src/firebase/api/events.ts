@@ -148,6 +148,9 @@ export const useConnpassEventData = (event_id: string) => {
     const fetchEvent = async () => {
       setLoading(true);
       try {
+        if (event_id === '') {
+          throw new Error('urlを正しく入力してください');
+        }
         const response = await searchConnpassEvent({
           event_id: Number(event_id),
         });
@@ -162,9 +165,7 @@ export const useConnpassEventData = (event_id: string) => {
       setLoading(false);
     };
 
-    if (event_id !== '') {
-      fetchEvent();
-    }
+    fetchEvent();
   }, [event_id]);
 
   return { connpassEvent, loading, error };
