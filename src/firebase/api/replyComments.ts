@@ -30,40 +30,26 @@ export const addOrRemoveFansId = (
       ? fansIds.filter(id => id !== uid)
       : [...fansIds, uid];
 
-  const noteRef = db.collection(COLLECTION_KEY).doc(replyComment.id);
-  try {
-    noteRef.update({
-      'commentContents.fansIds': updatedFansIds,
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  const noteRef = COLLECTION.doc(replyComment.id);
+  noteRef.update({
+    'commentContents.fansIds': updatedFansIds,
+  });
 };
 
 export const addReplyComment = async (
   replyComment: Partial<ReplyConmentModel>,
 ) => {
-  const collection = db.collection(COLLECTION_KEY);
-  try {
-    const documentRef = await collection.add(replyComment);
-    const snapshot = await documentRef.get();
-    await documentRef.update({ id: snapshot.id });
-    addReplyCommentId(replyComment.noteId || '', snapshot.id);
-  } catch (err) {
-    console.error(err);
-  }
+  const documentRef = await COLLECTION.add(replyComment);
+  const snapshot = await documentRef.get();
+  await documentRef.update({ id: snapshot.id });
+  addReplyCommentId(replyComment.noteId || '', snapshot.id);
 };
 
 export const deleteReplyCommentAndRemoveFromNote = async (
   replyCommentId: string,
   noteId: string,
 ) => {
-  const collection = db.collection(COLLECTION_KEY);
-  const replyCommentRef = collection.doc(replyCommentId);
-  try {
-    await replyCommentRef.delete();
-    removeReplyCommentId(noteId, replyCommentId);
-  } catch (err) {
-    console.error(err);
-  }
+  const replyCommentRef = COLLECTION.doc(replyCommentId);
+  await replyCommentRef.delete();
+  removeReplyCommentId(noteId, replyCommentId);
 };
