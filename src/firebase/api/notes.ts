@@ -1,37 +1,23 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NoteModel } from '../../models/Note';
 import { db } from '../index';
 
 const COLLECTION_KEY = 'notes';
 const COLLECTION = db.collection(COLLECTION_KEY);
 
-export const useNotes = (eventId: string) => {
-  const [notes, setNotes] = useState<NoteModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  useMemo(() => {
-    setLoading(true);
-    COLLECTION.where('eventId', '==', eventId).onSnapshot(qerySnapshot => {
-      const t: NoteModel[] = [];
-      try {
-        qerySnapshot.forEach(doc => {
-          const note = doc.data() as NoteModel;
-          const d = {
-            ...note,
-            id: doc.id,
-          };
-          t.push(d);
-        });
-        setNotes(t);
-      } catch (err) {
-        setError(err);
-      }
+export const getNotesSnapshot = (eventId: string, callback: Function) => {
+  COLLECTION.where('eventId', '==', eventId).onSnapshot(qerySnapshot => {
+    const t: NoteModel[] = [];
+    qerySnapshot.forEach(doc => {
+      const note = doc.data() as NoteModel;
+      const d = {
+        ...note,
+        id: doc.id,
+      };
+      t.push(d);
     });
-    setLoading(false);
-  }, [eventId]);
-
-  return { notes, loading, error };
+    callback(t);
+  });
 };
 
 export const useNote = (eventId: string, ltId: string, noteId: string) => {

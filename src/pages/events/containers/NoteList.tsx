@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { EventPageContext } from '../../../contexts/EventPageContext';
-import { useNotes } from '../../../firebase/api/notes';
 import { filterByLt } from '../../../models/Note';
 import Loading from '../../shared/components/Loading';
 import { NoteList as NoteListComponent } from '../components/NoteList';
+import { useNotes } from '../../../hooks/notes';
 
 interface Props {
   eventId: string;
