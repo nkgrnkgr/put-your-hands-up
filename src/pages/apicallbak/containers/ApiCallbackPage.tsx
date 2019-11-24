@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import queryString, { ParsedQuery } from 'query-string';
 import { RouteComponentProps } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
-import { useTwitterIntegration } from '../../../firebase/api/twitterIntegration';
 import Loading from '../../shared/components/Loading';
+import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
 
 type Props = RouteComponentProps;
 
