@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { useEvent } from '../../../firebase/api/events';
 import Loading from '../../shared/components/Loading';
 import { Eventpage as Component } from '../components/EventPage';
+import { useEvent } from '../../../hooks/events';
 
 type Params = {
   eventId: string;

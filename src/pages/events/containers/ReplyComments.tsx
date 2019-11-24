@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNote } from '../../../firebase/api/notes';
 import { useEventsUrl } from '../../../hooks/useEventsUrl';
 import Loading from '../../shared/components/Loading';
 import { ReplyComments as Component } from '../components/ReplyComments';
-import { useReplyComments } from '../../../firebase/api/replyComments';
 import { sortByOldest } from '../../../models/ReplyComment';
+import { useNote } from '../../../hooks/notes';
+import { useReplyCommentsSnapshot } from '../../../hooks/replyComments';
 
 export const ReplyComments = () => {
   const { eventId, ltId, noteId } = useEventsUrl();
@@ -17,7 +17,7 @@ export const ReplyComments = () => {
     replyComments,
     loading: replyCommentsLoading,
     error: replyCommentsError,
-  } = useReplyComments(noteId || '');
+  } = useReplyCommentsSnapshot(noteId || '');
 
   if (!noteId || !note) {
     return <></>;

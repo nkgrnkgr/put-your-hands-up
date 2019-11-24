@@ -1,7 +1,10 @@
 import queryString, { ParsedQuery } from 'query-string';
 import { useEffect, useState } from 'react';
-import { TwitterIntegration } from '../../models/User';
-import { FunctionsResponse, oauthAccessToken } from './callFunctions';
+import { TwitterIntegration } from '../models/User';
+import {
+  FunctionsResponse,
+  oauthAccessToken,
+} from '../firebase/api/callFunctions';
 
 export const useTwitterIntegration = (
   oauth_token: string,
