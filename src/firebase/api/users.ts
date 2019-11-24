@@ -5,6 +5,16 @@ import { loadAnonymousUserLocalData } from '../../models/AnonymousUser';
 import { uniq } from '../../utils/utils';
 
 const COLLECTION_KEY = 'users';
+const COLLECTION = db.collection(COLLECTION_KEY);
+
+export const getUser = async (uid: string, isAnonymous = false) => {
+  if (isAnonymous) {
+    return loadAnonymousUserLocalData();
+  }
+  const doc = await COLLECTION.doc(uid).get();
+
+  return doc.data() as UserModel;
+};
 
 export const useUser = (uid: string, isAnonymous = false) => {
   const [user, setUser] = useState<UserModel | null>(null);
