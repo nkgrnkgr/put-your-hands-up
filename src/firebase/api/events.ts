@@ -6,40 +6,57 @@ import { searchConnpassEvent, FunctionsResponse } from './callFunctions';
 
 const COLLECTION_KEY = 'events';
 
-export const useParticipatedEventList = (eventIds: string[]) => {
-  const [eventList, setEventList] = useState<EventModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+export const getParticipatedEventList = async (eventIds: string[]) => {
+  const collection = db.collection(COLLECTION_KEY);
+  const fetchedEventList: EventModel[] = [];
 
-  useEffect(() => {
-    const collection = db.collection(COLLECTION_KEY);
-
-    const createEventList = async () => {
-      setLoading(true);
-      try {
-        const t: EventModel[] = [];
-        await Promise.all(
-          eventIds.map(async id => {
-            const doc = await collection.doc(id).get();
-            const eventdata = doc.data() as EventModel;
-            if (eventdata) {
-              t.push(eventdata);
-            }
-          }),
-        );
-        setEventList(t);
-        setError(null);
-      } catch (err) {
-        setError(err);
+  await Promise.all(
+    eventIds.map(async id => {
+      const doc = await collection.doc(id).get();
+      const eventdata = doc.data() as EventModel;
+      if (eventdata) {
+        fetchedEventList.push(eventdata);
       }
-      setLoading(false);
-    };
+    }),
+  );
 
-    createEventList();
-  }, [eventIds]);
-
-  return { eventList, loading, error };
+  return fetchedEventList;
 };
+
+// export const useParticipatedEventList = (eventIds: string[]) => {
+//   const [eventList, setEventList] = useState<EventModel[]>([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState<Error | null>(null);
+
+//   useEffect(() => {
+//     const collection = db.collection(COLLECTION_KEY);
+
+//     const createEventList = async () => {
+//       setLoading(true);
+//       try {
+//         const t: EventModel[] = [];
+//         await Promise.all(
+//           eventIds.map(async id => {
+//             const doc = await collection.doc(id).get();
+//             const eventdata = doc.data() as EventModel;
+//             if (eventdata) {
+//               t.push(eventdata);
+//             }
+//           }),
+//         );
+//         setEventList(t);
+//         setError(null);
+//       } catch (err) {
+//         setError(err);
+//       }
+//       setLoading(false);
+//     };
+
+//     createEventList();
+//   }, [eventIds]);
+
+//   return { eventList, loading, error };
+// };
 
 export const useOrganizersEventList = (uid: string) => {
   const [eventList, setEventList] = useState<EventModel[]>([]);
