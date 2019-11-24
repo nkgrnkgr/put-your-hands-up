@@ -27,8 +27,8 @@ export const UserSetting = () => {
           oauth_callback: `${window.location.protocol}//${window.location.host}/apicallback`,
         });
 
-        const data: FunctionsResponse = response.data;
-        const body: string = data.body;
+        const data: FunctionsResponse<string> = response.data;
+        const body = data.body;
         const params: ParsedQuery<string> = queryString.parse(body);
         const { oauth_token } = params;
         window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${oauth_token}`;
