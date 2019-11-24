@@ -3,7 +3,7 @@ import { EventPageContext } from '../../../contexts/EventPageContext';
 import { filterByLt } from '../../../models/Note';
 import Loading from '../../shared/components/Loading';
 import { NoteList as NoteListComponent } from '../components/NoteList';
-import { useNotes } from '../../../hooks/notes';
+import { useNotesSnapshot } from '../../../hooks/notes';
 
 interface Props {
   eventId: string;
@@ -12,7 +12,7 @@ interface Props {
 
 export const NoteList = (props: Props) => {
   const { eventId, ltId } = props;
-  const { notes, loading, error } = useNotes(eventId);
+  const { notes, loading, error } = useNotesSnapshot(eventId);
   const { sortOrder } = useContext(EventPageContext);
   const selectedAndSortedNotes = sortOrder.function(filterByLt(notes, ltId));
 
