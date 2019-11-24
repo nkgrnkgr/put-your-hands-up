@@ -5,14 +5,14 @@ import { ConnpassEvent } from 'connpass/lib/src/types';
 import { searchConnpassEvent, FunctionsResponse } from './callFunctions';
 
 const COLLECTION_KEY = 'events';
+const COLLECTION = db.collection(COLLECTION_KEY);
 
-export const getParticipatedEventList = async (eventIds: string[]) => {
-  const collection = db.collection(COLLECTION_KEY);
+export const fetchParticipatedEventList = async (eventIds: string[]) => {
   const fetchedEventList: EventModel[] = [];
 
   await Promise.all(
     eventIds.map(async id => {
-      const doc = await collection.doc(id).get();
+      const doc = await COLLECTION.doc(id).get();
       const eventdata = doc.data() as EventModel;
       if (eventdata) {
         fetchedEventList.push(eventdata);
@@ -23,75 +23,21 @@ export const getParticipatedEventList = async (eventIds: string[]) => {
   return fetchedEventList;
 };
 
-// export const useParticipatedEventList = (eventIds: string[]) => {
-//   const [eventList, setEventList] = useState<EventModel[]>([]);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState<Error | null>(null);
-
-//   useEffect(() => {
-//     const collection = db.collection(COLLECTION_KEY);
-
-//     const createEventList = async () => {
-//       setLoading(true);
-//       try {
-//         const t: EventModel[] = [];
-//         await Promise.all(
-//           eventIds.map(async id => {
-//             const doc = await collection.doc(id).get();
-//             const eventdata = doc.data() as EventModel;
-//             if (eventdata) {
-//               t.push(eventdata);
-//             }
-//           }),
-//         );
-//         setEventList(t);
-//         setError(null);
-//       } catch (err) {
-//         setError(err);
-//       }
-//       setLoading(false);
-//     };
-
-//     createEventList();
-//   }, [eventIds]);
-
-//   return { eventList, loading, error };
-// };
-
-export const useOrganizersEventList = (uid: string) => {
-  const [eventList, setEventList] = useState<EventModel[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    const collection = db.collection(COLLECTION_KEY);
-
-    const createEventList = async () => {
-      if (uid !== '') {
-        collection
-          .where(`organizerUids.${uid}`, '==', true)
-          .onSnapshot(querySnapshot => {
-            const t: EventModel[] = [];
-            try {
-              querySnapshot.forEach(doc => {
-                const event = doc.data() as EventModel;
-                if (event) {
-                  t.push(event);
-                }
-              });
-              setEventList(t);
-            } catch (err) {
-              setError(err);
-            }
-          });
-      }
-      setLoading(false);
-    };
-
-    createEventList();
-  }, [uid]);
-
-  return { eventList, loading, error };
+export const fetchOrganizersEventList = (uid: string) => {
+  return new Promise<EventModel[]>(resolve => {
+    const fetchedEventList: EventModel[] = [];
+    COLLECTION.where(`organizerUids.${uid}`, '==', true).onSnapshot(
+      querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const event = doc.data() as EventModel;
+          if (event) {
+            fetchedEventList.push(event);
+          }
+        });
+        resolve(fetchedEventList);
+      },
+    );
+  });
 };
 
 export const useEvent = (eventId: string) => {

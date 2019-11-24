@@ -1,16 +1,10 @@
+import { Container, createStyles, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Container,
-  Typography,
-} from '@material-ui/core';
-import { PageHeader } from '../../shared/containers/PageHeader';
+import { Route, RouteComponentProps } from 'react-router';
 import { Page } from '../../shared/components/Page';
-import { RouteComponentProps, Route } from 'react-router';
-import { List } from '../containers/List';
+import { PageHeader } from '../../shared/containers/PageHeader';
 import { Edit } from '../containers/Edit';
+import { List } from '../containers/List';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
