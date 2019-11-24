@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNote } from '../../../firebase/api/notes';
 import { useEventsUrl } from '../../../hooks/useEventsUrl';
 import Loading from '../../shared/components/Loading';
 import { ReplyComments as Component } from '../components/ReplyComments';
 import { useReplyComments } from '../../../firebase/api/replyComments';
 import { sortByOldest } from '../../../models/ReplyComment';
+import { useNote } from '../../../hooks/notes';
 
 export const ReplyComments = () => {
   const { eventId, ltId, noteId } = useEventsUrl();

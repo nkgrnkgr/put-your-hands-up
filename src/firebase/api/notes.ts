@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { NoteModel } from '../../models/Note';
 import { db } from '../index';
 
@@ -20,33 +19,11 @@ export const getNotesSnapshot = (eventId: string, callback: Function) => {
   });
 };
 
-export const useNote = (eventId: string, ltId: string, noteId: string) => {
-  const [note, setNote] = useState<NoteModel>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+export const getNote = async (noteId: string) => {
+  const doc = await COLLECTION.doc(noteId).get();
+  const noteData = doc.data() as NoteModel;
 
-  useEffect(() => {
-    const load = async () => {
-      setLoading(true);
-      if (noteId !== '') {
-        try {
-          const doc = await COLLECTION.doc(noteId).get();
-          const noteData = doc.data() as NoteModel;
-          if (noteData.eventId === eventId && noteData.ltId === ltId) {
-            setNote({ ...noteData });
-            setError(null);
-          }
-        } catch (err) {
-          setError(err);
-        }
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, [noteId]);
-
-  return { note, loading, error };
+  return noteData;
 };
 
 export const addNote = async (note: Partial<NoteModel>) => {

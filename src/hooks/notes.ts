@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { NoteModel } from '../models/Note';
-import { getNotesSnapshot } from '../firebase/api/notes';
+import { getNotesSnapshot, getNote } from '../firebase/api/notes';
 
 export const useNotesSnapshot = (eventId: string) => {
   const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -20,4 +20,32 @@ export const useNotesSnapshot = (eventId: string) => {
   }, [eventId]);
 
   return { notes, loading, error };
+};
+
+export const useNote = (eventId: string, ltId: string, noteId: string) => {
+  const [note, setNote] = useState<NoteModel>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const run = async () => {
+      if (noteId !== '') {
+        try {
+          const note = await getNote(noteId);
+          if (note.eventId === eventId && note.ltId === ltId) {
+            setNote(note);
+            setError(null);
+          }
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    run();
+  }, [noteId]);
+
+  return { note, loading, error };
 };
