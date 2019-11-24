@@ -12,34 +12,21 @@ export const getEvent = async (eventId: string) => {
 
 export const addEvent = async (event: EventModel) => {
   const collection = db.collection(COLLECTION_KEY);
-  try {
-    const documentRef = await collection.add(event);
-    const snapshot = await documentRef.get();
-    await documentRef.update({ id: snapshot.id });
-  } catch (err) {
-    console.error(err);
-  }
+  const documentRef = await collection.add(event);
+  const snapshot = await documentRef.get();
+  await documentRef.update({ id: snapshot.id });
 };
 
 export const updateEvent = async (event: EventModel) => {
   const collection = db.collection(COLLECTION_KEY);
-  try {
-    const documentRef = await collection.doc(event.id);
-    documentRef.update({ ...event });
-  } catch (err) {
-    console.error(err);
-  }
+  const documentRef = await collection.doc(event.id);
+  documentRef.update({ ...event });
 };
 
 export const deleteEvent = (event: EventModel) => {
   const collection = db.collection(COLLECTION_KEY);
   const documentRef = collection.doc(event.id);
-
-  try {
-    documentRef.delete();
-  } catch (err) {
-    console.error(err);
-  }
+  documentRef.delete();
 };
 
 export const getParticipatedEventList = async (eventIds: string[]) => {

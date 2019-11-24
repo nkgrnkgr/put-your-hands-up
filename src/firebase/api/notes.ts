@@ -3,7 +3,7 @@ import { NoteModel } from '../../models/Note';
 import { db } from '../index';
 
 const COLLECTION_KEY = 'notes';
-const collection = db.collection(COLLECTION_KEY);
+const COLLECTION = db.collection(COLLECTION_KEY);
 
 export const useNotes = (eventId: string) => {
   const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -12,8 +12,7 @@ export const useNotes = (eventId: string) => {
 
   useMemo(() => {
     setLoading(true);
-    const collection = db.collection(COLLECTION_KEY);
-    collection.where('eventId', '==', eventId).onSnapshot(qerySnapshot => {
+    COLLECTION.where('eventId', '==', eventId).onSnapshot(qerySnapshot => {
       const t: NoteModel[] = [];
       try {
         qerySnapshot.forEach(doc => {
@@ -41,13 +40,11 @@ export const useNote = (eventId: string, ltId: string, noteId: string) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const collection = db.collection(COLLECTION_KEY);
-
     const load = async () => {
       setLoading(true);
       if (noteId !== '') {
         try {
-          const doc = await collection.doc(noteId).get();
+          const doc = await COLLECTION.doc(noteId).get();
           const noteData = doc.data() as NoteModel;
           if (noteData.eventId === eventId && noteData.ltId === ltId) {
             setNote({ ...noteData });
@@ -67,13 +64,12 @@ export const useNote = (eventId: string, ltId: string, noteId: string) => {
 };
 
 export const addNote = async (note: Partial<NoteModel>) => {
-  const collection = db.collection(COLLECTION_KEY);
   try {
-    const documentRef = await collection.add(note);
+    const documentRef = await COLLECTION.add(note);
     const snapshot = await documentRef.get();
     await documentRef.update({ id: snapshot.id });
   } catch (err) {
-    console.error(err);  // eslint-disable-line
+    console.error(err);
   }
 };
 
@@ -85,13 +81,13 @@ export const addOrRemoveFansId = (note: NoteModel, uid: string) => {
       ? fansIds.filter(id => id !== uid)
       : [...fansIds, uid];
 
-  const noteRef = db.collection(COLLECTION_KEY).doc(note.id);
+  const noteRef = COLLECTION.doc(note.id);
   try {
     noteRef.update({
       'noteContents.fansIds': updatedFansIds,
     });
   } catch (err) {
-    console.error(err);  // eslint-disable-line
+    console.error(err);
   }
 };
 
@@ -99,9 +95,8 @@ export const addReplyCommentId = async (
   noteId: string,
   replyCommentId: string,
 ) => {
-  const collection = db.collection(COLLECTION_KEY);
   try {
-    const documentRef = await collection.doc(noteId);
+    const documentRef = await COLLECTION.doc(noteId);
     const doc = await documentRef.get();
     const note = doc.data() as NoteModel;
 
@@ -111,7 +106,7 @@ export const addReplyCommentId = async (
       documentRef.update({ commentIds: [replyCommentId] });
     }
   } catch (err) {
-    console.error(err); // eslint-disable-line
+    console.error(err);
   }
 };
 
@@ -120,14 +115,14 @@ export const removeReplyCommentId = async (
   replyCommentId: string,
 ) => {
   try {
-    const documentRef = await collection.doc(noteId);
+    const documentRef = await COLLECTION.doc(noteId);
     const doc = await documentRef.get();
     const note = doc.data() as NoteModel;
 
     const commentIds = note.commentIds.filter(id => id !== replyCommentId);
     documentRef.update({ commentIds });
   } catch (err) {
-    console.error(err); // eslint-disable-line
+    console.error(err);
   }
 };
 
@@ -138,6 +133,6 @@ export const deleteNote = (note: NoteModel) => {
   try {
     noteRef.delete();
   } catch (err) {
-    console.error(err); // eslint-disable-line
+    console.error(err);
   }
 };

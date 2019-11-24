@@ -14,8 +14,10 @@ export const useEvent = (eventId: string) => {
   useEffect(() => {
     const run = async () => {
       try {
-        const fetchedEvent = await getEvent(eventId);
-        setEvent(fetchedEvent);
+        if (eventId !== '') {
+          const fetchedEvent = await getEvent(eventId);
+          setEvent(fetchedEvent);
+        }
         setError(null);
       } catch (err) {
         setError(err);
