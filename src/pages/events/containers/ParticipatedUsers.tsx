@@ -1,8 +1,8 @@
 import React from 'react';
 import { ParticipatedUsers as Component } from '../components/ParticipatedUsers';
-import { useParticipatedUsers } from '../../../firebase/api/users';
 import { EventModel } from '../../../models/Event';
 import Loading from '../../shared/components/Loading';
+import { useParticipatedUsers } from '../../../hooks/users';
 
 interface Props {
   event: EventModel;

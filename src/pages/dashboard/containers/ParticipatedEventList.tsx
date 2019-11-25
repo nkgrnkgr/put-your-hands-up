@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
-import { useUser } from '../../../firebase/api/users';
 import { UserModel } from '../../../models/User';
 import Loading from '../../shared/components/Loading';
 import { ParticipatedEventList as Component } from '../components/ParticipatedEventList';
 import { useParticipatedEventList } from '../../../hooks/events';
+import { useUser } from '../../../hooks/users';
 
 const updateUserEventIdsParticipated = (
   user: UserModel,
