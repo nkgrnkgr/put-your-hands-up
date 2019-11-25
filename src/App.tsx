@@ -15,6 +15,7 @@ import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
+import { Auth2 } from './pages/shared/components/Auth2';
 
 const useStyles = makeStyles(
   createStyles({
@@ -37,14 +38,16 @@ const App: React.FC = () => {
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/signin" component={SignInPage} />
               <Route path="/apicallback" component={ApiCallbackPage} />
-              <Auth>
-                <UserUpdater>
-                  <Route path="/dashboard" component={DashboardPage} />
-                  <Route path="/setting" component={SettingPage} />
-                  <Route path="/events/:eventId" component={Eventpage} />
-                  <Route path="/organizer" component={OrganizerPage} />
-                </UserUpdater>
-              </Auth>
+              <Auth2>
+                <Auth>
+                  <UserUpdater>
+                    <Route path="/dashboard" component={DashboardPage} />
+                    <Route path="/setting" component={SettingPage} />
+                    <Route path="/events/:eventId" component={Eventpage} />
+                    <Route path="/organizer" component={OrganizerPage} />
+                  </UserUpdater>
+                </Auth>
+              </Auth2>
             </div>
           </FirebaseAuthInitializer>
         </EventPageContextProvider>

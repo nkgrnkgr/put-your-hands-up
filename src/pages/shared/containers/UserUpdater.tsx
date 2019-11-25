@@ -10,16 +10,6 @@ export const UserUpdater: React.FC = ({ children }) => {
     userValue.user.isAnonymous,
   );
 
-  // ユーザー情報の取得がおわったら実行する
-  useEffect(() => {
-    if (user) {
-      setUserValue({
-        ...userValue,
-        user,
-      });
-    }
-  }, [user]);
-
   // LocalUserのTwitterIntegrationの設定が完了したら
   useEffect(() => {
     const { uid, twitterIntegration } = userValue.user;

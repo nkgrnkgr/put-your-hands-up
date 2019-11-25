@@ -29,6 +29,9 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     return <>error</>;
   }
 
+  // Integrationコンテキストは別にする
+  // ツイッターなどの情報は別コレクション化する
+  // ユーザー情報を分ける
   setUserValue({
     ...userValue,
     user: {
