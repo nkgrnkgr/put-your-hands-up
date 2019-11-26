@@ -4,18 +4,19 @@ import { Route } from 'react-router-dom';
 import { ApplicationContextProvider } from './contexts/ApplicationContext';
 import { EventPageContextProvider } from './contexts/EventPageContext';
 import { UserContextProvider } from './contexts/UserContext';
+import { IntegrationsContextProvider } from './contexts/IntegrationsContext';
 import { ApiCallbackPage } from './pages/apicallbak/containers/ApiCallbackPage';
 import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
 import { LandingPage } from './pages/landing/components/LandingPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
-import { Auth } from './pages/shared/components/Auth';
+import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
-import { Auth2 } from './pages/shared/components/Auth2';
+import { Auth } from './pages/shared/components/Auth';
 
 const useStyles = makeStyles(
   createStyles({
@@ -31,26 +32,28 @@ const App: React.FC = () => {
   return (
     <ApplicationContextProvider>
       <UserContextProvider>
-        <EventPageContextProvider>
-          <FirebaseAuthInitializer>
-            <div className={classes.root}>
-              <ScrollTop />
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/signin" component={SignInPage} />
-              <Route path="/apicallback" component={ApiCallbackPage} />
-              <Auth2>
+        <IntegrationsContextProvider>
+          <EventPageContextProvider>
+            <FirebaseAuthInitializer>
+              <div className={classes.root}>
+                <ScrollTop />
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/signin" component={SignInPage} />
+                <Route path="/apicallback" component={ApiCallbackPage} />
                 <Auth>
-                  <UserUpdater>
-                    <Route path="/dashboard" component={DashboardPage} />
-                    <Route path="/setting" component={SettingPage} />
-                    <Route path="/events/:eventId" component={Eventpage} />
-                    <Route path="/organizer" component={OrganizerPage} />
-                  </UserUpdater>
+                  <UserInitializer>
+                    <UserUpdater>
+                      <Route path="/dashboard" component={DashboardPage} />
+                      <Route path="/setting" component={SettingPage} />
+                      <Route path="/events/:eventId" component={Eventpage} />
+                      <Route path="/organizer" component={OrganizerPage} />
+                    </UserUpdater>
+                  </UserInitializer>
                 </Auth>
-              </Auth2>
-            </div>
-          </FirebaseAuthInitializer>
-        </EventPageContextProvider>
+              </div>
+            </FirebaseAuthInitializer>
+          </EventPageContextProvider>
+        </IntegrationsContextProvider>
       </UserContextProvider>
     </ApplicationContextProvider>
   );

@@ -4,11 +4,13 @@ import { RouteComponentProps } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import Loading from '../../shared/components/Loading';
 import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 
 type Props = RouteComponentProps;
 
 export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
-  const { userValue, setUserValue } = useContext(UserContext);
+  const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { userValue } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(location.search);
   const { oauth_token, oauth_verifier } = params;
 
@@ -29,15 +31,12 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     return <>error</>;
   }
 
-  // Integrationコンテキストは別にする
-  // ツイッターなどの情報は別コレクション化する
-  // ユーザー情報を分ける
-  setUserValue({
-    ...userValue,
-    user: {
-      ...userValue.user,
-      twitterIntegration: integration,
-    },
+  // userUpdaterのかわりに、サーバー通信してTwitterIntegrationをDocumentを作る処理を実装する
+
+  setIntegrations({
+    ...integrations,
+    uid: userValue.user.uid,
+    twitterIntegration: integration,
   });
 
   history.push('/setting');
