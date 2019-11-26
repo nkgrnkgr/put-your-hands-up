@@ -4,18 +4,20 @@ import { Route, Switch } from 'react-router-dom';
 import { ApplicationContextProvider } from './contexts/ApplicationContext';
 import { EventPageContextProvider } from './contexts/EventPageContext';
 import { UserContextProvider } from './contexts/UserContext';
+import { IntegrationsContextProvider } from './contexts/IntegrationsContext';
 import { ApiCallbackPage } from './pages/apicallbak/containers/ApiCallbackPage';
 import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
 import { LandingPage } from './pages/landing/components/LandingPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
+import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { PrivateRoute } from './pages/shared/components/PrivateRoute';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
-import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
+import { FirebaseAuthLoadedListener } from './pages/shared/components/FirebaseAuthLoadedListener';
 
 const useStyles = makeStyles(
   createStyles({
@@ -31,27 +33,36 @@ const App: React.FC = () => {
   return (
     <ApplicationContextProvider>
       <UserContextProvider>
-        <EventPageContextProvider>
-          <FirebaseAuthInitializer>
-            <div className={classes.root}>
-              <ScrollTop />
-              <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route path="/signin" component={SignInPage} />
-                <Route path="/apicallback" component={ApiCallbackPage} />
-                <PrivateRoute>
-                  <UserUpdater>
-                    <Route path="/dashboard" component={DashboardPage} />
-                    <Route path="/setting" component={SettingPage} />
-                    <Route path="/events/:eventId" component={Eventpage} />
-                    <Route path="/organizer" component={OrganizerPage} />
-                    <Route path="*" component={NoMatchPage} />
-                  </UserUpdater>
-                </PrivateRoute>
-              </Switch>
-            </div>
-          </FirebaseAuthInitializer>
-        </EventPageContextProvider>
+        <IntegrationsContextProvider>
+          <EventPageContextProvider>
+            <FirebaseAuthInitializer>
+              <FirebaseAuthLoadedListener>
+                <div className={classes.root}>
+                  <ScrollTop />
+                  <Switch>
+                    <Route exact path="/" component={LandingPage} />
+                    <Route path="/signin" component={SignInPage} />
+                    <Route path="/apicallback" component={ApiCallbackPage} />
+                    <PrivateRoute>
+                      <UserInitializer>
+                        <Switch>
+                          <Route path="/dashboard" component={DashboardPage} />
+                          <Route path="/setting" component={SettingPage} />
+                          <Route
+                            path="/events/:eventId"
+                            component={Eventpage}
+                          />
+                          <Route path="/organizer" component={OrganizerPage} />
+                          <Route path="*" component={NoMatchPage} />
+                        </Switch>
+                      </UserInitializer>
+                    </PrivateRoute>
+                  </Switch>
+                </div>
+              </FirebaseAuthLoadedListener>
+            </FirebaseAuthInitializer>
+          </EventPageContextProvider>
+        </IntegrationsContextProvider>
       </UserContextProvider>
     </ApplicationContextProvider>
   );

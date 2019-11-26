@@ -14,24 +14,23 @@ interface Props {
 
 export const ReplyCommentContent = (props: Props) => {
   const { replyComment } = props;
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const handleOnClickLike = () => {
-    addOrRemoveFansId(replyComment, userValue.user.uid);
+    addOrRemoveFansId(replyComment, user.uid);
   };
 
   const handleOnClickDelete = () => {
     deleteReplyCommentAndRemoveFromNote(replyComment.id, props.noteId);
   };
 
-  const isLiked =
-    replyComment.commentContents.fansIds.indexOf(userValue.user.uid) > -1;
+  const isLiked = replyComment.commentContents.fansIds.indexOf(user.uid) > -1;
 
   return (
     <Component
       replyComment={replyComment}
       shouldShowDeleteButton={
-        userValue.user.uid === replyComment.commentContents.createUserId
+        user.uid === replyComment.commentContents.createUserId
       }
       isLiked={isLiked}
       onClickLike={handleOnClickLike}

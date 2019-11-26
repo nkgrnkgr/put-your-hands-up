@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const EditForm: React.FC<Props> = ({ event }) => {
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const history = useHistory();
 
   const handleSubmit = async (values: EventModel) => {
@@ -45,7 +45,7 @@ export const EditForm: React.FC<Props> = ({ event }) => {
 
   return (
     <Formik
-      initialValues={event || createInitialEventModelValue(userValue.user.uid)}
+      initialValues={event || createInitialEventModelValue(user.uid)}
       onSubmit={handleSubmit}
       render={props => <Component {...props} handleDelete={handleDelete} />}
     />

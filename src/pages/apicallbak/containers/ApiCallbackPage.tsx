@@ -1,14 +1,17 @@
-import React, { useContext } from 'react';
 import queryString, { ParsedQuery } from 'query-string';
+import React, { useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 import { UserContext } from '../../../contexts/UserContext';
-import Loading from '../../shared/components/Loading';
+import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
 import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
+import Loading from '../../shared/components/Loading';
 
 type Props = RouteComponentProps;
 
 export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
-  const { userValue, setUserValue } = useContext(UserContext);
+  const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { user } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(location.search);
   const { oauth_token, oauth_verifier } = params;
 
@@ -29,13 +32,19 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     return <>error</>;
   }
 
-  setUserValue({
-    ...userValue,
-    user: {
-      ...userValue.user,
+  try {
+    addOrUpdateIntegrations({
+      id: user.uid,
       twitterIntegration: integration,
-    },
-  });
+    });
+    setIntegrations({
+      ...integrations,
+      id: user.uid,
+      twitterIntegration: integration,
+    });
+  } catch (error) {
+    return <>error</>;
+  }
 
   history.push('/setting');
 

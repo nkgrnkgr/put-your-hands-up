@@ -1,18 +1,11 @@
 import React, { useContext } from 'react';
-import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { Redirect } from 'react-router';
-import Loading from './Loading';
+import { UserContext } from '../../../contexts/UserContext';
 
 export const PrivateRoute: React.FC = ({ children }) => {
-  const { applicationValues } = useContext(ApplicationContext);
+  const { user } = useContext(UserContext);
 
-  const { isFirebaseAuthInitialized, isSignIned } = applicationValues;
-
-  if (!isFirebaseAuthInitialized) {
-    return <Loading />;
-  }
-
-  if (!isSignIned) {
+  if (user.uid === '') {
     return <Redirect to="/signin" />;
   }
 

@@ -12,9 +12,11 @@ import { ExternalLinkSetting } from './ExternalLinkSetting';
 import { AnonimouseUserProfile } from './AnonimouseUserProfile';
 import { UserModel } from '../../../models/User';
 import { AnonymousColor } from '../../../models/AnonymousUser';
+import { IntegrationsModel } from '../../../models/Integrations';
 
 interface Props {
   user: UserModel;
+  integrations: IntegrationsModel;
   setAnonymousUserInfo: (
     displayName: string,
     anonymousColor: AnonymousColor,
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const UserSetting: React.FC<Props> = ({
   user,
+  integrations,
   setAnonymousUserInfo,
   onChangeSettingTwitterIntegration,
 }) => {
@@ -60,7 +63,7 @@ export const UserSetting: React.FC<Props> = ({
           <UserProfile user={user} />
           <Divider />
           <ExternalLinkSetting
-            twitterIntegration={user.twitterIntegration}
+            twitterIntegration={integrations.twitterIntegration}
             onChangeSettingTwitterIntegration={
               onChangeSettingTwitterIntegration
             }

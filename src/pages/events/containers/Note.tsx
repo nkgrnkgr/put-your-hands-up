@@ -12,9 +12,7 @@ interface Props {
 
 export const Note = (props: Props) => {
   const { note } = props;
-  const {
-    userValue: { user },
-  } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,

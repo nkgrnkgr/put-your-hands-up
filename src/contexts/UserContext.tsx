@@ -1,22 +1,14 @@
 import React, { createContext, useState } from 'react';
 import { initialUserData, UserModel } from '../models/User';
 
-interface UserValue {
-  user: UserModel;
-}
-
 interface UserState {
-  userValue: UserValue;
-  setUserValue: React.Dispatch<React.SetStateAction<UserValue>>;
+  user: UserModel;
+  setUser: React.Dispatch<React.SetStateAction<UserModel>>;
 }
-
-const initialUserValue: UserValue = {
-  user: initialUserData,
-};
 
 const initialUserState: UserState = {
-  userValue: initialUserValue,
-  setUserValue: () => {},
+  user: initialUserData,
+  setUser: () => {},
 };
 
 export const UserContext = createContext<UserState>(initialUserState);
@@ -24,12 +16,12 @@ export const UserContext = createContext<UserState>(initialUserState);
 type ContextProps = Partial<UserState>;
 
 export const UserContextProvider: React.FC<ContextProps> = ({ children }) => {
-  const [userValue, setUserValue] = useState<UserValue>({
-    ...initialUserValue,
+  const [user, setUser] = useState<UserModel>({
+    ...initialUserData,
   });
 
   return (
-    <UserContext.Provider value={{ userValue, setUserValue }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -2,7 +2,6 @@ import React, { createContext, useState } from 'react';
 
 interface AppclicationValues {
   isFirebaseAuthInitialized: boolean;
-  isSignIned: boolean;
   isSidebarOpen: boolean;
   isOpenModal: boolean;
   isOpenReplayComments: boolean;
@@ -17,7 +16,6 @@ interface ApplicationState {
 
 const initialApplicationValues: AppclicationValues = {
   isFirebaseAuthInitialized: false,
-  isSignIned: false,
   isSidebarOpen: false,
   isOpenModal: false,
   isOpenReplayComments: false,

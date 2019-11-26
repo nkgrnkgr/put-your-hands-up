@@ -1,25 +1,21 @@
 import queryString, { ParsedQuery } from 'query-string';
 import React, { useContext } from 'react';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 import { UserContext } from '../../../contexts/UserContext';
 import {
   FunctionsResponse,
   oauthRequestToken,
 } from '../../../firebase/api/callFunctions';
+import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
+import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
-import { AnonymousColor } from '../../../models/AnonymousUser';
-
-const deleteTwitterIntegration = (user: UserModel): UserModel => {
-  const t = { ...user };
-  delete t.twitterIntegration;
-
-  return t;
-};
 
 export const UserSetting = () => {
-  const { userValue, setUserValue } = useContext(UserContext);
-
+  const { user, setUser } = useContext(UserContext);
+  const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { uid } = user;
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
     if (isIntegrating) {
       try {
@@ -36,11 +32,8 @@ export const UserSetting = () => {
         console.error(error);
       }
     } else {
-      // Twitter連携を外すときの処理を書く
-      setUserValue({
-        ...userValue,
-        user: deleteTwitterIntegration(userValue.user),
-      });
+      addOrUpdateIntegrations({ id: uid });
+      setIntegrations({ id: uid });
     }
   };
 
@@ -49,7 +42,6 @@ export const UserSetting = () => {
     anonymousColor: AnonymousColor,
   ) => {
     return new Promise<void>(resolve => {
-      const { user } = userValue;
       if (user) {
         const updatedUser: UserModel = {
           ...user,
@@ -58,10 +50,7 @@ export const UserSetting = () => {
           anonymousColor,
         };
         save('user', updatedUser);
-        setUserValue({
-          ...userValue,
-          user: updatedUser,
-        });
+        setUser(updatedUser);
         resolve();
       }
     });
@@ -69,7 +58,8 @@ export const UserSetting = () => {
 
   return (
     <Component
-      user={userValue.user}
+      user={user}
+      integrations={integrations}
       setAnonymousUserInfo={setAnonymousUserInfo}
       onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
     />

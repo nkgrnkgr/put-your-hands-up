@@ -11,7 +11,8 @@ import {
 import { now } from '../../../utils/datetime';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { tweet } from '../../../firebase/api/callFunctions';
-import { TwitterIntegration } from '../../../models/User';
+import { TwitterIntegration } from '../../../models/Integrations';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 
 interface Props {
   eventId: string;
@@ -37,8 +38,8 @@ const shareWithTwitter = (
 
 export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
-  const { userValue } = useContext(UserContext);
-  const { twitterIntegration } = userValue.user;
+  const { user } = useContext(UserContext);
+  const { integrations } = useContext(IntegrationsContext);
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
   const toggleTwitterShare = () => {
@@ -53,7 +54,7 @@ export const NoteForm = (props: Props) => {
       eventId,
       ltId,
       noteContents: values,
-      user: userValue.user,
+      user,
       commentIds: [],
     };
     const v = await onFormikSubmitHandler<
@@ -63,23 +64,23 @@ export const NoteForm = (props: Props) => {
     addNote(v);
     if (
       sholdTwitterShare &&
-      twitterIntegration &&
+      integrations.twitterIntegration &&
       v.noteContents &&
       v.noteContents.comment
     ) {
-      shareWithTwitter(twitterIntegration, v.noteContents.comment);
+      shareWithTwitter(integrations.twitterIntegration, v.noteContents.comment);
     }
   };
 
   return (
     <Formik
-      initialValues={createInitialValue(userValue.user.uid)}
+      initialValues={createInitialValue(user.uid)}
       onSubmit={onSubmit}
       render={props => (
         <NoteListComponent
           {...props}
-          user={userValue.user}
-          sholdShowTwitter={twitterIntegration !== undefined}
+          user={user}
+          sholdShowTwitter={integrations.twitterIntegration !== undefined}
           sholdTwitterShare={sholdTwitterShare}
           toggleTwitterShare={toggleTwitterShare}
         />
