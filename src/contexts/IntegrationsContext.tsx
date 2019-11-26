@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { Integrations } from '../models/Integration';
+import { Integrations } from '../models/Integrations';
 
 interface IntegrationsState {
   integrations: Integrations | null;
