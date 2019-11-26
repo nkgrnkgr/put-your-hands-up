@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ApplicationContextProvider } from './contexts/ApplicationContext';
 import { EventPageContextProvider } from './contexts/EventPageContext';
 import { UserContextProvider } from './contexts/UserContext';
@@ -9,7 +9,7 @@ import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
 import { LandingPage } from './pages/landing/components/LandingPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
-import { Auth } from './pages/shared/components/Auth';
+import { PrivateRoute } from './pages/shared/components/PrivateRoute';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserUpdater } from './pages/shared/containers/UserUpdater';
@@ -34,17 +34,24 @@ const App: React.FC = () => {
           <FirebaseAuthInitializer>
             <div className={classes.root}>
               <ScrollTop />
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/signin" component={SignInPage} />
-              <Route path="/apicallback" component={ApiCallbackPage} />
-              <Auth>
-                <UserUpdater>
-                  <Route path="/dashboard" component={DashboardPage} />
-                  <Route path="/setting" component={SettingPage} />
-                  <Route path="/events/:eventId" component={Eventpage} />
-                  <Route path="/organizer" component={OrganizerPage} />
-                </UserUpdater>
-              </Auth>
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/signin" component={SignInPage} />
+                <Route path="/apicallback" component={ApiCallbackPage} />
+                <PrivateRoute>
+                  <UserUpdater>
+                    <Route path="/dashboard" component={DashboardPage} />
+                    <Route path="/setting" component={SettingPage} />
+                    <Route path="/events/:eventId" component={Eventpage} />
+                    <Route path="/organizer" component={OrganizerPage} />
+                    <Route
+                      path="*"
+                      render={() => <>404 // ログイン情報コミの404</>}
+                    />
+                  </UserUpdater>
+                </PrivateRoute>
+                <Route path="*" render={() => <>404</>} />
+              </Switch>
             </div>
           </FirebaseAuthInitializer>
         </EventPageContextProvider>
