@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import { TwitterIntegration } from '../../../models/User';
+import { TwitterIntegration } from '../../../models/Integrations';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

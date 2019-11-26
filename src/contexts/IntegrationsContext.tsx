@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
-import { Integrations } from '../models/Integrations';
+import { IntegrationsModel, createInitialValue } from '../models/Integrations';
 
 interface IntegrationsState {
-  integrations: Integrations | null;
-  setIntegrations: React.Dispatch<React.SetStateAction<Integrations | null>>;
+  integrations: IntegrationsModel;
+  setIntegrations: React.Dispatch<React.SetStateAction<IntegrationsModel>>;
 }
 
 const initialState: IntegrationsState = {
-  integrations: null,
+  integrations: createInitialValue(),
   setIntegrations: () => {},
 };
 
@@ -20,7 +20,9 @@ type ContextProps = Partial<IntegrationsState>;
 export const IntegrationsContextProvider: React.FC<ContextProps> = ({
   children,
 }) => {
-  const [integrations, setIntegrations] = useState<Integrations | null>(null);
+  const [integrations, setIntegrations] = useState<IntegrationsModel>(
+    createInitialValue(),
+  );
 
   return (
     <IntegrationsContext.Provider value={{ integrations, setIntegrations }}>

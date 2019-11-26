@@ -1,5 +1,5 @@
 import queryString, { ParsedQuery } from 'query-string';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
 import {
   FunctionsResponse,
@@ -9,17 +9,14 @@ import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
 import { AnonymousColor } from '../../../models/AnonymousUser';
-
-const deleteTwitterIntegration = (user: UserModel): UserModel => {
-  const t = { ...user };
-  delete t.twitterIntegration;
-
-  return t;
-};
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
+import { useIntegrations } from '../../../hooks/integrations';
 
 export const UserSetting = () => {
   const { userValue, setUserValue } = useContext(UserContext);
-
+  const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { uid } = userValue.user;
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
     if (isIntegrating) {
       try {
@@ -36,11 +33,8 @@ export const UserSetting = () => {
         console.error(error);
       }
     } else {
-      // Twitter連携を外すときの処理を書く
-      setUserValue({
-        ...userValue,
-        user: deleteTwitterIntegration(userValue.user),
-      });
+      addOrUpdateIntegrations({ id: uid });
+      setIntegrations({ id: uid });
     }
   };
 
@@ -70,6 +64,7 @@ export const UserSetting = () => {
   return (
     <Component
       user={userValue.user}
+      integrations={integrations}
       setAnonymousUserInfo={setAnonymousUserInfo}
       onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
     />

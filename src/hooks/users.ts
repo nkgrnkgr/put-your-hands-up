@@ -10,8 +10,10 @@ export const useUser = (uid: string, isAnonymous = false) => {
   useEffect(() => {
     const run = async () => {
       try {
-        const user = await getUser(uid, isAnonymous);
-        setUser(user);
+        if (uid !== '') {
+          const user = await getUser(uid, isAnonymous);
+          setUser(user);
+        }
         setError(null);
       } catch (err) {
         setError(err);

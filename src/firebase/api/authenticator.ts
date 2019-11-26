@@ -6,7 +6,7 @@ export const signInWithAnonyMously = () => {
 };
 
 const signInWith = (provider: firebase.auth.AuthProvider) => {
-  firebase.auth().signInWithPopup(provider);
+  firebase.auth().signInWithRedirect(provider);
 };
 
 export const signInWithTwitter = () => {
@@ -25,4 +25,5 @@ export const signOut = () => {
     remove('user');
   }
   firebase.auth().signOut();
+  window.location.href = '/';
 };

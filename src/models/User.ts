@@ -13,13 +13,6 @@ export interface UserModel {
   eventIdsParticipated: string[];
   isAnonymous: boolean;
   anonymousColor?: AnonymousColor;
-  twitterIntegration?: TwitterIntegration;
-}
-
-export interface TwitterIntegration {
-  screenName: string;
-  accessToken: string;
-  accessTokenSecret: string;
 }
 
 export const initialUserData: UserModel = {

@@ -11,8 +11,9 @@ import {
 import { now } from '../../../utils/datetime';
 import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
-import { TwitterIntegration } from '../../../models/User';
 import { tweet } from '../../../firebase/api/callFunctions';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { TwitterIntegration } from '../../../models/Integrations';
 
 interface Props {
   eventId: string;
@@ -30,7 +31,8 @@ export const ModalNoteForm = (props: Props) => {
   const {
     userValue: { user },
   } = useContext(UserContext);
-  const { twitterIntegration } = user;
+  const { integrations } = useContext(IntegrationsContext);
+
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
@@ -76,11 +78,12 @@ export const ModalNoteForm = (props: Props) => {
     addNote(v);
     if (
       sholdTwitterShare &&
-      twitterIntegration &&
+      integrations &&
+      integrations.twitterIntegration &&
       v.noteContents &&
       v.noteContents.comment
     ) {
-      shareWithTwitter(twitterIntegration, v.noteContents.comment);
+      shareWithTwitter(integrations.twitterIntegration, v.noteContents.comment);
     }
     onClickCloseButton();
   };
@@ -95,7 +98,7 @@ export const ModalNoteForm = (props: Props) => {
           user={user}
           open={applicationValues.isOpenModal}
           onClose={onClickCloseButton}
-          sholdShowTwitter={twitterIntegration !== undefined}
+          sholdShowTwitter={integrations.twitterIntegration !== undefined}
           sholdTwitterShare={sholdTwitterShare}
           toggleTwitterShare={toggleTwitterShare}
         />

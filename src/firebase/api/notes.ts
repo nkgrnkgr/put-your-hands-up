@@ -27,13 +27,9 @@ export const getNote = async (noteId: string) => {
 };
 
 export const addNote = async (note: Partial<NoteModel>) => {
-  try {
-    const documentRef = await COLLECTION.add(note);
-    const snapshot = await documentRef.get();
-    await documentRef.update({ id: snapshot.id });
-  } catch (err) {
-    console.error(err);
-  }
+  const documentRef = await COLLECTION.add(note);
+  const snapshot = await documentRef.get();
+  await documentRef.update({ id: snapshot.id });
 };
 
 export const addOrRemoveFansId = (note: NoteModel, uid: string) => {

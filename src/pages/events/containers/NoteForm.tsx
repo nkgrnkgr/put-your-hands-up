@@ -11,7 +11,8 @@ import {
 import { now } from '../../../utils/datetime';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { tweet } from '../../../firebase/api/callFunctions';
-import { TwitterIntegration } from '../../../models/User';
+import { TwitterIntegration } from '../../../models/Integrations';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 
 interface Props {
   eventId: string;
@@ -38,7 +39,7 @@ const shareWithTwitter = (
 export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
   const { userValue } = useContext(UserContext);
-  const { twitterIntegration } = userValue.user;
+  const { integrations } = useContext(IntegrationsContext);
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
   const toggleTwitterShare = () => {
@@ -63,11 +64,11 @@ export const NoteForm = (props: Props) => {
     addNote(v);
     if (
       sholdTwitterShare &&
-      twitterIntegration &&
+      integrations.twitterIntegration &&
       v.noteContents &&
       v.noteContents.comment
     ) {
-      shareWithTwitter(twitterIntegration, v.noteContents.comment);
+      shareWithTwitter(integrations.twitterIntegration, v.noteContents.comment);
     }
   };
 
@@ -79,7 +80,7 @@ export const NoteForm = (props: Props) => {
         <NoteListComponent
           {...props}
           user={userValue.user}
-          sholdShowTwitter={twitterIntegration !== undefined}
+          sholdShowTwitter={integrations.twitterIntegration !== undefined}
           sholdTwitterShare={sholdTwitterShare}
           toggleTwitterShare={toggleTwitterShare}
         />

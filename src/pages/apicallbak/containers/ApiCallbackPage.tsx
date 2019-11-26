@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
 import queryString, { ParsedQuery } from 'query-string';
+import React, { useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { UserContext } from '../../../contexts/UserContext';
-import Loading from '../../shared/components/Loading';
-import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
-import { updateTwitterIntegration } from '../../../firebase/api/users';
+import { UserContext } from '../../../contexts/UserContext';
+import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
+import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
+import Loading from '../../shared/components/Loading';
 
 type Props = RouteComponentProps;
 
@@ -33,10 +33,13 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
   }
 
   try {
-    updateTwitterIntegration(userValue.user.uid, integration);
+    addOrUpdateIntegrations({
+      id: userValue.user.uid,
+      twitterIntegration: integration,
+    });
     setIntegrations({
       ...integrations,
-      uid: userValue.user.uid,
+      id: userValue.user.uid,
       twitterIntegration: integration,
     });
   } catch (error) {

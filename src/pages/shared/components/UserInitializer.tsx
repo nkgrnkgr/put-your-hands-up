@@ -1,27 +1,43 @@
 import React, { useContext, useEffect } from 'react';
-import { ApplicationContext } from '../../../contexts/ApplicationContext';
-import Loading from './Loading';
-import { useUser } from '../../../hooks/users';
 import { UserContext } from '../../../contexts/UserContext';
-import { getUser } from '../../../firebase/api/users';
+import { useUser } from '../../../hooks/users';
+import Loading from './Loading';
+import { useIntegrations } from '../../../hooks/integrations';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 
 export const UserInitializer: React.FC = ({ children }) => {
-  const { applicationValues } = useContext(ApplicationContext);
   const { userValue, setUserValue } = useContext(UserContext);
+  const { setIntegrations } = useContext(IntegrationsContext);
+  const { uid } = userValue.user;
+  const { user, loading, error } = useUser(uid);
+  const {
+    integrations: fetchedIntegrations,
+    loading: integrationLoading,
+    error: integrationError,
+  } = useIntegrations(uid);
 
   useEffect(() => {
-    getUser(userValue.user.uid).then(response => {
-      if (response) {
-        setUserValue({
-          ...userValue,
-          user: response,
-        });
-      }
-    });
-  }, []);
+    if (user) {
+      setUserValue({
+        ...userValue,
+        user,
+      });
+    }
+    if (fetchedIntegrations) {
+      setIntegrations({
+        ...fetchedIntegrations,
+      });
+    }
+  }, [user, fetchedIntegrations]);
 
-  if (!applicationValues.isFirebaseAuthInitialized) {
+  if (loading || integrationLoading) {
     return <Loading />;
+  }
+
+  if (error || integrationError) {
+    console.error(error, integrationError);
+
+    return <>error</>;
   }
 
   return <>{children}</>;

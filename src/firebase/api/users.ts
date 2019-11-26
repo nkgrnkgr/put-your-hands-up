@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { UserModel, TwitterIntegration } from '../../models/User';
-import { db, firebase } from '../index';
 import { loadAnonymousUserLocalData } from '../../models/AnonymousUser';
+import { UserModel } from '../../models/User';
 import { uniq } from '../../utils/utils';
+import { db } from '../index';
 
 const COLLECTION_KEY = 'users';
 const COLLECTION = db.collection(COLLECTION_KEY);
@@ -34,18 +33,6 @@ export const getParticipatedUsersSnapshot = (
       t.push(d);
     });
     callback(t);
-  });
-};
-
-export const updateTwitterIntegration = (
-  uid: string,
-  twitterIntegration: TwitterIntegration | null,
-) => {
-  // todo userUpdaterのかわりに、サーバー通信してTwitterIntegrationをDocumentを作る処理を実装する
-  const userRef = COLLECTION.doc(uid);
-  userRef.update({
-    twitterIntegration:
-      twitterIntegration || firebase.firestore.FieldValue.delete(),
   });
 };
 
