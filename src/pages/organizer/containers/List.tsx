@@ -6,10 +6,8 @@ import { List as Component } from '../components/List';
 import { useOrganizersEventList } from '../../../hooks/events';
 
 export const List: React.FC<RouteComponentProps> = () => {
-  const { userValue } = useContext(UserContext);
-  const { eventList, loading, error } = useOrganizersEventList(
-    userValue.user.uid,
-  );
+  const { user } = useContext(UserContext);
+  const { eventList, loading, error } = useOrganizersEventList(user.uid);
 
   if (loading) {
     return <Loading />;

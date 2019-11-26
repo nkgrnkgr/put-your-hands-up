@@ -24,6 +24,10 @@ export const signOut = () => {
   if (user) {
     remove('user');
   }
-  firebase.auth().signOut();
-  window.location.href = '/';
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      window.location.href = '/';
+    });
 };

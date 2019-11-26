@@ -1,22 +1,21 @@
 import queryString, { ParsedQuery } from 'query-string';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 import { UserContext } from '../../../contexts/UserContext';
 import {
   FunctionsResponse,
   oauthRequestToken,
 } from '../../../firebase/api/callFunctions';
+import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
+import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
-import { AnonymousColor } from '../../../models/AnonymousUser';
-import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
-import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
-import { useIntegrations } from '../../../hooks/integrations';
 
 export const UserSetting = () => {
-  const { userValue, setUserValue } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
-  const { uid } = userValue.user;
+  const { uid } = user;
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
     if (isIntegrating) {
       try {
@@ -43,7 +42,6 @@ export const UserSetting = () => {
     anonymousColor: AnonymousColor,
   ) => {
     return new Promise<void>(resolve => {
-      const { user } = userValue;
       if (user) {
         const updatedUser: UserModel = {
           ...user,
@@ -52,10 +50,7 @@ export const UserSetting = () => {
           anonymousColor,
         };
         save('user', updatedUser);
-        setUserValue({
-          ...userValue,
-          user: updatedUser,
-        });
+        setUser(updatedUser);
         resolve();
       }
     });
@@ -63,7 +58,7 @@ export const UserSetting = () => {
 
   return (
     <Component
-      user={userValue.user}
+      user={user}
       integrations={integrations}
       setAnonymousUserInfo={setAnonymousUserInfo}
       onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}

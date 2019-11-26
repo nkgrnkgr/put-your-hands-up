@@ -6,10 +6,10 @@ import { useIntegrations } from '../../../hooks/integrations';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 
 export const UserInitializer: React.FC = ({ children }) => {
-  const { userValue, setUserValue } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { setIntegrations } = useContext(IntegrationsContext);
-  const { uid } = userValue.user;
-  const { user, loading, error } = useUser(uid);
+  const { uid } = user;
+  const { user: fetchedUser, loading, error } = useUser(uid);
   const {
     integrations: fetchedIntegrations,
     loading: integrationLoading,
@@ -17,16 +17,11 @@ export const UserInitializer: React.FC = ({ children }) => {
   } = useIntegrations(uid);
 
   useEffect(() => {
-    if (user) {
-      setUserValue({
-        ...userValue,
-        user,
-      });
+    if (fetchedUser) {
+      setUser(fetchedUser);
     }
     if (fetchedIntegrations) {
-      setIntegrations({
-        ...fetchedIntegrations,
-      });
+      setIntegrations(fetchedIntegrations);
     }
   }, [user, fetchedIntegrations]);
 

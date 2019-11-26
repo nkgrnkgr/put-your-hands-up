@@ -27,7 +27,7 @@ const createInitialValues = (loginUser: UserModel): CommentContensModel => ({
 
 export const ReplyCommentForm = (props: Props) => {
   const { note } = props;
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
@@ -51,7 +51,7 @@ export const ReplyCommentForm = (props: Props) => {
       ltId: note.ltId,
       noteId: noteId || '',
       commentContents: values,
-      user: userValue.user,
+      user: user,
     };
     const v = await onFormikSubmitHandler<
       CommentContensModel,
@@ -62,7 +62,7 @@ export const ReplyCommentForm = (props: Props) => {
   };
 
   const formik = useFormik<CommentContensModel>({
-    initialValues: createInitialValues(userValue.user),
+    initialValues: createInitialValues(user),
     onSubmit,
   });
 
@@ -70,11 +70,5 @@ export const ReplyCommentForm = (props: Props) => {
     closeReplayComments();
   };
 
-  return (
-    <Component
-      {...formik}
-      loginUser={userValue.user}
-      onCancelClick={onCancel}
-    />
-  );
+  return <Component {...formik} loginUser={user} onCancelClick={onCancel} />;
 };

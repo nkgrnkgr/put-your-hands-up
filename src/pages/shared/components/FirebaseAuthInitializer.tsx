@@ -8,15 +8,12 @@ export const FirebaseAuthInitializer: React.FC = ({ children }) => {
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
-  const { userValue, setUserValue } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setUserValue({
-          ...userValue,
-          user: loadOrCreateUser(user),
-        });
+        setUser(loadOrCreateUser(user));
         setApplicationValues({
           ...applicationValues,
           isFirebaseAuthInitialized: true,

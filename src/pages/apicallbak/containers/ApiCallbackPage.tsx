@@ -11,7 +11,7 @@ type Props = RouteComponentProps;
 
 export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(location.search);
   const { oauth_token, oauth_verifier } = params;
 
@@ -34,12 +34,12 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
 
   try {
     addOrUpdateIntegrations({
-      id: userValue.user.uid,
+      id: user.uid,
       twitterIntegration: integration,
     });
     setIntegrations({
       ...integrations,
-      id: userValue.user.uid,
+      id: user.uid,
       twitterIntegration: integration,
     });
   } catch (error) {

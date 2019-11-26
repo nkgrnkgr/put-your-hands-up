@@ -38,7 +38,7 @@ const shareWithTwitter = (
 
 export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
@@ -54,7 +54,7 @@ export const NoteForm = (props: Props) => {
       eventId,
       ltId,
       noteContents: values,
-      user: userValue.user,
+      user,
       commentIds: [],
     };
     const v = await onFormikSubmitHandler<
@@ -74,12 +74,12 @@ export const NoteForm = (props: Props) => {
 
   return (
     <Formik
-      initialValues={createInitialValue(userValue.user.uid)}
+      initialValues={createInitialValue(user.uid)}
       onSubmit={onSubmit}
       render={props => (
         <NoteListComponent
           {...props}
-          user={userValue.user}
+          user={user}
           sholdShowTwitter={integrations.twitterIntegration !== undefined}
           sholdTwitterShare={sholdTwitterShare}
           toggleTwitterShare={toggleTwitterShare}

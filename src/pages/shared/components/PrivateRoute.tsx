@@ -3,9 +3,9 @@ import { Redirect } from 'react-router';
 import { UserContext } from '../../../contexts/UserContext';
 
 export const PrivateRoute: React.FC = ({ children }) => {
-  const { userValue } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  if (userValue.user.uid === '') {
+  if (user.uid === '') {
     return <Redirect to="/signin" />;
   }
 

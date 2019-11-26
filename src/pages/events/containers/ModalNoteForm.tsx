@@ -28,9 +28,7 @@ const createInitialValue = (uid: string) => ({
 
 export const ModalNoteForm = (props: Props) => {
   const { eventId, ltId } = props;
-  const {
-    userValue: { user },
-  } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
 
   const { applicationValues, setApplicationValues } = useContext(
