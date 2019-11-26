@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ApplicationContextProvider } from './contexts/ApplicationContext';
 import { EventPageContextProvider } from './contexts/EventPageContext';
 import { UserContextProvider } from './contexts/UserContext';
@@ -11,11 +11,12 @@ import { Eventpage } from './pages/events/containers/EventPage';
 import { LandingPage } from './pages/landing/components/LandingPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
 import { UserInitializer } from './pages/shared/components/UserInitializer';
+import { PrivateRoute } from './pages/shared/components/PrivateRoute';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
-import { Auth } from './pages/shared/components/Auth';
+import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
 
 const useStyles = makeStyles(
   createStyles({
@@ -36,17 +37,20 @@ const App: React.FC = () => {
             <FirebaseAuthInitializer>
               <div className={classes.root}>
                 <ScrollTop />
-                <Route exact path="/" component={LandingPage} />
-                <Route exact path="/signin" component={SignInPage} />
-                <Route path="/apicallback" component={ApiCallbackPage} />
-                <Auth>
-                  <UserInitializer>
-                    <Route path="/dashboard" component={DashboardPage} />
-                    <Route path="/setting" component={SettingPage} />
-                    <Route path="/events/:eventId" component={Eventpage} />
-                    <Route path="/organizer" component={OrganizerPage} />
-                  </UserInitializer>
-                </Auth>
+                <Switch>
+                  <Route exact path="/" component={LandingPage} />
+                  <Route path="/signin" component={SignInPage} />
+                  <Route path="/apicallback" component={ApiCallbackPage} />
+                  <PrivateRoute>
+                    <UserInitializer>
+                      <Route path="/dashboard" component={DashboardPage} />
+                      <Route path="/setting" component={SettingPage} />
+                      <Route path="/events/:eventId" component={Eventpage} />
+                      <Route path="/organizer" component={OrganizerPage} />
+                      <Route path="*" component={NoMatchPage} />
+                    </UserInitializer>
+                  </PrivateRoute>
+                </Switch>
               </div>
             </FirebaseAuthInitializer>
           </EventPageContextProvider>

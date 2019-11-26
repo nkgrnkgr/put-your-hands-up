@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
-import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { Redirect } from 'react-router';
-import Loading from './Loading';
 import { UserContext } from '../../../contexts/UserContext';
 
-export const Auth: React.FC = ({ children }) => {
+export const PrivateRoute: React.FC = ({ children }) => {
   const { userValue } = useContext(UserContext);
 
   if (userValue.user.uid === '') {
