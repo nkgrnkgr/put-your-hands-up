@@ -15,6 +15,7 @@ import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
+import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
 
 const useStyles = makeStyles(
   createStyles({
@@ -44,13 +45,9 @@ const App: React.FC = () => {
                     <Route path="/setting" component={SettingPage} />
                     <Route path="/events/:eventId" component={Eventpage} />
                     <Route path="/organizer" component={OrganizerPage} />
-                    <Route
-                      path="*"
-                      render={() => <>404 // ログイン情報コミの404</>}
-                    />
+                    <Route path="*" component={NoMatchPage} />
                   </UserUpdater>
                 </PrivateRoute>
-                <Route path="*" render={() => <>404</>} />
               </Switch>
             </div>
           </FirebaseAuthInitializer>
