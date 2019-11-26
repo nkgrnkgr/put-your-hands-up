@@ -5,6 +5,7 @@ import { UserContext } from '../../../contexts/UserContext';
 import Loading from '../../shared/components/Loading';
 import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { updateTwitterIntegration } from '../../../firebase/api/users';
 
 type Props = RouteComponentProps;
 
@@ -31,13 +32,16 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
     return <>error</>;
   }
 
-  // userUpdaterのかわりに、サーバー通信してTwitterIntegrationをDocumentを作る処理を実装する
-
-  setIntegrations({
-    ...integrations,
-    uid: userValue.user.uid,
-    twitterIntegration: integration,
-  });
+  try {
+    updateTwitterIntegration(userValue.user.uid, integration);
+    setIntegrations({
+      ...integrations,
+      uid: userValue.user.uid,
+      twitterIntegration: integration,
+    });
+  } catch (error) {
+    return <>error</>;
+  }
 
   history.push('/setting');
 

@@ -13,7 +13,6 @@ import { SettingPage } from './pages/setting/components/SettingPage';
 import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
-import { UserUpdater } from './pages/shared/containers/UserUpdater';
 import { SignInPage } from './pages/signin/components/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { Auth } from './pages/shared/components/Auth';
@@ -42,12 +41,10 @@ const App: React.FC = () => {
                 <Route path="/apicallback" component={ApiCallbackPage} />
                 <Auth>
                   <UserInitializer>
-                    <UserUpdater>
-                      <Route path="/dashboard" component={DashboardPage} />
-                      <Route path="/setting" component={SettingPage} />
-                      <Route path="/events/:eventId" component={Eventpage} />
-                      <Route path="/organizer" component={OrganizerPage} />
-                    </UserUpdater>
+                    <Route path="/dashboard" component={DashboardPage} />
+                    <Route path="/setting" component={SettingPage} />
+                    <Route path="/events/:eventId" component={Eventpage} />
+                    <Route path="/organizer" component={OrganizerPage} />
                   </UserInitializer>
                 </Auth>
               </div>

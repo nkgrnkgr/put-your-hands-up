@@ -41,6 +41,7 @@ export const updateTwitterIntegration = (
   uid: string,
   twitterIntegration: TwitterIntegration | null,
 ) => {
+  // todo userUpdaterのかわりに、サーバー通信してTwitterIntegrationをDocumentを作る処理を実装する
   const userRef = COLLECTION.doc(uid);
   userRef.update({
     twitterIntegration:
