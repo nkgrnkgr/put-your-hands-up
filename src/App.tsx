@@ -14,7 +14,7 @@ import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { PrivateRoute } from './pages/shared/components/PrivateRoute';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
-import { SignInPage } from './pages/signin/components/SignInPage';
+import { SignInPage } from './pages/signin/containers/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
 import { FirebaseAuthLoadedListener } from './pages/shared/components/FirebaseAuthLoadedListener';
