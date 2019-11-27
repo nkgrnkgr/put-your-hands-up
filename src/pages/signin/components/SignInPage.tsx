@@ -1,5 +1,13 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme, Button } from '@material-ui/core';
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  Button,
+  Container,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import { RouteComponentProps, useHistory } from 'react-router';
 import {
   signInWithAnonyMously,
@@ -11,7 +19,18 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      minHeight: '100vh',
+    },
+    title: {
+      margin: theme.spacing(2),
+    },
+    content: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    button: {
+      margin: theme.spacing(2),
     },
   }),
 );
@@ -22,23 +41,37 @@ export const SignInPage: React.FC<Props> = () => {
   const classes = useStyles();
   const history = useHistory();
 
+  const buttons = [
+    { name: 'Twitter', onClick: () => signInWithTwitter() },
+    { name: 'Google', onClick: () => signInWithGoogle() },
+    { name: '匿名', onClick: () => signInWithAnonyMously() },
+  ];
+
   return (
-    <div className={classes.root}>
-      <button onClick={() => signInWithTwitter()}>Sign In with Twitter</button>
-      <button onClick={() => signInWithGoogle()}>Sign In with Google</button>
-      <button onClick={() => signInWithAnonyMously()}>
-        Sign In Anonymously
-      </button>
-      <button onClick={() => signOut()}>Sign Out</button>
-      <div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => history.push('/dashboard')}
-        >
-          Dashboard
-        </Button>
-      </div>
+    <div>
+      <Grid container direction="row" justify="center" alignContent="center">
+        {buttons.map(button => (
+          <Grid item xs key={button.name}>
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={button.onClick}
+              color="primary"
+            >
+              {button.name}でログイン
+            </Button>
+          </Grid>
+        ))}
+      </Grid>
     </div>
+
+    // <Typography className={classes.title} variant="h4" align="center">
+    //   Welcome!
+    // </Typography>
+    // <Typography className={classes.title} variant="body1" align="center">
+    //   ソーシャルアカウントまたは匿名でログイン
+    // </Typography>
+    // <div className={classes.content}>
+    // </div>
   );
 };
