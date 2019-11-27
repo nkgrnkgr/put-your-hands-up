@@ -7,6 +7,7 @@ import {
   makeStyles,
   Theme,
   Typography,
+  Divider,
 } from '@material-ui/core';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -42,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       textAlign: 'center',
+      margin: theme.spacing(2),
+    },
+    page2: {
+      background: '#fff',
     },
   }),
 );
@@ -121,9 +126,37 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   GET STARTED
                 </Button>
               </div>
+              <div className={classes.centerWrapper}>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="default"
+                  onClick={() => history.push('/organizer')}
+                >
+                  イベント管理者向け
+                </Button>
+              </div>
             </Grid>
           </Grid>
         </Container>
+        {/* <div className={classes.content}>
+          <Divider />
+        </div>
+        <div className={classes.page2}>
+          <Container>
+            <Grid className={classes.content} container justify="center">
+              <Grid item xs>
+                <Typography
+                  className={classes.title}
+                  align="center"
+                  variant="h4"
+                >
+                  a
+                </Typography>
+              </Grid>
+            </Grid>
+          </Container>
+        </div> */}
       </Page>
     </>
   );
