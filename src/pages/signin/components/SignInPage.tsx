@@ -19,7 +19,7 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      minHeight: '100vh',
+      height: '100vh',
     },
     title: {
       margin: theme.spacing(2),
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignContent: 'center',
+    },
+    buttonContent: {
+      textAlign: 'center',
     },
     button: {
       margin: theme.spacing(2),
@@ -48,10 +51,23 @@ export const SignInPage: React.FC<Props> = () => {
   ];
 
   return (
-    <div>
-      <Grid container direction="row" justify="center" alignContent="center">
+    <Grid
+      className={classes.root}
+      container
+      direction="row"
+      justify="center"
+      alignContent="center"
+    >
+      <Grid container>
+        <Grid item xs>
+          <Typography className={classes.title} variant="h4" align="center">
+            Welcome!
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container>
         {buttons.map(button => (
-          <Grid item xs key={button.name}>
+          <Grid className={classes.buttonContent} item xs key={button.name}>
             <Button
               className={classes.button}
               variant="contained"
@@ -63,11 +79,8 @@ export const SignInPage: React.FC<Props> = () => {
           </Grid>
         ))}
       </Grid>
-    </div>
+    </Grid>
 
-    // <Typography className={classes.title} variant="h4" align="center">
-    //   Welcome!
-    // </Typography>
     // <Typography className={classes.title} variant="body1" align="center">
     //   ソーシャルアカウントまたは匿名でログイン
     // </Typography>
