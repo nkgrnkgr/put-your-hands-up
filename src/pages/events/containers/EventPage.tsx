@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Loading from '../../shared/components/Loading';
 import { Eventpage as Component } from '../components/EventPage';
 import { useEvent } from '../../../hooks/events';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 type Params = {
   eventId: string;
@@ -17,6 +18,7 @@ export const Eventpage = (props: Props) => {
     },
   } = props;
   const { event, loading, error } = useEvent(eventId);
+  const { callNotification } = useContext(NotificationContext);
 
   if (!event) {
     return <></>;
@@ -27,7 +29,10 @@ export const Eventpage = (props: Props) => {
   }
 
   if (error) {
-    return <>error</>;
+    callNotification(
+      'データの取得に失敗しました。ページをリロードしてください',
+      'error',
+    );
   }
 
   return <Component event={event} />;

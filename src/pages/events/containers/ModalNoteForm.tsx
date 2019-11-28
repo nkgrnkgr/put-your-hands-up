@@ -59,9 +59,9 @@ export const ModalNoteForm = (props: Props) => {
         oauth_token_secret: twitterIntegration.accessTokenSecret,
         status,
       });
-      callNotification('Your Tweet is Successed🎉', 'info');
+      callNotification('Tweet Successed 🎉', 'success');
     } catch (error) {
-      callNotification('Faild❌', 'error');
+      callNotification('Tweet Faild ❌', 'error');
     }
   };
 

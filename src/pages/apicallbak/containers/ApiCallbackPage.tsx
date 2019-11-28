@@ -31,7 +31,10 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
   }
 
   if (error) {
-    callNotification(error.message, 'error');
+    callNotification(
+      'Twitter連携に失敗しました。ページをリロードしてやり直してください',
+      'error',
+    );
   }
 
   try {
@@ -45,7 +48,10 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
       twitterIntegration: integration,
     });
   } catch (error) {
-    callNotification(error.message, 'error');
+    callNotification(
+      'Twitter連携に失敗しました。ページをリロードしてやり直してください',
+      'error',
+    );
   }
 
   history.push('/setting');

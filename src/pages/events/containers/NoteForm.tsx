@@ -75,9 +75,9 @@ export const NoteForm = (props: Props) => {
           integrations.twitterIntegration,
           v.noteContents.comment,
         );
-        callNotification('Your Tweet is Successed🎉', 'info');
+        callNotification('Tweet Successed 🎉', 'success');
       } catch (error) {
-        callNotification('Faild❌', 'error');
+        callNotification('Tweet Faild ❌', 'error');
       }
     }
   };

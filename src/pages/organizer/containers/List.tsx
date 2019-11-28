@@ -4,17 +4,22 @@ import { UserContext } from '../../../contexts/UserContext';
 import Loading from '../../shared/components/Loading';
 import { List as Component } from '../components/List';
 import { useOrganizersEventList } from '../../../hooks/events';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 export const List: React.FC<RouteComponentProps> = () => {
   const { user } = useContext(UserContext);
   const { eventList, loading, error } = useOrganizersEventList(user.uid);
+  const { callNotification } = useContext(NotificationContext);
 
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <>error</>;
+    callNotification(
+      'データの取得に失敗しました。ページをリロードしてください',
+      'error',
+    );
   }
 
   return <Component eventList={eventList} />;

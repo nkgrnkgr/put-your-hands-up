@@ -12,6 +12,7 @@ import {
   EventModel,
 } from '../../../models/Event';
 import { EditEventForm as Component } from '../components/EditEventForm';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 interface Props {
   event: EventModel | null;
@@ -19,6 +20,7 @@ interface Props {
 
 export const EditForm: React.FC<Props> = ({ event }) => {
   const { user } = useContext(UserContext);
+  const { callNotification } = useContext(NotificationContext);
   const history = useHistory();
 
   const handleSubmit = async (values: EventModel) => {
@@ -30,7 +32,10 @@ export const EditForm: React.FC<Props> = ({ event }) => {
       }
       history.push('/organizer');
     } catch (error) {
-      console.error(error);
+      callNotification(
+        'データの更新に失敗しました。ページをリロードしてやり直してください',
+        'error',
+      );
     }
   };
 
@@ -39,7 +44,10 @@ export const EditForm: React.FC<Props> = ({ event }) => {
       await deleteEvent(values);
       history.push('/organizer');
     } catch (error) {
-      console.error(error);
+      callNotification(
+        'データの削除に失敗しました。ページをリロードしてやり直してください',
+        'error',
+      );
     }
   };
 

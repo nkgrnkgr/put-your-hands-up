@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEventsUrl } from '../../../hooks/useEventsUrl';
 import Loading from '../../shared/components/Loading';
 import { ReplyComments as Component } from '../components/ReplyComments';
 import { sortByOldest } from '../../../models/ReplyComment';
 import { useNote } from '../../../hooks/notes';
 import { useReplyCommentsSnapshot } from '../../../hooks/replyComments';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 export const ReplyComments = () => {
   const { eventId, ltId, noteId } = useEventsUrl();
@@ -18,6 +19,7 @@ export const ReplyComments = () => {
     loading: replyCommentsLoading,
     error: replyCommentsError,
   } = useReplyCommentsSnapshot(noteId || '');
+  const { callNotification } = useContext(NotificationContext);
 
   if (!noteId || !note) {
     return <></>;
@@ -28,8 +30,10 @@ export const ReplyComments = () => {
   }
 
   if (noteError || replyCommentsError) {
-    console.error(noteError);
-    console.error(replyCommentsError);
+    callNotification(
+      'データの取得に失敗しました。ページをリロードしてください',
+      'error',
+    );
   }
 
   return <Component note={note} replyComments={sortByOldest(replyComments)} />;
