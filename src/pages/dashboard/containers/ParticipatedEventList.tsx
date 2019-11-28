@@ -5,6 +5,7 @@ import Loading from '../../shared/components/Loading';
 import { ParticipatedEventList as Component } from '../components/ParticipatedEventList';
 import { useParticipatedEventList } from '../../../hooks/events';
 import { useUser } from '../../../hooks/users';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 const updateUserEventIdsParticipated = (
   user: UserModel,
@@ -22,6 +23,7 @@ export const ParticipatedEventList = () => {
     user.uid,
     user.isAnonymous,
   );
+  const { callNotification } = useContext(NotificationContext);
 
   const {
     eventList,
@@ -40,7 +42,10 @@ export const ParticipatedEventList = () => {
   }
 
   if (userError || eventListError) {
-    return <>Error</>;
+    callNotification(
+      'データの取得に失敗しました。ページをリロードしてください',
+      'error',
+    );
   }
 
   return <Component eventList={eventList} />;

@@ -4,6 +4,7 @@ import { useUser } from '../../../hooks/users';
 import Loading from './Loading';
 import { useIntegrations } from '../../../hooks/integrations';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 export const UserInitializer: React.FC = ({ children }) => {
   const { user, setUser } = useContext(UserContext);
@@ -15,6 +16,7 @@ export const UserInitializer: React.FC = ({ children }) => {
     loading: integrationLoading,
     error: integrationError,
   } = useIntegrations(uid);
+  const { callNotification } = useContext(NotificationContext);
 
   useEffect(() => {
     if (fetchedUser) {
@@ -30,9 +32,10 @@ export const UserInitializer: React.FC = ({ children }) => {
   }
 
   if (error || integrationError) {
-    console.error(error, integrationError);
-
-    return <>error</>;
+    callNotification(
+      'データの取得に失敗しました。ページをリロードしてください',
+      'error',
+    );
   }
 
   return <>{children}</>;

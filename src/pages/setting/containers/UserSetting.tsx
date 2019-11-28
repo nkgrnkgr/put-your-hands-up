@@ -11,11 +11,13 @@ import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
   const { uid } = user;
+  const { callNotification } = useContext(NotificationContext);
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
     if (isIntegrating) {
       try {
@@ -29,7 +31,10 @@ export const UserSetting = () => {
         const { oauth_token } = params;
         window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${oauth_token}`;
       } catch (error) {
-        console.error(error);
+        callNotification(
+          'データの更新に失敗しました。ページをリロードしてやり直してください',
+          'error',
+        );
       }
     } else {
       addOrUpdateIntegrations({ id: uid });
