@@ -1,13 +1,16 @@
+import queryString, { ParsedQuery } from 'query-string';
 import React, { useContext } from 'react';
-import { SignInPage as Component } from '../components/SignInPage';
-import { UserContext } from '../../../contexts/UserContext';
 import { useHistory } from 'react-router';
+import { UserContext } from '../../../contexts/UserContext';
+import { SignInPage as Component } from '../components/SignInPage';
 
 export const SignInPage: React.FC = () => {
   const { user } = useContext(UserContext);
+  const params: ParsedQuery<string> = queryString.parse(window.location.search);
+  const { state } = params;
   const history = useHistory();
   if (user.uid !== '') {
-    history.push('/dashboard');
+    history.push(`/${state || 'dashboard'}`);
   }
 
   return <Component />;

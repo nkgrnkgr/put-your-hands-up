@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   createStyles,
@@ -7,13 +6,12 @@ import {
   makeStyles,
   Theme,
   Typography,
-  Divider,
 } from '@material-ui/core';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Page } from '../../shared/components/Page';
-import _top from '../../../images/_top.svg';
 import pyhuloge_pink from '../../../images/pyhuloge_pink.png';
+import _top from '../../../images/_top.svg';
+import { Page } from '../../shared/components/Page';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -121,7 +119,9 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   className={classes.button}
                   variant="contained"
                   color="primary"
-                  onClick={() => history.push('/signin')}
+                  onClick={() =>
+                    history.push({ pathname: '/dashbord', state: 'dashboard' })
+                  }
                 >
                   GET STARTED
                 </Button>
@@ -131,7 +131,9 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   className={classes.button}
                   variant="outlined"
                   color="default"
-                  onClick={() => history.push('/organizer')}
+                  onClick={() =>
+                    history.push({ pathname: '/organizer', state: 'organizer' })
+                  }
                 >
                   イベント管理者向け
                 </Button>
@@ -139,24 +141,6 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
             </Grid>
           </Grid>
         </Container>
-        {/* <div className={classes.content}>
-          <Divider />
-        </div>
-        <div className={classes.page2}>
-          <Container>
-            <Grid className={classes.content} container justify="center">
-              <Grid item xs>
-                <Typography
-                  className={classes.title}
-                  align="center"
-                  variant="h4"
-                >
-                  a
-                </Typography>
-              </Grid>
-            </Grid>
-          </Container>
-        </div> */}
       </Page>
     </>
   );
