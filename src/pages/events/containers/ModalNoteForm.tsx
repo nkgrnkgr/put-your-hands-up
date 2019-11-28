@@ -14,6 +14,7 @@ import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { tweet } from '../../../firebase/api/callFunctions';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 import { TwitterIntegration } from '../../../models/Integrations';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 interface Props {
   eventId: string;
@@ -30,6 +31,7 @@ export const ModalNoteForm = (props: Props) => {
   const { eventId, ltId } = props;
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
+  const { callNotification } = useContext(NotificationContext);
 
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
@@ -51,11 +53,16 @@ export const ModalNoteForm = (props: Props) => {
     twitterIntegration: TwitterIntegration,
     status: string,
   ) => {
-    tweet({
-      oauth_token: twitterIntegration.accessToken,
-      oauth_token_secret: twitterIntegration.accessTokenSecret,
-      status,
-    });
+    try {
+      tweet({
+        oauth_token: twitterIntegration.accessToken,
+        oauth_token_secret: twitterIntegration.accessTokenSecret,
+        status,
+      });
+      callNotification('Your Tweet is Successed🎉', 'info');
+    } catch (error) {
+      callNotification('Faild❌', 'error');
+    }
   };
 
   const onSubmit = async (

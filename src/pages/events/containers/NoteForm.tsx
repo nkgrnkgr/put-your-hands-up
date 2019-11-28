@@ -13,6 +13,7 @@ import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { tweet } from '../../../firebase/api/callFunctions';
 import { TwitterIntegration } from '../../../models/Integrations';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 interface Props {
   eventId: string;
@@ -40,6 +41,7 @@ export const NoteForm = (props: Props) => {
   const { eventId, ltId } = props;
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
+  const { callNotification } = useContext(NotificationContext);
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
   const toggleTwitterShare = () => {
@@ -68,7 +70,15 @@ export const NoteForm = (props: Props) => {
       v.noteContents &&
       v.noteContents.comment
     ) {
-      shareWithTwitter(integrations.twitterIntegration, v.noteContents.comment);
+      try {
+        shareWithTwitter(
+          integrations.twitterIntegration,
+          v.noteContents.comment,
+        );
+        callNotification('Your Tweet is Successed🎉', 'info');
+      } catch (error) {
+        callNotification('Faild❌', 'error');
+      }
     }
   };
 

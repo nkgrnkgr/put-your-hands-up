@@ -2,6 +2,7 @@ import queryString, { ParsedQuery } from 'query-string';
 import React, { useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 import { UserContext } from '../../../contexts/UserContext';
 import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
 import { useTwitterIntegration } from '../../../hooks/twitterIntegration';
@@ -11,6 +12,7 @@ type Props = RouteComponentProps;
 
 export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { callNotification } = useContext(NotificationContext);
   const { user } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(location.search);
   const { oauth_token, oauth_verifier } = params;
@@ -29,7 +31,7 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
   }
 
   if (error) {
-    return <>error</>;
+    callNotification(error.message, 'error');
   }
 
   try {
@@ -43,7 +45,7 @@ export const ApiCallbackPage: React.FC<Props> = ({ location, history }) => {
       twitterIntegration: integration,
     });
   } catch (error) {
-    return <>error</>;
+    callNotification(error.message, 'error');
   }
 
   history.push('/setting');
