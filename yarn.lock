@@ -1752,10 +1752,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-datepicker@2.9.4":
-  version "2.9.4"
-  resolved "https://registry.yarnpkg.com/@types/react-datepicker/-/react-datepicker-2.9.4.tgz#6a125dff98f89d74d00df46ceb4688ad96b649e1"
-  integrity sha512-YhjYeNzijYl0GF7G3XfccheqHND8vo/OGsFu0uqmG2b0LFobClAaf3vkEcYYJ7zwaC/Nww1BE/T8B9t1jwpxPA==
+"@types/react-datepicker@2.9.5":
+  version "2.9.5"
+  resolved "https://registry.yarnpkg.com/@types/react-datepicker/-/react-datepicker-2.9.5.tgz#6841d7fa3df1e54d8175e169af92f51db80b271d"
+  integrity sha512-gLwkzJ7Q1Cavb/k4irjFf0KaWMxfhJnk5SRw9RbwOAFlOgDi2TBDX1eBjkcSkerD0MKpJSyMFjgxK53V6g9Nnw==
   dependencies:
     "@types/react" "*"
     date-fns "^2.0.1"
