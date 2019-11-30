@@ -2,6 +2,7 @@
   "extends": [
     "config:base"
   ],
+  "schedule": "before 8am on Monday",
   "minor": {
     "groupName": "all dependencies"
   }
