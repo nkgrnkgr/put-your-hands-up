@@ -21,7 +21,7 @@
     "connpass": "1.1.0",
     "dayjs": "1.8.17",
     "firebase": "7.4.0",
-    "formik": "2.0.4",
+    "formik": "2.0.6",
     "husky": "3.1.0",
     "lint-staged": "9.4.3",
     "query-string": "6.9.0",
