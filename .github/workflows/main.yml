@@ -16,4 +16,4 @@ jobs:
       - name: Install Dependencies
         run: yarn
       - name: Run test
-        run: yarn test
+        run: CI=true yarn test
