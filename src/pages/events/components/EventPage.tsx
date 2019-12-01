@@ -6,7 +6,6 @@ import { getYearMonthDayHourMitutes } from '../../../utils/datetime';
 import { HtmlTitle } from '../../shared/components/HtmlTitle';
 import { PageHeader } from '../../shared/containers/PageHeader';
 import { ModalFab } from '../containers/ModalFab';
-import { ModalNoteForm } from '../containers/ModalNoteForm';
 import { NoteForm } from '../containers/NoteForm';
 import { NoteList } from '../containers/NoteList';
 import { ParticipatedUsers } from '../containers/ParticipatedUsers';
@@ -61,11 +60,6 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
           <ParticipatedUsers event={event} />
           {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
           <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
-          <ModalNoteForm
-            eventId={event.id}
-            ltId={ltId}
-            hashTag={event.hashTag}
-          />
           <ModalFab />
           <SortTab />
           <NoteList eventId={event.id} ltId={ltId} />
