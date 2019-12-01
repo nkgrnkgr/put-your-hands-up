@@ -10,7 +10,7 @@ export const ModalFab = () => {
   const handleOnClick = () => {
     setApplicationValues({
       ...applicationValues,
-      isOpenModal: true,
+      isOpenNoteForm: true,
     });
   };
 

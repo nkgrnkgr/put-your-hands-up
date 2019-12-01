@@ -1,13 +1,13 @@
 import {
   createStyles,
   Divider,
+  Hidden,
   makeStyles,
   Paper,
   Theme,
-  Hidden,
 } from '@material-ui/core';
 import { FormikProps } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import { NoteContentsModel } from '../../../models/Note';
 import { UserModel } from '../../../models/User';
 import { ColorSelection } from './ColorSelection';
@@ -18,6 +18,9 @@ import { TagForm } from './TagForm';
 
 interface OuterProps {
   user: UserModel;
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
   sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
   toggleTwitterShare: () => void;
@@ -43,12 +46,14 @@ export const NoteForm: React.FC<Props> = props => {
     handleSubmit,
     values,
     setFieldValue,
+    open,
+    onOpen,
+    onClose,
     sholdShowTwitter,
     sholdTwitterShare,
     toggleTwitterShare,
   } = props;
 
-  const [isExpanded, setExpanded] = useState(false);
   const classes = useStyles();
 
   return (
@@ -57,10 +62,10 @@ export const NoteForm: React.FC<Props> = props => {
         <form onSubmit={handleSubmit}>
           <CommentForm
             {...props}
-            rowCount={isExpanded ? '4' : '1'}
-            handleOnForcus={() => setExpanded(true)}
+            rowCount={open ? '4' : '1'}
+            handleOnForcus={onOpen}
           />
-          {isExpanded && (
+          {open && (
             <>
               <RecommendComments
                 handleOnClick={(comment: string) =>
@@ -73,7 +78,7 @@ export const NoteForm: React.FC<Props> = props => {
               <ColorSelection {...props} />
               <Divider />
               <NoteButtons
-                handleOnClickCloseButton={() => setExpanded(false)}
+                handleOnClickCloseButton={onClose}
                 sholdShowTwitter={sholdShowTwitter}
                 sholdTwitterShare={sholdTwitterShare}
                 toggleTwitterShare={toggleTwitterShare}

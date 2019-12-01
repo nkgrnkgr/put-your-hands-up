@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 interface AppclicationValues {
   isFirebaseAuthInitialized: boolean;
   isSidebarOpen: boolean;
-  isOpenModal: boolean;
+  isOpenNoteForm: boolean;
   isOpenReplayComments: boolean;
 }
 
@@ -17,7 +17,7 @@ interface ApplicationState {
 const initialApplicationValues: AppclicationValues = {
   isFirebaseAuthInitialized: false,
   isSidebarOpen: false,
-  isOpenModal: false,
+  isOpenNoteForm: false,
   isOpenReplayComments: false,
 };
 
