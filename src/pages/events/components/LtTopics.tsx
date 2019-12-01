@@ -90,35 +90,45 @@ export const LtTopics: React.FC<Props> = ({ eventId, lts }) => {
           セッション - 登壇者情報
         </Typography>
         <Divider />
-        <List dense component="nav" aria-label="visited event list">
-          {lts.map((lt, index) => (
-            <>
-              <ListItem
-                button
-                key={lt.title}
-                onClick={() =>
-                  history.push(`/events/${eventId}/?ltId=${lt.id}`)
-                }
-              >
-                <ListItemIcon>
-                  <IconLink
-                    title={lt.title}
-                    className={clsx(classes.icon, 'fas fa-chalkboard-teacher')}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={lt.title} secondary={lt.speakerName} />
-              </ListItem>
-              <DocumentList
-                documentList={[
-                  lt.documentUrl1,
-                  lt.documentUrl2,
-                  lt.documentUrl3,
-                ]}
-              />
-              {lts.length !== index + 1 && <Divider />}
-            </>
-          ))}
-        </List>
+        {lts && lts.length === 0 && (
+          <Typography variant="body1" className={classes.title}>
+            なし
+          </Typography>
+        )}
+        {lts && lts.length > 0 && (
+          <List dense component="nav" aria-label="visited event list">
+            {lts.map((lt, index) => (
+              <>
+                <ListItem
+                  button
+                  key={lt.title}
+                  onClick={() =>
+                    history.push(`/events/${eventId}/?ltId=${lt.id}`)
+                  }
+                >
+                  <ListItemIcon>
+                    <IconLink
+                      title={lt.title}
+                      className={clsx(
+                        classes.icon,
+                        'fas fa-chalkboard-teacher',
+                      )}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary={lt.title} secondary={lt.speakerName} />
+                </ListItem>
+                <DocumentList
+                  documentList={[
+                    lt.documentUrl1,
+                    lt.documentUrl2,
+                    lt.documentUrl3,
+                  ]}
+                />
+                {lts.length !== index + 1 && <Divider />}
+              </>
+            ))}
+          </List>
+        )}
       </Paper>
     </>
   );
