@@ -1,6 +1,7 @@
 import { Formik, FormikHelpers } from 'formik';
 import React, { useContext, useState } from 'react';
-import { NoteForm as NoteListComponent } from '../components/NoteForm';
+import { NoteForm as Component } from '../components/NoteForm';
+import { ModalNoteForm as ModalComponent } from '../components/ModalNoteForm';
 import { UserContext } from '../../../contexts/UserContext';
 import { addNote } from '../../../firebase/api/notes';
 import {
@@ -9,15 +10,19 @@ import {
   NoteModel,
 } from '../../../models/Note';
 import { now } from '../../../utils/datetime';
+import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { tweet } from '../../../firebase/api/callFunctions';
 import { TwitterIntegration } from '../../../models/Integrations';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface Props {
   eventId: string;
   ltId: string;
+  hashTag: string;
 }
 
 const createInitialValue = (uid: string) => ({
@@ -25,6 +30,14 @@ const createInitialValue = (uid: string) => ({
   createUserId: uid,
   created: now(),
 });
+
+const addtHashTagToComment = (comment: string, hashTag: string) => {
+  if (hashTag && hashTag !== '') {
+    return `${comment}\n\n#${hashTag}`;
+  }
+
+  return comment;
+};
 
 const shareWithTwitter = (
   twitterIntegration: TwitterIntegration,
@@ -38,10 +51,25 @@ const shareWithTwitter = (
 };
 
 export const NoteForm = (props: Props) => {
-  const { eventId, ltId } = props;
+  const { eventId, ltId, hashTag } = props;
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
   const { callNotification } = useContext(NotificationContext);
+
+  const theme = useTheme();
+  const isTabletOrPCLayout = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmartPhoneLayout = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const { applicationValues, setApplicationValues } = useContext(
+    ApplicationContext,
+  );
+
+  const onClickCloseButton = () => {
+    setApplicationValues({
+      ...applicationValues,
+      isOpenModal: false,
+    });
+  };
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
   const toggleTwitterShare = () => {
@@ -73,7 +101,7 @@ export const NoteForm = (props: Props) => {
       try {
         shareWithTwitter(
           integrations.twitterIntegration,
-          v.noteContents.comment,
+          addtHashTagToComment(v.noteContents.comment, hashTag),
         );
         callNotification('Tweet Successed 🎉', 'success');
       } catch (error) {
@@ -86,15 +114,35 @@ export const NoteForm = (props: Props) => {
     <Formik
       initialValues={createInitialValue(user.uid)}
       onSubmit={onSubmit}
-      render={props => (
-        <NoteListComponent
-          {...props}
-          user={user}
-          sholdShowTwitter={integrations.twitterIntegration !== undefined}
-          sholdTwitterShare={sholdTwitterShare}
-          toggleTwitterShare={toggleTwitterShare}
-        />
-      )}
+      render={props => {
+        if (isSmartPhoneLayout) {
+          return (
+            <ModalComponent
+              {...props}
+              user={user}
+              open={applicationValues.isOpenModal}
+              onClose={onClickCloseButton}
+              sholdShowTwitter={integrations.twitterIntegration !== undefined}
+              sholdTwitterShare={sholdTwitterShare}
+              toggleTwitterShare={toggleTwitterShare}
+            />
+          );
+        }
+
+        if (isTabletOrPCLayout) {
+          return (
+            <Component
+              {...props}
+              user={user}
+              sholdShowTwitter={integrations.twitterIntegration !== undefined}
+              sholdTwitterShare={sholdTwitterShare}
+              toggleTwitterShare={toggleTwitterShare}
+            />
+          );
+        }
+
+        return <></>;
+      }}
     />
   );
 };

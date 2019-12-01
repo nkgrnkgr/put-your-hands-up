@@ -40,17 +40,19 @@ export const EventCard: React.FC<Props> = ({ event }) => {
           {url}
         </a>
       </Typography>
-      <Typography variant="body2" className={classes.contents}>
-        ハッシュタグ：
-        <a
-          aria-label={'url'}
-          href={hashTagSearchUrl}
-          target="_brank"
-          rel="noopener"
-        >
-          {`#${event.hashTag}`}
-        </a>
-      </Typography>
+      {event.hashTag && (
+        <Typography variant="body2" className={classes.contents}>
+          ハッシュタグ：
+          <a
+            aria-label={'url'}
+            href={hashTagSearchUrl}
+            target="_brank"
+            rel="noopener"
+          >
+            {`#${event.hashTag}`}
+          </a>
+        </Typography>
+      )}
       <Typography variant="body2" className={classes.contents}>
         登壇タイトル：
       </Typography>
