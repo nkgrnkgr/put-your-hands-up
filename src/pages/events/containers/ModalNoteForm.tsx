@@ -19,6 +19,7 @@ import { NotificationContext } from '../../../contexts/NotificationContext';
 interface Props {
   eventId: string;
   ltId: string;
+  hashTag: string;
 }
 
 const createInitialValue = (uid: string) => ({
@@ -27,8 +28,16 @@ const createInitialValue = (uid: string) => ({
   created: now(),
 });
 
+const addtHashTagToComment = (comment: string, hashTag: string) => {
+  if (hashTag && hashTag !== '') {
+    return `${comment}\n\n#${hashTag}`;
+  }
+
+  return comment;
+};
+
 export const ModalNoteForm = (props: Props) => {
-  const { eventId, ltId } = props;
+  const { eventId, ltId, hashTag } = props;
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
   const { callNotification } = useContext(NotificationContext);
@@ -88,7 +97,10 @@ export const ModalNoteForm = (props: Props) => {
       v.noteContents &&
       v.noteContents.comment
     ) {
-      shareWithTwitter(integrations.twitterIntegration, v.noteContents.comment);
+      shareWithTwitter(
+        integrations.twitterIntegration,
+        addtHashTagToComment(v.noteContents.comment, hashTag),
+      );
     }
     onClickCloseButton();
   };

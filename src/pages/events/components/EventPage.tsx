@@ -60,8 +60,12 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
           />
           <ParticipatedUsers event={event} />
           {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
-          <NoteForm eventId={event.id} ltId={ltId} />
-          <ModalNoteForm eventId={event.id} ltId={ltId} />
+          <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
+          <ModalNoteForm
+            eventId={event.id}
+            ltId={ltId}
+            hashTag={event.hashTag}
+          />
           <ModalFab />
           <SortTab />
           <NoteList eventId={event.id} ltId={ltId} />

@@ -1,6 +1,6 @@
 import { Formik, FormikHelpers } from 'formik';
 import React, { useContext, useState } from 'react';
-import { NoteForm as NoteListComponent } from '../components/NoteForm';
+import { NoteForm as Component } from '../components/NoteForm';
 import { UserContext } from '../../../contexts/UserContext';
 import { addNote } from '../../../firebase/api/notes';
 import {
@@ -18,6 +18,7 @@ import { NotificationContext } from '../../../contexts/NotificationContext';
 interface Props {
   eventId: string;
   ltId: string;
+  hashTag: string;
 }
 
 const createInitialValue = (uid: string) => ({
@@ -25,6 +26,14 @@ const createInitialValue = (uid: string) => ({
   createUserId: uid,
   created: now(),
 });
+
+const addtHashTagToComment = (comment: string, hashTag: string) => {
+  if (hashTag && hashTag !== '') {
+    return `${comment}\n\n#${hashTag}`;
+  }
+
+  return comment;
+};
 
 const shareWithTwitter = (
   twitterIntegration: TwitterIntegration,
@@ -38,7 +47,7 @@ const shareWithTwitter = (
 };
 
 export const NoteForm = (props: Props) => {
-  const { eventId, ltId } = props;
+  const { eventId, ltId, hashTag } = props;
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
   const { callNotification } = useContext(NotificationContext);
@@ -73,7 +82,7 @@ export const NoteForm = (props: Props) => {
       try {
         shareWithTwitter(
           integrations.twitterIntegration,
-          v.noteContents.comment,
+          addtHashTagToComment(v.noteContents.comment, hashTag),
         );
         callNotification('Tweet Successed 🎉', 'success');
       } catch (error) {
@@ -87,7 +96,7 @@ export const NoteForm = (props: Props) => {
       initialValues={createInitialValue(user.uid)}
       onSubmit={onSubmit}
       render={props => (
-        <NoteListComponent
+        <Component
           {...props}
           user={user}
           sholdShowTwitter={integrations.twitterIntegration !== undefined}
