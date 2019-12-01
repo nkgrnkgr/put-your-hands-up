@@ -61,9 +61,9 @@ export interface SortOrderModel {
   function: (notes: NoteModel[]) => NoteModel[];
 }
 
-export const SORT_ORDER_LABEL = ['favorite', 'latest'];
-export const SORT_ORDER_ICON = ['fas fa-heart', 'far fa-clock'];
-export const SORT_ORDER_FUNCTION = [sortByMostFavolite, sortByLatest];
+export const SORT_ORDER_LABEL = ['latest', 'favorite'];
+export const SORT_ORDER_ICON = ['far fa-clock', 'fas fa-heart'];
+export const SORT_ORDER_FUNCTION = [sortByLatest, sortByMostFavolite];
 const createSortOrderTable = (): SortOrderModel[] =>
   SORT_ORDER_LABEL.map((label, index) => ({
     index,
