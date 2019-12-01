@@ -6,5 +6,5 @@ it('renders welcome message', () => {
   // const wrapper = shallow(<App />);
   // const welcome = <h2>Welcome to React</h2>;
   // expect(wrapper).toContainReact(welcome);
-  expect(3).toBe(3);
+  expect(4).toBe(3);
 });
