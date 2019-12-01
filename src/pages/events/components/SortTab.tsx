@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Tab, Tabs } from '@material-ui/core';
+import { SORT_ORDER_TABLE } from '../../../models/Note';
 
 interface Props {
   selectedSortTabIndex: number;
@@ -22,8 +23,13 @@ export const SortTab: React.FC<Props> = ({
       centered
       onChange={handleChange}
     >
-      <Tab label="favorite" icon={<Icon className="fas fa-heart" />} />
-      <Tab label="latest" icon={<Icon className="far fa-clock" />} />
+      {SORT_ORDER_TABLE.map((table, index) => (
+        <Tab
+          key={index}
+          label={table.label}
+          icon={<Icon className={table.icon} />}
+        />
+      ))}
     </Tabs>
   );
 };
