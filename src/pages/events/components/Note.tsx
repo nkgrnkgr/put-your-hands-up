@@ -11,6 +11,7 @@ import {
   makeStyles,
   Tooltip,
   Typography,
+  Slide,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { NoteModel } from '../../../models/Note';
@@ -56,59 +57,61 @@ export const Note: React.FC<Props> = ({
   const sholdShowDeleteButton = note.user.uid === loginUser.uid;
 
   return (
-    <Card style={{ background: note.noteContents.color }}>
-      <CardHeader
-        avatar={
-          <Tooltip title={note.user.displayName}>
-            <Avatar alt={note.user.displayName} src={note.user.avatarUrl} />
-          </Tooltip>
-        }
-        title={note.user.displayName}
-        subheader={ago(note.noteContents.created, 'minute') + '分前'}
-      />
-      <CardContent>
-        <Typography color="textPrimary" component="p">
-          {note.noteContents.comment}
-        </Typography>
-      </CardContent>
-      <CardContent>
-        {note.noteContents.tagTitles.length > 0 &&
-          note.noteContents.tagTitles.map((tagTitle, index) => (
-            <Tag key={index} tagTitle={tagTitle} />
-          ))}
-      </CardContent>
-      <CardActions>
-        <IconButton
-          onClick={() => hendleOnClickLikeButton(note, loginUser.uid)}
-        >
-          <Badge
-            badgeContent={note.noteContents.fansIds.length}
-            color="primary"
-          >
-            <HeartIcon isLiked={isLiked} />
-          </Badge>
-        </IconButton>
-        <IconButton onClick={() => handleOnClickCommentButton(note.id)}>
-          <Badge
-            badgeContent={
-              note.commentIds && note.commentIds.length > 0
-                ? note.commentIds.length
-                : 0
-            }
-            color="primary"
-          >
-            <Icon className={clsx('far fa-comment', classes.icon)} />
-          </Badge>
-        </IconButton>
-        {sholdShowDeleteButton && (
+    <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+      <Card style={{ background: note.noteContents.color }}>
+        <CardHeader
+          avatar={
+            <Tooltip title={note.user.displayName}>
+              <Avatar alt={note.user.displayName} src={note.user.avatarUrl} />
+            </Tooltip>
+          }
+          title={note.user.displayName}
+          subheader={ago(note.noteContents.created, 'minute') + '分前'}
+        />
+        <CardContent>
+          <Typography color="textPrimary" component="p">
+            {note.noteContents.comment}
+          </Typography>
+        </CardContent>
+        <CardContent>
+          {note.noteContents.tagTitles.length > 0 &&
+            note.noteContents.tagTitles.map((tagTitle, index) => (
+              <Tag key={index} tagTitle={tagTitle} />
+            ))}
+        </CardContent>
+        <CardActions>
           <IconButton
-            className={classes.iconRightEnd}
-            onClick={() => handleOnClickDeletButton(note)}
+            onClick={() => hendleOnClickLikeButton(note, loginUser.uid)}
           >
-            <Icon className={clsx('far fa-trash-alt', classes.icon)} />
+            <Badge
+              badgeContent={note.noteContents.fansIds.length}
+              color="primary"
+            >
+              <HeartIcon isLiked={isLiked} />
+            </Badge>
           </IconButton>
-        )}
-      </CardActions>
-    </Card>
+          <IconButton onClick={() => handleOnClickCommentButton(note.id)}>
+            <Badge
+              badgeContent={
+                note.commentIds && note.commentIds.length > 0
+                  ? note.commentIds.length
+                  : 0
+              }
+              color="primary"
+            >
+              <Icon className={clsx('far fa-comment', classes.icon)} />
+            </Badge>
+          </IconButton>
+          {sholdShowDeleteButton && (
+            <IconButton
+              className={classes.iconRightEnd}
+              onClick={() => handleOnClickDeletButton(note)}
+            >
+              <Icon className={clsx('far fa-trash-alt', classes.icon)} />
+            </IconButton>
+          )}
+        </CardActions>
+      </Card>
+    </Slide>
   );
 };
