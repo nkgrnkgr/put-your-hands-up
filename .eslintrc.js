@@ -19,6 +19,8 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
     __DEV__: true,
     firebase: true,
+    it: true,
+    expect: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
