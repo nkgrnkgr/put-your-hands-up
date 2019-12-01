@@ -64,10 +64,17 @@ export const NoteForm = (props: Props) => {
     ApplicationContext,
   );
 
-  const onClickCloseButton = () => {
+  const closeNoteForm = () => {
     setApplicationValues({
       ...applicationValues,
-      isOpenModal: false,
+      isOpenNoteForm: false,
+    });
+  };
+
+  const openNoteForm = () => {
+    setApplicationValues({
+      ...applicationValues,
+      isOpenNoteForm: true,
     });
   };
 
@@ -108,6 +115,7 @@ export const NoteForm = (props: Props) => {
         callNotification('Tweet Faild ❌', 'error');
       }
     }
+    closeNoteForm();
   };
 
   return (
@@ -120,8 +128,8 @@ export const NoteForm = (props: Props) => {
             <ModalComponent
               {...props}
               user={user}
-              open={applicationValues.isOpenModal}
-              onClose={onClickCloseButton}
+              open={applicationValues.isOpenNoteForm}
+              onClose={closeNoteForm}
               sholdShowTwitter={integrations.twitterIntegration !== undefined}
               sholdTwitterShare={sholdTwitterShare}
               toggleTwitterShare={toggleTwitterShare}
@@ -134,6 +142,9 @@ export const NoteForm = (props: Props) => {
             <Component
               {...props}
               user={user}
+              open={applicationValues.isOpenNoteForm}
+              onOpen={openNoteForm}
+              onClose={closeNoteForm}
               sholdShowTwitter={integrations.twitterIntegration !== undefined}
               sholdTwitterShare={sholdTwitterShare}
               toggleTwitterShare={toggleTwitterShare}
