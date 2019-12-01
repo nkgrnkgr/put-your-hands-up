@@ -56,6 +56,7 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
             eventName={event.name}
             eventDate={getYearMonthDayHourMitutes(event.date)}
             ltName={ltName}
+            hashTag={event.hashTag}
           />
           <ParticipatedUsers event={event} />
           {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
