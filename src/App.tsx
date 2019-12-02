@@ -42,6 +42,7 @@ const App: React.FC = () => {
                 <FirebaseAuthLoadedListener>
                   <div className={classes.root}>
                     <ScrollTop />
+
                     <Notification />
                     <Switch>
                       <Route exact path="/" component={LandingPage} />
