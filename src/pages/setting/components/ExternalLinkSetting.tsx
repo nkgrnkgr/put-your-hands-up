@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   twitterIntegration?: TwitterIntegration;
-  onChangeSettingTwitterIntegration: (isIntegrating: boolean) => {};
+  onChangeSettingTwitterIntegration: (isIntegrating: boolean) => void;
 }
 
 export const ExternalLinkSetting: React.FC<Props> = ({

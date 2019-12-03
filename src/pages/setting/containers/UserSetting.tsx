@@ -1,7 +1,10 @@
 import queryString, { ParsedQuery } from 'query-string';
 import React, { useContext } from 'react';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 import { UserContext } from '../../../contexts/UserContext';
+import { signOut } from '../../../firebase/api/authenticator';
 import {
   FunctionsResponse,
   oauthRequestToken,
@@ -11,11 +14,11 @@ import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
-import { NotificationContext } from '../../../contexts/NotificationContext';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
   const { uid } = user;
   const { callNotification } = useContext(NotificationContext);
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
@@ -40,6 +43,26 @@ export const UserSetting = () => {
       addOrUpdateIntegrations({ id: uid });
       setIntegrations({ id: uid });
     }
+  };
+  const okClickHandler = async () => {
+    if (!user.isAnonymous) {
+      // await deleteUser(uid);
+      signOut();
+
+      return;
+    }
+
+    return signOut();
+  };
+
+  const cancelClickHandler = () => {};
+
+  const onClickDeleteUserButton = () => {
+    callConfirmDialog(
+      '本当に削除しますか？',
+      okClickHandler,
+      cancelClickHandler,
+    );
   };
 
   const setAnonymousUserInfo = (
@@ -67,6 +90,7 @@ export const UserSetting = () => {
       integrations={integrations}
       setAnonymousUserInfo={setAnonymousUserInfo}
       onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
+      onClickDeleteUserButton={onClickDeleteUserButton}
     />
   );
 };

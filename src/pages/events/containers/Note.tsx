@@ -5,6 +5,7 @@ import { UserContext } from '../../../contexts/UserContext';
 import { addOrRemoveFansId, deleteNote } from '../../../firebase/api/notes';
 import { NoteModel } from '../../../models/Note';
 import { Note as NoteComponent } from '../components/Note';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 
 interface Props {
   note: NoteModel;
@@ -17,6 +18,15 @@ export const Note = (props: Props) => {
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
+
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
+  const handleOnCLickDeleteButton = (note: NoteModel) => {
+    callConfirmDialog(
+      '本当に削除しますか？',
+      () => deleteNote(note),
+      () => {},
+    );
+  };
 
   const history = useHistory();
   const openReplyComments = (noteId: string) => {
@@ -36,7 +46,7 @@ export const Note = (props: Props) => {
       loginUser={user}
       isLiked={isLiked}
       hendleOnClickLikeButton={addOrRemoveFansId}
-      handleOnClickDeletButton={deleteNote}
+      handleOnClickDeleteButton={handleOnCLickDeleteButton}
       handleOnClickCommentButton={openReplyComments}
     />
   );

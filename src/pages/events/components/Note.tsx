@@ -25,7 +25,7 @@ interface Props {
   loginUser: UserModel;
   isLiked: boolean;
   hendleOnClickLikeButton: (note: NoteModel, uid: string) => void;
-  handleOnClickDeletButton: (note: NoteModel) => void;
+  handleOnClickDeleteButton: (note: NoteModel) => void;
   handleOnClickCommentButton: (commentId: string) => void;
 }
 
@@ -49,7 +49,7 @@ export const Note: React.FC<Props> = ({
   loginUser,
   isLiked,
   hendleOnClickLikeButton,
-  handleOnClickDeletButton,
+  handleOnClickDeleteButton: handleOnClickDeletButton,
   handleOnClickCommentButton,
 }) => {
   const classes = useStyles();

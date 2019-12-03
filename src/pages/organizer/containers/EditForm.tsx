@@ -13,6 +13,7 @@ import {
 } from '../../../models/Event';
 import { EditEventForm as Component } from '../components/EditEventForm';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 
 interface Props {
   event: EventModel | null;
@@ -21,6 +22,7 @@ interface Props {
 export const EditForm: React.FC<Props> = ({ event }) => {
   const { user } = useContext(UserContext);
   const { callNotification } = useContext(NotificationContext);
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
   const history = useHistory();
 
   const handleSubmit = async (values: EventModel) => {
@@ -51,11 +53,21 @@ export const EditForm: React.FC<Props> = ({ event }) => {
     }
   };
 
+  const handleDeleteButton = (values: EventModel) => {
+    callConfirmDialog(
+      '本当にイベントを削除しますか？削除した場合、２度とアクセスすることはできません',
+      () => handleDelete(values),
+      () => {},
+    );
+  };
+
   return (
     <Formik
       initialValues={event || createInitialEventModelValue(user.uid)}
       onSubmit={handleSubmit}
-      render={props => <Component {...props} handleDelete={handleDelete} />}
+      render={props => (
+        <Component {...props} handleDelete={handleDeleteButton} />
+      )}
     />
   );
 };

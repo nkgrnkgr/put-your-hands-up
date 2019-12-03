@@ -47,3 +47,10 @@ export const updateEventIdsParticipated = (
     eventIdsParticipated: t,
   });
 };
+
+// TODO: Firestoreから直接消すのではなく、Authenticationから削除し、その他諸々をバッチで削除する必要あり
+// export const deleteUser = async (uid: string) => {
+//   const collection = db.collection(COLLECTION_KEY);
+//   const userRef = collection.doc(uid);
+//   await userRef.delete();
+// };

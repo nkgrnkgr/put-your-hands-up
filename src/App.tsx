@@ -20,6 +20,11 @@ import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
 import { FirebaseAuthLoadedListener } from './pages/shared/components/FirebaseAuthLoadedListener';
 import { Notification } from './pages/shared/containers/Notification';
+import {
+  ConfirmDialogContextProvider,
+  ConfirmDialogContext,
+} from './contexts/ConfirmDialogContext';
+import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
 
 const useStyles = makeStyles(
   createStyles({
@@ -36,43 +41,49 @@ const App: React.FC = () => {
     <ApplicationContextProvider>
       <UserContextProvider>
         <IntegrationsContextProvider>
-          <NotificationContextProvider>
-            <EventPageContextProvider>
-              <FirebaseAuthInitializer>
-                <FirebaseAuthLoadedListener>
-                  <div className={classes.root}>
-                    <ScrollTop />
-                    <Notification />
-                    <Switch>
-                      <Route exact path="/" component={LandingPage} />
-                      <Route path="/signin" component={SignInPage} />
-                      <Route path="/apicallback" component={ApiCallbackPage} />
-                      <PrivateRoute>
-                        <UserInitializer>
-                          <Switch>
-                            <Route
-                              path="/dashboard"
-                              component={DashboardPage}
-                            />
-                            <Route path="/setting" component={SettingPage} />
-                            <Route
-                              path="/events/:eventId"
-                              component={Eventpage}
-                            />
-                            <Route
-                              path="/organizer"
-                              component={OrganizerPage}
-                            />
-                            <Route path="*" component={NoMatchPage} />
-                          </Switch>
-                        </UserInitializer>
-                      </PrivateRoute>
-                    </Switch>
-                  </div>
-                </FirebaseAuthLoadedListener>
-              </FirebaseAuthInitializer>
-            </EventPageContextProvider>
-          </NotificationContextProvider>
+          <ConfirmDialogContextProvider>
+            <NotificationContextProvider>
+              <EventPageContextProvider>
+                <FirebaseAuthInitializer>
+                  <FirebaseAuthLoadedListener>
+                    <div className={classes.root}>
+                      <ScrollTop />
+                      <Notification />
+                      <ConfirmDialog />
+                      <Switch>
+                        <Route exact path="/" component={LandingPage} />
+                        <Route path="/signin" component={SignInPage} />
+                        <Route
+                          path="/apicallback"
+                          component={ApiCallbackPage}
+                        />
+                        <PrivateRoute>
+                          <UserInitializer>
+                            <Switch>
+                              <Route
+                                path="/dashboard"
+                                component={DashboardPage}
+                              />
+                              <Route path="/setting" component={SettingPage} />
+                              <Route
+                                path="/events/:eventId"
+                                component={Eventpage}
+                              />
+                              <Route
+                                path="/organizer"
+                                component={OrganizerPage}
+                              />
+                              <Route path="*" component={NoMatchPage} />
+                            </Switch>
+                          </UserInitializer>
+                        </PrivateRoute>
+                      </Switch>
+                    </div>
+                  </FirebaseAuthLoadedListener>
+                </FirebaseAuthInitializer>
+              </EventPageContextProvider>
+            </NotificationContextProvider>
+          </ConfirmDialogContextProvider>
         </IntegrationsContextProvider>
       </UserContextProvider>
     </ApplicationContextProvider>
