@@ -10,7 +10,6 @@ import {
   oauthRequestToken,
 } from '../../../firebase/api/callFunctions';
 import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
-import { deleteUser } from '../../../firebase/api/users';
 import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
@@ -47,7 +46,7 @@ export const UserSetting = () => {
   };
   const okClickHandler = async () => {
     if (!user.isAnonymous) {
-      await deleteUser(uid);
+      // await deleteUser(uid);
       signOut();
 
       return;
