@@ -47,3 +47,9 @@ export const updateEventIdsParticipated = (
     eventIdsParticipated: t,
   });
 };
+
+export const deleteUser = async (uid: string) => {
+  const collection = db.collection(COLLECTION_KEY);
+  const userRef = collection.doc(uid);
+  await userRef.delete();
+};

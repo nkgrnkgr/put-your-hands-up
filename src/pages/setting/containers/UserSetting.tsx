@@ -1,18 +1,20 @@
 import queryString, { ParsedQuery } from 'query-string';
 import React, { useContext } from 'react';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 import { UserContext } from '../../../contexts/UserContext';
+import { signOut } from '../../../firebase/api/authenticator';
 import {
   FunctionsResponse,
   oauthRequestToken,
 } from '../../../firebase/api/callFunctions';
 import { addOrUpdateIntegrations } from '../../../firebase/api/integrations';
+import { deleteUser } from '../../../firebase/api/users';
 import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
-import { NotificationContext } from '../../../contexts/NotificationContext';
-import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
@@ -43,16 +45,18 @@ export const UserSetting = () => {
       setIntegrations({ id: uid });
     }
   };
+  const okClickHandler = async () => {
+    if (!user.isAnonymous) {
+      await deleteUser(uid);
+      signOut();
 
-  const okClickHandler = () => {
-    // console.log('ok');
-    alert('ok');
+      return;
+    }
+
+    return signOut();
   };
 
-  const cancelClickHandler = () => {
-    // console.log('ng');
-    alert('cancel');
-  };
+  const cancelClickHandler = () => {};
 
   const onClickDeleteUserButton = () => {
     callConfirmDialog(

@@ -1,19 +1,18 @@
-import React from 'react';
 import {
-  makeStyles,
-  Theme,
   createStyles,
-  Typography,
-  Paper,
   Divider,
+  makeStyles,
+  Paper,
+  Theme,
+  Typography,
 } from '@material-ui/core';
-import { UserProfile } from './UserProfile';
-import { ExternalLinkSetting } from './ExternalLinkSetting';
-import { AnonimouseUserProfile } from './AnonimouseUserProfile';
-import { UserModel } from '../../../models/User';
+import React from 'react';
 import { AnonymousColor } from '../../../models/AnonymousUser';
 import { IntegrationsModel } from '../../../models/Integrations';
-import { DeleteUserButton } from './DeleteUserButton';
+import { UserModel } from '../../../models/User';
+import { AnonimouseUserProfile } from './AnonimouseUserProfile';
+import { ExternalLinkSetting } from './ExternalLinkSetting';
+import { UserProfile } from './UserProfile';
 
 interface Props {
   user: UserModel;
@@ -50,7 +49,6 @@ export const UserSetting: React.FC<Props> = ({
   integrations,
   setAnonymousUserInfo,
   onChangeSettingTwitterIntegration,
-  onClickDeleteUserButton,
 }) => {
   const classes = useStyles();
 
@@ -77,7 +75,7 @@ export const UserSetting: React.FC<Props> = ({
               onChangeSettingTwitterIntegration
             }
           />
-          <DeleteUserButton onClickDeleteButton={onClickDeleteUserButton} />
+          {/* <DeleteUserButton onClickDeleteButton={onClickDeleteUserButton} /> */}
         </Paper>
       )}
     </div>
