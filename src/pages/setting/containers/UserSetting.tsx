@@ -12,14 +12,25 @@ import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
 import { NotificationContext } from '../../../contexts/NotificationContext';
-import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
+import { useConfirmModal } from '../../../hooks/confirmModal';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
-  const { callConfirmDialog } = useContext(ConfirmDialogContext);
   const { uid } = user;
   const { callNotification } = useContext(NotificationContext);
+  const okClickHandler = () => {
+    window.alert('ok');
+  };
+
+  const cancelClickHandler = () => {
+    window.alert('ng');
+  };
+  const { ModalComponent, openConfirmDialog } = useConfirmModal(
+    'Realy?',
+    okClickHandler,
+    cancelClickHandler,
+  );
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
     if (isIntegrating) {
       try {
@@ -44,20 +55,8 @@ export const UserSetting = () => {
     }
   };
 
-  const okClickHandler = () => {
-    // console.log('ok');
-  };
-
-  const cancelClickHandler = () => {
-    // console.log('ng');
-  };
-
   const onClickDeleteUserButton = () => {
-    callConfirmDialog(
-      '本当に削除しますか？',
-      okClickHandler,
-      cancelClickHandler,
-    );
+    openConfirmDialog();
   };
 
   const setAnonymousUserInfo = (
@@ -80,12 +79,15 @@ export const UserSetting = () => {
   };
 
   return (
-    <Component
-      user={user}
-      integrations={integrations}
-      setAnonymousUserInfo={setAnonymousUserInfo}
-      onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
-      onClickDeleteUserButton={onClickDeleteUserButton}
-    />
+    <>
+      <ModalComponent />
+      <Component
+        user={user}
+        integrations={integrations}
+        setAnonymousUserInfo={setAnonymousUserInfo}
+        onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
+        onClickDeleteUserButton={onClickDeleteUserButton}
+      />
+    </>
   );
 };
