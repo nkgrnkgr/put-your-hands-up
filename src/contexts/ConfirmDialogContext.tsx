@@ -61,11 +61,8 @@ export const ConfirmDialogContextProvider: React.FC<ContextProps> = ({
     <ConfirmDialogContext.Provider
       value={{
         confirmSetting: {
-          message: settings.message,
-          open: settings.open,
+          ...settings,
           onClose,
-          okClickHandler: settings.okClickHandler,
-          cancelClickHandler: settings.cancelClickHandler,
         },
         callConfirmDialog,
       }}
