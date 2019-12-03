@@ -17,9 +17,7 @@ import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
-  const { settings, setConfirmDialogSettings } = useContext(
-    ConfirmDialogContext,
-  );
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
   const { uid } = user;
   const { callNotification } = useContext(NotificationContext);
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {
@@ -44,6 +42,22 @@ export const UserSetting = () => {
       addOrUpdateIntegrations({ id: uid });
       setIntegrations({ id: uid });
     }
+  };
+
+  const okClickHandler = () => {
+    // console.log('ok');
+  };
+
+  const cancelClickHandler = () => {
+    // console.log('ng');
+  };
+
+  const onClickDeleteUserButton = () => {
+    callConfirmDialog(
+      '本当に削除しますか？',
+      okClickHandler,
+      cancelClickHandler,
+    );
   };
 
   const setAnonymousUserInfo = (
@@ -71,6 +85,7 @@ export const UserSetting = () => {
       integrations={integrations}
       setAnonymousUserInfo={setAnonymousUserInfo}
       onChangeSettingTwitterIntegration={onChangeSettingTwitterIntegration}
+      onClickDeleteUserButton={onClickDeleteUserButton}
     />
   );
 };

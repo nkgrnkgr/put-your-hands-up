@@ -2,10 +2,12 @@ import React, { createContext, useState } from 'react';
 import { ConfirmDialogProps } from '../pages/shared/components/ConfirmDialog';
 
 interface ConfirmDialogState {
-  settings: ConfirmDialogProps;
-  setConfirmDialogSettings: React.Dispatch<
-    React.SetStateAction<ConfirmDialogProps>
-  >;
+  confirmSetting: ConfirmDialogProps;
+  callConfirmDialog: (
+    message: string,
+    okClickHandler: Function,
+    cancelClickHandler: Function,
+  ) => void;
 }
 
 const createInitialValue = () => ({
@@ -17,8 +19,8 @@ const createInitialValue = () => ({
 });
 
 const initialState: ConfirmDialogState = {
-  settings: createInitialValue(),
-  setConfirmDialogSettings: () => {},
+  confirmSetting: createInitialValue(),
+  callConfirmDialog: () => {},
 };
 
 export const ConfirmDialogContext = createContext<ConfirmDialogState>(
@@ -30,13 +32,35 @@ type ContextProps = Partial<ConfirmDialogState>;
 export const ConfirmDialogContextProvider: React.FC<ContextProps> = ({
   children,
 }) => {
-  const [settings, setConfirmDialogSettings] = useState<ConfirmDialogProps>(
-    createInitialValue(),
-  );
+  const [isOpen, setOpen] = useState(false);
+
+  const [message, setMessage] = useState('');
+  const [okClickHandler, setOkClickHandler] = useState();
+  const [cancelClickHandler, setCancelClickHandler] = useState();
+
+  const callConfirmDialog = (
+    message: string,
+    okClickHandler: Function,
+    cancelClickHandler: Function,
+  ): void => {
+    setMessage(message);
+    setOkClickHandler(okClickHandler);
+    setCancelClickHandler(cancelClickHandler);
+    setOpen(true);
+  };
 
   return (
     <ConfirmDialogContext.Provider
-      value={{ settings, setConfirmDialogSettings }}
+      value={{
+        confirmSetting: {
+          message,
+          open: isOpen,
+          onClose: () => setOpen(false),
+          okClickHandler,
+          cancelClickHandler,
+        },
+        callConfirmDialog,
+      }}
     >
       {children}
     </ConfirmDialogContext.Provider>

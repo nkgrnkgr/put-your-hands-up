@@ -16,7 +16,7 @@ export interface ConfirmDialogProps {
   onClose: () => void;
   message: string;
   okClickHandler: Function;
-  cancelClickHandler?: Function;
+  cancelClickHandler: Function;
 }
 
 const useStyles = makeStyles((theme: Theme) =>

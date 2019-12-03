@@ -24,6 +24,7 @@ import {
   ConfirmDialogContextProvider,
   ConfirmDialogContext,
 } from './contexts/ConfirmDialogContext';
+import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
 
 const useStyles = makeStyles(
   createStyles({
@@ -48,6 +49,7 @@ const App: React.FC = () => {
                     <div className={classes.root}>
                       <ScrollTop />
                       <Notification />
+                      <ConfirmDialog />
                       <Switch>
                         <Route exact path="/" component={LandingPage} />
                         <Route path="/signin" component={SignInPage} />
