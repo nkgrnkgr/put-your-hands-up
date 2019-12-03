@@ -12,10 +12,14 @@ import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
   const { integrations, setIntegrations } = useContext(IntegrationsContext);
+  const { settings, setConfirmDialogSettings } = useContext(
+    ConfirmDialogContext,
+  );
   const { uid } = user;
   const { callNotification } = useContext(NotificationContext);
   const onChangeSettingTwitterIntegration = async (isIntegrating: boolean) => {

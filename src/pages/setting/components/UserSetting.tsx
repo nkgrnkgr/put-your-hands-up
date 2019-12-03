@@ -13,6 +13,7 @@ import { AnonimouseUserProfile } from './AnonimouseUserProfile';
 import { UserModel } from '../../../models/User';
 import { AnonymousColor } from '../../../models/AnonymousUser';
 import { IntegrationsModel } from '../../../models/Integrations';
+import { ConfirmDialog } from '../../shared/components/ConfirmDialog';
 
 interface Props {
   user: UserModel;
@@ -67,6 +68,13 @@ export const UserSetting: React.FC<Props> = ({
             onChangeSettingTwitterIntegration={
               onChangeSettingTwitterIntegration
             }
+          />
+          <ConfirmDialog
+            message="本当に削除しますか？"
+            open={true}
+            onClose={() => {}}
+            okClickHandler={() => {}}
+            cancelClickHandler={() => {}}
           />
         </Paper>
       )}
