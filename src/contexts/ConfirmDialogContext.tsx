@@ -5,8 +5,8 @@ interface ConfirmDialogState {
   confirmSetting: ConfirmDialogProps;
   callConfirmDialog: (
     message: string,
-    okClickHandler: Function,
-    cancelClickHandler: Function,
+    okClickHandler: (value?: any) => void,
+    cancelClickHandler: (value?: any) => void,
   ) => void;
 }
 
@@ -32,32 +32,40 @@ type ContextProps = Partial<ConfirmDialogState>;
 export const ConfirmDialogContextProvider: React.FC<ContextProps> = ({
   children,
 }) => {
-  const [isOpen, setOpen] = useState(false);
+  const [settings, setSetting] = useState<ConfirmDialogProps>(
+    createInitialValue(),
+  );
 
-  const [message, setMessage] = useState('');
-  const [okClickHandler, setOkClickHandler] = useState();
-  const [cancelClickHandler, setCancelClickHandler] = useState();
+  const onClose = () => {
+    setSetting({
+      ...settings,
+      open: false,
+    });
+  };
 
   const callConfirmDialog = (
     message: string,
-    okClickHandler: Function,
-    cancelClickHandler: Function,
+    okClickHandler: (value?: any) => void,
+    cancelClickHandler: (value?: any) => void,
   ): void => {
-    setMessage(message);
-    setOkClickHandler(okClickHandler);
-    setCancelClickHandler(cancelClickHandler);
-    setOpen(true);
+    setSetting({
+      ...settings,
+      open: true,
+      message,
+      okClickHandler,
+      cancelClickHandler,
+    });
   };
 
   return (
     <ConfirmDialogContext.Provider
       value={{
         confirmSetting: {
-          message,
-          open: isOpen,
-          onClose: () => setOpen(false),
-          okClickHandler,
-          cancelClickHandler,
+          message: settings.message,
+          open: settings.open,
+          onClose,
+          okClickHandler: settings.okClickHandler,
+          cancelClickHandler: settings.cancelClickHandler,
         },
         callConfirmDialog,
       }}

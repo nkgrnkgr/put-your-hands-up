@@ -46,10 +46,12 @@ export const UserSetting = () => {
 
   const okClickHandler = () => {
     // console.log('ok');
+    alert('ok');
   };
 
   const cancelClickHandler = () => {
     // console.log('ng');
+    alert('cancel');
   };
 
   const onClickDeleteUserButton = () => {

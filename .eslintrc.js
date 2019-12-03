@@ -86,6 +86,7 @@ module.exports = {
 
     // react hooks
     'react-hooks/rules-of-hooks': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
 
     // import
     'import/extensions': [

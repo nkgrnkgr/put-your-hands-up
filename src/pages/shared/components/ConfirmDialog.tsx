@@ -15,8 +15,8 @@ export interface ConfirmDialogProps {
   open: boolean;
   onClose: () => void;
   message: string;
-  okClickHandler: Function;
-  cancelClickHandler: Function;
+  okClickHandler: (value?: any) => void;
+  cancelClickHandler: (value?: any) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,7 +74,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = props => {
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={() => okClickHandler()}
+              onClick={() => {
+                okClickHandler();
+                onClose();
+              }}
             >
               OK
             </Button>
@@ -83,7 +86,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = props => {
                 className={classes.button}
                 variant="outlined"
                 color="default"
-                onClick={() => cancelClickHandler()}
+                onClick={() => {
+                  cancelClickHandler();
+                  onClose();
+                }}
               >
                 Cancel
               </Button>
