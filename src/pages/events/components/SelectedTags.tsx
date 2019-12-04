@@ -1,12 +1,5 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { FC } from 'react';
 import { Tag } from './Tag';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  }),
-);
 
 interface Props {
   selectedTags: Set<string>;
