@@ -15,6 +15,7 @@ import { SortTab } from '../containers/SortTab';
 import { EventSummary } from './EventSummary';
 import { LtTopics } from './LtTopics';
 import { ParticipatedEventIdUpdater } from '../containers/ParticipatedEventIdUpdater';
+import { SelectedTags } from '../containers/SelectedTags';
 
 const useStyles = makeStyles({
   root: {
@@ -63,6 +64,7 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
           <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
           <ModalFab />
           <SortTab />
+          <SelectedTags />
           <NoteList eventId={event.id} ltId={ltId} />
           <RightSideBar />
         </Container>
