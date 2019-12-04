@@ -27,6 +27,7 @@ interface Props {
   hendleOnClickLikeButton: (note: NoteModel, uid: string) => void;
   handleOnClickDeleteButton: (note: NoteModel) => void;
   handleOnClickCommentButton: (commentId: string) => void;
+  handleOnClickTag: (tagTitle: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -49,8 +50,9 @@ export const Note: React.FC<Props> = ({
   loginUser,
   isLiked,
   hendleOnClickLikeButton,
-  handleOnClickDeleteButton: handleOnClickDeletButton,
+  handleOnClickDeleteButton,
   handleOnClickCommentButton,
+  handleOnClickTag,
 }) => {
   const classes = useStyles();
 
@@ -76,7 +78,11 @@ export const Note: React.FC<Props> = ({
         <CardContent>
           {note.noteContents.tagTitles.length > 0 &&
             note.noteContents.tagTitles.map((tagTitle, index) => (
-              <Tag key={index} tagTitle={tagTitle} />
+              <Tag
+                key={index}
+                tagTitle={tagTitle}
+                onClick={() => handleOnClickTag(tagTitle)}
+              />
             ))}
         </CardContent>
         <CardActions>
@@ -105,7 +111,7 @@ export const Note: React.FC<Props> = ({
           {sholdShowDeleteButton && (
             <IconButton
               className={classes.iconRightEnd}
-              onClick={() => handleOnClickDeletButton(note)}
+              onClick={() => handleOnClickDeleteButton(note)}
             >
               <Icon className={clsx('far fa-trash-alt', classes.icon)} />
             </IconButton>

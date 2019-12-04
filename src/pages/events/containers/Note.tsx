@@ -6,6 +6,7 @@ import { addOrRemoveFansId, deleteNote } from '../../../firebase/api/notes';
 import { NoteModel } from '../../../models/Note';
 import { Note as NoteComponent } from '../components/Note';
 import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
+import { EventPageContext } from '../../../contexts/EventPageContext';
 
 interface Props {
   note: NoteModel;
@@ -18,6 +19,9 @@ export const Note = (props: Props) => {
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
+
+  const { setTag } = useContext(EventPageContext);
+  const handleOnClickTag = (tagTitle: string) => setTag(tagTitle);
 
   const { callConfirmDialog } = useContext(ConfirmDialogContext);
   const handleOnCLickDeleteButton = (note: NoteModel) => {
@@ -48,6 +52,7 @@ export const Note = (props: Props) => {
       hendleOnClickLikeButton={addOrRemoveFansId}
       handleOnClickDeleteButton={handleOnCLickDeleteButton}
       handleOnClickCommentButton={openReplyComments}
+      handleOnClickTag={handleOnClickTag}
     />
   );
 };

@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   tagTitle: string;
-  onClickDelete?: (event: any) => void;
   onClick?: (event: any) => void;
+  onClickDelete?: (event: any) => void;
 }
 
 export const Tag: React.FC<Props> = ({ tagTitle, onClick, onClickDelete }) => {
