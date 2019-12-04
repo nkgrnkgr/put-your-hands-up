@@ -7,10 +7,10 @@ import { SignInPage as Component } from '../components/SignInPage';
 export const SignInPage: React.FC = () => {
   const { user } = useContext(UserContext);
   const params: ParsedQuery<string> = queryString.parse(window.location.search);
-  const { state } = params;
+  const { redirecturl } = params;
   const history = useHistory();
   if (user.uid !== '') {
-    history.push(`/${state || 'dashboard'}`);
+    history.push(`${redirecturl || '/dashboard'}`);
   }
 
   return <Component />;
