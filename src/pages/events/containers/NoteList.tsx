@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { EventPageContext } from '../../../contexts/EventPageContext';
-import { filterByLt } from '../../../models/Note';
+import { filterByLt, filterByTags } from '../../../models/Note';
 import Loading from '../../shared/components/Loading';
 import { NoteList as NoteListComponent } from '../components/NoteList';
 import { useNotesSnapshot } from '../../../hooks/notes';
@@ -14,8 +14,9 @@ interface Props {
 export const NoteList = (props: Props) => {
   const { eventId, ltId } = props;
   const { notes, loading, error } = useNotesSnapshot(eventId);
-  const { sortOrder } = useContext(EventPageContext);
-  const selectedAndSortedNotes = sortOrder.function(filterByLt(notes, ltId));
+  const { sortOrder, selectedTags } = useContext(EventPageContext);
+  const sortedAndNotesByLt = sortOrder.function(filterByLt(notes, ltId));
+  const notesHasSelectedTags = filterByTags(sortedAndNotesByLt, selectedTags);
   const { callNotification } = useContext(NotificationContext);
 
   if (loading) {
@@ -29,7 +30,15 @@ export const NoteList = (props: Props) => {
     );
   }
   if (notes && notes.length > 0) {
-    return <NoteListComponent notes={selectedAndSortedNotes} />;
+    return (
+      <NoteListComponent
+        notes={
+          notesHasSelectedTags.length > 0
+            ? notesHasSelectedTags
+            : sortedAndNotesByLt
+        }
+      />
+    );
   }
 
   return <></>;

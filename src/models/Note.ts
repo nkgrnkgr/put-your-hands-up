@@ -1,5 +1,6 @@
 import { UserModel } from './User';
 import { useState } from 'react';
+import { notStrictEqual } from 'assert';
 
 export const COLOR_HEX = [
   '#F4F4F4',
@@ -53,6 +54,12 @@ export const sortByMostFavolite = (notes: NoteModel[]) =>
 
 export const filterByLt = (notes: NoteModel[], ltId = '0') =>
   notes.filter(note => note.ltId === ltId);
+
+export const filterByTags = (notes: NoteModel[], tags: Set<string>) => {
+  return notes.filter(note =>
+    note.noteContents.tagTitles.some(tagTitle => tags.has(tagTitle)),
+  );
+};
 
 export interface SortOrderModel {
   index: number;
