@@ -24,6 +24,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { UserModel } from '../../../models/User';
 import { signOut } from '../../../firebase/api/authenticator';
+import { capitalize } from '../../../utils/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,9 +59,16 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   user: UserModel;
   toggleSideBar: () => void;
+  menuTitles?: string[];
+  shouldMobileMenu?: boolean;
 }
 
-export const PageHeader: React.FC<Props> = ({ user, toggleSideBar }) => {
+export const PageHeader: React.FC<Props> = ({
+  user,
+  toggleSideBar,
+  menuTitles = ['dashboard', 'setting', 'organizer'],
+  shouldMobileMenu = false,
+}) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -93,11 +101,15 @@ export const PageHeader: React.FC<Props> = ({ user, toggleSideBar }) => {
             {/* mobile */}
             <Hidden smUp>
               <div className={classes.toolbarMobile}>
-                <IconLink
-                  title="github"
-                  className={clsx('fas fa-bars', classes.link)}
-                  onClick={() => toggleSideBar()}
-                />
+                {shouldMobileMenu ? (
+                  <IconLink
+                    title="github"
+                    className={clsx('fas fa-bars', classes.link)}
+                    onClick={() => toggleSideBar()}
+                  />
+                ) : (
+                  <div style={{ width: '48px' }}></div>
+                )}
                 <Logo />
                 <Tooltip title={user.displayName}>
                   <IconButton color="inherit" onClick={handleClick}>
@@ -149,15 +161,15 @@ export const PageHeader: React.FC<Props> = ({ user, toggleSideBar }) => {
                 </Typography>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => history.push('/setting')}>
-                <ListItemText primary="Settings" />
-              </MenuItem>
-              <MenuItem onClick={() => history.push('/dashboard')}>
-                <ListItemText primary="DashBoard" />
-              </MenuItem>
-              <MenuItem onClick={() => history.push('/organizer')}>
-                <ListItemText primary="Organizer" />
-              </MenuItem>
+              {menuTitles.length > 0 &&
+                menuTitles.map((title, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => history.push(`/${title}`)}
+                  >
+                    <ListItemText primary={capitalize(title)} />
+                  </MenuItem>
+                ))}
               <Divider />
               <MenuItem onClick={() => handleSignOut()}>
                 <ListItemText primary="SignOut" />

@@ -3,7 +3,12 @@ import { PageHeader as Component } from '../components/PageHeader';
 import { UserContext } from '../../../contexts/UserContext';
 import { ApplicationContext } from '../../../contexts/ApplicationContext';
 
-export const PageHeader = () => {
+interface Props {
+  menuTitles?: string[];
+  shouldMobileMenu?: boolean;
+}
+
+export const PageHeader = (props: Props) => {
   const { user } = useContext(UserContext);
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
@@ -20,5 +25,5 @@ export const PageHeader = () => {
     return <></>;
   }
 
-  return <Component user={user} toggleSideBar={toggleSideBar} />;
+  return <Component {...props} user={user} toggleSideBar={toggleSideBar} />;
 };
