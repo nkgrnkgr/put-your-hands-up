@@ -119,9 +119,7 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   className={classes.button}
                   variant="contained"
                   color="primary"
-                  onClick={() =>
-                    history.push({ pathname: '/dashbord', state: 'dashboard' })
-                  }
+                  onClick={() => history.push({ pathname: '/dashboard' })}
                 >
                   GET STARTED
                 </Button>
@@ -131,9 +129,7 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   className={classes.button}
                   variant="outlined"
                   color="default"
-                  onClick={() =>
-                    history.push({ pathname: '/organizer', state: 'organizer' })
-                  }
+                  onClick={() => history.push({ pathname: '/organizer' })}
                 >
                   イベント管理者向け
                 </Button>
