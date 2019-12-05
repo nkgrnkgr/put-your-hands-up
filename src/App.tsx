@@ -1,30 +1,30 @@
-import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/styles';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ApplicationContextProvider } from './contexts/ApplicationContext';
+import { ConfirmDialogContextProvider } from './contexts/ConfirmDialogContext';
 import { EventPageContextProvider } from './contexts/EventPageContext';
+import { IntegrationsContextProvider } from './contexts/IntegrationsContext';
 import { NotificationContextProvider } from './contexts/NotificationContext';
 import { UserContextProvider } from './contexts/UserContext';
-import { IntegrationsContextProvider } from './contexts/IntegrationsContext';
 import { ApiCallbackPage } from './pages/apicallbak/containers/ApiCallbackPage';
 import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
 import { LandingPage } from './pages/landing/components/LandingPage';
-import { SettingPage } from './pages/setting/components/SettingPage';
-import { UserInitializer } from './pages/shared/components/UserInitializer';
-import { PrivateRoute } from './pages/shared/components/PrivateRoute';
-import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
-import { ScrollTop } from './pages/shared/components/ScrollTop';
-import { SignInPage } from './pages/signin/containers/SignInPage';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
-import { NoMatchPage } from './pages/nomatch/components/NoMatchPage';
+import { SettingPage } from './pages/setting/components/SettingPage';
+import { ErrorPageBase } from './pages/shared/components/ErrorPageBase';
+import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { FirebaseAuthLoadedListener } from './pages/shared/components/FirebaseAuthLoadedListener';
-import { Notification } from './pages/shared/containers/Notification';
-import {
-  ConfirmDialogContextProvider,
-  ConfirmDialogContext,
-} from './contexts/ConfirmDialogContext';
+import { PrivateRoute } from './pages/shared/components/PrivateRoute';
+import { ScrollTop } from './pages/shared/components/ScrollTop';
+import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
+import { Notification } from './pages/shared/containers/Notification';
+import { SignInPage } from './pages/signin/containers/SignInPage';
+import { NoMatch } from './pages/nomatch/components/NoMatch';
+import { Forbidden } from './pages/forbidden/components/Forbidden';
+import { ResisterdRoute } from './pages/shared/components/ResisteredRoute';
 
 const useStyles = makeStyles(
   createStyles({
@@ -60,6 +60,7 @@ const App: React.FC = () => {
                         <PrivateRoute>
                           <UserInitializer>
                             <Switch>
+                              <Route path="/forbidden" component={Forbidden} />
                               <Route
                                 path="/dashboard"
                                 component={DashboardPage}
@@ -69,11 +70,13 @@ const App: React.FC = () => {
                                 path="/events/:eventId"
                                 component={Eventpage}
                               />
-                              <Route
-                                path="/organizer"
-                                component={OrganizerPage}
-                              />
-                              <Route path="*" component={NoMatchPage} />
+                              <ResisterdRoute>
+                                <Route
+                                  path="/organizer"
+                                  component={OrganizerPage}
+                                />
+                                <Route path="*" component={NoMatch} />
+                              </ResisterdRoute>
                             </Switch>
                           </UserInitializer>
                         </PrivateRoute>

@@ -31,7 +31,7 @@ export const OrganizerPage: React.FC<RouteComponentProps> = () => {
   return (
     <Page>
       <div className={classes.root}>
-        <PageHeader />
+        <PageHeader menuTitles={['dashboard', 'setting']} />
         <Container>
           <div id="back-to-top-anchor" className={classes.app} />
           <Route exact path="/organizer" component={List} />

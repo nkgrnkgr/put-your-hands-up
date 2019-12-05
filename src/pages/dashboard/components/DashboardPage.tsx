@@ -36,7 +36,7 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
   return (
     <Page>
       <div className={classes.root}>
-        <PageHeader />
+        <PageHeader menuTitles={['setting', 'organizer']} />
         <Container>
           <div id="back-to-top-anchor" className={classes.app} />
           <div className={classes.eventList}>

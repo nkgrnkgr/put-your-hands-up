@@ -22,7 +22,7 @@ export const SettingPage: React.FC<RouteComponentProps> = () => {
   return (
     <Page>
       <div className={classes.root}>
-        <PageHeader />
+        <PageHeader menuTitles={['dashboard', 'organizer']} />
         <Container>
           <div id="back-to-top-anchor" className={classes.app} />
           <UserSetting />

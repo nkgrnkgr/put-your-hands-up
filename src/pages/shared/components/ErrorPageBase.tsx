@@ -1,9 +1,7 @@
 import { Container, createStyles, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Page } from '../../shared/components/Page';
-import { PageHeader } from '../../shared/containers/PageHeader';
-import { NotFound } from './NotFound';
+import { Page } from './Page';
+import { PageHeader } from '../containers/PageHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const NoMatchPage: React.FC<RouteComponentProps> = () => {
+export const ErrorPageBase: React.FC = ({ children }) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +23,7 @@ export const NoMatchPage: React.FC<RouteComponentProps> = () => {
         <PageHeader />
         <Container>
           <div id="back-to-top-anchor" className={classes.app} />
-          <NotFound />
+          {children}
         </Container>
       </div>
     </Page>
