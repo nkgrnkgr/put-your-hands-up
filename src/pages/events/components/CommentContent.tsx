@@ -1,0 +1,70 @@
+import { createStyles, makeStyles, Theme, Link } from '@material-ui/core';
+import React from 'react';
+
+interface Props {
+  comment: string;
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {},
+  }),
+);
+
+const URL_REGEXP =
+  '^(http[s]?:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?';
+
+const HASHTAG_REGEXP = '^#';
+
+const isUrl = (line: string) => new RegExp(URL_REGEXP).test(line);
+const isHashTag = (line: string) => new RegExp(HASHTAG_REGEXP).test(line);
+
+const createAnchor = (line: string) => {
+  return (
+    <Link
+      href={line}
+      color="secondary"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <br />
+      {line}
+    </Link>
+  );
+};
+
+const createHashTagAnchor = (line: string) => {
+  return (
+    <Link
+      href={`https://twitter.com/hashtag/${line.replace('#', '')}`}
+      color="secondary"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <br />
+      {line}
+    </Link>
+  );
+};
+
+const createLine = (line: string) => {
+  if (isUrl(line)) {
+    return <>{createAnchor(line)}</>;
+  }
+
+  if (isHashTag(line)) {
+    return <>{createHashTagAnchor(line)}</>;
+  }
+
+  return line;
+};
+
+export const CommentContent: React.FC<Props> = ({ comment }) => {
+  return (
+    <div>
+      {comment.split(/\r\n|\n/).map((line, index) => {
+        return <span key={index}>{createLine(line)}</span>;
+      })}
+    </div>
+  );
+};

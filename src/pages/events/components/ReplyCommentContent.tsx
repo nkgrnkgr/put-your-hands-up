@@ -1,21 +1,21 @@
-import React from 'react';
 import {
   Avatar,
+  Badge,
   createStyles,
   Divider,
+  Icon,
+  IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
   makeStyles,
   Theme,
-  Typography,
-  Icon,
-  IconButton,
-  Badge,
 } from '@material-ui/core';
-import { ago } from '../../../utils/datetime';
 import clsx from 'clsx';
+import React from 'react';
 import { ReplyConmentModel } from '../../../models/ReplyComment';
+import { ago } from '../../../utils/datetime';
+import { CommentContent } from './CommentContent';
 import { HeartIcon } from './HeartIcon';
 
 interface Props {
@@ -65,14 +65,7 @@ export const ReplyCommentContent: React.FC<Props> = ({
             <>
               {`${ago(commentContents.created, 'minute')}分前`}
               <br />
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                {commentContents.comment}
-              </Typography>
+              <CommentContent comment={commentContents.comment} />
             </>
           }
         />

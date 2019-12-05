@@ -1,16 +1,13 @@
 import {
   Avatar,
-  createStyles,
   Divider,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  makeStyles,
-  Theme,
-  Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { ago } from '../../../utils/datetime';
+import { CommentContent } from './CommentContent';
 
 interface Props {
   displayName: string;
@@ -19,31 +16,12 @@ interface Props {
   comment: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    inline: {
-      display: 'inline',
-    },
-    reply: {
-      paddingLeft: theme.spacing(5),
-    },
-    iconButton: {
-      marginRight: theme.spacing(0.5),
-    },
-    icon: {
-      fontSize: '0.9em',
-    },
-  }),
-);
-
 export const ReplyCommentNoteContent: React.FC<Props> = ({
   displayName,
   avatarUrl,
   created,
   comment,
 }) => {
-  const classes = useStyles();
-
   return (
     <>
       <ListItem alignItems="flex-start">
@@ -56,14 +34,7 @@ export const ReplyCommentNoteContent: React.FC<Props> = ({
             <>
               {`${ago(created, 'minute')}分前`}
               <br />
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                {comment}
-              </Typography>
+              <CommentContent comment={comment} />
             </>
           }
         />
