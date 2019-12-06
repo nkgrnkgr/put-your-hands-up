@@ -19,41 +19,32 @@ const HASHTAG_REGEXP = '^#';
 const isUrl = (line: string) => new RegExp(URL_REGEXP).test(line);
 const isHashTag = (line: string) => new RegExp(HASHTAG_REGEXP).test(line);
 
-const createAnchor = (line: string) => {
-  return (
-    <Link
-      href={line}
-      color="secondary"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <br />
-      {line}
-    </Link>
-  );
-};
+const createAnchor = (line: string) => (
+  <Link href={line} color="secondary" rel="noopener noreferrer" target="_blank">
+    <br />
+    {line}
+  </Link>
+);
 
-const createHashTagAnchor = (line: string) => {
-  return (
-    <Link
-      href={`https://twitter.com/hashtag/${line.replace('#', '')}`}
-      color="secondary"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <br />
-      {line}
-    </Link>
-  );
-};
+const createHashTagAnchor = (line: string) => (
+  <Link
+    href={`https://twitter.com/hashtag/${line.replace('#', '')}`}
+    color="secondary"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <br />
+    {line}
+  </Link>
+);
 
 const createLine = (line: string) => {
   if (isUrl(line)) {
-    return <>{createAnchor(line)}</>;
+    return createAnchor(line);
   }
 
   if (isHashTag(line)) {
-    return <>{createHashTagAnchor(line)}</>;
+    return createHashTagAnchor(line);
   }
 
   return line;
@@ -62,7 +53,7 @@ const createLine = (line: string) => {
 export const CommentContent: React.FC<Props> = ({ comment }) => {
   return (
     <div>
-      {comment.split(/\r\n|\n/).map((line, index) => {
+      {comment.split(/\s/).map((line, index) => {
         return <span key={index}>{createLine(line)}</span>;
       })}
     </div>
