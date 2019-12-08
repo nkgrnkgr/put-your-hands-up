@@ -10,21 +10,20 @@ import { UserContextProvider } from './contexts/UserContext';
 import { ApiCallbackPage } from './pages/apicallbak/containers/ApiCallbackPage';
 import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
+import { Forbidden } from './pages/forbidden/components/Forbidden';
 import { LandingPage } from './pages/landing/components/LandingPage';
+import { NoMatch } from './pages/nomatch/components/NoMatch';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
-import { ErrorPageBase } from './pages/shared/components/ErrorPageBase';
 import { FirebaseAuthInitializer } from './pages/shared/components/FirebaseAuthInitializer';
 import { FirebaseAuthLoadedListener } from './pages/shared/components/FirebaseAuthLoadedListener';
 import { PrivateRoute } from './pages/shared/components/PrivateRoute';
+import { ResisterdRoute } from './pages/shared/components/ResisteredRoute';
 import { ScrollTop } from './pages/shared/components/ScrollTop';
 import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
 import { Notification } from './pages/shared/containers/Notification';
 import { SignInPage } from './pages/signin/containers/SignInPage';
-import { NoMatch } from './pages/nomatch/components/NoMatch';
-import { Forbidden } from './pages/forbidden/components/Forbidden';
-import { ResisterdRoute } from './pages/shared/components/ResisteredRoute';
 
 const useStyles = makeStyles(
   createStyles({
@@ -71,11 +70,13 @@ const App: React.FC = () => {
                                 component={Eventpage}
                               />
                               <ResisterdRoute>
-                                <Route
-                                  path="/organizer"
-                                  component={OrganizerPage}
-                                />
-                                <Route path="*" component={NoMatch} />
+                                <Switch>
+                                  <Route
+                                    path="/organizer"
+                                    component={OrganizerPage}
+                                  />
+                                  <Route path="*" component={NoMatch} />
+                                </Switch>
                               </ResisterdRoute>
                             </Switch>
                           </UserInitializer>
