@@ -7,6 +7,7 @@ import connpass_logo from '../../../images/connpass_logo.png';
 import { makeStyles, createStyles } from '@material-ui/styles';
 
 interface Props {
+  connppassEventUrl?: string;
   isLoading: boolean;
   error: Error | null;
   handleChange: (value: string) => void;
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const ConnpassImporter: React.FC<Props> = ({
+  connppassEventUrl = '',
   isLoading,
   error,
   handleChange,
@@ -54,6 +56,7 @@ export const ConnpassImporter: React.FC<Props> = ({
             fullWidth
             variant="outlined"
             placeholder="https://nodejs.connpass.com/event/147459/"
+            value={connppassEventUrl}
             onChange={e => handleChange(e.target.value)}
           />
         }
