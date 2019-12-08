@@ -5,13 +5,24 @@ service cloud.firestore {
       text.size() <= max &&
       text.size() >= min
     }
-    match /{document=**} {
+  	match /events/{eventId} {
+      allow read, write: if request.auth.uid != null;
+    }
+    match /integrations/{integrationId} {
       allow read, write: if request.auth.uid != null;
     }
     match /notes/{noteId} {
-      allow get: if request.auth.uid != null;
+      allow read, delete: if request.auth.uid != null;
       allow create, update: if request.auth.uid != null &&
-        validateString(request.resource.data.noteContents.comment, 1, 10);
+        validateString(request.resource.data.noteContents.comment, 1, 300);
+    }
+    match /replyComments/{replyCommentId} {
+      allow read, delete: if request.auth.uid != null;
+      allow create, update: if request.auth.uid != null &&
+        validateString(request.resource.data.commentContents.comment, 1, 300);
+    }
+    match /users/{userId} {
+      allow read, write: if request.auth.uid != null;
     }
   }
 }
