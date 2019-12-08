@@ -1,23 +1,23 @@
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Formik, FormikHelpers } from 'formik';
 import React, { useContext, useState } from 'react';
-import { NoteForm as Component } from '../components/NoteForm';
-import { ModalNoteForm as ModalComponent } from '../components/ModalNoteForm';
+import { ApplicationContext } from '../../../contexts/ApplicationContext';
+import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 import { UserContext } from '../../../contexts/UserContext';
+import { FunctionsResponse, tweet } from '../../../firebase/api/callFunctions';
 import { addNote } from '../../../firebase/api/notes';
+import { TwitterIntegration } from '../../../models/Integrations';
 import {
   defaultNoteContentsValue,
   NoteContentsModel,
   NoteModel,
 } from '../../../models/Note';
 import { now } from '../../../utils/datetime';
-import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
-import { tweet } from '../../../firebase/api/callFunctions';
-import { TwitterIntegration } from '../../../models/Integrations';
-import { IntegrationsContext } from '../../../contexts/IntegrationsContext';
-import { NotificationContext } from '../../../contexts/NotificationContext';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { ModalNoteForm as ModalComponent } from '../components/ModalNoteForm';
+import { NoteForm as Component } from '../components/NoteForm';
 
 interface Props {
   eventId: string;
@@ -39,15 +39,25 @@ const addtHashTagToComment = (comment: string, hashTag: string) => {
   return comment;
 };
 
-const shareWithTwitter = (
+const shareWithTwitter = async (
   twitterIntegration: TwitterIntegration,
   status: string,
 ) => {
-  tweet({
+  const response = await tweet({
     oauth_token: twitterIntegration.accessToken,
     oauth_token_secret: twitterIntegration.accessTokenSecret,
     status,
   });
+
+  const data: FunctionsResponse<string> = response.data;
+  const body = JSON.parse(data.body);
+
+  if (body.errors) {
+    const errorMessage: string = body.errors[0].message;
+    if (errorMessage) {
+      throw new Error(errorMessage);
+    }
+  }
 };
 
 export const NoteForm = (props: Props) => {
@@ -106,7 +116,7 @@ export const NoteForm = (props: Props) => {
       v.noteContents.comment
     ) {
       try {
-        shareWithTwitter(
+        await shareWithTwitter(
           integrations.twitterIntegration,
           addtHashTagToComment(v.noteContents.comment, hashTag),
         );
