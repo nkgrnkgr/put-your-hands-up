@@ -1,7 +1,17 @@
 service cloud.firestore {
   match /databases/{database}/documents {
+    function validateString(text, min, max) {
+      return text is string &&
+      text.size() <= max &&
+      text.size() >= min
+    }
     match /{document=**} {
-      allow read, write;
+      allow read, write: if request.auth.uid != null;
+    }
+    match /notes/{noteId} {
+      allow get: if request.auth.uid != null;
+      allow create, update: if request.auth.uid != null &&
+        validateString(request.resource.data.noteContents.comment, 1, 10);
     }
   }
 }
