@@ -13,6 +13,7 @@ import { UserModel } from '../../../models/User';
 import { now } from '../../../utils/datetime';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { ReplyCommentForm as Component } from '../components/ReplyCommentForm';
+import { NotificationContext } from '../../../contexts/NotificationContext';
 
 interface Props {
   note: NoteModel;
@@ -32,6 +33,7 @@ export const ReplyCommentForm = (props: Props) => {
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
+  const { callNotification } = useContext(NotificationContext);
 
   const { noteId } = useEventsUrl();
 
@@ -57,7 +59,12 @@ export const ReplyCommentForm = (props: Props) => {
       CommentContensModel,
       Partial<ReplyConmentModel>
     >(values, submitValue, action, 'created');
-    addReplyComment(v);
+
+    try {
+      await addReplyComment(v);
+    } catch (error) {
+      callNotification('ReplyComment Post Error', 'error');
+    }
     closeReplayComments();
   };
 
