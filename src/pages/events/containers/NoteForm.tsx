@@ -108,7 +108,13 @@ export const NoteForm = (props: Props) => {
       NoteContentsModel,
       Partial<NoteModel>
     >(values, submitValue, action, 'created');
-    addNote(v);
+
+    try {
+      await addNote(v);
+    } catch (error) {
+      callNotification('Post Error', 'error');
+    }
+
     if (
       sholdTwitterShare &&
       integrations.twitterIntegration &&
