@@ -1,15 +1,20 @@
 import { NoteModel } from '../../models/Note';
 import { db } from '../index';
+import { ReplyConmentModel } from '../../models/ReplyComment';
+import { EventModel } from '../../models/Event';
 
-const NOTE_COLLECTION = db.collection('notes');
-
-export const listNotesByUid = async (uid: string) => {
-  const list: NoteModel[] = [];
-  const snapShot = await NOTE_COLLECTION.where('user.uid', '==', uid).get();
+const list = async <T>(
+  uid: string,
+  collection: firebase.firestore.CollectionReference,
+  queryKey: string,
+  assert?: boolean,
+): Promise<T[]> => {
+  const snapShot = await collection.where(queryKey, '==', assert || uid).get();
 
   return new Promise(resolve => {
+    const list: T[] = [];
     snapShot.forEach(doc => {
-      const data = doc.data() as NoteModel;
+      const data = doc.data() as T;
       const d = {
         ...data,
         id: doc.id,
@@ -20,25 +25,23 @@ export const listNotesByUid = async (uid: string) => {
   });
 };
 
-const REPLY_COMMENTS_COLLECTION = db.collection('replyComments');
+export const listNotesByUid = async (uid: string) => {
+  return list<NoteModel>(uid, db.collection('notes'), `user.uid`);
+};
 
 export const listReplyCommentsByUid = async (uid: string) => {
-  const list: NoteModel[] = [];
-  const snapShot = await REPLY_COMMENTS_COLLECTION.where(
-    'user.uid',
-    '==',
+  return list<ReplyConmentModel>(
     uid,
-  ).get();
+    db.collection('replyComments'),
+    `user.uid`,
+  );
+};
 
-  return new Promise(resolve => {
-    snapShot.forEach(doc => {
-      const data = doc.data() as NoteModel;
-      const d = {
-        ...data,
-        id: doc.id,
-      };
-      list.push(d);
-    });
-    resolve(list);
-  });
+export const listEventsByUid = async (uid: string) => {
+  return list<EventModel>(
+    uid,
+    db.collection('events'),
+    `organizerUids.${uid}`,
+    true,
+  );
 };

@@ -14,6 +14,7 @@ import { RouteComponentProps } from 'react-router';
 import {
   listNotesByUid,
   listReplyCommentsByUid,
+  listEventsByUid,
 } from '../../../firebase/api/fortest';
 import { UserContext } from '../../../contexts/UserContext';
 
@@ -42,7 +43,7 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
 
   const onClick = async () => {
     // const list = await listNotesByUid(user.uid);
-    // const list = await listReplyCommentsByUid(user.uid);
+    const list = await listReplyCommentsByUid(user.uid);
     // console.log(list);
   };
 
