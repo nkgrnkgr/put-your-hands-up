@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   createStyles,
   makeStyles,
   Theme,
   Container,
   Typography,
+  Button,
 } from '@material-ui/core';
 import { PageHeader } from '../../shared/containers/PageHeader';
 import { ParticipatedEventList } from '../containers/ParticipatedEventList';
 import { Page } from '../../shared/components/Page';
 import { RouteComponentProps } from 'react-router';
+import {
+  listNotesByUid,
+  listReplyCommentsByUid,
+} from '../../../firebase/api/fortest';
+import { UserContext } from '../../../contexts/UserContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DashboardPage: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
+  const { user } = useContext(UserContext);
+
+  const onClick = async () => {
+    // const list = await listNotesByUid(user.uid);
+    // const list = await listReplyCommentsByUid(user.uid);
+    // console.log(list);
+  };
 
   return (
     <Page>
@@ -40,6 +53,9 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
         <Container>
           <div id="back-to-top-anchor" className={classes.app} />
           <div className={classes.eventList}>
+            <Button variant="contained" color="primary" onClick={onClick}>
+              test
+            </Button>
             <Typography variant="h4" className={classes.title}>
               参加したイベント
             </Typography>
