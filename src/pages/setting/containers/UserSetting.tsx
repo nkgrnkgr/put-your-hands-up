@@ -49,14 +49,16 @@ export const UserSetting = () => {
     if (!user.isAnonymous) {
       try {
         await deleteUser();
-        callNotification('User Deleted ✅', 'info');
       } catch (error) {
-        callNotification('Failed to deleted user! ❌', 'info');
+        callNotification('Failed to deleted user! ❌', 'error');
+
+        return;
       }
     }
+    callNotification('User Deleted ✅ Logout after 5 seconds ', 'info');
     setTimeout(() => {
       signOut();
-    }, 4000);
+    }, 5000);
   };
 
   const cancelClickHandler = () => {};
