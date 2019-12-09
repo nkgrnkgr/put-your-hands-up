@@ -13,6 +13,7 @@ import { UserModel } from '../../../models/User';
 import { AnonimouseUserProfile } from './AnonimouseUserProfile';
 import { ExternalLinkSetting } from './ExternalLinkSetting';
 import { UserProfile } from './UserProfile';
+import { DeleteUserButton } from './DeleteUserButton';
 
 interface Props {
   user: UserModel;
@@ -49,6 +50,7 @@ export const UserSetting: React.FC<Props> = ({
   integrations,
   setAnonymousUserInfo,
   onChangeSettingTwitterIntegration,
+  onClickDeleteUserButton,
 }) => {
   const classes = useStyles();
 
@@ -75,7 +77,7 @@ export const UserSetting: React.FC<Props> = ({
               onChangeSettingTwitterIntegration
             }
           />
-          {/* <DeleteUserButton onClickDeleteButton={onClickDeleteUserButton} /> */}
+          <DeleteUserButton onClickDeleteButton={onClickDeleteUserButton} />
         </Paper>
       )}
     </div>

@@ -20,8 +20,7 @@ const updateUserEventIdsParticipated = (
 export const ParticipatedEventList = () => {
   const { user, setUser } = useContext(UserContext);
   const { user: fetchedUser, loading: userLoading, error: userError } = useUser(
-    user.uid,
-    user.isAnonymous,
+    user,
   );
   const { callNotification } = useContext(NotificationContext);
 

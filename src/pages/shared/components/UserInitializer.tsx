@@ -9,13 +9,12 @@ import { NotificationContext } from '../../../contexts/NotificationContext';
 export const UserInitializer: React.FC = ({ children }) => {
   const { user, setUser } = useContext(UserContext);
   const { setIntegrations } = useContext(IntegrationsContext);
-  const { uid } = user;
-  const { user: fetchedUser, loading, error } = useUser(uid);
+  const { user: fetchedUser, loading, error } = useUser(user);
   const {
     integrations: fetchedIntegrations,
     loading: integrationLoading,
     error: integrationError,
-  } = useIntegrations(uid);
+  } = useIntegrations(user.uid);
   const { callNotification } = useContext(NotificationContext);
 
   useEffect(() => {

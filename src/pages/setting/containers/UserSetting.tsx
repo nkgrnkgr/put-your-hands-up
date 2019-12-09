@@ -14,6 +14,7 @@ import { AnonymousColor } from '../../../models/AnonymousUser';
 import { UserModel } from '../../../models/User';
 import { save } from '../../../utils/localStorageAccessor';
 import { UserSetting as Component } from '../components/UserSetting';
+import { deleteUser } from '../../../firebase/api/users';
 
 export const UserSetting = () => {
   const { user, setUser } = useContext(UserContext);
@@ -46,13 +47,18 @@ export const UserSetting = () => {
   };
   const okClickHandler = async () => {
     if (!user.isAnonymous) {
-      // await deleteUser(uid);
-      signOut();
+      try {
+        await deleteUser();
+      } catch (error) {
+        callNotification('Failed to deleted user! ❌', 'error');
 
-      return;
+        return;
+      }
     }
-
-    return signOut();
+    callNotification('User Deleted ✅ Logout after 5 seconds ', 'info');
+    setTimeout(() => {
+      signOut();
+    }, 5000);
   };
 
   const cancelClickHandler = () => {};
