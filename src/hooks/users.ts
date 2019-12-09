@@ -1,8 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getParticipatedUsersSnapshot, getUser } from '../firebase/api/users';
+import {
+  getParticipatedUsersSnapshot,
+  getUser,
+  addUserIfDeleted,
+} from '../firebase/api/users';
 import { UserModel } from '../models/User';
 
-export const useUser = (uid: string, isAnonymous = false) => {
+export const useUser = (localUser: UserModel) => {
+  const { uid, isAnonymous } = localUser;
   const [user, setUser] = useState<UserModel | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -12,7 +17,16 @@ export const useUser = (uid: string, isAnonymous = false) => {
       try {
         if (uid !== '') {
           const user = await getUser(uid, isAnonymous);
-          setUser(user);
+
+          if (user) {
+            setUser(user);
+          } else {
+            await addUserIfDeleted(localUser);
+            const userRefetched = await getUser(uid, isAnonymous);
+            if (userRefetched) {
+              setUser(user);
+            }
+          }
         }
         setError(null);
       } catch (err) {

@@ -1,7 +1,7 @@
 import { loadAnonymousUserLocalData } from '../../models/AnonymousUser';
 import { UserModel } from '../../models/User';
 import { uniq } from '../../utils/utils';
-import { db } from '../index';
+import { firebase, db } from '../index';
 
 const COLLECTION_KEY = 'users';
 const COLLECTION = db.collection(COLLECTION_KEY);
@@ -13,6 +13,12 @@ export const getUser = async (uid: string, isAnonymous = false) => {
   const doc = await COLLECTION.doc(uid).get();
 
   return doc.data() as UserModel;
+};
+
+export const addUserIfDeleted = async (user: UserModel) => {
+  // 一度削除されたユーザーは ２回目ログイン以降Firestoreに格納されない
+  // ローカルUserModelをベースに復元する必要がある。ただし、EventParticipated は初期化されるので仕方ない
+  await COLLECTION.doc(user.uid).set(user);
 };
 
 export const getParticipatedUsersSnapshot = (
@@ -49,8 +55,9 @@ export const updateEventIdsParticipated = (
 };
 
 // TODO: Firestoreから直接消すのではなく、Authenticationから削除し、その他諸々をバッチで削除する必要あり
-// export const deleteUser = async (uid: string) => {
-//   const collection = db.collection(COLLECTION_KEY);
-//   const userRef = collection.doc(uid);
-//   await userRef.delete();
-// };
+export const deleteUser = async () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    await user.delete();
+  }
+};
