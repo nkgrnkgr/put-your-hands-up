@@ -1,12 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/styles';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ApplicationContextProvider } from './contexts/ApplicationContext';
-import { ConfirmDialogContextProvider } from './contexts/ConfirmDialogContext';
-import { EventPageContextProvider } from './contexts/EventPageContext';
-import { IntegrationsContextProvider } from './contexts/IntegrationsContext';
-import { NotificationContextProvider } from './contexts/NotificationContext';
-import { UserContextProvider } from './contexts/UserContext';
 import { ApiCallbackPage } from './pages/apicallbak/containers/ApiCallbackPage';
 import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
@@ -24,6 +18,7 @@ import { UserInitializer } from './pages/shared/components/UserInitializer';
 import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
 import { Notification } from './pages/shared/containers/Notification';
 import { SignInPage } from './pages/signin/containers/SignInPage';
+import { ContextInjection } from './contexts/ContextInjection';
 
 const useStyles = makeStyles(
   createStyles({
@@ -37,60 +32,38 @@ const App: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <ApplicationContextProvider>
-      <UserContextProvider>
-        <IntegrationsContextProvider>
-          <ConfirmDialogContextProvider>
-            <NotificationContextProvider>
-              <EventPageContextProvider>
-                <FirebaseAuthInitializer>
-                  <FirebaseAuthLoadedListener>
-                    <div className={classes.root}>
-                      <ScrollTop />
-                      <Notification />
-                      <ConfirmDialog />
+    <ContextInjection>
+      <FirebaseAuthInitializer>
+        <FirebaseAuthLoadedListener>
+          <div className={classes.root}>
+            <ScrollTop />
+            <Notification />
+            <ConfirmDialog />
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/signin" component={SignInPage} />
+              <Route path="/apicallback" component={ApiCallbackPage} />
+              <PrivateRoute>
+                <UserInitializer>
+                  <Switch>
+                    <Route path="/forbidden" component={Forbidden} />
+                    <Route path="/dashboard" component={DashboardPage} />
+                    <Route path="/setting" component={SettingPage} />
+                    <Route path="/events/:eventId" component={Eventpage} />
+                    <ResisterdRoute>
                       <Switch>
-                        <Route exact path="/" component={LandingPage} />
-                        <Route path="/signin" component={SignInPage} />
-                        <Route
-                          path="/apicallback"
-                          component={ApiCallbackPage}
-                        />
-                        <PrivateRoute>
-                          <UserInitializer>
-                            <Switch>
-                              <Route path="/forbidden" component={Forbidden} />
-                              <Route
-                                path="/dashboard"
-                                component={DashboardPage}
-                              />
-                              <Route path="/setting" component={SettingPage} />
-                              <Route
-                                path="/events/:eventId"
-                                component={Eventpage}
-                              />
-                              <ResisterdRoute>
-                                <Switch>
-                                  <Route
-                                    path="/organizer"
-                                    component={OrganizerPage}
-                                  />
-                                  <Route path="*" component={NoMatch} />
-                                </Switch>
-                              </ResisterdRoute>
-                            </Switch>
-                          </UserInitializer>
-                        </PrivateRoute>
+                        <Route path="/organizer" component={OrganizerPage} />
+                        <Route path="*" component={NoMatch} />
                       </Switch>
-                    </div>
-                  </FirebaseAuthLoadedListener>
-                </FirebaseAuthInitializer>
-              </EventPageContextProvider>
-            </NotificationContextProvider>
-          </ConfirmDialogContextProvider>
-        </IntegrationsContextProvider>
-      </UserContextProvider>
-    </ApplicationContextProvider>
+                    </ResisterdRoute>
+                  </Switch>
+                </UserInitializer>
+              </PrivateRoute>
+            </Switch>
+          </div>
+        </FirebaseAuthLoadedListener>
+      </FirebaseAuthInitializer>
+    </ContextInjection>
   );
 };
 
