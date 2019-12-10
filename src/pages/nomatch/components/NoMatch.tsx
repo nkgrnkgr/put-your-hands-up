@@ -35,7 +35,7 @@ export const NoMatch: React.FC = () => {
     <ErrorPageBase>
       <div className={classes.root}>
         <main className={classes.main}>
-          <img src={notfound} className={classes.image} />
+          <img src={notfound} alt="notfound" className={classes.image} />
           <Typography variant="h3">Not Found.</Typography>
           <Link href="/" color="secondary">
             home

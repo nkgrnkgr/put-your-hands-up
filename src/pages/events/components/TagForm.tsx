@@ -1,14 +1,11 @@
 import {
   Button,
-  Chip,
   createStyles,
-  Icon,
   makeStyles,
   TextField,
   Theme,
   Typography,
 } from '@material-ui/core';
-import clsx from 'clsx';
 import { FieldArray, FormikProps } from 'formik';
 import React, { useState } from 'react';
 import { NoteContentsModel } from '../../../models/Note';

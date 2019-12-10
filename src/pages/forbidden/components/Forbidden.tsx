@@ -35,7 +35,7 @@ export const Forbidden: React.FC = () => {
     <ErrorPageBase>
       <div className={classes.root}>
         <main className={classes.main}>
-          <img src={forbidden} className={classes.image} />
+          <img src={forbidden} alt="fobidden" className={classes.image} />
           <Typography variant="h3">Forbidden.</Typography>
           <Link href="/" color="secondary">
             home

@@ -25,6 +25,7 @@ export const FirebaseAuthInitializer: React.FC = ({ children }) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   return <>{children}</>;

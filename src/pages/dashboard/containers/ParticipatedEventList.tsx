@@ -34,6 +34,7 @@ export const ParticipatedEventList = () => {
     if (fetchedUser) {
       setUser(updateUserEventIdsParticipated(user, fetchedUser));
     }
+    // eslint-disable-next-line
   }, [fetchedUser]);
 
   if (userLoading || eventListLoading) {
