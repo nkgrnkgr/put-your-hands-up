@@ -57,6 +57,7 @@ export const useTwitterIntegration = (
     };
 
     load();
+    // eslint-disable-next-line
   }, [oauth_token, oauth_verifier]);
 
   return { integration, loading, error };

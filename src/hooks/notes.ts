@@ -45,6 +45,7 @@ export const useNote = (eventId: string, ltId: string, noteId: string) => {
     };
 
     run();
+    // eslint-disable-next-line
   }, [noteId]);
 
   return { note, loading, error };

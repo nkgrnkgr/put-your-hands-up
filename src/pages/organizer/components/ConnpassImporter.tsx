@@ -45,7 +45,11 @@ export const ConnpassImporter: React.FC<Props> = ({
         label={
           <div className={classes.label}>
             <Typography component="p">Import From</Typography>
-            <img src={connpass_logo} className={classes.image} />
+            <img
+              src={connpass_logo}
+              alt="connpass_logo"
+              className={classes.image}
+            />
           </div>
         }
         formInput={

@@ -37,6 +37,7 @@ export const useUser = (localUser: UserModel) => {
     };
 
     run();
+    // eslint-disable-next-line
   }, [uid]);
 
   return { user, loading, error };
