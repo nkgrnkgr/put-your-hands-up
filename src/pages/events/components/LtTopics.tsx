@@ -1,5 +1,7 @@
 import {
   createStyles,
+  Divider,
+  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -7,16 +9,13 @@ import {
   makeStyles,
   Paper,
   Theme,
-  Icon,
-  Link,
-  Divider,
   Typography,
 } from '@material-ui/core';
+import clsx from 'clsx';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { LTModel } from '../../../models/Event';
 import { IconLink } from '../../shared/components/IconLink';
-import clsx from 'clsx';
 
 interface Props {
   eventId: string;
