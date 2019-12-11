@@ -25,7 +25,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 600,
+      maxWidth: 800,
       marginTop: theme.spacing(4),
       marginBottom: theme.spacing(4),
       marginLeft: 'auto',
@@ -86,14 +86,9 @@ export const LtTopics: React.FC<Props> = ({ eventId, lts }) => {
     <>
       <Paper className={classes.root}>
         <Typography variant="h5" className={classes.title}>
-          セッション - 登壇者情報
+          Sessions - 登壇者情報
         </Typography>
         <Divider />
-        {lts && lts.length === 0 && (
-          <Typography variant="body1" className={classes.title}>
-            なし
-          </Typography>
-        )}
         {lts && lts.length > 0 && (
           <List dense component="nav" aria-label="visited event list">
             {lts.map((lt, index) => (

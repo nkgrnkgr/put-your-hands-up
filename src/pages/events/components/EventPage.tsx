@@ -14,6 +14,7 @@ import { SideBar } from '../containers/SideBar';
 import { SortTab } from '../containers/SortTab';
 import { EventSummary } from './EventSummary';
 import { LtTopics } from './LtTopics';
+import { Memo } from './Memo';
 import { ParticipatedEventIdUpdater } from '../containers/ParticipatedEventIdUpdater';
 import { SelectedTags } from '../containers/SelectedTags';
 
@@ -60,7 +61,10 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
             hashTag={event.hashTag}
           />
           <ParticipatedUsers event={event} />
-          {ltId === '0' && <LtTopics eventId={event.id} lts={event.lts} />}
+          {ltId === '0' && event.memo && <Memo memo={event.memo} />}
+          {ltId === '0' && event.lts.length > 0 && (
+            <LtTopics eventId={event.id} lts={event.lts} />
+          )}
           <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
           <ModalFab />
           <SortTab />
