@@ -25,6 +25,18 @@ const list = async <T>(
   });
 };
 
+export const deleteNotes = async (uid: string) => {
+  const snapShot = await db
+    .collection('notes')
+    .where('user.uid', '==', uid)
+    .get();
+
+  snapShot.forEach(async document => {
+    const doc = db.collection('notes').doc(document.id);
+    await doc.delete();
+  });
+};
+
 export const listNotesByUid = async (uid: string) => {
   return list<NoteModel>(uid, db.collection('notes'), `user.uid`);
 };

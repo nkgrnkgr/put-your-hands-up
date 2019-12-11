@@ -15,6 +15,7 @@ import {
   listNotesByUid,
   listReplyCommentsByUid,
   listEventsByUid,
+  deleteNotes,
 } from '../../../firebase/api/fortest';
 import { UserContext } from '../../../contexts/UserContext';
 
@@ -43,7 +44,9 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
 
   const onClick = async () => {
     // const list = await listNotesByUid(user.uid);
-    const list = await listReplyCommentsByUid(user.uid);
+    // const list = await listNotesByUid(user.uid);
+    // console.log(list);
+    deleteNotes(user.uid);
     // console.log(list);
   };
 
