@@ -60,7 +60,7 @@ export const ConnpassImporter: React.FC<Props> = ({
             fullWidth
             variant="outlined"
             placeholder="https://nodejs.connpass.com/event/147459/"
-            value={connppassEventUrl}
+            defaultValue={connppassEventUrl}
             onChange={e => handleChange(e.target.value)}
           />
         }
