@@ -25,6 +25,40 @@ const list = async <T>(
   });
 };
 
+export const deleteNotesFandsIds = async (uid: string) => {
+  const collection = db.collection('notes');
+  const path = 'noteContents.fansIds';
+
+  const snapShot = await collection.where(path, 'array-contains', uid).get();
+
+  snapShot.forEach(async document => {
+    const data = document.data() as NoteModel;
+    const { fansIds } = data.noteContents;
+    const extractedIds = fansIds.filter(id => id !== uid);
+    const ref = collection.doc(data.id);
+    await ref.update({
+      [path]: extractedIds,
+    });
+  });
+};
+
+export const deleteReplyCommentFanIds = async (uid: string) => {
+  const collection = db.collection('replyComments');
+  const path = 'commentContents.fansIds';
+
+  const snapShot = await collection.where(path, 'array-contains', uid).get();
+
+  snapShot.forEach(async document => {
+    const data = document.data() as ReplyConmentModel;
+    const { fansIds } = data.commentContents;
+    const extractedIds = fansIds.filter(id => id !== uid);
+    const ref = collection.doc(data.id);
+    await ref.update({
+      [path]: extractedIds,
+    });
+  });
+};
+
 export const deleteNotes = async (uid: string) => {
   const snapShot = await db
     .collection('notes')
