@@ -18,7 +18,9 @@ const extractEventId = (urlStrng: string) => {
 
 export const ConnpassImporter: React.FC<Props> = props => {
   const { setFieldValue, values } = props;
-  const [eventUrl, setEventUrl] = useState<string>('');
+  const [eventUrl, setEventUrl] = useState<string>(
+    values.connppassEventUrl || '',
+  );
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const handleChange = (value: string) => setEventUrl(value);
