@@ -75,7 +75,7 @@ export const loadAnonymousUserData = (
     avatarUrl: ANONYMOUS_COLOR_IMAGE[0],
     uid,
     isAnonymous,
-    eventIdsParticipated: [],
+    eventIdsParticipated: [process.env.REACT_APP_DEMO_EVENTID || ''],
   };
 };
 

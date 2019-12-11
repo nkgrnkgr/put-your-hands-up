@@ -20,7 +20,7 @@ export const initialUserData: UserModel = {
   avatarUrl: '',
   uid: '',
   isAnonymous: false,
-  eventIdsParticipated: [],
+  eventIdsParticipated: [process.env.REACT_APP_DEMO_EVENTID || ''],
 };
 
 export const loadOrCreateUser = (user: firebase.User): UserModel => {
