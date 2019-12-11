@@ -23,7 +23,7 @@ export const EmptyEventList: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <img src={empty} className={classes.image} />
+      <img src={empty} alt="empty" className={classes.image} />
       <Typography variant="body1">
         今まで参加したイベントはありません
       </Typography>

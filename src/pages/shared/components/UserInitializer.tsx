@@ -24,6 +24,7 @@ export const UserInitializer: React.FC = ({ children }) => {
     if (fetchedIntegrations) {
       setIntegrations(fetchedIntegrations);
     }
+    // eslint-disable-next-line
   }, [user, fetchedIntegrations]);
 
   if (loading || integrationLoading) {

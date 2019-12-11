@@ -72,14 +72,18 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
           >
             <Grid item xs={12} sm={6}>
               <div className={classes.centerWrapper}>
-                <img src={_top} className={classes.imageTop} />
+                <img src={_top} alt="toplogo" className={classes.imageTop} />
               </div>
             </Grid>
           </Grid>
           <Grid container justify="center" className={classes.content}>
             <Grid item xs>
               <Typography className={classes.title} align="center" variant="h4">
-                <img src={pyhuloge_pink} className={classes.logo} />
+                <img
+                  src={pyhuloge_pink}
+                  alt="toplogo"
+                  className={classes.logo}
+                />
                 <span style={{ paddingLeft: '10px', paddingBottom: '10px' }}>
                   Put Your Hands Up
                 </span>
