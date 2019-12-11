@@ -44,11 +44,26 @@ const createLine = (line: string) => {
   return line;
 };
 
-export const CommentContent: React.FC<Props> = ({ comment }) => {
+export const HTMLTextContent: React.FC<Props> = ({ comment }) => {
   return (
     <div>
-      {comment.split(/\s/).map((line, index) => {
-        return <span key={index}>{createLine(line)}</span>;
+      {comment.split(/\s/).map((line, index) => (
+        <span key={index}>{createLine(line)}</span>
+      ))}
+    </div>
+  );
+};
+
+export const LineFeedContent: React.FC<Props> = ({ comment }) => {
+  return (
+    <div>
+      {comment.split(/\r\n|\n|\r/).map((line, index) => {
+        return (
+          <span key={index}>
+            {createLine(line)}
+            <br />
+          </span>
+        );
       })}
     </div>
   );

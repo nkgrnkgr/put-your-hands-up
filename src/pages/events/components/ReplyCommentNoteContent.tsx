@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { ago } from '../../../utils/datetime';
-import { CommentContent } from './CommentContent';
+import { HTMLTextContent } from '../../shared/components/HTMLTextContent';
 
 interface Props {
   displayName: string;
@@ -34,7 +34,7 @@ export const ReplyCommentNoteContent: React.FC<Props> = ({
             <>
               {`${ago(created, 'minute')}分前`}
               <br />
-              <CommentContent comment={comment} />
+              <HTMLTextContent comment={comment} />
             </>
           }
         />

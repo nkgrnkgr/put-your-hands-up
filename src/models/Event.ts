@@ -9,6 +9,7 @@ export interface EventModel {
   lts: LTModel[];
   organizerUids: { [key: string]: true };
   connppassEventUrl?: string;
+  memo?: string;
 }
 
 export interface LTModel {
@@ -29,6 +30,7 @@ export const createInitialEventModelValue = (uid: string): EventModel => {
     lts: [],
     organizerUids: { [uid]: true },
     connppassEventUrl: '',
+    memo: '',
   };
 };
 

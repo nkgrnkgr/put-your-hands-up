@@ -19,7 +19,7 @@ import { UserModel } from '../../../models/User';
 import { ago } from '../../../utils/datetime';
 import { HeartIcon } from './HeartIcon';
 import { Tag } from './Tag';
-import { CommentContent } from './CommentContent';
+import { HTMLTextContent } from '../../shared/components/HTMLTextContent';
 
 interface Props {
   note: NoteModel;
@@ -73,7 +73,7 @@ export const Note: React.FC<Props> = ({
         />
         <CardContent>
           <Typography color="textPrimary" component="p">
-            <CommentContent comment={note.noteContents.comment} />
+            <HTMLTextContent comment={note.noteContents.comment} />
           </Typography>
         </CardContent>
         <CardContent>
