@@ -34,6 +34,7 @@ export const ConnpassImporter: React.FC<Props> = props => {
       const responseData = response.data as FunctionsResponse<ConnpassEvent[]>;
       const eventData = responseData.body[0];
       setFieldValue('name', `${eventData.title} ${eventData.catch}`);
+      setFieldValue('memo', `${eventData.catch}`);
       setFieldValue('hashTag', eventData.hash_tag);
       setFieldValue('date', new Date(eventData.started_at).getTime());
       setFieldValue('connppassEventUrl', eventUrl);

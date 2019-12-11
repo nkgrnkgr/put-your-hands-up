@@ -15,7 +15,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { ReplyConmentModel } from '../../../models/ReplyComment';
 import { ago } from '../../../utils/datetime';
-import { CommentContent } from './CommentContent';
+import { HTMLTextContent } from '../../shared/components/HTMLTextContent';
 import { HeartIcon } from './HeartIcon';
 
 interface Props {
@@ -65,7 +65,7 @@ export const ReplyCommentContent: React.FC<Props> = ({
             <>
               {`${ago(commentContents.created, 'minute')}分前`}
               <br />
-              <CommentContent comment={commentContents.comment} />
+              <HTMLTextContent comment={commentContents.comment} />
             </>
           }
         />

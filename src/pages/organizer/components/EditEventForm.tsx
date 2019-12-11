@@ -286,6 +286,25 @@ export const EditEventForm: React.FC<Props> = props => {
         </div>
         <div className={classes.contents}>
           <GridContainer
+            label={<Typography component="p">メモ</Typography>}
+            formInput={
+              <TextField
+                name="memo"
+                placeholder="イベント詳細"
+                value={values.memo || ''}
+                margin="normal"
+                variant="outlined"
+                multiline
+                rows="4"
+                rowsMax="10"
+                fullWidth
+                onChange={handleChange}
+              />
+            }
+          />
+        </div>
+        <div className={classes.contents}>
+          <GridContainer
             label={<Typography component="p">ハッシュタグ</Typography>}
             formInput={
               <TextField
