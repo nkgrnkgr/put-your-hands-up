@@ -50,7 +50,10 @@ export const UserSetting = () => {
       try {
         await deleteUser();
       } catch (error) {
-        callNotification('Failed to deleted user! ❌', 'error');
+        callNotification(
+          'ログイン情報が古いためユーザーの削除に失敗しました。一度再ログインし直してからユーザーの削除を試してください',
+          'error',
+        );
 
         return;
       }
