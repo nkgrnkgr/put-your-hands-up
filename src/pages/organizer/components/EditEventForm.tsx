@@ -16,6 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router';
 import { createInitialLTModelValue, EventModel } from '../../../models/Event';
 import { ConnpassImporter } from '../containers/ConnpassImporter';
+import markdown from '../../../images/markdown.svg';
 
 type OuterProps = {
   handleDelete: (values: EventModel) => void;
@@ -50,6 +51,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       margin: theme.spacing(1),
+    },
+    image: {
+      maxWidth: '40px',
+      marginRight: theme.spacing(1),
+    },
+    titleImage: {
+      display: 'flex',
+      justifyContent: 'space-between',
     },
   }),
 );
@@ -286,20 +295,27 @@ export const EditEventForm: React.FC<Props> = props => {
         </div>
         <div className={classes.contents}>
           <GridContainer
-            label={<Typography component="p">メモ</Typography>}
+            label={
+              <div className={classes.titleImage}>
+                <Typography component="p">イベント説明</Typography>
+                <img src={markdown} alt="markdown" className={classes.image} />
+              </div>
+            }
             formInput={
-              <TextField
-                name="memo"
-                placeholder="イベント詳細"
-                value={values.memo || ''}
-                margin="normal"
-                variant="outlined"
-                multiline
-                rows="4"
-                rowsMax="10"
-                fullWidth
-                onChange={handleChange}
-              />
+              <>
+                <TextField
+                  name="memo"
+                  placeholder="イベント詳細"
+                  value={values.memo || ''}
+                  margin="normal"
+                  variant="outlined"
+                  multiline
+                  rows="4"
+                  rowsMax="15"
+                  fullWidth
+                  onChange={handleChange}
+                />
+              </>
             }
           />
         </div>

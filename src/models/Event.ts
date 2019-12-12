@@ -21,6 +21,33 @@ export interface LTModel {
   documentUrl3: string;
 }
 
+export const initialMemo = (
+  eventTitle = 'xxMeetUp',
+  eventCatch = '今回のテーマはxxxです',
+  hashTag = 'pyhu',
+  connpassUrl = '',
+) => {
+  return `# 🌈${eventTitle}
+
+${eventCatch}
+
+### ✨Features
+- 勉強会参加者が登壇者に気軽にフィードバックを投稿することができます🖐🏻
+- 投稿はこのページにログインしている全員にリアルタイムに共有されます😻
+- 投稿には「いいね♥️」または「返信💬」ができます
+- Twitterアカウントと連携してTwitterにも投稿が可能です🐦 Twitter連携は[こちら](/setting)
+- サイドバーの general はイベント全般、それ以外は登壇者ごとのページで投稿してください👏🏻
+- Twitterのハッシュタグは [#${hashTag}](https://twitter.com/hashtag/${hashTag}) です
+
+### 📢Infomation
+- [connpass](${connpassUrl})
+
+### 💎etc
+- 機能要望・不具合の報告は[こちら](https://github.com/nkgrnkgr/put-your-hands-up/issues/new)
+
+`;
+};
+
 export const createInitialEventModelValue = (uid: string): EventModel => {
   return {
     id: '',
@@ -30,7 +57,7 @@ export const createInitialEventModelValue = (uid: string): EventModel => {
     lts: [],
     organizerUids: { [uid]: true },
     connppassEventUrl: '',
-    memo: '',
+    memo: initialMemo(),
   };
 };
 
