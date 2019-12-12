@@ -296,7 +296,7 @@ export const EditEventForm: React.FC<Props> = props => {
                 variant="outlined"
                 multiline
                 rows="4"
-                rowsMax="10"
+                rowsMax="15"
                 fullWidth
                 onChange={handleChange}
               />
