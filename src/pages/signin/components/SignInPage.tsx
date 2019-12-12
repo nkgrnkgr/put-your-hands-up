@@ -6,6 +6,7 @@ import {
   makeStyles,
   Theme,
   Typography,
+  ButtonBase,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
@@ -28,20 +29,23 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       marginBottom: theme.spacing(5),
     },
-    imgWrapper: {
+    wrapper: {
       display: 'flex',
       justifyContent: 'center',
     },
-    logo: {
-      width: '50%',
+    image: {
+      width: 128,
+      height: 128,
     },
-    buttonContent: {
-      textAlign: 'center',
-      margin: theme.spacing(1),
+    logo: {
+      margin: 'auto',
+      display: 'block',
+      maxWidth: '100%',
+      maxHeight: '100%',
     },
     button: {
       margin: theme.spacing(1),
-      width: '100%',
+      width: 500,
     },
     icon: {
       margin: theme.spacing(1),
@@ -74,34 +78,35 @@ export const SignInPage: React.FC = () => {
     <Grid
       className={classes.root}
       container
+      direction="column"
       justify="center"
       alignContent="center"
     >
-      <div className={classes.container}>
-        <div className={classes.imgWrapper}>
+      <Grid item className={classes.wrapper}>
+        <ButtonBase className={classes.image}>
           <img src={pyhuloge_pink} alt="logo" className={classes.logo} />
-        </div>
+        </ButtonBase>
+      </Grid>
+      <Grid item>
         <Typography className={classes.title} variant="h4" align="center">
           PUT YOUR HANDS UP
         </Typography>
-        {buttons.map(button => (
-          <div key={button.name}>
-            <Button
-              className={classes.button}
-              variant="outlined"
-              onClick={button.onClick}
-              color="secondary"
-              startIcon={
-                <Icon className={clsx(button.iconName, classes.icon)} />
-              }
-            >
-              <span style={{ paddingRight: button.paddingRight }}>
-                {button.name}でログイン
-              </span>
-            </Button>
-          </div>
-        ))}
-      </div>
+      </Grid>
+      {buttons.map(button => (
+        <Grid item className={classes.wrapper}>
+          <Button
+            className={classes.button}
+            variant="outlined"
+            onClick={button.onClick}
+            color="secondary"
+            startIcon={<Icon className={clsx(button.iconName, classes.icon)} />}
+          >
+            <span style={{ paddingRight: button.paddingRight }}>
+              {button.name}でログイン
+            </span>
+          </Button>
+        </Grid>
+      ))}
     </Grid>
   );
 };
