@@ -10,6 +10,7 @@ import { PageHeader } from '../../shared/containers/PageHeader';
 import { ParticipatedEventList } from '../containers/ParticipatedEventList';
 import { Page } from '../../shared/components/Page';
 import { RouteComponentProps } from 'react-router';
+import { CreateNewEventButton } from './CreateNewEventButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +45,7 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
               参加したイベント
             </Typography>
             <ParticipatedEventList />
+            <CreateNewEventButton />
           </div>
         </Container>
       </div>
