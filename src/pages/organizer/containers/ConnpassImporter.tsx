@@ -5,7 +5,7 @@ import {
   FunctionsResponse,
   searchConnpassEvent,
 } from '../../../firebase/api/callFunctions';
-import { EventModel } from '../../../models/Event';
+import { EventModel, initialMemo } from '../../../models/Event';
 import { ConnpassImporter as Component } from '../components/ConnpassImporter';
 
 type Props = FormikProps<EventModel>;
@@ -33,8 +33,16 @@ export const ConnpassImporter: React.FC<Props> = props => {
       });
       const responseData = response.data as FunctionsResponse<ConnpassEvent[]>;
       const eventData = responseData.body[0];
-      setFieldValue('name', `${eventData.title} ${eventData.catch}`);
-      setFieldValue('memo', `${eventData.catch}`);
+      setFieldValue('name', `${eventData.title}`);
+      setFieldValue(
+        'memo',
+        initialMemo(
+          eventData.title,
+          eventData.catch,
+          eventData.hash_tag,
+          eventData.event_url,
+        ),
+      );
       setFieldValue('hashTag', eventData.hash_tag);
       setFieldValue('date', new Date(eventData.started_at).getTime());
       setFieldValue('connppassEventUrl', eventUrl);
