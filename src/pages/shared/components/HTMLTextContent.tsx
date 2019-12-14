@@ -53,18 +53,3 @@ export const HTMLTextContent: React.FC<Props> = ({ comment }) => {
     </div>
   );
 };
-
-export const LineFeedContent: React.FC<Props> = ({ comment }) => {
-  return (
-    <div>
-      {comment.split(/\r\n|\n|\r/).map((line, index) => {
-        return (
-          <span key={index}>
-            {createLine(line)}
-            <br />
-          </span>
-        );
-      })}
-    </div>
-  );
-};
