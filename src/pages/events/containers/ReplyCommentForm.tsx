@@ -52,13 +52,16 @@ export const ReplyCommentForm = (props: Props) => {
       eventId: note.eventId,
       ltId: note.ltId,
       noteId: noteId || '',
-      commentContents: values,
+      commentContents: {
+        ...values,
+        created: now(),
+      },
       user: user,
     };
     const v = await onFormikSubmitHandler<
       CommentContensModel,
       Partial<ReplyConmentModel>
-    >(values, submitValue, action, 'created');
+    >(submitValue, action);
 
     try {
       await addReplyComment(v);

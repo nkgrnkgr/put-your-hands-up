@@ -100,14 +100,17 @@ export const NoteForm = (props: Props) => {
     const submitValue: Partial<NoteModel> = {
       eventId,
       ltId,
-      noteContents: values,
+      noteContents: {
+        ...values,
+        created: now(),
+      },
       user,
       commentIds: [],
     };
     const v = await onFormikSubmitHandler<
       NoteContentsModel,
       Partial<NoteModel>
-    >(values, submitValue, action, 'created');
+    >(submitValue, action);
 
     try {
       await addNote(v);
