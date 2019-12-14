@@ -1,5 +1,4 @@
 import React from 'react';
-import { LineFeedContent } from '../../shared/components/HTMLTextContent';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { Theme, Paper, Typography, Divider } from '@material-ui/core';
 import { MarkDownComponent } from '../../shared/components/MarkDownComponent';
@@ -37,7 +36,6 @@ export const Memo: React.FC<Props> = ({ memo }) => {
       </Typography>
       <Divider />
       <div className={classes.contents}>
-        {/* <LineFeedContent comment={memo} /> */}
         <MarkDownComponent text={memo} />
       </div>
     </Paper>
