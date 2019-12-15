@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  deploy_dev:
+    docker:
+      - image: circleci/node:10.7
+    steps:
+      - checkout
+      - run:
+          name: Install Depencies
+          command: yarn
+      - run:
+          name: build
+          command: yarn build
+      - run:
+          name: select firebase project
+          command: ./node_modules/.bin/firebase use put-your-hands-up-test
+      - run:
+          name: deploy to Firebase Hosting
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --only hosting
+
+workflows:
+  version: 2
+  deploy_dev:
+    jobs:
+      - deploy_dev:
+          filters:
+            branches:
+              only: develop
