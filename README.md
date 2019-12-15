@@ -18,9 +18,6 @@ Where feedback to the speakers gather.
   <a href="https://github.com/nkgrnkgr/put-your-hands-up/actions">
     <img src="https://github.com/nkgrnkgr/put-your-hands-up/workflows/CI/badge.svg" alt="Github CI" />
   </a>
-  <a href="https://github.com/nkgrnkgr/put-your-hands-up">
-    <img src="https://api.travis-ci.org/nkgrnkgr/put-your-hands-up.svg?branch=master" alt="Travis CI" />
-  </a>
   <img src="https://circleci.com/gh/nkgrnkgr/put-your-hands-up/tree/develop.svg?style=svg" alt="Circle CI" />
   <a href="https://ja.reactjs.org/">
     <img src="https://img.shields.io/github/package-json/dependency-version/nkgrnkgr/put-your-hands-up/react" alt="react version">
@@ -70,7 +67,6 @@ REACT_APP_DATABASE_URL=xxxx
 REACT_APP_PROJECT_ID=xxxx
 REACT_APP_STORAGE_BUCKET=xxxx
 REACT_APP_MESSAGING_SENDER_ID=xxxx
-REACT_APP_DEMO_EVENTID=xxxx
 ```
 
 ### Start
