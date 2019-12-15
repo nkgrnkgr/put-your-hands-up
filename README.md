@@ -1,7 +1,7 @@
 
 <p align="center">
   <a href="https://pyhu.nkgr.app">
-    <img alt="Carbon Design System" src="./src/images/cap2.png" width="100%" />
+    <img alt="put your hands up" src="./src/images/cap2.png" width="70%" />
   </a>
 </p>
 <h1 align="center">
