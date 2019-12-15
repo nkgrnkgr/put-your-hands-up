@@ -18,6 +18,7 @@ Where feedback to the speakers gather.
   <a href="https://github.com/nkgrnkgr/put-your-hands-up/actions">
     <img src="https://github.com/nkgrnkgr/put-your-hands-up/workflows/CI/badge.svg" alt="Github CI" />
   </a>
+  <img src="https://circleci.com/gh/nkgrnkgr/put-your-hands-up/tree/develop.svg?style=svg" alt="Circle CI" />
   <a href="https://ja.reactjs.org/">
     <img src="https://img.shields.io/github/package-json/dependency-version/nkgrnkgr/put-your-hands-up/react" alt="react version">
   </a>
