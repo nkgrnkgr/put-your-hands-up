@@ -5,16 +5,13 @@ node_js:
 install:
   - npm install -g firebase-tools
   - yarn
+script:
+  - echo "========== Build Start =========="
+  - yarn build
+  - echo "========== Build Firebase Deploy =========="
+  - firebase use put-your-hands-up
+  - firebase deploy --token=$FIREBASE_TOKEN --only hosting
 
 branches:
   only:
     - master
-
-cache: yarn
-
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: $FIREBASE_TOKEN
-  project: $FIREBASE_PROJECT
