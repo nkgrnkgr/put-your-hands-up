@@ -16,7 +16,7 @@ interface ApplicationState {
 
 const initialApplicationValues: AppclicationValues = {
   isFirebaseAuthInitialized: false,
-  isSidebarOpen: false,
+  isSidebarOpen: true,
   isOpenNoteForm: false,
   isOpenReplayComments: false,
 };
