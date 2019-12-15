@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "put-your-hands-up",
+    "production": "put-your-hands-up",
     "staging": "put-your-hands-up-test"
   }
 }
