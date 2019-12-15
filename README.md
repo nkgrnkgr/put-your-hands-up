@@ -28,6 +28,9 @@ Where feedback to the speakers gather.
   <a href="https://firebase.google.com/?hl=ja">
     <img src="https://img.shields.io/github/package-json/dependency-version/nkgrnkgr/put-your-hands-up/firebase" alt="firebase version">
   </a>
+  <a href="https://material-ui.com/">
+    <img src="https://img.shields.io/github/package-json/dependency-version/nkgrnkgr/put-your-hands-up/@material-ui/core" alt="firebase version">
+  </a>
   <a href="https://img.shields.io/badge/license-MIT-blue.svg?style=flass">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flass" alt="MIT" />
   </a>
