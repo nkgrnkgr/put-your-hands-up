@@ -1,0 +1,24 @@
+language: node_js
+
+node_js:
+  - "12.13.1"
+install:
+  - npm install -g firebase-tools
+  - yarn
+
+script:
+  - echo "========== Build Start =========="
+  - yarn run build
+
+branches:
+  only:
+    - master
+
+cache: yarn
+
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  token:
+    secure: $FIREBASE_TOKEN
+  project: $FIREBASE_PROJECT
