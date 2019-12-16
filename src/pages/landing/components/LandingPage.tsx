@@ -106,7 +106,7 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                 </span>
                 ができる
                 <br />
-                グループチャットライクなサービスです
+                グループチャットライクなサービスです👩🏻‍💻
               </Typography>
             </Grid>
           </Grid>
