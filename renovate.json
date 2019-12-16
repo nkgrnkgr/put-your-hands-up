@@ -2,7 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "baseBranches": "develop",
+  "baseBranches": ["develop"],
   "schedule": "before 8am on Monday",
   "minor": {
     "groupName": "all dependencies"
