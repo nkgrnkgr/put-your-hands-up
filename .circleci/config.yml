@@ -5,15 +5,15 @@ jobs:
       - image: circleci/node:10.17
     steps:
       - run:
-        name: Development
-        command: |
-          echo 'export $REACT_APP_APIKEY=$STAGE_REACT_APP_APIKEY' >> $BASH_ENV
-          echo 'export $REACT_APP_AUTH_DOMAIN=$STAGE_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
-          echo 'export $REACT_APP_DATABASE_URL=$STAGE_REACT_APP_DATABASE_URL' >> $BASH_ENV
-          echo 'export $REACT_APP_PROJECT_ID=$STAGE_REACT_APP_PROJECT_ID' >> $BASH_ENV
-          echo 'export $REACT_APP_STORAGE_BUCKET=$STAGE_REACT_APP_STORAGE_BUCKET' >> $BASH_ENV
-          echo 'export $REACT_APP_MESSAGING_SENDER_ID=$STAGE_REACT_APP_MESSAGING_SENDER_ID' >> $BASH_ENV
-          echo 'export $REACT_APP_DEMO_EVENTID=$STAGE_REACT_APP_DEMO_EVENTID' >> $BASH_ENV
+          name: Development
+          command: |
+              echo 'export $REACT_APP_APIKEY=$STAGE_REACT_APP_APIKEY' >> $BASH_ENV
+              echo 'export $REACT_APP_AUTH_DOMAIN=$STAGE_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
+              echo 'export $REACT_APP_DATABASE_URL=$STAGE_REACT_APP_DATABASE_URL' >> $BASH_ENV
+              echo 'export $REACT_APP_PROJECT_ID=$STAGE_REACT_APP_PROJECT_ID' >> $BASH_ENV
+              echo 'export $REACT_APP_STORAGE_BUCKET=$STAGE_REACT_APP_STORAGE_BUCKET' >> $BASH_ENV
+              echo 'export $REACT_APP_MESSAGING_SENDER_ID=$STAGE_REACT_APP_MESSAGING_SENDER_ID' >> $BASH_ENV
+              echo 'export $REACT_APP_DEMO_EVENTID=$STAGE_REACT_APP_DEMO_EVENTID' >> $BASH_ENV
       - checkout
       - run:
           name: Install Depencies
