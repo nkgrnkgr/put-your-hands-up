@@ -9,7 +9,7 @@ jobs:
           command: |
               if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 echo 'export REACT_APP_APIKEY=$PRODUCTION_REACT_APP_APIKEY' >> $BASH_ENV
-                echo 'export REACT_APP_AUTH_DOMAIN=$PRODUCTION_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
+                echo 'export REACT_APP_AUTH_DOMAIN=$PRODUCTION_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
                 echo 'export REACT_APP_DATABASE_URL=$PRODUCTION_REACT_APP_DATABASE_URL' >> $BASH_ENV
                 echo 'export REACT_APP_PROJECT_ID=$PRODUCTION_REACT_APP_PROJECT_ID' >> $BASH_ENV
                 echo 'export REACT_APP_STORAGE_BUCKET=$PRODUCTION_REACT_APP_STORAGE_BUCKET' >> $BASH_ENV
