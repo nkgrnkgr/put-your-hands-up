@@ -34,7 +34,7 @@ jobs:
           command: yarn build
       - run:
           name: select firebase project
-          command: ./node_modules/.bin/firebase use put-your-hands-up-test
+          command: ./node_modules/.bin/firebase use $REACT_APP_PROJECT_ID
       - run:
           name: deploy to Firebase Hosting
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --only hosting
@@ -43,7 +43,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - deploy_dev:
+      - deploy:
           filters:
             branches:
               only:
