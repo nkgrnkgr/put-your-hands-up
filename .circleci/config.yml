@@ -1,9 +1,30 @@
 version: 2
 jobs:
-  deploy_dev:
+  deploy:
     docker:
       - image: circleci/node:10.17
     steps:
+      - run:
+          name: Development
+          command: |
+              if [ $CIRCLE_BRANCH = "master" ]; then
+                echo 'export REACT_APP_APIKEY=$PRODUCTION_REACT_APP_APIKEY' >> $BASH_ENV
+                echo 'export REACT_APP_AUTH_DOMAIN=$PRODUCTION_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
+                echo 'export REACT_APP_DATABASE_URL=$PRODUCTION_REACT_APP_DATABASE_URL' >> $BASH_ENV
+                echo 'export REACT_APP_PROJECT_ID=$PRODUCTION_REACT_APP_PROJECT_ID' >> $BASH_ENV
+                echo 'export REACT_APP_STORAGE_BUCKET=$PRODUCTION_REACT_APP_STORAGE_BUCKET' >> $BASH_ENV
+                echo 'export REACT_APP_MESSAGING_SENDER_ID=$PRODUCTION_REACT_APP_MESSAGING_SENDER_ID' >> $BASH_ENV
+                echo 'export REACT_APP_DEMO_EVENTID=$PRODUCTION_REACT_APP_DEMO_EVENTID' >> $BASH_ENV
+              else
+                echo 'export REACT_APP_APIKEY=$STAGE_REACT_APP_APIKEY' >> $BASH_ENV
+                echo 'export REACT_APP_AUTH_DOMAIN=$STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
+                echo 'export REACT_APP_DATABASE_URL=$STAGE_REACT_APP_DATABASE_URL' >> $BASH_ENV
+                echo 'export REACT_APP_PROJECT_ID=$STAGE_REACT_APP_PROJECT_ID' >> $BASH_ENV
+                echo 'export REACT_APP_STORAGE_BUCKET=$STAGE_REACT_APP_STORAGE_BUCKET' >> $BASH_ENV
+                echo 'export REACT_APP_MESSAGING_SENDER_ID=$STAGE_REACT_APP_MESSAGING_SENDER_ID' >> $BASH_ENV
+                echo 'export REACT_APP_DEMO_EVENTID=$STAGE_REACT_APP_DEMO_EVENTID' >> $BASH_ENV
+              fi
+              source $BASH_ENV
       - checkout
       - run:
           name: Install Depencies
@@ -13,16 +34,18 @@ jobs:
           command: yarn build
       - run:
           name: select firebase project
-          command: ./node_modules/.bin/firebase use put-your-hands-up-test
+          command: ./node_modules/.bin/firebase use $REACT_APP_PROJECT_ID
       - run:
           name: deploy to Firebase Hosting
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --only hosting
 
 workflows:
   version: 2
-  deploy_dev:
+  deploy:
     jobs:
-      - deploy_dev:
+      - deploy:
           filters:
             branches:
-              only: develop
+              only:
+                - master
+                - develop
