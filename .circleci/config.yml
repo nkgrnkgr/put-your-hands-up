@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:10.17
     steps:
       - run:
-        name: env
+        name: Development
         command: |
           echo 'export $REACT_APP_APIKEY=$STAGE_REACT_APP_APIKEY' >> $BASH_ENV
           echo 'export $REACT_APP_AUTH_DOMAIN=$STAGE_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
