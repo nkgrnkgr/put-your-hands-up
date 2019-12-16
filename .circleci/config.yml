@@ -43,7 +43,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - deploy_dev:
+      - deploy:
           filters:
             branches:
               only:
