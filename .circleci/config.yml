@@ -7,7 +7,7 @@ jobs:
       - run:
           name: Development
           command: |
-              if [ $CIRCLE_BRANCH != "master" ]; then
+              if [ $CIRCLE_BRANCH = "master" ]; then
                 echo 'export REACT_APP_APIKEY=$PRODUCTION_REACT_APP_APIKEY' >> $BASH_ENV
                 echo 'export REACT_APP_AUTH_DOMAIN=$PRODUCTION_STAGE_REACT_APP_AUTH_DOMAIN' >> $BASH_ENV
                 echo 'export REACT_APP_DATABASE_URL=$PRODUCTION_REACT_APP_DATABASE_URL' >> $BASH_ENV
