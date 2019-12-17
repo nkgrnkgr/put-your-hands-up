@@ -91,14 +91,14 @@ export const PageFooter: React.FC = () => {
               <IconLinkWithText
                 title="Terms"
                 className="far fa-file-alt"
-                url="/"
+                url="/term"
               />
             </div>
             <div>
               <IconLinkWithText
                 title="Privacy"
                 className="far fa-address-card"
-                url="/"
+                url="/privacy"
               />
             </div>
           </Grid>
