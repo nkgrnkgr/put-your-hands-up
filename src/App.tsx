@@ -19,6 +19,8 @@ import { ConfirmDialog } from './pages/shared/containers/ConfirmDialog';
 import { Notification } from './pages/shared/containers/Notification';
 import { SignInPage } from './pages/signin/containers/SignInPage';
 import { ContextInjection } from './contexts/ContextInjection';
+import { TermPage } from './pages/term/components/TermPage';
+import { PrivacyPage } from './pages/privacy/components/PrivacyPage';
 
 const useStyles = makeStyles(
   createStyles({
@@ -42,6 +44,8 @@ const App: React.FC = () => {
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route path="/signin" component={SignInPage} />
+              <Route path="/term" component={TermPage} />
+              <Route path="/privacy" component={PrivacyPage} />
               <Route path="/apicallback" component={ApiCallbackPage} />
               <PrivateRoute>
                 <UserInitializer>
