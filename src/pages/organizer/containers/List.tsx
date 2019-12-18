@@ -22,5 +22,7 @@ export const List: React.FC<RouteComponentProps> = () => {
     );
   }
 
-  return <Component eventList={eventList} />;
+  const sortedList = eventList.sort((e1, e2) => e2.date - e1.date);
+
+  return <Component eventList={sortedList} />;
 };
