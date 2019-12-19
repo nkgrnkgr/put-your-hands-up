@@ -5,6 +5,7 @@ import Loading from '../../shared/components/Loading';
 import { NoteList as NoteListComponent } from '../components/NoteList';
 import { useNotesSnapshot } from '../../../hooks/notes';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { EmptyContents } from '../../shared/containers/EmptyContents';
 
 interface Props {
   eventId: string;
@@ -41,5 +42,5 @@ export const NoteList = (props: Props) => {
     );
   }
 
-  return <></>;
+  return <EmptyContents message="まだ投稿がありません👍" />;
 };
