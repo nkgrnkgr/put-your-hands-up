@@ -71,3 +71,9 @@ export const createInitialLTModelValue = (): LTModel => {
     documentUrl3: '',
   };
 };
+
+export const sortByDateDesc = (events: EventModel[]) => {
+  const l = [...events];
+
+  return l.sort((e1, e2) => e2.date - e1.date);
+};

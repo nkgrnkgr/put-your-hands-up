@@ -6,6 +6,7 @@ import { ParticipatedEventList as Component } from '../components/ParticipatedEv
 import { useParticipatedEventList } from '../../../hooks/events';
 import { useUser } from '../../../hooks/users';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { sortByDateDesc } from '../../../models/Event';
 
 const updateUserEventIdsParticipated = (
   user: UserModel,
@@ -48,5 +49,5 @@ export const ParticipatedEventList = () => {
     );
   }
 
-  return <Component eventList={eventList} />;
+  return <Component eventList={sortByDateDesc(eventList)} />;
 };
