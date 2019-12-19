@@ -5,6 +5,7 @@ import Loading from '../../shared/components/Loading';
 import { List as Component } from '../components/List';
 import { useOrganizersEventList } from '../../../hooks/events';
 import { NotificationContext } from '../../../contexts/NotificationContext';
+import { sortByDateDesc } from '../../../models/Event';
 
 export const List: React.FC<RouteComponentProps> = () => {
   const { user } = useContext(UserContext);
@@ -22,5 +23,5 @@ export const List: React.FC<RouteComponentProps> = () => {
     );
   }
 
-  return <Component eventList={eventList} />;
+  return <Component eventList={sortByDateDesc(eventList)} />;
 };
