@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(5),
     },
     title: {
-      fontWeight: 'bold',
+      fontFamily: 'Josefin Sans,sans-serif',
+      fontWeight: 'lighter',
     },
     subTitle: {},
     centerWrapper: {
@@ -85,7 +86,7 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                   className={classes.logo}
                 />
                 <span style={{ paddingLeft: '10px', paddingBottom: '10px' }}>
-                  Put Your Hands Up
+                  PutYourHandsUp
                 </span>
               </Typography>
             </Grid>

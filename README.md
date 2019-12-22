@@ -1,11 +1,11 @@
 
 <p align="center">
   <a href="https://pyhu.nkgr.app">
-    <img alt="put your hands up" src="./src/images/cap2.png" width="70%" />
+    <img alt="PutYourHandsUp" src="./src/images/cap2.png" width="70%" />
   </a>
 </p>
 <h1 align="center">
-    Put Your Hands Up
+    PutYourHandsUp
 </h1>
 
 <div align="center">
@@ -37,9 +37,9 @@ Where feedback to the speakers gather.
   </a>
 </p>
 
-## What is Put Your Hands Up ?🤔
+## What is PutYourHandsUp ?🤔
 
-[Put Your Hands Up](https://pyhu.nkgr.app) is a service that enables people who participate in study sessions and conferences to easily send feedback to the speakers. By using this service, we would like to support the communication between participants so that everyone who participated in study sessions and conferences can spend a meaningful time.
+[PutYourHandsUp](https://pyhu.nkgr.app) is a service that enables people who participate in study sessions and conferences to easily send feedback to the speakers. By using this service, we would like to support the communication between participants so that everyone who participated in study sessions and conferences can spend a meaningful time.
 
 
 ## ‍Using🔧
