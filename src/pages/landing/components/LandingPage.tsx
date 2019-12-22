@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       textAlign: 'center',
-      margin: theme.spacing(2),
+      margin: theme.spacing(1),
     },
     page2: {
       background: '#fff',
@@ -90,6 +90,28 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
               </Typography>
             </Grid>
           </Grid>
+          <Grid container className={classes.content}>
+            <Grid item xs={12}>
+              <div className={classes.centerWrapper}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => history.push({ pathname: '/dashboard' })}
+                >
+                  GET STARTED
+                </Button>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="default"
+                  onClick={() => history.push({ pathname: '/organizer' })}
+                >
+                  イベント管理
+                </Button>
+              </div>
+            </Grid>
+          </Grid>
           <Grid className={classes.content} container justify="center">
             <Grid item xs>
               <Typography
@@ -108,36 +130,6 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
                 <br />
                 グループチャットライクなサービスです👩🏻‍💻
               </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignContent="center"
-            className={classes.content}
-          >
-            <Grid item xs={12} sm={6}>
-              <div className={classes.centerWrapper}>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => history.push({ pathname: '/dashboard' })}
-                >
-                  GET STARTED
-                </Button>
-              </div>
-              <div className={classes.centerWrapper}>
-                <Button
-                  className={classes.button}
-                  variant="outlined"
-                  color="default"
-                  onClick={() => history.push({ pathname: '/organizer' })}
-                >
-                  イベント管理者向け
-                </Button>
-              </div>
             </Grid>
           </Grid>
         </Container>
