@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(2),
     },
     title: {
-      fontWeight: 'bold',
+      fontFamily: 'Josefin Sans,sans-serif',
+      fontWeight: 'lighter',
       marginBottom: theme.spacing(5),
     },
     wrapper: {
@@ -89,7 +90,7 @@ export const SignInPage: React.FC = () => {
       </Grid>
       <Grid item>
         <Typography className={classes.title} variant="h4" align="center">
-          PUT YOUR HANDS UP
+          PutYourHandsUp
         </Typography>
       </Grid>
       {buttons.map(button => (
