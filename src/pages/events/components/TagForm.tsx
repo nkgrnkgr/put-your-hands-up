@@ -17,6 +17,7 @@ const recommendedTags = [
   '感想',
   '質問',
   '🔰初心者',
+  '誰か教えて😂',
   '完全に理解した',
   'マサカリ🔪',
   'この分野に関しては素人ですが',
@@ -111,12 +112,13 @@ export const TagForm: React.FC<Props> = props => {
               追加
             </Button>
             <div className={classes.tags}>
-              {values.tagTitles.length > 0 &&
+              {values.tagTitles &&
+                values.tagTitles.length > 0 &&
                 values.tagTitles.map((tagTitle, index) => (
                   <Tag
                     key={index}
                     tagTitle={tagTitle}
-                    onClickDelete={e => arrayHelpers.remove(index)}
+                    onClickDelete={() => arrayHelpers.remove(index)}
                   />
                 ))}
             </div>
