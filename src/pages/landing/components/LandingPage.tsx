@@ -8,7 +8,7 @@ import {
   Button,
 } from '@material-ui/core';
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
 import cap2 from '../../../images/cap2.png';
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const LandingPage: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <>
@@ -91,6 +92,7 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                     color="primary"
                     variant="contained"
                     className={classes.button}
+                    onClick={() => history.push('/dashboard')}
                   >
                     GET STARTED
                   </Button>
@@ -98,6 +100,7 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                     color="default"
                     variant="outlined"
                     className={classes.button}
+                    onClick={() => history.push('/organizer')}
                   >
                     イベント管理
                   </Button>
