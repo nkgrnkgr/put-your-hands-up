@@ -42,6 +42,19 @@ const linkContents: LinkContent[] = [
   },
 ];
 
+const contacts: LinkContent[] = [
+  {
+    title: 'Twitter',
+    iconClassName: 'fab fa-twitter',
+    url: 'https://twitter.com/pyhu10',
+  },
+  {
+    title: 'Mail',
+    iconClassName: 'far fa-envelope',
+    url: 'mailto:nkgrnkgr.put.your.hands.up@gmail.com',
+  },
+];
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     logo: {
@@ -146,6 +159,10 @@ export const PublicHeaderContentsLinkItems = () => {
             GETSTARTED
           </Button>
         </ListItem>
+        <Divider />
+        {contacts.map(contact => (
+          <LinkListItem key={contact.title} link={contact} />
+        ))}
       </List>
     </>
   );
