@@ -1,129 +1,79 @@
 import {
-  AppBar,
-  Avatar,
-  Button,
-  ButtonBase,
   createStyles,
+  Drawer,
   Hidden,
-  Icon,
-  IconButton,
   makeStyles,
   Theme,
   Toolbar,
-  Typography,
 } from '@material-ui/core';
-import clsx from 'clsx';
-import React from 'react';
-import { useHistory } from 'react-router';
-import logo from '../../../images/pyhuloge_white.svg';
+import React, { useState } from 'react';
 import { HideOnScroll } from './HideOnScroll';
+import {
+  PublicHeaderContentsButtons,
+  PublicHeaderContentsLinkItems,
+  PublicHeaderLogo,
+  PublickHeaderMenuBar,
+} from './PublicHeaderContents';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       zIndex: theme.zIndex.drawer + 1,
     },
-    logo: {
-      flexGrow: 1,
-    },
-    avatar: {
-      margin: theme.spacing(1),
-    },
     icon: {
       width: '1.2em',
-      color: '#fff',
+      color: '#000',
     },
-    button: {
-      color: '#fff',
-      textTransform: 'none',
-      marginRight: theme.spacing(1),
+    drawer: {
+      width: 240,
+      flexShrink: 0,
     },
-    title: {
-      flexGrow: 1,
-      fontFamily: 'Josefin Sans,sans-serif',
-      fontWeight: 'lighter',
-      cursor: 'pointer',
-      color: '#fff',
+    drawerPaper: {
+      width: 240,
     },
+    listItemIcon: {
+      minWidth: '0px',
+      paddingRight: theme.spacing(1),
+    },
+    toolbar: theme.mixins.toolbar,
   }),
 );
 
-interface Props {
-  onClickMenuBar: () => void;
-}
-
-export const PublicPageHeader: React.FC<Props> = ({ onClickMenuBar }) => {
-  const history = useHistory();
+export const PublicPageHeader: React.FC = () => {
   const classes = useStyles();
+  const [isOpenSideBar, setOpenSideBar] = useState(false);
+
+  const toggleSideBar = () => {
+    setOpenSideBar(!isOpenSideBar);
+  };
 
   return (
     <div className={classes.root}>
       <HideOnScroll>
-        <AppBar>
-          <Toolbar>
-            <div className={classes.logo}>
-              <ButtonBase>
-                <Avatar alt="gtc" src={logo} className={classes.avatar} />
-                {/* pc tablet */}
-                <Hidden xsDown>
-                  <Typography
-                    variant="h5"
-                    className={classes.title}
-                    onClick={() => history.push('/dashboard')}
-                  >
-                    PutYourHandsUp
-                  </Typography>
-                </Hidden>
-              </ButtonBase>
-            </div>
+        <Toolbar>
+          <PublicHeaderLogo />
+          {/* pc tablet */}
+          <Hidden xsDown>
+            <PublicHeaderContentsButtons />
+          </Hidden>
 
-            {/* pc tablet */}
-            <Hidden xsDown>
-              <Button
-                variant="text"
-                className={classes.button}
-                startIcon={
-                  <Icon className={clsx('fab fa-readme', classes.icon)} />
-                }
-              >
-                HowToUse
-              </Button>
-              <Button
-                variant="text"
-                className={classes.button}
-                startIcon={
-                  <Icon className={clsx('fas fa-desktop', classes.icon)} />
-                }
-              >
-                Demo
-              </Button>
-              <Button
-                variant="text"
-                className={classes.button}
-                startIcon={
-                  <Icon className={clsx('fab fa-github', classes.icon)} />
-                }
-              >
-                Github
-              </Button>
-              <Button
-                color="inherit"
-                variant="outlined"
-                className={classes.button}
-              >
-                GETSTARTED
-              </Button>
-            </Hidden>
-
-            {/* mobile */}
-            <Hidden smUp>
-              <IconButton onClick={onClickMenuBar}>
-                <Icon className={clsx('fas fa-bars', classes.icon)} />
-              </IconButton>
-            </Hidden>
-          </Toolbar>
-        </AppBar>
+          {/* mobile */}
+          <Hidden smUp>
+            <PublickHeaderMenuBar handleOnClick={toggleSideBar} />
+          </Hidden>
+        </Toolbar>
       </HideOnScroll>
+      <Hidden smUp>
+        <Drawer
+          className={classes.drawer}
+          classes={{ paper: classes.drawerPaper }}
+          open={isOpenSideBar}
+          onClose={() => toggleSideBar()}
+          anchor="right"
+        >
+          <PublicHeaderContentsLinkItems />
+        </Drawer>
+      </Hidden>
     </div>
   );
 };
