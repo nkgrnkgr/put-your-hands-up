@@ -1,6 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import { MobileMenuSideBar } from '../../events/components/MobileMenuSideBar';
 import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
 
@@ -51,11 +52,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const LandingPage: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
+  const [isOpenSideBar, setOpenSideBar] = useState(false);
+
+  const toggleSideBar = () => {
+    setOpenSideBar(!isOpenSideBar);
+  };
 
   return (
     <>
       <Page>
-        <PublicPageHeader />
+        <PublicPageHeader onClickMenuBar={toggleSideBar} />
+        <MobileMenuSideBar
+          isSidebarOpen={isOpenSideBar}
+          toggleSideBar={toggleSideBar}
+        />
         <div id="back-to-top-anchor" className={classes.app} />
       </Page>
     </>

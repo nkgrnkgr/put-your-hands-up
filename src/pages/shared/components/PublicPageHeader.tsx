@@ -1,22 +1,19 @@
 import {
   AppBar,
   Avatar,
+  Button,
+  ButtonBase,
   createStyles,
   Hidden,
+  Icon,
   IconButton,
   makeStyles,
   Theme,
   Toolbar,
   Typography,
-  ButtonBase,
-  Button,
-  Icon,
-  Fade,
-  MenuItem,
-  Menu,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import logo from '../../../images/pyhuloge_white.svg';
 import { HideOnScroll } from './HideOnScroll';
@@ -51,19 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const PublicPageHeader: React.FC = () => {
+interface Props {
+  onClickMenuBar: () => void;
+}
+
+export const PublicPageHeader: React.FC<Props> = ({ onClickMenuBar }) => {
   const history = useHistory();
   const classes = useStyles();
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <div className={classes.root}>
@@ -126,24 +117,10 @@ export const PublicPageHeader: React.FC = () => {
 
             {/* mobile */}
             <Hidden smUp>
-              <IconButton onClick={handleClick}>
+              <IconButton onClick={onClickMenuBar}>
                 <Icon className={clsx('fas fa-bars', classes.icon)} />
               </IconButton>
             </Hidden>
-            <Menu
-              id="user-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              TransitionComponent={Fade}
-            >
-              <MenuItem>
-                <Typography component="p" color="textSecondary">
-                  a
-                </Typography>
-              </MenuItem>
-            </Menu>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
