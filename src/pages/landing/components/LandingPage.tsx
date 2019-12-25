@@ -1,8 +1,18 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  Grid,
+  Container,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
+import cap2 from '../../../images/cap2.png';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,39 +22,26 @@ const useStyles = makeStyles((theme: Theme) =>
     app: {
       height: '50px',
     },
-    content: {
-      marginBottom: theme.spacing(5),
-    },
-    contentsContainer: {
-      marginTop: theme.spacing(8),
-      marginBottom: theme.spacing(8),
-      backgroundColor: '#fff',
-    },
-    title: {
-      fontFamily: 'Josefin Sans,sans-serif',
-      fontWeight: 'lighter',
-    },
-    subTitle: {
-      marginBottom: theme.spacing(4),
-    },
-    centerWrapper: {
+    getStarts: {
+      height: '100%',
       display: 'flex',
       justifyContent: 'center',
       alignContent: 'center',
+      flexDirection: 'column',
     },
-    imageTop: {
-      width: '100%',
+    cap: {
+      maxWidth: '100%',
     },
-    logo: {
-      width: '32px',
+    item: {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    },
+    buttonGroup: {
+      display: 'flex',
+      justifyContent: 'center',
     },
     button: {
-      textAlign: 'center',
       margin: theme.spacing(1),
-    },
-    section: {
-      background: '#fff',
-      padding: theme.spacing(1),
     },
   }),
 );
@@ -57,6 +54,48 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
       <Page>
         <PublicPageHeader />
         <div id="back-to-top-anchor" className={classes.app} />
+        <Container>
+          <Grid container justify="center" alignContent="center">
+            <Grid item xs={12} sm={6}>
+              <div className={classes.getStarts}>
+                <Typography
+                  variant="h4"
+                  align="center"
+                  className={classes.item}
+                >
+                  Where feedback to the speakers gather.
+                </Typography>
+                <Typography
+                  variant="body2"
+                  align="center"
+                  className={classes.item}
+                >
+                  勉強会参加者が恥ずかしくて手を上げづらい問題を解決するサービスです。匿名/Twitter/Google
+                  アカウントで投稿することができます。
+                </Typography>
+                <div className={clsx(classes.item, classes.buttonGroup)}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className={classes.button}
+                  >
+                    GET STARTED
+                  </Button>
+                  <Button
+                    color="default"
+                    variant="outlined"
+                    className={classes.button}
+                  >
+                    イベント管理
+                  </Button>
+                </div>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <img src={cap2} alt="cap" className={classes.cap} />
+            </Grid>
+          </Grid>
+        </Container>
       </Page>
     </>
   );

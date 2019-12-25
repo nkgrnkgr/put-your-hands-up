@@ -9,7 +9,6 @@ import {
   ListItemIcon,
   ListItemText,
   ButtonBase,
-  Hidden,
   Typography,
   List,
   Divider,
@@ -87,16 +86,13 @@ export const PublicHeaderLogo = () => {
     <div className={classes.logo}>
       <ButtonBase>
         <img alt="logo" src={logo} className={classes.logoImage} />
-        {/* pc tablet */}
-        <Hidden xsDown>
-          <Typography
-            variant="h5"
-            className={classes.title}
-            onClick={() => history.push('/')}
-          >
-            PutYourHandsUp
-          </Typography>
-        </Hidden>
+        <Typography
+          variant="h6"
+          className={classes.title}
+          onClick={() => history.push('/')}
+        >
+          PutYourHandsUp
+        </Typography>
       </ButtonBase>
     </div>
   );
