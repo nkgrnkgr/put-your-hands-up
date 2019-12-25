@@ -70,7 +70,10 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                   align="center"
                   className={classes.item}
                 >
-                  勉強会参加者が恥ずかしくて手を上げづらい問題を解決するサービスです。匿名/Twitter/Google
+                  勉強会参加者が恥ずかしくて手を上げづらい問題を解決するサービスです。
+                  <br />
+                  匿名 / Twitter / Google
+                  <br />
                   アカウントで投稿することができます。
                 </Typography>
                 <div className={clsx(classes.item, classes.buttonGroup)}>
