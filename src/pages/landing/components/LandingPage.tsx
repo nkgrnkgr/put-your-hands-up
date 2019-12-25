@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
     cap: {
       maxWidth: '100%',
     },
+    title: {
+      fontFamily: 'Josefin Sans,sans-serif',
+      fontWeight: 'lighter',
+      color: theme.palette.primary.main,
+      fontSize: '1.5em',
+    },
     item: {
       marginTop: theme.spacing(3),
       marginBottom: theme.spacing(3),
@@ -63,18 +69,22 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                   align="center"
                   className={classes.item}
                 >
-                  Where feedback to the speakers gather.
+                  Where feedback to
+                  <br />
+                  the speakers gather.
                 </Typography>
                 <Typography
                   variant="body2"
                   align="center"
                   className={classes.item}
                 >
-                  勉強会参加者が恥ずかしくて手を上げづらい問題を解決するサービスです。
+                  <span className={classes.title}>PutYourHandsUp</span>は
+                  <br />
+                  勉強会参加者が大勢の前では手を上げづらい問題を解決するサービスです
                   <br />
                   匿名 / Twitter / Google
                   <br />
-                  アカウントで投稿することができます。
+                  アカウントでログインし登壇者にフィードバックできます
                 </Typography>
                 <div className={clsx(classes.item, classes.buttonGroup)}>
                   <Button
