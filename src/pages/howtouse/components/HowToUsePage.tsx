@@ -7,10 +7,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { RouteComponentProps, useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
+import _under_construction from '../../../images/_under_construction.svg';
 import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
-import _under_construction from '../../../images/_under_construction.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
