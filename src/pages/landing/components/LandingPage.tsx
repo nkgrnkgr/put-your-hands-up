@@ -18,6 +18,8 @@ import sc1 from '../../../images/sc1.png';
 import sc2 from '../../../images/sc2.png';
 import sc3 from '../../../images/sc3.png';
 import sc4 from '../../../images/sc4.png';
+import sc5 from '../../../images/sc5.png';
+import connpass_logo from '../../../images/connpass_logo.png';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -228,6 +230,28 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 <div className={classes.content}>
                   <Typography variant="h5" className={classes.item}>
                     質問タグの活用
+                  </Typography>
+                  <Typography variant="body1">
+                    質問タグをつけて投稿することで、あとで登壇者への質問時間にタグをつけた投稿のみを抽出して質問できます
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid container justify="center" alignContent="center">
+              <Grid item xs={12} sm={6}>
+                <Card className={classes.content}>
+                  <CardMedia
+                    className={classes.media}
+                    image={sc5}
+                    title="screen"
+                  />
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className={classes.content}>
+                  <Typography variant="h5" className={classes.item}>
+                    Connpass連携
+                    <img src={connpass_logo} />
                   </Typography>
                   <Typography variant="body1">
                     質問タグをつけて投稿することで、あとで登壇者への質問時間にタグをつけた投稿のみを抽出して質問できます
