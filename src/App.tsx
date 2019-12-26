@@ -6,6 +6,7 @@ import { DashboardPage } from './pages/dashboard/components/DashboardPage';
 import { Eventpage } from './pages/events/containers/EventPage';
 import { Forbidden } from './pages/forbidden/components/Forbidden';
 import { LandingPage } from './pages/landing/components/LandingPage';
+import { HowToUsePage } from './pages/howtouse/components/HowToUsePage';
 import { NoMatch } from './pages/nomatch/components/NoMatch';
 import { OrganizerPage } from './pages/organizer/components/OrganizerPage';
 import { SettingPage } from './pages/setting/components/SettingPage';
@@ -46,6 +47,7 @@ const App: React.FC = () => {
               <Route path="/signin" component={SignInPage} />
               <Route path="/term" component={TermPage} />
               <Route path="/privacy" component={PrivacyPage} />
+              <Route path="/howtouse" component={HowToUsePage} />
               <Route path="/apicallback" component={ApiCallbackPage} />
               <PrivateRoute>
                 <UserInitializer>
