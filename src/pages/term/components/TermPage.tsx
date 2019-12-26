@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { Page } from '../../shared/components/Page';
+import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,8 +40,9 @@ export const TermPage: React.FC = () => {
 
   return (
     <Page>
+      <PublicPageHeader />
+      <div id="back-to-top-anchor" className={classes.app} />
       <Container className={classes.root}>
-        <div id="back-to-top-anchor" className={classes.app} />
         <Paper className={classes.container}>
           <Typography className={classes.title} variant="h4">
             利用規約

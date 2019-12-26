@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
+import { Container, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useEventsUrl } from '../../../hooks/useEventsUrl';
 import { EventModel, LTModel } from '../../../models/Event';
 import { getYearMonthDayHourMitutes } from '../../../utils/datetime';
@@ -18,14 +18,20 @@ import { Memo } from './Memo';
 import { ParticipatedEventIdUpdater } from '../containers/ParticipatedEventIdUpdater';
 import { SelectedTags } from '../containers/SelectedTags';
 
-const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-  },
-  app: {
-    height: '100px',
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    app: {
+      height: '100px',
+    },
+    spaces: {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    },
+  }),
+);
 
 const getLtName = (lts: LTModel[], ltId: string): string => {
   const targetLt = lts.find(lt => lt.id === ltId);
@@ -67,9 +73,15 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
           )}
           <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
           <ModalFab />
-          <SortTab />
-          <SelectedTags />
-          <NoteList eventId={event.id} ltId={ltId} />
+          <section className={classes.spaces}>
+            <SortTab />
+          </section>
+          <section className={classes.spaces}>
+            <SelectedTags />
+          </section>
+          <section className={classes.spaces}>
+            <NoteList eventId={event.id} ltId={ltId} />
+          </section>
           <RightSideBar />
         </Container>
       </ParticipatedEventIdUpdater>
