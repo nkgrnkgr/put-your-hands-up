@@ -10,7 +10,7 @@ import { PageHeader } from '../../shared/containers/PageHeader';
 import { ParticipatedEventList } from '../containers/ParticipatedEventList';
 import { Page } from '../../shared/components/Page';
 import { RouteComponentProps } from 'react-router';
-import { CreateNewEventButton } from './CreateNewEventButton';
+import { CreateNewEventButton } from '../containers/CreateNewEventButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
