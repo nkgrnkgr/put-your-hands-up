@@ -19,7 +19,6 @@ import sc2 from '../../../images/sc2.png';
 import sc3 from '../../../images/sc3.png';
 import sc4 from '../../../images/sc4.png';
 import sc5 from '../../../images/sc5.png';
-import connpass_logo from '../../../images/connpass_logo.png';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -72,6 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
     media: {
       height: 0,
       paddingTop: '56.25%', // 16:9
+    },
+    image: {
+      height: '30px',
     },
   }),
 );
@@ -251,15 +253,33 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 <div className={classes.content}>
                   <Typography variant="h5" className={classes.item}>
                     Connpass連携
-                    <img src={connpass_logo} />
                   </Typography>
                   <Typography variant="body1">
-                    質問タグをつけて投稿することで、あとで登壇者への質問時間にタグをつけた投稿のみを抽出して質問できます
+                    ConnpassのURLから<b>１クリック</b>
+                    で簡単にイベントの作成ができます
                   </Typography>
                 </div>
               </Grid>
             </Grid>
           </Container>
+        </div>
+        <div className={clsx(classes.item, classes.buttonGroup)}>
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.button}
+            onClick={() => history.push('/dashboard')}
+          >
+            GET STARTED
+          </Button>
+          <Button
+            color="default"
+            variant="outlined"
+            className={classes.button}
+            onClick={() => history.push('/organizer')}
+          >
+            イベント管理
+          </Button>
         </div>
       </Page>
     </>
