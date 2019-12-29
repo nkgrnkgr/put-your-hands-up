@@ -18,6 +18,8 @@ import h1 from '../../../images/h1.png';
 import h2 from '../../../images/h2.png';
 import h3 from '../../../images/h3.png';
 import h4 from '../../../images/h4.png';
+import h5 from '../../../images/h5.png';
+import h6 from '../../../images/h6.png';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -130,19 +132,30 @@ const contentsOfUser: Contents[] = [
   },
   {
     title: '匿名ユーザーで名前/アイコンを変更する',
-    media: h1,
+    media: h5,
     body: (
       <ul>
-        <li>xx</li>
+        <li>
+          匿名ユーザーの場合
+          <Link to="/setting">ユーザー設定</Link>
+          にアクセスユーザー名とアイコンを変更することができます
+        </li>
       </ul>
     ),
   },
   {
     title: 'ユーザーを削除する',
-    media: h1,
+    media: h6,
     body: (
       <ul>
-        <li>xx</li>
+        <li>
+          <Link to="/setting">ユーザー設定</Link>
+          にアクセスしユーザー情報を削除することができます
+        </li>
+        <li>投稿やイベント参加記録、Twitter連携など全ての情報が削除されます</li>
+        <li>
+          一度削除した後に、ソーシャルアカウントでログインした場合新しいユーザーとして取り扱われます
+        </li>
       </ul>
     ),
   },
@@ -154,7 +167,7 @@ const contentsOfOrganizer: Contents[] = [
     media: h1,
     body: (
       <ul>
-        <li>xx</li>
+        <li></li>
       </ul>
     ),
   },
@@ -241,6 +254,38 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
               </Grid>
             </Grid>
             {contentsOfUser.map((content, index) => (
+              <Grid
+                container
+                justify="center"
+                alignContent="center"
+                key={index}
+              >
+                <Grid item xs={12} sm={6}>
+                  <Card className={classes.content}>
+                    <CardMedia
+                      className={classes.media}
+                      image={content.media}
+                      title="screen"
+                    />
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <div className={classes.content}>
+                    <AnchorTitle title={content.title} />
+                    <Typography variant="body1">{content.body}</Typography>
+                  </div>
+                </Grid>
+              </Grid>
+            ))}
+            <Divider />
+            <Grid container justify="center" alignContent="center">
+              <Grid item xs={12}>
+                <Typography className={classes.title} variant="h5">
+                  イベント管理者向けの機能
+                </Typography>
+              </Grid>
+            </Grid>
+            {contentsOfOrganizer.map((content, index) => (
               <Grid
                 container
                 justify="center"
