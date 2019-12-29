@@ -15,6 +15,9 @@ import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
 import clsx from 'clsx';
 import h1 from '../../../images/h1.png';
+import h2 from '../../../images/h2.png';
+import h3 from '../../../images/h3.png';
+import h4 from '../../../images/h4.png';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -85,19 +88,103 @@ const contentsOfUser: Contents[] = [
       </ul>
     ),
   },
-
-  // 'コメントを投稿する',
-  // '返信する',
-  // 'コメントをTwitterに同時投稿する',
-  // '匿名ユーザーで名前/アイコンを変更する',
-  // 'ユーザーを削除する',
+  {
+    title: 'コメントを投稿する',
+    media: h2,
+    body: (
+      <ul>
+        <li>
+          コメント入力欄またはコメントアイコンをタップすることでコメント入力ができます
+        </li>
+        <li>
+          コメントにはタグを付与することができ、カスタムタグを作ることもできます
+        </li>
+      </ul>
+    ),
+  },
+  {
+    title: '返信する',
+    media: h3,
+    body: (
+      <ul>
+        <li>
+          投稿の返信アイコンをタップすることで、コメントに返信することができます
+        </li>
+      </ul>
+    ),
+  },
+  {
+    title: 'コメントをTwitterに同時投稿する',
+    media: h4,
+    body: (
+      <ul>
+        <li>
+          <Link to="/setting">ユーザー設定</Link>
+          にアクセスしTwitter連携を有効にします（TwitterにAPIの利用許諾を尋ねられるので許可してください）
+        </li>
+        <li>
+          投稿時にTwitterアイコンをタップすることで、コメント投稿と同時に投稿ができます
+        </li>
+      </ul>
+    ),
+  },
+  {
+    title: '匿名ユーザーで名前/アイコンを変更する',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
+  {
+    title: 'ユーザーを削除する',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
 ];
 
-const contentsOfOrganizer = [
-  'イベントページの作成/編集をする',
-  'イベントページの作成/編集をする',
-  '参加者にイベントページを案内する',
-  '登壇者への質問を抽出する',
+const contentsOfOrganizer: Contents[] = [
+  {
+    title: 'イベントページの作成/編集をする',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
+  {
+    title: '登壇者情報を追加する',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
+  {
+    title: '参加者にイベントページを案内する',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
+  {
+    title: '登壇者への質問を抽出する',
+    media: h1,
+    body: (
+      <ul>
+        <li>xx</li>
+      </ul>
+    ),
+  },
 ];
 
 export const HowToUsePage: React.FC<RouteComponentProps> = () => {
@@ -137,7 +224,7 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
             <ul>
               {contentsOfOrganizer.map((content, index) => (
                 <li key={index}>
-                  <InnerLink title={content} />
+                  <InnerLink title={content.title} />
                 </li>
               ))}
             </ul>
