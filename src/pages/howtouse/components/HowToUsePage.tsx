@@ -20,6 +20,10 @@ import h3 from '../../../images/h3.png';
 import h4 from '../../../images/h4.png';
 import h5 from '../../../images/h5.png';
 import h6 from '../../../images/h6.png';
+import h7 from '../../../images/h7.png';
+import h8 from '../../../images/h8.png';
+import h9 from '../../../images/h9.png';
+import h10 from '../../../images/h10.png';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +85,7 @@ const contentsOfUser: Contents[] = [
     body: (
       <ul>
         <li>
-          初めて参加するイベントの場合は、イベント管理者からイベントページのURLを連携してもらってください
+          初めて参加するイベントの場合は、イベント管理者からイベントページのURLを共有してもらってください
         </li>
         <li>
           <Link to="/dashboard">ダッシュボード</Link>
@@ -164,37 +168,63 @@ const contentsOfUser: Contents[] = [
 const contentsOfOrganizer: Contents[] = [
   {
     title: 'イベントページの作成/編集をする',
-    media: h1,
+    media: h7,
     body: (
       <ul>
-        <li></li>
+        <li>
+          <Link to="/organizer">イベントの管理</Link>
+          にアクセスすることで、イベントの作成および編集ができます
+        </li>
+        <li>
+          イベント名、イベント説明、ハッシュタグ、開催日時を入力することができます
+        </li>
+        <li>Connpass のイベントURLを入力すると自動で作成することができます</li>
       </ul>
     ),
   },
   {
     title: '登壇者情報を追加する',
-    media: h1,
+    media: h8,
     body: (
       <ul>
-        <li>xx</li>
+        <li>イベントページには登壇者情報を追加/編集/削除ができます</li>
+        <li>入力した登壇者情報ごとにイベントページでスレッドが作成されます</li>
       </ul>
     ),
   },
   {
     title: '参加者にイベントページを案内する',
-    media: h1,
+    media: h9,
     body: (
       <ul>
-        <li>xx</li>
+        <li>
+          <Link to="/organizer">イベントの管理</Link>
+          でイベントごとのURLが確認できます
+        </li>
+        <li>イベントの参加者向けへはこのURLを共有してください</li>
+        <li>
+          イベント開始時にQRコードなどで連携するとスムーズにアクセスできます
+        </li>
+        <li>
+          イベント開始後に参加される方のためにTwitterやConnpassを使ってURLを共有しておくと便利です
+        </li>
       </ul>
     ),
   },
   {
     title: '登壇者への質問を抽出する',
-    media: h1,
+    media: h10,
     body: (
       <ul>
-        <li>xx</li>
+        <li>
+          <Link to={`/events/${process.env.REACT_APP_DEMO_EVENTID}`}>
+            イベントページ
+          </Link>
+          では投稿されたコメントのタグをクリックすることで、同じタグがクリックされた投稿のみにフィルタできます
+        </li>
+        <li>
+          登壇者の登壇後に質問を受け付ける場合は、このタグで抽出すると質問のみを抽出でき便利です。
+        </li>
       </ul>
     ),
   },
