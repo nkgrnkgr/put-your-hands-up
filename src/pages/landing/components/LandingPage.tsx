@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5em',
     },
     item: {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
     },
     buttonGroup: {
       display: 'flex',
@@ -140,7 +140,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
         </Container>
         <div className={classes.secondSection}>
           <Container>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12}>
                 <Container className={classes.contents}>
                   <Typography align="center" variant="h4">
@@ -149,7 +154,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 </Container>
               </Grid>
             </Grid>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <Card className={classes.content}>
                   <CardMedia
@@ -172,7 +182,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 </div>
               </Grid>
             </Grid>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <Card className={classes.content}>
                   <CardMedia
@@ -195,7 +210,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 </div>
               </Grid>
             </Grid>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <Card className={classes.content}>
                   <CardMedia
@@ -218,7 +238,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 </div>
               </Grid>
             </Grid>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <Card className={classes.content}>
                   <CardMedia
@@ -239,7 +264,12 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 </div>
               </Grid>
             </Grid>
-            <Grid container justify="center" alignContent="center">
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <Card className={classes.content}>
                   <CardMedia
