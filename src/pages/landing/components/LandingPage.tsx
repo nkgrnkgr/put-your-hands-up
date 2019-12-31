@@ -14,11 +14,13 @@ import { RouteComponentProps, useHistory } from 'react-router';
 import { Page } from '../../shared/components/Page';
 import { PublicPageHeader } from '../../shared/components/PublicPageHeader';
 import cap2 from '../../../images/cap2.png';
+import sc0 from '../../../images/sc0.png';
 import sc1 from '../../../images/sc1.png';
 import sc2 from '../../../images/sc2.png';
 import sc3 from '../../../images/sc3.png';
 import sc4 from '../../../images/sc4.png';
 import sc5 from '../../../images/sc5.png';
+import sc6 from '../../../images/sc6.png';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -107,11 +109,7 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                 >
                   <span className={classes.title}>PutYourHandsUp</span>は
                   <br />
-                  勉強会参加者が大勢の前では手を上げづらい問題を解決するサービスです
-                  <br />
-                  匿名 / Twitter / Google
-                  <br />
-                  アカウントでログインし登壇者にフィードバックできます
+                  勉強会参加者が手を上げて発言し辛い問題を解決するグループチャットライクなサービスです
                 </Typography>
                 <div className={clsx(classes.item, classes.buttonGroup)}>
                   <Button
@@ -140,6 +138,38 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
         </Container>
         <div className={classes.secondSection}>
           <Container>
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
+              <Grid item xs={12}>
+                <Container className={classes.contents}>
+                  <Typography align="center" variant="h4">
+                    What is PutYourHandsUp
+                  </Typography>
+                </Container>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Card className={classes.content}>
+                  <CardMedia
+                    className={classes.media}
+                    image={sc0}
+                    title="screen"
+                  />
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className={classes.content}>
+                  <Typography variant="body1">
+                    勉強会に参加して、何も発言できず帰ったことはありませんか？
+                    <br />
+                    PutYourHandsUpは勉強会の参加者、登壇者、イベント管理者全員が勉強会を楽しむことをサポートするサービスです。
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
             <Grid
               className={classes.contents}
               container
@@ -178,6 +208,33 @@ export const LandingPage: React.FC<RouteComponentProps> = () => {
                     投稿は同じページを見ている全てのユーザーに
                     <b>リアルタイム</b>に共有されます。
                     <br />
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid
+              className={classes.contents}
+              container
+              justify="center"
+              alignContent="center"
+            >
+              <Grid item xs={12} sm={6}>
+                <Card className={classes.content}>
+                  <CardMedia
+                    className={classes.media}
+                    image={sc6}
+                    title="screen"
+                  />
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className={classes.content}>
+                  <Typography variant="h5" className={classes.item}>
+                    ログイン方法
+                  </Typography>
+                  <Typography variant="body1">
+                    匿名 / Twitter /
+                    Googleアカウントでログインして利用することができます
                   </Typography>
                 </div>
               </Grid>
