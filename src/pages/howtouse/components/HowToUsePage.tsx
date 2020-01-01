@@ -62,16 +62,6 @@ const InnerLink: React.FC<{ title: string }> = ({ title }) => (
   <a href={`/howtouse#${title}`}>{title}</a>
 );
 
-const AnchorTitle: React.FC<{ title: string }> = ({ title }) => {
-  const classes = useStyles();
-
-  return (
-    <Typography variant="h5" id={title} className={classes.item}>
-      {title}
-    </Typography>
-  );
-};
-
 interface Contents {
   title: string;
   media: string;
@@ -289,6 +279,7 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
                 justify="center"
                 alignContent="center"
                 key={index}
+                id={content.title}
               >
                 <Grid item xs={12} sm={6}>
                   <Card className={classes.content}>
@@ -301,7 +292,9 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <div className={classes.content}>
-                    <AnchorTitle title={content.title} />
+                    <Typography variant="h5" className={classes.item}>
+                      {content.title}
+                    </Typography>
                     <Typography variant="body1">{content.body}</Typography>
                   </div>
                 </Grid>
@@ -321,6 +314,7 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
                 justify="center"
                 alignContent="center"
                 key={index}
+                id={content.title}
               >
                 <Grid item xs={12} sm={6}>
                   <Card className={classes.content}>
@@ -333,7 +327,9 @@ export const HowToUsePage: React.FC<RouteComponentProps> = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <div className={classes.content}>
-                    <AnchorTitle title={content.title} />
+                    <Typography variant="h5" className={classes.item}>
+                      {content.title}
+                    </Typography>
                     <Typography variant="body1">{content.body}</Typography>
                   </div>
                 </Grid>
