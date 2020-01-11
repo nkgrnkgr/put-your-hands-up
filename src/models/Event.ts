@@ -19,6 +19,7 @@ export interface LTModel {
   documentUrl1: string;
   documentUrl2: string;
   documentUrl3: string;
+  createUserUid?: string;
 }
 
 export const initialMemo = (

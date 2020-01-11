@@ -9,16 +9,23 @@ import {
   Icon,
   ListItemIcon,
   Divider,
+  ListItemSecondaryAction,
+  IconButton,
 } from '@material-ui/core';
 import queryString, { ParsedQuery } from 'query-string';
 import { useLocation } from 'react-router';
 import { LTModel } from '../../../models/Event';
+import clsx from 'clsx';
+import { ThreadMenuButton } from './ThreadMenuButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItemIcon: {
       minWidth: '0px',
       paddingRight: theme.spacing(1),
+    },
+    listItemRightIcon: {
+      fontSize: '1.2em',
     },
   }),
 );
@@ -59,8 +66,25 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             onClick={() => onClickListItem(`${location.pathname}?ltId=${l.id}`)}
           >
             <ListItemText primary={`#${l.title}`} />
+            <ListItemSecondaryAction onClick={() => console.error('called2')}>
+              <ThreadMenuButton
+                onClickEditMenu={() => {
+                  console.error('edit');
+                }}
+                onClickDeleteButton={() => {
+                  console.error('delete');
+                }}
+              />
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
+        <Divider />
+        <ListItem button onClick={() => console.error('called1')}>
+          <ListItemIcon className={classes.listItemIcon}>
+            <Icon className="fas fa-plus" />
+          </ListItemIcon>
+          <ListItemText primary="スレッドを追加" />
+        </ListItem>
       </List>
     </>
   );
