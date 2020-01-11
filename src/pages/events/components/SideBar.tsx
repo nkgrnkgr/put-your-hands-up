@@ -10,6 +10,7 @@ import React, { FC } from 'react';
 import { useHistory } from 'react-router';
 import { LTModel } from '../../../models/Event';
 import { SideBarItem } from './SideBarItems';
+import { ModalLTForm } from './ModalLTForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +64,12 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
           <SideBarItem lts={lts} onClickListItem={changePath} />
         </Drawer>
       )}
+      <ModalLTForm
+        open
+        onClose={() => {
+          console.error('');
+        }}
+      />
     </>
   );
 };

@@ -1,10 +1,10 @@
 import { Button, TextField, Typography, Theme } from '@material-ui/core';
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { GridContainer } from './EditEventForm';
 import Loading from '../../shared/components/Loading';
 import connpass_logo from '../../../images/connpass_logo.png';
 import { makeStyles, createStyles } from '@material-ui/styles';
+import { GridContainer } from '../../shared/components/GridContainer';
 
 interface Props {
   connppassEventUrl?: string;

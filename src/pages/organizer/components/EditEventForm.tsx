@@ -1,7 +1,6 @@
 import {
   Button,
   Divider,
-  Grid,
   Paper,
   TextField,
   Theme,
@@ -14,9 +13,10 @@ import React from 'react';
 import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router';
-import { createInitialLTModelValue, EventModel } from '../../../models/Event';
-import { ConnpassImporter } from '../containers/ConnpassImporter';
 import markdown from '../../../images/markdown.svg';
+import { createInitialLTModelValue, EventModel } from '../../../models/Event';
+import { GridContainer } from '../../shared/components/GridContainer';
+import { ConnpassImporter } from '../containers/ConnpassImporter';
 
 type OuterProps = {
   handleDelete: (values: EventModel) => void;
@@ -62,24 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-interface GridProps {
-  label: React.ReactElement;
-  formInput: React.ReactElement;
-}
-
-export const GridContainer: React.FC<GridProps> = ({ label, formInput }) => {
-  return (
-    <Grid container direction="row" justify="flex-start" alignItems="center">
-      <Grid item xs={12} sm={3}>
-        {label}
-      </Grid>
-      <Grid item xs={12} sm={9}>
-        {formInput}
-      </Grid>
-    </Grid>
-  );
-};
 
 export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
   const classes = useStyles();
