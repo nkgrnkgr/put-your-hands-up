@@ -81,6 +81,26 @@ export const decrement = (
 
 export const now = () => dayjs().valueOf();
 
+export const todaysStart = () => {
+  return dayjs()
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .millisecond(0)
+    .valueOf();
+};
+
+export const todaysEnd = () => {
+  return dayjs()
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .millisecond(0)
+    .add(1, 'day')
+    .subtract(1, 'millisecond')
+    .valueOf();
+};
+
 export const ago = (dateTime: number, unit: dayjs.UnitType) => {
   const now = dayjs();
   const ago = dayjs(dateTime);

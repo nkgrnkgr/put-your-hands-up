@@ -16,7 +16,7 @@ import { EmptyEventList } from './EmptyEventList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    participatedEventList: {
+    eventList: {
       marginTop: theme.spacing(4),
       backgroundColor: theme.palette.background.paper,
     },
@@ -27,7 +27,7 @@ interface Props {
   eventList: EventModel[];
 }
 
-export const ParticipatedEventList: React.FC<Props> = ({ eventList }) => {
+export const EventList: React.FC<Props> = ({ eventList }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -35,7 +35,7 @@ export const ParticipatedEventList: React.FC<Props> = ({ eventList }) => {
     <div>
       {eventList.length === 0 && <EmptyEventList />}
       {eventList.length !== 0 && (
-        <div className={classes.participatedEventList}>
+        <div className={classes.eventList}>
           <List component="nav" aria-label="visited event list">
             {eventList.map(event => (
               <ListItem
