@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     image: {
       margin: theme.spacing(5),
-      maxWidth: '50%',
+      maxWidth: '30%',
     },
   }),
 );
@@ -25,7 +25,7 @@ export const EmptyEventList: React.FC = () => {
     <div className={classes.root}>
       <img src={empty} alt="empty" className={classes.image} />
       <Typography variant="body1">
-        今まで参加したイベントはありません
+        表示可能な参加したイベントはありません
       </Typography>
     </div>
   );
