@@ -28,9 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   lts: LTModel[];
   onClickListItem: (pathname: string) => void;
+  onClickEditMenu: (index: number) => void;
+  onClickDeletetMenu: (index: number) => void;
 }
 
-export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
+export const SideBarItem: FC<Props> = ({
+  lts,
+  onClickListItem,
+  onClickEditMenu,
+  onClickDeletetMenu,
+}) => {
   const classes = useStyles();
   const location = useLocation();
   const params: ParsedQuery<string> = queryString.parse(location.search);
@@ -53,7 +60,7 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
         >
           <ListItemText primary="#general" />
         </ListItem>
-        {lts.map(l => (
+        {lts.map((l, index) => (
           <ListItem
             button
             key={l.id}
@@ -63,12 +70,8 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             <ListItemText primary={`#${l.title}`} />
             <ListItemSecondaryAction>
               <ThreadMenuButton
-                onClickEditMenu={() => {
-                  console.error('edit');
-                }}
-                onClickDeleteButton={() => {
-                  console.error('delete');
-                }}
+                onClickEditMenu={() => onClickEditMenu(index)}
+                onClickDeleteMenu={() => onClickDeletetMenu(index)}
               />
             </ListItemSecondaryAction>
           </ListItem>
