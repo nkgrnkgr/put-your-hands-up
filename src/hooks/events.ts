@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
 import {
+  getTodaysEventList,
   getParticipatedEventList,
   getOrganizersEventList,
   getEvent,
-} from '../firebase/api/events';
+} from './../firebase/api/events';
+import { useEffect, useState } from 'react';
+
 import { EventModel } from '../models/Event';
 
 export const useEvent = (eventId: string) => {
@@ -52,6 +54,30 @@ export const useParticipatedEventList = (eventIds: string[]) => {
 
     run();
   }, [eventIds]);
+
+  return { eventList, loading, error };
+};
+
+export const useTodaysEventList = () => {
+  const [eventList, setEventList] = useState<EventModel[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const fetchedEventList = await getTodaysEventList();
+        setEventList(fetchedEventList);
+        setError(null);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    run();
+  }, []);
 
   return { eventList, loading, error };
 };

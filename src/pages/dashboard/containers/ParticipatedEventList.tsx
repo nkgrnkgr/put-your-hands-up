@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
 import { UserModel } from '../../../models/User';
 import Loading from '../../shared/components/Loading';
-import { ParticipatedEventList as Component } from '../components/ParticipatedEventList';
+import { EventList } from '../components/EventList';
 import { useParticipatedEventList } from '../../../hooks/events';
 import { useUser } from '../../../hooks/users';
 import { NotificationContext } from '../../../contexts/NotificationContext';
@@ -49,5 +49,5 @@ export const ParticipatedEventList = () => {
     );
   }
 
-  return <Component eventList={sortByDateDesc(eventList)} />;
+  return <EventList eventList={sortByDateDesc(eventList)} />;
 };

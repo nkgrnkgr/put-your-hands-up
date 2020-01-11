@@ -1,5 +1,6 @@
 import { EventModel } from '../../models/Event';
 import { db } from '../index';
+import { todaysEnd, todaysStart } from './../../utils/datetime';
 
 const COLLECTION_KEY = 'events';
 const COLLECTION = db.collection(COLLECTION_KEY);
@@ -43,6 +44,25 @@ export const getParticipatedEventList = async (eventIds: string[]) => {
   );
 
   return fetchedEventList;
+};
+
+export const getTodaysEventList = async () => {
+  return new Promise<EventModel[]>(resolve => {
+    const start = todaysStart();
+    const end = todaysEnd();
+    const fetchedEventList: EventModel[] = [];
+    COLLECTION.where('date', '>=', start)
+      .where('date', '<=', end)
+      .onSnapshot(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const event = doc.data() as EventModel;
+          if (event) {
+            fetchedEventList.push(event);
+          }
+        });
+        resolve(fetchedEventList);
+      });
+  });
 };
 
 export const getOrganizersEventList = (uid: string) => {

@@ -11,6 +11,7 @@ import { ParticipatedEventList } from '../containers/ParticipatedEventList';
 import { Page } from '../../shared/components/Page';
 import { RouteComponentProps } from 'react-router';
 import { CreateNewEventButton } from '../containers/CreateNewEventButton';
+import { TodaysEventList } from '../containers/TodaysEventList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       margin: theme.spacing(2),
+    },
+    space: {
+      marginBottom: theme.spacing(6),
     },
   }),
 );
@@ -45,6 +49,11 @@ export const DashboardPage: React.FC<RouteComponentProps> = () => {
               参加したイベント
             </Typography>
             <ParticipatedEventList />
+            <div className={classes.space} />
+            <Typography variant="h4" className={classes.title}>
+              本日開催予定のイベント
+            </Typography>
+            <TodaysEventList />
             <CreateNewEventButton />
           </div>
         </Container>
