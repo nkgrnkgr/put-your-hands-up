@@ -18,11 +18,11 @@ const useStyles = makeStyles(
 
 interface Props {
   onClickEditMenu: () => void;
-  onClickDeleteButton: () => void;
+  onClickDeleteMenu: () => void;
 }
 
 export const ThreadMenuButton: FC<Props> = props => {
-  const { onClickEditMenu, onClickDeleteButton } = props;
+  const { onClickEditMenu, onClickDeleteMenu: onClickDeleteButton } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

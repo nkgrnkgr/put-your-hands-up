@@ -6,10 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { LTModel } from '../../../models/Event';
 import { SideBarItem } from './SideBarItems';
+import { ModalLTForm } from './ModalLTForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +43,17 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
     history.push(pathname);
   };
 
+  const [open, setOpen] = useState(false);
+  const onClickEdit = (index: number) => {
+    setOpen(true);
+    console.error('edit', index);
+  };
+
+  const onClickDelete = (index: number) => {
+    setOpen(true);
+    console.error('Delete', index);
+  };
+
   return (
     <>
       {widerThenMobile ? (
@@ -51,7 +63,12 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
           variant="permanent"
         >
           <div className={classes.toolbar} />
-          <SideBarItem lts={lts} onClickListItem={changePath} />
+          <SideBarItem
+            lts={lts}
+            onClickListItem={changePath}
+            onClickEditMenu={onClickEdit}
+            onClickDeletetMenu={onClickDelete}
+          />
         </Drawer>
       ) : (
         <Drawer
@@ -60,9 +77,20 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
           open={isSidebarOpen}
           onClose={() => toggleSideBar()}
         >
-          <SideBarItem lts={lts} onClickListItem={changePath} />
+          <SideBarItem
+            lts={lts}
+            onClickListItem={changePath}
+            onClickEditMenu={onClickEdit}
+            onClickDeletetMenu={onClickDelete}
+          />
         </Drawer>
       )}
+      <ModalLTForm
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      />
     </>
   );
 };
