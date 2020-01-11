@@ -1,21 +1,19 @@
-import React, { FC } from 'react';
 import {
   createStyles,
+  Divider,
+  Icon,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
   Theme,
-  Icon,
-  ListItemIcon,
-  Divider,
-  ListItemSecondaryAction,
-  IconButton,
 } from '@material-ui/core';
 import queryString, { ParsedQuery } from 'query-string';
+import React, { FC } from 'react';
 import { useLocation } from 'react-router';
 import { LTModel } from '../../../models/Event';
-import clsx from 'clsx';
 import { ThreadMenuButton } from './ThreadMenuButton';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,9 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
     listItemIcon: {
       minWidth: '0px',
       paddingRight: theme.spacing(1),
-    },
-    listItemRightIcon: {
-      fontSize: '1.2em',
     },
   }),
 );
@@ -66,7 +61,7 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             onClick={() => onClickListItem(`${location.pathname}?ltId=${l.id}`)}
           >
             <ListItemText primary={`#${l.title}`} />
-            <ListItemSecondaryAction onClick={() => console.error('called2')}>
+            <ListItemSecondaryAction>
               <ThreadMenuButton
                 onClickEditMenu={() => {
                   console.error('edit');
