@@ -4,12 +4,11 @@ import {
   makeStyles,
   Menu,
   MenuItem,
-  Theme,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React, { FC } from 'react';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(
   createStyles({
     icon: {
       fontSize: '1.2em',
