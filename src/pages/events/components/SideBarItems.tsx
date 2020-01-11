@@ -15,12 +15,17 @@ import {
 import queryString, { ParsedQuery } from 'query-string';
 import { useLocation } from 'react-router';
 import { LTModel } from '../../../models/Event';
+import clsx from 'clsx';
+import { ThreadMenuButton } from './ThreadMenuButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItemIcon: {
       minWidth: '0px',
       paddingRight: theme.spacing(1),
+    },
+    listItemRightIcon: {
+      fontSize: '1.2em',
     },
   }),
 );
@@ -62,7 +67,14 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
           >
             <ListItemText primary={`#${l.title}`} />
             <ListItemSecondaryAction onClick={() => console.error('called2')}>
-              <IconButton className="fas fa-ellipsis-v" />
+              <ThreadMenuButton
+                onClickEditMenu={() => {
+                  console.error('edit');
+                }}
+                onClickDeleteButton={() => {
+                  console.error('delete');
+                }}
+              />
             </ListItemSecondaryAction>
           </ListItem>
         ))}
@@ -72,9 +84,6 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             <Icon className="fas fa-plus" />
           </ListItemIcon>
           <ListItemText primary="スレッドを追加" />
-          <ListItemSecondaryAction onClick={() => console.error('called2')}>
-            <IconButton className="fas fa-ellipsis-v" />
-          </ListItemSecondaryAction>
         </ListItem>
       </List>
     </>
