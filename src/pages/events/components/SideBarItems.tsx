@@ -9,6 +9,8 @@ import {
   Icon,
   ListItemIcon,
   Divider,
+  ListItemSecondaryAction,
+  IconButton,
 } from '@material-ui/core';
 import queryString, { ParsedQuery } from 'query-string';
 import { useLocation } from 'react-router';
@@ -59,8 +61,21 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             onClick={() => onClickListItem(`${location.pathname}?ltId=${l.id}`)}
           >
             <ListItemText primary={`#${l.title}`} />
+            <ListItemSecondaryAction onClick={() => console.error('called2')}>
+              <IconButton className="fas fa-ellipsis-v" />
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
+        <Divider />
+        <ListItem button onClick={() => console.error('called1')}>
+          <ListItemIcon className={classes.listItemIcon}>
+            <Icon className="fas fa-plus" />
+          </ListItemIcon>
+          <ListItemText primary="スレッドを追加" />
+          <ListItemSecondaryAction onClick={() => console.error('called2')}>
+            <IconButton className="fas fa-ellipsis-v" />
+          </ListItemSecondaryAction>
+        </ListItem>
       </List>
     </>
   );
