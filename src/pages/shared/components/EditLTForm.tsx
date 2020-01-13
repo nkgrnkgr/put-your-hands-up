@@ -7,7 +7,7 @@ import { FormikProps } from 'formik';
 type Props = {
   lt: LTModel;
   index: number;
-} & FormikProps<{}>;
+} & FormikProps<LTModel>;
 
 export const EditLTForm: React.FC<Props> = ({ lt, index, handleChange }) => {
   return (
