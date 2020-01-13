@@ -5297,10 +5297,10 @@ eslint-plugin-import@2.18.2:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-import@2.19.1:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.19.1.tgz#5654e10b7839d064dd0d46cd1b88ec2133a11448"
-  integrity sha512-x68131aKoCZlCae7rDXKSAQmbT5DQuManyXo2sK6fJJ0aK5CWAkv6A6HJZGgqC8IhjQxYPgo6/IY4Oz8AFsbBw==
+eslint-plugin-import@2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.0.tgz#d749a7263fb6c29980def8e960d380a6aa6aecaa"
+  integrity sha512-NK42oA0mUc8Ngn4kONOPsPB1XhbUvNHqF+g307dPV28aknPoiNnKLFd9em4nkswwepdF5ouieqv5Th/63U7YJQ==
   dependencies:
     array-includes "^3.0.3"
     array.prototype.flat "^1.2.1"
@@ -11597,10 +11597,10 @@ react-color@2.18.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
-react-datepicker@2.10.1:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-2.10.1.tgz#5db917a8e10af8b311715f4bdae8b8dfe64f9357"
-  integrity sha512-b9UjPy5/uZpzqBoGJdR9Mwnv/0ecHyUQUJf499hm2m2Luo3u9HZwAERSExYC4CvAecVUz88AsfowrjVAf7Kulg==
+react-datepicker@2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-2.11.0.tgz#61aa79750856f91ee452f296d91b9ae4ebbacb4d"
+  integrity sha512-eyaLRTX4CaMnW4HW34gYmG4cT/3R9vyAIEAQ1SSWKBO77pTs6RfxUzbLRKOheyIlQM7BmXhLGOxq80vvlCb09w==
   dependencies:
     classnames "^2.2.6"
     date-fns "^2.0.1"
