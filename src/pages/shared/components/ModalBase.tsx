@@ -8,17 +8,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import React from 'react';
-import { EditLTForm } from '../../shared/containers/EditLTForm';
-import { LTModel } from '../../../models/Event';
-
-interface OuterProps {
-  clickedLTIndex: number;
-  lt: LTModel;
-  open: boolean;
-  onClose: () => void;
-}
-
-type Props = OuterProps;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,9 +25,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const ModalLTForm: React.FC<Props> = props => {
-  const { open, onClose, clickedLTIndex, lt } = props;
+interface Props {
+  open: boolean;
+  onClose: () => void;
+}
 
+export const ModalBase: React.FC<Props> = ({ open, onClose, children }) => {
   const classes = useStyles();
 
   return (
@@ -53,9 +45,7 @@ export const ModalLTForm: React.FC<Props> = props => {
       onClose={() => onClose()}
     >
       <Fade in={open}>
-        <Paper className={classes.paper}>
-          <EditLTForm lt={lt} index={clickedLTIndex} />
-        </Paper>
+        <Paper className={classes.paper}>{children}</Paper>
       </Fade>
     </Modal>
   );

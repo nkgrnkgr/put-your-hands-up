@@ -6,11 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router';
-import { LTModel, createInitialLTModelValue } from '../../../models/Event';
+import React, { FC } from 'react';
+import { LTModel } from '../../../models/Event';
+import { ModalBase } from '../../shared/components/ModalBase';
+import { EditLTForm } from '../../shared/containers/EditLTForm';
 import { SideBarItem } from './SideBarItems';
-import { ModalLTForm } from './ModalLTForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,39 +26,34 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  lts: LTModel[];
   isSidebarOpen: boolean;
   toggleSideBar: () => void;
+  onClickListItem: (pathname: string) => void;
+  onClickEdit: (index: number) => void;
+  onClickDelete: (index: number) => void;
+  onClickAdd: () => void;
+  lts: LTModel[];
+  clickedSideBarItemIndex: number | null;
+  isModalOpen: boolean;
+  onCloseModal: () => void;
 }
 
-export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
+export const SideBar: FC<Props> = ({
+  isSidebarOpen,
+  toggleSideBar,
+  onClickListItem,
+  onClickAdd,
+  onClickDelete,
+  onClickEdit,
+  lts,
+  clickedSideBarItemIndex,
+  isModalOpen,
+  onCloseModal,
+}) => {
   const classes = useStyles();
-  const history = useHistory();
 
   const theme = useTheme();
   const widerThenMobile = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const changePath = (pathname: string) => {
-    toggleSideBar();
-    history.push(pathname);
-  };
-
-  const [open, setOpen] = useState(false);
-  const [clickedLTIndex, setClickedLTIndex] = useState<number | null>(null);
-  const onClickEdit = (index: number) => {
-    setOpen(true);
-    setClickedLTIndex(index);
-  };
-
-  const onClickDelete = (index: number) => {
-    setOpen(true);
-    setClickedLTIndex(index);
-  };
-
-  const onClickAdd = () => {
-    setOpen(true);
-    setClickedLTIndex(null);
-  };
 
   return (
     <>
@@ -71,7 +66,7 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
           <div className={classes.toolbar} />
           <SideBarItem
             lts={lts}
-            onClickListItem={changePath}
+            onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
             onClickAdd={onClickAdd}
@@ -86,25 +81,16 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
         >
           <SideBarItem
             lts={lts}
-            onClickListItem={changePath}
+            onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
             onClickAdd={onClickAdd}
           />
         </Drawer>
       )}
-      <ModalLTForm
-        lt={
-          clickedLTIndex !== null
-            ? lts[clickedLTIndex]
-            : createInitialLTModelValue()
-        }
-        clickedLTIndex={clickedLTIndex || lts.length + 1}
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-      />
+      <ModalBase open={isModalOpen} onClose={onCloseModal}>
+        <EditLTForm lts={lts} index={clickedSideBarItemIndex} />
+      </ModalBase>
     </>
   );
 };
