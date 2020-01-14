@@ -5,14 +5,15 @@ import {
   makeStyles,
   Modal,
   Paper,
-  TextField,
   Theme,
-  Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { GridContainer } from '../../shared/components/GridContainer';
+import { EditLTForm } from '../../shared/containers/EditLTForm';
+import { LTModel } from '../../../models/Event';
 
 interface OuterProps {
+  clickedLTIndex: number;
+  lt: LTModel;
   open: boolean;
   onClose: () => void;
 }
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const ModalLTForm: React.FC<Props> = props => {
-  const { open, onClose } = props;
+  const { open, onClose, clickedLTIndex, lt } = props;
 
   const classes = useStyles();
 
@@ -53,21 +54,7 @@ export const ModalLTForm: React.FC<Props> = props => {
     >
       <Fade in={open}>
         <Paper className={classes.paper}>
-          <form>
-            <GridContainer
-              label={<Typography component="p">登壇タイトル</Typography>}
-              formInput={
-                <TextField
-                  name={'title'}
-                  value={'aaa'}
-                  placeholder="Firebaseの効果的な運用方法"
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth
-                />
-              }
-            />
-          </form>
+          <EditLTForm lt={lt} index={clickedLTIndex} />
         </Paper>
       </Fade>
     </Modal>

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
-import { LTModel } from '../../../models/Event';
+import { LTModel, createInitialLTModelValue } from '../../../models/Event';
 import { SideBarItem } from './SideBarItems';
 import { ModalLTForm } from './ModalLTForm';
 
@@ -44,14 +44,20 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
   };
 
   const [open, setOpen] = useState(false);
+  const [clickedLTIndex, setClickedLTIndex] = useState<number | null>(null);
   const onClickEdit = (index: number) => {
     setOpen(true);
-    console.error('edit', index);
+    setClickedLTIndex(index);
   };
 
   const onClickDelete = (index: number) => {
     setOpen(true);
-    console.error('Delete', index);
+    setClickedLTIndex(index);
+  };
+
+  const onClickAdd = () => {
+    setOpen(true);
+    setClickedLTIndex(null);
   };
 
   return (
@@ -68,6 +74,7 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
             onClickListItem={changePath}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
+            onClickAdd={onClickAdd}
           />
         </Drawer>
       ) : (
@@ -82,10 +89,17 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
             onClickListItem={changePath}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
+            onClickAdd={onClickAdd}
           />
         </Drawer>
       )}
       <ModalLTForm
+        lt={
+          clickedLTIndex !== null
+            ? lts[clickedLTIndex]
+            : createInitialLTModelValue()
+        }
+        clickedLTIndex={clickedLTIndex || lts.length + 1}
         open={open}
         onClose={() => {
           setOpen(false);
