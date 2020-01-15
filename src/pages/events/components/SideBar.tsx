@@ -89,7 +89,11 @@ export const SideBar: FC<Props> = ({
         </Drawer>
       )}
       <ModalBase open={isModalOpen} onClose={onCloseModal}>
-        <SideBarForm lts={lts} index={clickedSideBarItemIndex} />
+        <SideBarForm
+          lts={lts}
+          index={clickedSideBarItemIndex}
+          closeModal={onCloseModal}
+        />
       </ModalBase>
     </>
   );

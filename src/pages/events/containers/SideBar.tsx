@@ -3,6 +3,7 @@ import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { SideBar as SideBarComponent } from '../components/SideBar';
 import { LTModel } from '../../../models/Event';
 import { useHistory } from 'react-router';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 
 interface Props {
   lts: LTModel[];
@@ -13,6 +14,7 @@ export const SideBar = (props: Props) => {
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
 
   const toggleSideBar = () => {
     setApplicationValues({
@@ -40,8 +42,12 @@ export const SideBar = (props: Props) => {
   };
 
   const onClickDelete = (index: number) => {
-    setModalOpen(true);
     setClickedSideBarItemIndex(index);
+    callConfirmDialog(
+      '本当に削除しますか？',
+      () => alert('deleted'),
+      () => alert('canceled'),
+    );
   };
 
   const onClickAdd = () => {

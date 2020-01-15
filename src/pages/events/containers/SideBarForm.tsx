@@ -6,18 +6,28 @@ import { SideBarForm as Component } from '../components/SideBarForm';
 interface OuterProps {
   lts: LTModel[];
   index: number | null;
+  closeModal: () => void;
 }
 
 export const SideBarForm = (props: OuterProps) => {
-  const { lts, index } = props;
+  const { lts, index, closeModal } = props;
 
   const onSubmit = (values: LTModel) => {
-    console.error(values);
+    alert(JSON.stringify(values, null, 2));
   };
   // indexが難しいのでデータ構造を変更するか？新規作成の場合に一番最後の数字にできるか
 
   const initialValues =
     index !== null ? lts[index] : createInitialLTModelValue();
+
+  const onClickCancel = () => {
+    closeModal();
+  };
+  const onClickDelete = () => {
+    closeModal();
+  };
+
+  const shouldShowDeleteButton = index !== null;
 
   return (
     <Formik
@@ -27,6 +37,9 @@ export const SideBarForm = (props: OuterProps) => {
         <Component
           {...formikProps}
           index={index !== null ? index : lts.length}
+          onClickDeleteButton={onClickDelete}
+          onClickCancelButton={onClickCancel}
+          shouldShowDeleteButton={shouldShowDeleteButton}
         />
       )}
     />
