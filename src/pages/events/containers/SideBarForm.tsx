@@ -36,7 +36,6 @@ export const SideBarForm = (props: OuterProps) => {
       render={formikProps => (
         <Component
           {...formikProps}
-          index={index !== null ? index : lts.length}
           onClickDeleteButton={onClickDelete}
           onClickCancelButton={onClickCancel}
           shouldShowDeleteButton={shouldShowDeleteButton}

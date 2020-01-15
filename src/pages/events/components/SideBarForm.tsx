@@ -5,7 +5,6 @@ import { EditLTForm } from '../../shared/components/EditLTForm';
 import { EditButtons } from '../../shared/components/EditButtons';
 
 type Props = {
-  index: number;
   onClickCancelButton: () => void;
   onClickDeleteButton: () => void;
   shouldShowDeleteButton: boolean;
@@ -13,7 +12,6 @@ type Props = {
 
 export const SideBarForm: React.FC<Props> = (props: Props) => {
   const {
-    index,
     values,
     handleChange,
     handleSubmit,
@@ -24,7 +22,7 @@ export const SideBarForm: React.FC<Props> = (props: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <EditLTForm index={index} values={values} handleChange={handleChange} />
+      <EditLTForm lt={values} handleChange={handleChange} />
       <EditButtons
         shouldShowDeleteButton={shouldShowDeleteButton}
         onClickCancelButton={onClickCancelButton}

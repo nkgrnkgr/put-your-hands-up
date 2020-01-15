@@ -71,8 +71,8 @@ export const LTForm: React.FC<Props> = (props: Props) => {
                 values.lts.map((lt, index) => (
                   <div key={index}>
                     <EditLTForm
-                      index={index}
-                      values={lt}
+                      namePrefix={`lts.${index}.`}
+                      lt={lt}
                       handleChange={handleChange}
                     />
                     <GridContainer
