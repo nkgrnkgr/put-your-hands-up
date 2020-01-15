@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import React, { FC } from 'react';
-import { LTModel } from '../../../models/Event';
+import { EventModel } from '../../../models/Event';
 import { ModalBase } from '../../shared/components/ModalBase';
 import { SideBarForm } from '../containers/SideBarForm';
 import { SideBarItem } from './SideBarItems';
@@ -32,7 +32,7 @@ interface Props {
   onClickEdit: (index: number) => void;
   onClickDelete: (index: number) => void;
   onClickAdd: () => void;
-  lts: LTModel[];
+  event: EventModel;
   clickedSideBarItemIndex: number | null;
   isModalOpen: boolean;
   onCloseModal: () => void;
@@ -45,7 +45,7 @@ export const SideBar: FC<Props> = ({
   onClickAdd,
   onClickDelete,
   onClickEdit,
-  lts,
+  event,
   clickedSideBarItemIndex,
   isModalOpen,
   onCloseModal,
@@ -65,7 +65,7 @@ export const SideBar: FC<Props> = ({
         >
           <div className={classes.toolbar} />
           <SideBarItem
-            lts={lts}
+            lts={event.lts}
             onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
@@ -80,7 +80,7 @@ export const SideBar: FC<Props> = ({
           onClose={() => toggleSideBar()}
         >
           <SideBarItem
-            lts={lts}
+            lts={event.lts}
             onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
@@ -90,7 +90,7 @@ export const SideBar: FC<Props> = ({
       )}
       <ModalBase open={isModalOpen} onClose={onCloseModal}>
         <SideBarForm
-          lts={lts}
+          event={event}
           index={clickedSideBarItemIndex}
           closeModal={onCloseModal}
         />

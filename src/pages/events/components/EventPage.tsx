@@ -56,7 +56,7 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
     <div className={classes.root}>
       <ParticipatedEventIdUpdater>
         <PageHeader shouldMobileMenu />
-        <SideBar lts={event.lts} />
+        <SideBar event={event} />
         <Container style={{ flexGrow: 0 }}>
           <div id="back-to-top-anchor" className={classes.app} />
           <HtmlTitle title={ltName} />

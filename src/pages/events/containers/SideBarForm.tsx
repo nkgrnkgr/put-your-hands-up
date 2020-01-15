@@ -1,29 +1,47 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { LTModel, createInitialLTModelValue } from '../../../models/Event';
+import {
+  LTModel,
+  createInitialLTModelValue,
+  EventModel,
+} from '../../../models/Event';
 import { SideBarForm as Component } from '../components/SideBarForm';
+import { updateEvent } from '../../../firebase/api/events';
 
 interface OuterProps {
-  lts: LTModel[];
+  event: EventModel;
   index: number | null;
   closeModal: () => void;
 }
 
 export const SideBarForm = (props: OuterProps) => {
-  const { lts, index, closeModal } = props;
+  const { event, index, closeModal } = props;
 
-  const onSubmit = (values: LTModel) => {
-    alert(JSON.stringify(values, null, 2));
+  const onSubmit = async (values: LTModel) => {
+    const updatedLTs = [...event.lts];
+    updatedLTs[index !== null ? index : event.lts.length] = values;
+    const updatedEvent: EventModel = { ...event, lts: updatedLTs };
+
+    await updateEvent(updatedEvent);
+    closeModal();
   };
-  // indexが難しいのでデータ構造を変更するか？新規作成の場合に一番最後の数字にできるか
 
   const initialValues =
-    index !== null ? lts[index] : createInitialLTModelValue();
+    index !== null ? event.lts[index] : createInitialLTModelValue();
 
   const onClickCancel = () => {
     closeModal();
   };
-  const onClickDelete = () => {
+
+  const onClickDelete = async () => {
+    if (index !== null) {
+      const lts = [...event.lts];
+      lts.splice(index, 1);
+      const updatedEvent: EventModel = { ...event, lts };
+
+      await updateEvent(updatedEvent);
+    }
+
     closeModal();
   };
 

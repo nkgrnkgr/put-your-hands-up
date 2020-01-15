@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { ApplicationContext } from '../../../contexts/ApplicationContext';
-import { SideBar as SideBarComponent } from '../components/SideBar';
-import { LTModel } from '../../../models/Event';
 import { useHistory } from 'react-router';
+import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
+import { EventModel } from '../../../models/Event';
+import { SideBar as SideBarComponent } from '../components/SideBar';
 
 interface Props {
-  lts: LTModel[];
+  event: EventModel;
 }
 
 export const SideBar = (props: Props) => {
-  const { lts } = props;
+  const { event } = props;
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
   );
@@ -67,7 +67,7 @@ export const SideBar = (props: Props) => {
       onClickAdd={onClickAdd}
       onClickEdit={onClickEdit}
       onClickDelete={onClickDelete}
-      lts={lts}
+      event={event}
       clickedSideBarItemIndex={clickedSideBarItemIndex}
       isModalOpen={isModalOpen}
       onCloseModal={onCloseModal}
