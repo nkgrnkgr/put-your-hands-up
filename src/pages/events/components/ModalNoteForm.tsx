@@ -33,10 +33,17 @@ export const ModalNoteForm: React.FC<Props> = props => {
     toggleTwitterShare,
   } = props;
 
+  // eslint-disable-next-line
+  const handleOnForcus = () => {};
+
   return (
     <ModalBase open={open} onClose={onClose}>
       <form onSubmit={handleSubmit}>
-        <CommentForm rowCount={'4'} {...props} />
+        <CommentForm
+          rowCount={'4'}
+          {...props}
+          handleOnForcus={handleOnForcus}
+        />
         <RecommendComments
           handleOnClick={(comment: string) =>
             setFieldValue('comment', values.comment + comment)

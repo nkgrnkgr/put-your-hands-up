@@ -1,21 +1,21 @@
+import { TextField, Typography } from '@material-ui/core';
 import React from 'react';
-import { GridContainer } from './GridContainer';
-import { Typography, TextField, Button } from '@material-ui/core';
 import { LTModel } from '../../../models/Event';
-import { FormikProps } from 'formik';
+import { GridContainer } from './GridContainer';
 
-type Props = {
+interface Props {
   index: number;
-} & FormikProps<LTModel>;
+  values: LTModel;
+  handleChange: (e: React.ChangeEvent<any>) => void;
+}
 
 export const EditLTForm: React.FC<Props> = ({
   values,
   index,
   handleChange,
-  handleSubmit,
 }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <GridContainer
         label={<Typography component="p">登壇タイトル</Typography>}
         formInput={
@@ -85,19 +85,6 @@ export const EditLTForm: React.FC<Props> = ({
           />
         }
       />
-      <GridContainer
-        label={<></>}
-        formInput={
-          <>
-            <Button variant="outlined" color="primary" type="submit">
-              保存
-            </Button>
-            <Button variant="outlined" color="inherit">
-              キャンセル
-            </Button>
-          </>
-        }
-      />
-    </form>
+    </>
   );
 };

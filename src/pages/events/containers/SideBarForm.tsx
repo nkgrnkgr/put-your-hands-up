@@ -1,14 +1,14 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { LTModel, createInitialLTModelValue } from '../../../models/Event';
-import { EditLTForm as Component } from '../components/EditLTForm';
+import { SideBarForm as Component } from '../components/SideBarForm';
 
 interface OuterProps {
   lts: LTModel[];
   index: number | null;
 }
 
-export const EditLTForm = (props: OuterProps) => {
+export const SideBarForm = (props: OuterProps) => {
   const { lts, index } = props;
 
   const onSubmit = (values: LTModel) => {

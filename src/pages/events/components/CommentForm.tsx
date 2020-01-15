@@ -13,7 +13,7 @@ import { UserModel } from '../../../models/User';
 interface OuterProps {
   user: UserModel;
   rowCount: string;
-  handleOnForcus?: () => void;
+  handleOnForcus: () => void;
 }
 
 type Props = OuterProps & FormikProps<NoteContentsModel>;
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const CommentForm: React.FC<Props> = props => {
-  const { user, rowCount, values, handleChange } = props;
+  const { user, rowCount, values, handleChange, handleOnForcus } = props;
 
   const classes = useStyles();
 
@@ -48,6 +48,7 @@ export const CommentForm: React.FC<Props> = props => {
         multiline
         rows={rowCount}
         onChange={handleChange}
+        onFocus={handleOnForcus}
       />
     </div>
   );

@@ -9,7 +9,7 @@ import {
 import React, { FC } from 'react';
 import { LTModel } from '../../../models/Event';
 import { ModalBase } from '../../shared/components/ModalBase';
-import { EditLTForm } from '../../shared/containers/EditLTForm';
+import { SideBarForm } from '../containers/SideBarForm';
 import { SideBarItem } from './SideBarItems';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -89,7 +89,7 @@ export const SideBar: FC<Props> = ({
         </Drawer>
       )}
       <ModalBase open={isModalOpen} onClose={onCloseModal}>
-        <EditLTForm lts={lts} index={clickedSideBarItemIndex} />
+        <SideBarForm lts={lts} index={clickedSideBarItemIndex} />
       </ModalBase>
     </>
   );
