@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Loading from '../../shared/components/Loading';
 import { Eventpage as Component } from '../components/EventPage';
-import { useEvent } from '../../../hooks/events';
+import { useEventSnapshot } from '../../../hooks/events';
 import { NotificationContext } from '../../../contexts/NotificationContext';
 
 type Params = {
@@ -17,7 +17,7 @@ export const Eventpage = (props: Props) => {
       params: { eventId },
     },
   } = props;
-  const { event, loading, error } = useEvent(eventId);
+  const { event, loading, error } = useEventSnapshot(eventId);
   const { callNotification } = useContext(NotificationContext);
 
   if (!event) {
