@@ -17,6 +17,8 @@ import markdown from '../../../images/markdown.svg';
 import { createInitialLTModelValue, EventModel } from '../../../models/Event';
 import { GridContainer } from '../../shared/components/GridContainer';
 import { ConnpassImporter } from '../containers/ConnpassImporter';
+import { EditLTForm } from '../../shared/components/EditLTForm';
+import { EditButtons } from '../../shared/components/EditButtons';
 
 type OuterProps = {
   handleDelete: (values: EventModel) => void;
@@ -43,15 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '70%',
       fontSize: '16px',
     },
-    buttonGroup: {
-      display: 'flex',
-    },
-    flexGrow: {
-      flexGrow: 1,
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
     image: {
       maxWidth: '40px',
       marginRight: theme.spacing(1),
@@ -63,8 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
+export const LTForm: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
+  const { values, handleChange } = props;
 
   return (
     <>
@@ -76,76 +70,10 @@ export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
               {values.lts.length > 0 ? (
                 values.lts.map((lt, index) => (
                   <div key={index}>
-                    <GridContainer
-                      label={
-                        <Typography component="p">登壇タイトル</Typography>
-                      }
-                      formInput={
-                        <TextField
-                          name={`lts.${index}.title`}
-                          value={lt.title}
-                          placeholder="Firebaseの効果的な運用方法"
-                          margin="normal"
-                          variant="outlined"
-                          fullWidth
-                          onChange={handleChange}
-                        />
-                      }
-                    />
-                    <GridContainer
-                      label={<Typography component="p">登壇者</Typography>}
-                      formInput={
-                        <TextField
-                          name={`lts.${index}.speakerName`}
-                          value={lt.speakerName}
-                          placeholder="@nkgrnkgr"
-                          margin="normal"
-                          variant="outlined"
-                          onChange={handleChange}
-                        />
-                      }
-                    />
-                    <GridContainer
-                      label={<Typography component="p">リンク1</Typography>}
-                      formInput={
-                        <TextField
-                          name={`lts.${index}.documentUrl1`}
-                          value={lt.documentUrl1}
-                          placeholder="https://twitter.com/nkgrnkgr"
-                          margin="normal"
-                          variant="outlined"
-                          fullWidth
-                          onChange={handleChange}
-                        />
-                      }
-                    />
-                    <GridContainer
-                      label={<Typography component="p">リンク2</Typography>}
-                      formInput={
-                        <TextField
-                          name={`lts.${index}.documentUrl2`}
-                          value={lt.documentUrl2}
-                          placeholder="https://speakerdeck.com/undefined_name"
-                          margin="normal"
-                          variant="outlined"
-                          fullWidth
-                          onChange={handleChange}
-                        />
-                      }
-                    />
-                    <GridContainer
-                      label={<Typography component="p">リンク3</Typography>}
-                      formInput={
-                        <TextField
-                          name={`lts.${index}.documentUrl3`}
-                          value={lt.documentUrl3}
-                          placeholder="https://www.nkgr.app"
-                          margin="normal"
-                          variant="outlined"
-                          fullWidth
-                          onChange={handleChange}
-                        />
-                      }
+                    <EditLTForm
+                      namePrefix={`lts.${index}.`}
+                      lt={lt}
+                      handleChange={handleChange}
                     />
                     <GridContainer
                       label={<></>}
@@ -189,57 +117,6 @@ export const EditLTForm: React.FC<Props> = ({ values, handleChange }) => {
   );
 };
 
-interface EditButtonsProps {
-  values: EventModel;
-}
-
-const EditButtons: React.FC<OuterProps & EditButtonsProps> = ({
-  handleDelete,
-  values,
-}) => {
-  const classes = useStyles();
-  const history = useHistory();
-
-  return (
-    <div className={classes.buttonGroup}>
-      <div>
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          className={classes.button}
-        >
-          保存
-        </Button>
-      </div>
-      <div className={classes.flexGrow}>
-        <Button
-          type="button"
-          color="inherit"
-          variant="outlined"
-          className={clsx(classes.button)}
-          onClick={() => history.push('/organizer')}
-        >
-          キャンセル
-        </Button>
-      </div>
-      {values.id !== '' && (
-        <div>
-          <Button
-            type="button"
-            color="primary"
-            variant="outlined"
-            className={classes.button}
-            onClick={() => handleDelete(values)}
-          >
-            削除
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-};
-
 export const EditEventForm: React.FC<Props> = props => {
   const {
     values,
@@ -249,6 +126,7 @@ export const EditEventForm: React.FC<Props> = props => {
     handleDelete,
   } = props;
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Paper className={classes.root}>
@@ -344,9 +222,13 @@ export const EditEventForm: React.FC<Props> = props => {
           <Divider />
         </div>
         <div className={classes.contents}>
-          <EditLTForm {...props} />
+          <LTForm {...props} />
         </div>
-        <EditButtons handleDelete={handleDelete} values={values} />
+        <EditButtons
+          onClickCancelButton={() => history.push('/organizer')}
+          onClickDeleteButton={() => handleDelete(values)}
+          shouldShowDeleteButton={values.id !== ''}
+        />
       </form>
     </Paper>
   );

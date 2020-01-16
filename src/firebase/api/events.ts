@@ -11,6 +11,14 @@ export const getEvent = async (eventId: string) => {
   return doc.data() as EventModel;
 };
 
+export const getEventSnapshot = (eventId: string, callBack: Function) => {
+  COLLECTION.doc(eventId).onSnapshot(documentSnapshot => {
+    const data = documentSnapshot.data() as EventModel;
+
+    callBack(data);
+  });
+};
+
 export const addEvent = async (event: EventModel) => {
   const collection = db.collection(COLLECTION_KEY);
   const documentRef = await collection.add(event);

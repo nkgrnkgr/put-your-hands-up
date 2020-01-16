@@ -2,9 +2,9 @@ import {
   getTodaysEventList,
   getParticipatedEventList,
   getOrganizersEventList,
-  getEvent,
+  getEventSnapshot,
 } from './../firebase/api/events';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { EventModel } from '../models/Event';
 
@@ -13,22 +13,17 @@ export const useEvent = (eventId: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const run = async () => {
-      try {
-        if (eventId !== '') {
-          const fetchedEvent = await getEvent(eventId);
-          setEvent(fetchedEvent);
-        }
+  useMemo(() => {
+    try {
+      if (eventId !== '') {
+        getEventSnapshot(eventId, setEvent);
         setError(null);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
       }
-    };
-
-    run();
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
   }, [eventId]);
 
   return { event, loading, error };

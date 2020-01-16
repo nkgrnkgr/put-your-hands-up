@@ -6,11 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router';
-import { LTModel } from '../../../models/Event';
+import React, { FC } from 'react';
+import { EventModel } from '../../../models/Event';
+import { ModalBase } from '../../shared/components/ModalBase';
+import { SideBarForm } from '../containers/SideBarForm';
 import { SideBarItem } from './SideBarItems';
-import { ModalLTForm } from './ModalLTForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,33 +26,34 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  lts: LTModel[];
   isSidebarOpen: boolean;
   toggleSideBar: () => void;
+  onClickListItem: (pathname: string) => void;
+  onClickEdit: (index: number) => void;
+  onClickDelete: (index: number) => void;
+  onClickAdd: () => void;
+  event: EventModel;
+  clickedSideBarItemIndex: number | null;
+  isModalOpen: boolean;
+  onCloseModal: () => void;
 }
 
-export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
+export const SideBar: FC<Props> = ({
+  isSidebarOpen,
+  toggleSideBar,
+  onClickListItem,
+  onClickAdd,
+  onClickDelete,
+  onClickEdit,
+  event,
+  clickedSideBarItemIndex,
+  isModalOpen,
+  onCloseModal,
+}) => {
   const classes = useStyles();
-  const history = useHistory();
 
   const theme = useTheme();
   const widerThenMobile = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const changePath = (pathname: string) => {
-    toggleSideBar();
-    history.push(pathname);
-  };
-
-  const [open, setOpen] = useState(false);
-  const onClickEdit = (index: number) => {
-    setOpen(true);
-    console.error('edit', index);
-  };
-
-  const onClickDelete = (index: number) => {
-    setOpen(true);
-    console.error('Delete', index);
-  };
 
   return (
     <>
@@ -64,10 +65,11 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
         >
           <div className={classes.toolbar} />
           <SideBarItem
-            lts={lts}
-            onClickListItem={changePath}
+            lts={event.lts}
+            onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
+            onClickAdd={onClickAdd}
           />
         </Drawer>
       ) : (
@@ -78,19 +80,21 @@ export const SideBar: FC<Props> = ({ lts, isSidebarOpen, toggleSideBar }) => {
           onClose={() => toggleSideBar()}
         >
           <SideBarItem
-            lts={lts}
-            onClickListItem={changePath}
+            lts={event.lts}
+            onClickListItem={onClickListItem}
             onClickEditMenu={onClickEdit}
             onClickDeletetMenu={onClickDelete}
+            onClickAdd={onClickAdd}
           />
         </Drawer>
       )}
-      <ModalLTForm
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-      />
+      <ModalBase open={isModalOpen} onClose={onCloseModal}>
+        <SideBarForm
+          event={event}
+          index={clickedSideBarItemIndex}
+          closeModal={onCloseModal}
+        />
+      </ModalBase>
     </>
   );
 };

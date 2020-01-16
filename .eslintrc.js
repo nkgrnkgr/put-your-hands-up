@@ -61,6 +61,7 @@ module.exports = {
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     // prefer-arrow
     'prefer-arrow/prefer-arrow-functions': [
       'error',

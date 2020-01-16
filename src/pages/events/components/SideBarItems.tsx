@@ -30,6 +30,7 @@ interface Props {
   onClickListItem: (pathname: string) => void;
   onClickEditMenu: (index: number) => void;
   onClickDeletetMenu: (index: number) => void;
+  onClickAdd: () => void;
 }
 
 export const SideBarItem: FC<Props> = ({
@@ -37,6 +38,7 @@ export const SideBarItem: FC<Props> = ({
   onClickListItem,
   onClickEditMenu,
   onClickDeletetMenu,
+  onClickAdd,
 }) => {
   const classes = useStyles();
   const location = useLocation();
@@ -77,7 +79,7 @@ export const SideBarItem: FC<Props> = ({
           </ListItem>
         ))}
         <Divider />
-        <ListItem button onClick={() => console.error('called1')}>
+        <ListItem button onClick={() => onClickAdd()}>
           <ListItemIcon className={classes.listItemIcon}>
             <Icon className="fas fa-plus" />
           </ListItemIcon>
