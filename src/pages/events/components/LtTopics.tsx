@@ -13,13 +13,12 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
-import { useHistory } from 'react-router';
 import { LTModel } from '../../../models/Event';
 import { IconLink } from '../../shared/components/IconLink';
 
 interface Props {
   eventId: string;
-  lts: LTModel[];
+  lt: LTModel;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,29 +57,30 @@ interface DocumentListProps {
   documentList: string[];
 }
 
-export const LtTopics: React.FC<Props> = ({ eventId, lts }) => {
+const DocumentList: React.FC<DocumentListProps> = ({ documentList }) => {
   const classes = useStyles();
-  const history = useHistory();
 
-  const DocumentList: React.FC<DocumentListProps> = ({ documentList }) => {
-    return (
-      <List dense>
-        {documentList.map((url, index) => {
-          if (url) {
-            return (
-              <ListItem key={index} className={classes.nested}>
-                <Link href={url} color="secondary" className={classes.linkText}>
-                  {url}
-                </Link>
-              </ListItem>
-            );
-          }
+  return (
+    <List dense>
+      {documentList.map((url, index) => {
+        if (url) {
+          return (
+            <ListItem key={index} className={classes.nested}>
+              <Link href={url} color="secondary" className={classes.linkText}>
+                {url}
+              </Link>
+            </ListItem>
+          );
+        }
 
-          return <></>;
-        })}
-      </List>
-    );
-  };
+        return <></>;
+      })}
+    </List>
+  );
+};
+
+export const LtTopics: React.FC<Props> = ({ lt }) => {
+  const classes = useStyles();
 
   return (
     <>
@@ -89,40 +89,22 @@ export const LtTopics: React.FC<Props> = ({ eventId, lts }) => {
           Sessions - 登壇者情報
         </Typography>
         <Divider />
-        {lts && lts.length > 0 && (
-          <List dense component="nav" aria-label="visited event list">
-            {lts.map((lt, index) => (
-              <>
-                <ListItem
-                  button
-                  key={lt.title}
-                  onClick={() =>
-                    history.push(`/events/${eventId}/?ltId=${lt.id}`)
-                  }
-                >
-                  <ListItemIcon>
-                    <IconLink
-                      title={lt.title}
-                      className={clsx(
-                        classes.icon,
-                        'fas fa-chalkboard-teacher',
-                      )}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={lt.title} secondary={lt.speakerName} />
-                </ListItem>
-                <DocumentList
-                  documentList={[
-                    lt.documentUrl1,
-                    lt.documentUrl2,
-                    lt.documentUrl3,
-                  ]}
+        <List dense component="nav" aria-label="visited event list">
+          <>
+            <ListItem key={lt.title}>
+              <ListItemIcon>
+                <IconLink
+                  title={lt.title}
+                  className={clsx(classes.icon, 'fas fa-chalkboard-teacher')}
                 />
-                {lts.length !== index + 1 && <Divider />}
-              </>
-            ))}
-          </List>
-        )}
+              </ListItemIcon>
+              <ListItemText primary={lt.title} secondary={lt.speakerName} />
+            </ListItem>
+            <DocumentList
+              documentList={[lt.documentUrl1, lt.documentUrl2, lt.documentUrl3]}
+            />
+          </>
+        </List>
       </Paper>
     </>
   );

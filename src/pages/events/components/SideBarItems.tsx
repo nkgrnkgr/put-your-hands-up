@@ -1,18 +1,20 @@
-import React, { FC } from 'react';
 import {
   createStyles,
+  Divider,
+  Icon,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
   Theme,
-  Icon,
-  ListItemIcon,
-  Divider,
 } from '@material-ui/core';
 import queryString, { ParsedQuery } from 'query-string';
+import React, { FC } from 'react';
 import { useLocation } from 'react-router';
 import { LTModel } from '../../../models/Event';
+import { ThreadMenuButton } from './ThreadMenuButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,9 +28,18 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   lts: LTModel[];
   onClickListItem: (pathname: string) => void;
+  onClickEditMenu: (index: number) => void;
+  onClickDeletetMenu: (index: number) => void;
+  onClickAdd: () => void;
 }
 
-export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
+export const SideBarItem: FC<Props> = ({
+  lts,
+  onClickListItem,
+  onClickEditMenu,
+  onClickDeletetMenu,
+  onClickAdd,
+}) => {
   const classes = useStyles();
   const location = useLocation();
   const params: ParsedQuery<string> = queryString.parse(location.search);
@@ -51,7 +62,7 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
         >
           <ListItemText primary="#general" />
         </ListItem>
-        {lts.map(l => (
+        {lts.map((l, index) => (
           <ListItem
             button
             key={l.id}
@@ -59,8 +70,21 @@ export const SideBarItem: FC<Props> = ({ lts, onClickListItem }) => {
             onClick={() => onClickListItem(`${location.pathname}?ltId=${l.id}`)}
           >
             <ListItemText primary={`#${l.title}`} />
+            <ListItemSecondaryAction>
+              <ThreadMenuButton
+                onClickEditMenu={() => onClickEditMenu(index)}
+                onClickDeleteMenu={() => onClickDeletetMenu(index)}
+              />
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
+        <Divider />
+        <ListItem button onClick={() => onClickAdd()}>
+          <ListItemIcon className={classes.listItemIcon}>
+            <Icon className="fas fa-plus" />
+          </ListItemIcon>
+          <ListItemText primary="スレッドを追加" />
+        </ListItem>
       </List>
     </>
   );
