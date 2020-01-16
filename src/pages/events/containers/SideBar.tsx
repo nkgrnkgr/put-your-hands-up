@@ -4,6 +4,7 @@ import { ApplicationContext } from '../../../contexts/ApplicationContext';
 import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
 import { EventModel } from '../../../models/Event';
 import { SideBar as SideBarComponent } from '../components/SideBar';
+import { updateEvent } from '../../../firebase/api/events';
 
 interface Props {
   event: EventModel;
@@ -42,11 +43,14 @@ export const SideBar = (props: Props) => {
   };
 
   const onClickDelete = (index: number) => {
-    setClickedSideBarItemIndex(index);
+    const lts = [...event.lts];
+    lts.splice(index, 1);
+    const updatedEvent: EventModel = { ...event, lts };
+
     callConfirmDialog(
       '本当に削除しますか？',
-      () => alert('deleted'),
-      () => alert('canceled'),
+      () => updateEvent(updatedEvent),
+      () => {},
     );
   };
 
