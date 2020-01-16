@@ -33,8 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const getTargetLt = (lts: LTModel[], ltId: string) =>
+  lts.find(lt => lt.id === ltId);
+
 const getLtName = (lts: LTModel[], ltId: string): string => {
-  const targetLt = lts.find(lt => lt.id === ltId);
+  const targetLt = getTargetLt(lts, ltId);
   if (ltId === '0' || !targetLt) {
     return '#general';
   }
@@ -51,6 +54,7 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
   const { ltId: ltIdFound } = useEventsUrl();
   const ltId = ltIdFound || '0';
   const ltName = getLtName(event.lts, ltId);
+  const targetLt = getTargetLt(event.lts, ltId);
 
   return (
     <div className={classes.root}>
@@ -68,9 +72,7 @@ export const Eventpage: React.FC<Props> = ({ event }) => {
           />
           <ParticipatedUsers event={event} />
           {ltId === '0' && event.memo && <Memo memo={event.memo} />}
-          {ltId === '0' && event.lts.length > 0 && (
-            <LtTopics eventId={event.id} lts={event.lts} />
-          )}
+          {targetLt && <LtTopics eventId={event.id} lt={targetLt} />}
           <NoteForm eventId={event.id} ltId={ltId} hashTag={event.hashTag} />
           <ModalFab />
           <section className={classes.spaces}>
