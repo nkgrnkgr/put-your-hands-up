@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
-import { useHistory } from 'react-router';
 import { LTModel } from '../../../models/Event';
 import { IconLink } from '../../shared/components/IconLink';
 
