@@ -23,7 +23,7 @@ interface OuterProps {
   onClose: () => void;
   sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
-  toggleTwitterShare: () => void;
+  onClickTwitterShare: () => void;
 }
 
 type Props = OuterProps & FormikProps<NoteContentsModel>;
@@ -51,7 +51,7 @@ export const NoteForm: React.FC<Props> = props => {
     onClose,
     sholdShowTwitter,
     sholdTwitterShare,
-    toggleTwitterShare,
+    onClickTwitterShare,
   } = props;
 
   const classes = useStyles();
@@ -81,7 +81,7 @@ export const NoteForm: React.FC<Props> = props => {
                 handleOnClickCloseButton={onClose}
                 sholdShowTwitter={sholdShowTwitter}
                 sholdTwitterShare={sholdTwitterShare}
-                toggleTwitterShare={toggleTwitterShare}
+                onClickTwitterShare={onClickTwitterShare}
               />
             </>
           )}

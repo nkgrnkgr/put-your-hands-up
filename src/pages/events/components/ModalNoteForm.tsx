@@ -58,7 +58,7 @@ export const ModalNoteForm: React.FC<Props> = props => {
           handleOnClickCloseButton={() => onClose()}
           sholdShowTwitter={sholdShowTwitter}
           sholdTwitterShare={sholdTwitterShare}
-          toggleTwitterShare={toggleTwitterShare}
+          onClickTwitterShare={toggleTwitterShare}
         />
       </form>
     </ModalBase>

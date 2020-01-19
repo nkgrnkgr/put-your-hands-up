@@ -18,6 +18,8 @@ import { now } from '../../../utils/datetime';
 import { onFormikSubmitHandler } from '../../../utils/formikSubmitUtils';
 import { ModalNoteForm as ModalComponent } from '../components/ModalNoteForm';
 import { NoteForm as Component } from '../components/NoteForm';
+import { ConfirmDialogContext } from '../../../contexts/ConfirmDialogContext';
+import { useHistory } from 'react-router';
 
 interface Props {
   eventId: string;
@@ -65,10 +67,12 @@ export const NoteForm = (props: Props) => {
   const { user } = useContext(UserContext);
   const { integrations } = useContext(IntegrationsContext);
   const { callNotification } = useContext(NotificationContext);
+  const { callConfirmDialog } = useContext(ConfirmDialogContext);
 
   const theme = useTheme();
   const isTabletOrPCLayout = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmartPhoneLayout = useMediaQuery(theme.breakpoints.down('xs'));
+  const history = useHistory();
 
   const { applicationValues, setApplicationValues } = useContext(
     ApplicationContext,
@@ -89,8 +93,16 @@ export const NoteForm = (props: Props) => {
   };
 
   const [sholdTwitterShare, setTwitterShare] = useState(false);
-  const toggleTwitterShare = () => {
-    setTwitterShare(!sholdTwitterShare);
+  const onClickTwitterShare = () => {
+    if (integrations.twitterIntegration) {
+      setTwitterShare(!sholdTwitterShare);
+    } else {
+      callConfirmDialog(
+        'Twitterと連携することで、コメントをTwitterに投稿できます。Twitter連携しますか？',
+        () => history.push('/setting'),
+        () => {},
+      );
+    }
   };
 
   const onSubmit = async (
@@ -151,7 +163,7 @@ export const NoteForm = (props: Props) => {
               onClose={closeNoteForm}
               sholdShowTwitter={integrations.twitterIntegration !== undefined}
               sholdTwitterShare={sholdTwitterShare}
-              toggleTwitterShare={toggleTwitterShare}
+              toggleTwitterShare={onClickTwitterShare}
             />
           );
         }
@@ -164,9 +176,9 @@ export const NoteForm = (props: Props) => {
               open={applicationValues.isOpenNoteForm}
               onOpen={openNoteForm}
               onClose={closeNoteForm}
-              sholdShowTwitter={integrations.twitterIntegration !== undefined}
+              sholdShowTwitter={!user.isAnonymous}
               sholdTwitterShare={sholdTwitterShare}
-              toggleTwitterShare={toggleTwitterShare}
+              onClickTwitterShare={onClickTwitterShare}
             />
           );
         }
