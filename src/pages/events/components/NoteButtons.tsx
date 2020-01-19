@@ -13,7 +13,7 @@ interface Props {
   handleOnClickCloseButton: () => void;
   sholdShowTwitter: boolean;
   sholdTwitterShare: boolean;
-  toggleTwitterShare: () => void;
+  onClickTwitterShare: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,7 @@ export const NoteButtons: React.FC<Props> = ({
   handleOnClickCloseButton,
   sholdShowTwitter,
   sholdTwitterShare,
-  toggleTwitterShare,
+  onClickTwitterShare,
 }) => {
   const classes = useStyles();
 
@@ -64,7 +64,7 @@ export const NoteButtons: React.FC<Props> = ({
           title="Twitterで共有"
           className="fab fa-twitter"
           color={sholdTwitterShare ? 'secondary' : 'default'}
-          onClick={() => toggleTwitterShare()}
+          onClick={() => onClickTwitterShare()}
         />
       )}
     </div>
