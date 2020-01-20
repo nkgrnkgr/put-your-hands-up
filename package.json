@@ -22,7 +22,7 @@
     "firebase": "7.7.0",
     "formik": "2.1.2",
     "husky": "4.0.10",
-    "lint-staged": "9.5.0",
+    "lint-staged": "10.0.1",
     "query-string": "6.10.1",
     "react": "16.12.0",
     "react-color": "2.18.0",
