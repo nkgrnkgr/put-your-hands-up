@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      flexWrap: 'wrap',
     },
     avatar: {
       margin: theme.spacing(0.5),
