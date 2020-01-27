@@ -1,29 +1,19 @@
-import {
-  createStyles,
-  Drawer,
-  makeStyles,
-  Theme,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { Drawer, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
 import { EventModel } from '../../../models/Event';
 import { ModalBase } from '../../shared/components/ModalBase';
 import { SideBarForm } from '../containers/SideBarForm';
 import { SideBarItem } from './SideBarItems';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    drawer: {
-      width: 240,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: 240,
-    },
-    toolbar: theme.mixins.toolbar,
-  }),
-);
+const useStyles = makeStyles({
+  drawer: {
+    width: 240,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 240,
+  },
+});
 
 interface Props {
   isSidebarOpen: boolean;
@@ -63,7 +53,6 @@ export const SideBar: FC<Props> = ({
           classes={{ paper: classes.drawerPaper }}
           variant="permanent"
         >
-          <div className={classes.toolbar} />
           <SideBarItem
             lts={event.lts}
             onClickListItem={onClickListItem}

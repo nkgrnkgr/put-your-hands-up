@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '0px',
       paddingRight: theme.spacing(1),
     },
-    toolbar: theme.mixins.toolbar,
   }),
 );
 
