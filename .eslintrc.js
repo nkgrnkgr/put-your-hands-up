@@ -19,6 +19,7 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
     __DEV__: true,
     firebase: true,
+    describe: true,
     it: true,
     expect: true,
   },

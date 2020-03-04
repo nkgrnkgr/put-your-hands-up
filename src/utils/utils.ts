@@ -1,4 +1,4 @@
-import v4 from 'uuid/v4';
+import { v4 } from 'uuid';
 
 export const createRandomId = (): string => {
   return v4();

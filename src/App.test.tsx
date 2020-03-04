@@ -1,10 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
-
-it('renders welcome message', () => {
-  // const wrapper = shallow(<App />);
-  // const welcome = <h2>Welcome to React</h2>;
-  // expect(wrapper).toContainReact(welcome);
-  expect(4).toBe(4);
+describe('test', () => {
+  it('renders welcome message', () => {
+    expect(4).toBe(4);
+  });
 });
+
+export {};
