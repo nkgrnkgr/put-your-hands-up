@@ -77,7 +77,8 @@
     "eslint-plugin-standard": "4.0.1",
     "firebase-tools": "7.14.0",
     "jest-enzyme": "7.1.2",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "acorn": ">=5.7.4"
   },
   "husky": {
     "hooks": {
