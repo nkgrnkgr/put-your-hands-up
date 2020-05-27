@@ -3,6 +3,7 @@ import { Slide, useScrollTrigger } from '@material-ui/core';
 
 interface Props {
   window?: () => Window;
+  children: React.ReactElement;
 }
 
 export const HideOnScroll: React.FC<Props> = ({ children, window }) => {
