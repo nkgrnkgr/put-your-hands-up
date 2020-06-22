@@ -2,7 +2,7 @@ version: 2
 jobs:
   deploy:
     docker:
-      - image: circleci/node:12.18.0
+      - image: circleci/node:12.18.1
     steps:
       - run:
           name: Development
